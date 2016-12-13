@@ -34,5 +34,6 @@ void ProcessSensorState(void);
 void delay_100ms( void );
 void delay_100msec( int value );
 void SkyPack_Reset( int code );
+void Test_Connection( void );
 
 #endif

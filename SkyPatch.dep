@@ -2,7 +2,7 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>3241739907</fileChecksum>
+  <fileChecksum>1758873937</fileChecksum>
   <configuration>
     <name>Debug</name>
     <outputs>
@@ -205,9 +205,16 @@
       <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_comp.h</file>
       <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_aes_util.c</file>
       <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_comp.c</file>
+      <file>$PROJ_DIR$\Debug\Exe\SkyPatch.srec</file>
     </outputs>
     <file>
       <name>$PROJ_DIR$\Debug\Exe\c.out</name>
+      <outputs>
+        <tool>
+          <name>OBJCOPY</name>
+          <file> 199</file>
+        </tool>
+      </outputs>
       <inputs>
         <tool>
           <name>ILINK</name>
@@ -846,7 +853,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 110 186 118 133 194 166 22 54 184 62 183 188 171 8 140 137 58 154 89 96 191 169 175 182 44 64 31 146 195 91 95 97 181 15 173 117 27 160 32 131 114 74 196 100 90 83 77 102 86 174 178 71 185 11 115 52</file>
+          <file> 110 64 186 118 133 194 166 22 54 184 62 183 188 171 8 137 58 154 89 96 191 169 175 182 44 140 31 146 195 91 95 97 181 15 173 117 27 160 32 131 114 74 196 100 90 83 77 102 86 174 178 71 185 11 115 52</file>
         </tool>
         <tool>
           <name>ICCARM</name>
@@ -1097,10 +1104,6 @@
         </tool>
       </outputs>
       <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 117 154 102 62 160 32 100 71 64 114 74 83 174 140 110 27 131 196 90 77 86 178 194 31 137 58 146 54 195 89 91 184 95 96 97 186 181</file>
-        </tool>
         <tool>
           <name>ICCARM</name>
           <file> 194 62 140 110 154 58 27 32 131 160 146 117 54 114 137 64 31 74 196 195 100 89 90 91 83 184 77 95 102 96 86 97 174 186 178 181 71</file>

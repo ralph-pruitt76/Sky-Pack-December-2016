@@ -283,6 +283,7 @@ void SAMPLE_TIM_IRQHandler(void)
   TIM_ClearITPendingBit(SAMPLE_TIM, TIM_IT_Update);
   /* Schedule a sensor reading */
   data.reading_scheduled = true;
+  // This tick occurs every 200msec.
 }
 
 /* Process sensor state machine */
@@ -294,6 +295,9 @@ void ProcessSensorState(void)
   /* Is a reading scheduled? */
   if (data.reading_scheduled)
   {
+    // Test Connection. Have we timed out??
+    Test_Connection();
+    
     /* Clear the scheduling flag */
     data.reading_scheduled = false;
     
@@ -412,3 +416,32 @@ void SkyPack_Reset( int code )
   NVIC_SystemReset();
 }
 
+  /**
+  * @brief  This function Tests for an active connection.
+  * @param  None
+  * @retval None
+  */
+void Test_Connection( void )
+{
+  static uint16_t connection_cnt = 0;
+  
+  // Test Connection
+  if ( BGM111_Connected() )
+  {
+    // Yes...Clear count
+    connection_cnt = 0;
+    
+  }
+  else
+  {
+    // No...Increment Count...
+    connection_cnt++;
+    
+    // Wait 90 Seconds before forcing reset.
+    if (connection_cnt > 450)
+    {
+      SkyPack_Reset( FATAL_TIMEOUT );
+    }
+  }
+  
+}
