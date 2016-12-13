@@ -23,9 +23,6 @@ void main()
     if (BGM111_Ready())
     {
       ProcessSensorState();
-      
-      // OK Reset Hardware NOW.
-      SkyPack_Reset();
     }
     /* Sleep when we have nothing to process */
     PWR_EnterSleepMode(PWR_Regulator_ON, PWR_SLEEPEntry_WFI);

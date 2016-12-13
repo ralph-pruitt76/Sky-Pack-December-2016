@@ -389,24 +389,21 @@ void delay_100msec( int value )
 
 /**
   * @brief  This routine blinks the LED 3 times and then performs a system reset.
-  * @param  none
+  * @param  int code: Number of time to blink LED.
   * @retval none
   */
-void SkyPack_Reset( void )
+void SkyPack_Reset( int code )
 {
-  // Alert User by Blinking LED 3 Times Fast and then wait 1 Second.
-  SetLED(true);
-  delay_100msec(1);
-  SetLED(false);
-  delay_100msec(1);
-  SetLED(true);
-  delay_100msec(1);
-  SetLED(false);
-  delay_100msec(1);
-  SetLED(true);
-  delay_100msec(1);
-  SetLED(false);
-  delay_100msec(1);
+  int x;
+  
+  // Alert User by Blinking LED Fast and then wait 1 Second.
+  for (x=0; x<code; x++)
+  {
+    SetLED(true);
+    delay_100msec(1);
+    SetLED(false);
+    delay_100msec(1);
+  }
   SetLED(true);
   delay_100msec(10);
   SetLED(false);

@@ -3,6 +3,7 @@
 #include "bgm111.h"
 #include <string.h>
 #include "gecko_bglib.h"
+#include "app_data.h"
 
 
 /* BGLib instantiation */
@@ -109,8 +110,7 @@ void BGM111_LowLevel_Init(void)
 }
 
 /* Next buffer index based on current index and buffer size */
-
-#pragma inline=forced
+//#pragma inline=forced
 uint8_t NextBufIdx(uint8_t idx)
 {
   idx++;
@@ -118,16 +118,14 @@ uint8_t NextBufIdx(uint8_t idx)
 }
 
 /* Report if the buffer is full based on its indexes */
-
-#pragma inline=forced
+//#pragma inline=forced
 bool IsBufFull(uint8_t wr_idx, uint8_t rd_idx)
 {
   return NextBufIdx(wr_idx) == rd_idx;
 }
 
 /* Get the used space in the buffer based on its indexes */
-
-#pragma inline=forced
+//#pragma inline=forced
 uint8_t BufUsed(uint8_t wr_idx, uint8_t rd_idx)
 {
   int size = (int)wr_idx - (int)rd_idx;
@@ -139,8 +137,7 @@ uint8_t BufUsed(uint8_t wr_idx, uint8_t rd_idx)
 }
 
 /* Get the free space in the buffer based on its indexes */
-
-#pragma inline=forced
+//#pragma inline=forced
 uint8_t BufFree(uint8_t wr_idx, uint8_t rd_idx)
 {
   return (BG_DATA_LENGTH - 1) - BufUsed(wr_idx, rd_idx);
@@ -289,6 +286,8 @@ void BGM111_UART_IRQHandler(void)
         }
         else
         {
+          // Oops...Detected a fatal error...RESET!!!
+          SkyPack_Reset( FATAL_SYNC );
           /* Stay in sync state until we receive a valid start of header */
           break;
         }
@@ -311,6 +310,8 @@ void BGM111_UART_IRQHandler(void)
           /* If we have a payload bigger than 60 bytes, something's wrong */
           if (payload_len > 60)
           {
+            // Oops...Detected a fatal error...RESET!!!
+            SkyPack_Reset( FATAL_PAYLDSYNC );
             /* Reset receive state to synchronizing */
             ble.rx_state = BGRX_SYNC;
             /* Indicate we need to execute the BLE stack to free space */
@@ -343,6 +344,8 @@ void BGM111_UART_IRQHandler(void)
         /* Did we receive a byte, but the buffer is full? */
         if (IsBufFull(ble.rx_wr, ble.rx_rd))
         {
+          // Oops...Detected a fatal error...RESET!!!
+          SkyPack_Reset( FATAL_OVERFLOW );
           /* Indicate we need to execute the BLE stack, it's the
            * only way to get more space in the buffer */
           ble.req_exec = true;
