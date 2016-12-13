@@ -23,6 +23,8 @@ void InitSensors(void);
 /* Process sensor state machine */
 
 void ProcessSensorState(void);
-
+void delay_100ms( void );
+void delay_100msec( int value );
+void SkyPack_Reset( void );
 
 #endif

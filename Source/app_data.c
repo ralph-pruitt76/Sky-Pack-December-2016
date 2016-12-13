@@ -12,7 +12,7 @@
 #include "bgm111.h"
 #include <stdio.h>
 #include <string.h>
-
+#include "sys_ctrl.h"
 
 /* Characteristic handles */
 
@@ -355,3 +355,63 @@ void ProcessSensorState(void)
                             strlen(characteristic), (uint8_t *)characteristic);
   }
 }
+
+/**
+  * @brief  This routine delays for 10 msec and returns
+  *         from the BGM111
+  * @param  none
+  * @retval none
+  */
+void delay_100ms( void )
+{
+  uint32_t count = 440000;      // Delay loop for 10msec
+  
+  while (count != 0)
+  {
+    count--;
+  }
+}
+
+/**
+  * @brief  This routine delays the number of passed parameters and then returns
+  *         from the BGM111
+  * @param  int value: Value of 100msec ticks to wait.
+  * @retval none
+  */
+void delay_100msec( int value )
+{
+  while( value > 0)
+  {
+    delay_100ms();
+    value--;
+  }
+}
+
+/**
+  * @brief  This routine blinks the LED 3 times and then performs a system reset.
+  * @param  none
+  * @retval none
+  */
+void SkyPack_Reset( void )
+{
+  // Alert User by Blinking LED 3 Times Fast and then wait 1 Second.
+  SetLED(true);
+  delay_100msec(1);
+  SetLED(false);
+  delay_100msec(1);
+  SetLED(true);
+  delay_100msec(1);
+  SetLED(false);
+  delay_100msec(1);
+  SetLED(true);
+  delay_100msec(1);
+  SetLED(false);
+  delay_100msec(1);
+  SetLED(true);
+  delay_100msec(10);
+  SetLED(false);
+  delay_100msec(10);
+  // Reset Micro and Start Over...
+  NVIC_SystemReset();
+}
+
