@@ -41,6 +41,7 @@ struct
   volatile enum BgRxState rx_state;
   volatile bool req_exec;
   bool booted;
+  bool connection;
   struct gecko_cmd_packet *evt;
 } static ble;
 
@@ -107,6 +108,10 @@ void BGM111_LowLevel_Init(void)
   
   /* Enable the BGM111 module USART */
   USART_Cmd(BGM111_UART, ENABLE);
+  
+  /* Housekeeping Init. */
+  ble.booted =  false;
+  ble.connection = false;
 }
 
 /* Next buffer index based on current index and buffer size */
@@ -385,6 +390,8 @@ void BGM111_UART_IRQHandler(void)
 
 void BGM111_ProcessInput(void)
 {
+  bool Boot_evt = false;
+
   /* Check whether there is an event to service */
   if (!ble.evt)
   {
@@ -399,16 +406,30 @@ void BGM111_ProcessInput(void)
       case gecko_evt_system_boot_id:
         /* Flag that the BLE module has booted */
         ble.booted = true;
-        /* Fallthrough intentional */
+        Boot_evt = true;
+       /* Fallthrough intentional */
       /* Connection closed handler */
       case gecko_evt_le_connection_closed_id:
+        ble.connection = false;
         /* Set GAP mode: discoverable and connectable */
         if (gecko_cmd_le_gap_set_mode(le_gap_general_discoverable,
                     le_gap_undirected_connectable)->result < bg_errspc_bg)
         {
+          // The following is a simple patch...Best way right now to recover is to force HARD Reset....
+          if (Boot_evt == false)
+          {
+            SkyPack_Reset( FATAL_CNCTDROP );
+          }
           /* We succeeded, don't handle this event again */
           ble.evt = NULL;
         }
+        break;
+      //case 0x000800A0:
+      case gecko_evt_le_connection_opened_id:
+        /* Open Event...Set Active Connection Flag */
+        /* Don't handle this event again */
+        ble.connection = true;
+        ble.evt = NULL;
         break;
       /* Dummy catchall */
       default:
@@ -436,3 +457,14 @@ bool BGM111_Ready(void)
 {
   return ble.booted;
 }
+
+/**
+  * @brief  Check whether the BLE module is connected.
+  * @retval bool:         true(1):        Connection is Active.
+  *                       false(0):       NO Connection.
+  */
+bool BGM111_Connected(void)
+{
+  return ble.connection;
+}
+

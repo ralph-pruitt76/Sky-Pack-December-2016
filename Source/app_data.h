@@ -13,6 +13,7 @@ typedef enum
   FATAL_PAYLDSYNC       = 0x0003,	// Fatal: payload bigger than 60 bytes, something's wrong.
   FATAL_OVERFLOW        = 0x0004,	// Fatal Buffer Overflow.
   FATAL_TIMEOUT		= 0x0005,	// 90 Second Timeout.
+  FATAL_CNCTDROP	= 0x0006,	// Connection Dropped
 }ResetCodes;
 
 /* Sample timer definitions */
