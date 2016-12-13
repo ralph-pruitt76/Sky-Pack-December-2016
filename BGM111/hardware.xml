@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<hardware>
+    <uart index="1" baud="115200" flowcontrol="true" bgapi="true" tx_pin="PC8" rx_pin="PC9" rts_pin="PC7" cts_pin="PC6" />
+    <dcdc enable="true" />
+    <ctune value="0" />
+</hardware>

@@ -1,0 +1,8 @@
+accelerometer 8
+magnetometer 12
+temperature 16
+gyro 20
+irradiance 24
+wiper_freq 28
+swept_freq_idx 32
+pressure 36
