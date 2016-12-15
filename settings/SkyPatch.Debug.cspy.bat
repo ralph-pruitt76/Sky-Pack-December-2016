@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.4\common\bin\cspybat" -f "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\settings\SkyPatch.Debug.general.xcl" --backend -f "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\settings\SkyPatch.Debug.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.4\common\bin\cspybat" -f "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Testing\Sky-Pack-December-2016\settings\SkyPatch.Debug.general.xcl" --backend -f "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Testing\Sky-Pack-December-2016\settings\SkyPatch.Debug.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.4\common\bin\cspybat" -f "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\settings\SkyPatch.Debug.general.xcl" "--debug_file=%~1" --backend -f "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\settings\SkyPatch.Debug.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.4\common\bin\cspybat" -f "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Testing\Sky-Pack-December-2016\settings\SkyPatch.Debug.general.xcl" "--debug_file=%~1" --backend -f "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Testing\Sky-Pack-December-2016\settings\SkyPatch.Debug.driver.xcl" 
 
 @echo off 
 :end
