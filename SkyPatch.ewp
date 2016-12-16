@@ -89,7 +89,7 @@
         </option>
         <option>
           <name>OGChipSelectEditMenu</name>
-          <state>STM32L151R6	ST STM32L151R6</state>
+          <state>STM32L151C8	ST STM32L151C8</state>
         </option>
         <option>
           <name>GenLowLevelInterface</name>
@@ -149,7 +149,7 @@
         </option>
         <option>
           <name>GFPUDeviceSlave</name>
-          <state>STM32L151R6	ST STM32L151R6</state>
+          <state>STM32L151C8	ST STM32L151C8</state>
         </option>
         <option>
           <name>FPU2</name>
