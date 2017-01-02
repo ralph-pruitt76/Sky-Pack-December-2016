@@ -9,7 +9,11 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
+<<<<<<< HEAD
 Checksum=-1524077826
+=======
+Checksum=-575604269
+>>>>>>> skypack_reset
 [CodeCoverage]
 Enabled=_ 0
 [Exceptions]

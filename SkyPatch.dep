@@ -6,7 +6,16 @@
   <configuration>
     <name>Debug</name>
     <outputs>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_flash_ramfunc.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_exti.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_exti.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_dbgmcu.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_flash.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dma.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_dma.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dbgmcu.c</file>
       <file>$PROJ_DIR$\Libraries\BgLib\bg_errorcodes.h</file>
+<<<<<<< HEAD
       <file>$PROJ_DIR$\Libraries\BgLib\bg_types.h</file>
       <file>$PROJ_DIR$\Libraries\BgLib\bg_gattdb_def.h</file>
       <file>$PROJ_DIR$\Libraries\BgLib\gecko_bglib.c</file>
@@ -246,21 +255,219 @@
       <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_comp.__cstat.et</file>
       <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_dac.__cstat.et</file>
       <file>$TOOLKIT_DIR$\config\linker\ST\stm32l151x8.icf</file>
+=======
+      <file>$PROJ_DIR$\Libraries\BgLib\gecko_bglib.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\misc.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_aes.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_aes_util.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_crc.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_comp.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_aes.h</file>
+      <file>$PROJ_DIR$\Libraries\BgLib\bg_gattdb_def.h</file>
+      <file>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Source\Templates\iar\startup_stm32l1xx_md.s</file>
+      <file>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Include\stm32l1xx.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_adc.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_crc.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_dac.h</file>
+      <file>$PROJ_DIR$\Libraries\BgLib\bg_types.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_comp.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_flash.h</file>
+      <file>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Include\system_stm32l1xx.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dac.c</file>
+      <file>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Source\Templates\system_stm32l1xx.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\misc.c</file>
+      <file>$PROJ_DIR$\Libraries\BgLib\host_gecko.h</file>
+      <file>$PROJ_DIR$\Libraries\BgLib\gecko_bglib.h</file>
+      <file>$PROJ_DIR$\Libraries\BgLib\gecko_configuration.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_adc.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_i2c.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_syscfg.o</file>
+      <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_aes_util.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_opamp.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_dma.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\sys_ctrl.o</file>
+      <file>$PROJ_DIR$\Debug\Exe\SkyPatch.srec</file>
+      <file>$PROJ_DIR$\Debug\Obj\lps25hb.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_flash.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\lsm6ds3.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_rtc.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\sys_ctrl.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_tim.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_rcc.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\stddef.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\bgm111.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_opamp.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_comp.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_dac.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\ystdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\math.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_exti.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\i2c_bus.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_flash.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\lps25hb.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_dma.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_flash_ramfunc.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_rcc.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_tim.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\misc.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_flash_ramfunc.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_pwr.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\ymath.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_dac.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\app_data.pbi</file>
+      <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
+      <file>$PROJ_DIR$\Debug\Obj\system_stm32l1xx.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\app_data.o</file>
+      <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_crc.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_iwdg.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\misc_sense.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\bgm111.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\misc_sense.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\lis3mdl.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_rtc.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\startup_stm32l1xx_md.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\xtgmath.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\opt3001.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_adc.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_fsmc.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_pwr.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_aes.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\system_stm32l1xx.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+      <file>$PROJ_DIR$\Debug\Exe\c.out</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_adc.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\opt3001.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\lis3mdl.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_exti.o</file>
+      <file>$TOOLKIT_DIR$\config\linker\ST\stm32l151x6.icf</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_wwdg.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_gpio.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\misc.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_sdio.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\lsm6ds3.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_spi.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_dbgmcu.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\gecko_bglib.o</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cmInstr.h</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cmFunc.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_syscfg.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_lcd.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_usart.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_iwdg.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_sdio.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_aes.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_crc.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\gecko_bglib.pbi</file>
+      <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_comp.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_fsmc.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_aes_util.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\pct2075.pbi</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cm3.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_gpio.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_wwdg.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\SkyPatch.pbd</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_lcd.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_i2c.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_dbgmcu.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\cmsis_iar.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_spi.c</file>
+      <file>$PROJ_DIR$\Source\app_data.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_pwr.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_i2c.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_fsmc.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_lcd.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_rcc.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_rtc.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_sdio.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_opamp.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_fsmc.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_syscfg.h</file>
+      <file>$PROJ_DIR$\Source\app_data.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_spi.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_gpio.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_i2c.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_opamp.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_gpio.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_lcd.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_iwdg.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_pwr.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_rcc.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_rtc.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_sdio.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_syscfg.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_tim.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_tim.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_usart.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_wwdg.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_iwdg.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_wwdg.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_usart.c</file>
+      <file>$PROJ_DIR$\Source\lsm6ds3.c</file>
+      <file>$PROJ_DIR$\Source\pct2075.c</file>
+      <file>$PROJ_DIR$\Source\pct2075.h</file>
+      <file>$PROJ_DIR$\Source\magneto.h</file>
+      <file>$PROJ_DIR$\Source\main.c</file>
+      <file>$PROJ_DIR$\Source\lsm6ds3.h</file>
+      <file>$PROJ_DIR$\Source\misc_sense.c</file>
+      <file>$PROJ_DIR$\Source\lps25hb.h</file>
+      <file>$PROJ_DIR$\Source\lis3mdl.c</file>
+      <file>$PROJ_DIR$\Source\opt3001.c</file>
+      <file>$PROJ_DIR$\Source\stm32l1xx_conf.h</file>
+      <file>$PROJ_DIR$\Source\sys_ctrl.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\pct2075.o</file>
+      <file>$PROJ_DIR$\Source\imu_6axes.h</file>
+      <file>$PROJ_DIR$\Source\bgm111.c</file>
+      <file>$PROJ_DIR$\Source\misc_sense.h</file>
+      <file>$PROJ_DIR$\Source\opt3001.h</file>
+      <file>$PROJ_DIR$\Source\lps25hb.c</file>
+      <file>$PROJ_DIR$\Source\pressure.h</file>
+      <file>$PROJ_DIR$\Source\lis3mdl.h</file>
+      <file>$PROJ_DIR$\Source\sys_ctrl.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_usart.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\i2c_bus.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm32l1xx_spi.o</file>
+      <file>$PROJ_DIR$\Source\bgm111.h</file>
+      <file>$PROJ_DIR$\Source\i2c_bus.c</file>
+      <file>$PROJ_DIR$\Source\i2c_bus.h</file>
+>>>>>>> skypack_reset
     </outputs>
     <file>
       <name>[ROOT_NODE]</name>
       <outputs>
         <tool>
           <name>ILINK</name>
+<<<<<<< HEAD
           <file> 159</file>
+=======
+          <file> 101</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\Libraries\BgLib\gecko_bglib.c</name>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_flash_ramfunc.c</name>
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 43</file>
         </tool>
         <tool>
@@ -270,20 +477,36 @@
         <tool>
           <name>__cstat</name>
           <file> 233</file>
+=======
+          <file> 70</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 65</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 4 103 65 72 61 168 151 14 157 36 161 74 1 45 75 5 2 0</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 72 61 45 65 5 36 103 1 0 161 74 168 157 151 14 75 4 2</file>
+=======
+          <file> 24 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 66 155 32 154 25 116 45 89 107 3 146 10 132 40 99 60 23 1 156 162 168 24 183 117 71 134 140 13 21 6 152 170 143 148 166 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dma.c</name>
       <outputs>
         <tool>
@@ -297,20 +520,40 @@
         <tool>
           <name>__cstat</name>
           <file> 203</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_exti.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 105</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 59</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 84 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 97 168 72 135 82 99 126 14 98 115 32 45 12 157 151 79 88 112 106 113 128 101 84 193 33 61 36 60 111 92 96 134 124 139 117 116 137</file>
+=======
+          <file> 1 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 24 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 183 24 18 148 25 134 71 21 170 171 132 40 117 45 140 13 6 152 143 166 1 116 99 89 107 60 66 32 23 3 155 156 146 162 154 168 10</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Source\Templates\iar\startup_stm32l1xx_md.s</name>
       <outputs>
         <tool>
@@ -333,29 +576,56 @@
         <tool>
           <name>__cstat</name>
           <file> 207</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_flash.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 62</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 46</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 98 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 96 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 193 96 82 117 99 36 61 92 124 137 32 45 33 72 60 111 84 134 139 116 98 12 168 157 151 14 79 88 97 112 106 126 113 115 128 135 101</file>
+=======
+          <file> 24 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 66 155 32 154 25 116 45 89 107 3 146 10 132 40 99 60 23 1 156 162 168 24 183 117 71 134 140 13 21 6 152 170 143 148 166 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dac.c</name>
       <outputs>
         <tool>
           <name>ICCARM</name>
           <file> 146</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dma.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 64</file>
+>>>>>>> skypack_reset
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 10</file>
+          <file> 41</file>
         </tool>
         <tool>
           <name>__cstat</name>
@@ -365,11 +635,19 @@
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 92 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 82 45 117 193 96 32 36 61 92 124 137 115 99 33 72 60 111 84 134 139 116 12 168 157 151 14 79 88 97 112 98 106 126 113 128 135 101</file>
+=======
+          <file> 6 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 23 99 45 168 18 25 156 60 1 162 132 40 116 89 107 66 32 3 155 146 154 10 6 183 117 71 134 140 13 21 24 152 170 143 148 166 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -378,6 +656,7 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 6</file>
         </tool>
         <tool>
@@ -387,20 +666,36 @@
         <tool>
           <name>__cstat</name>
           <file> 206</file>
+=======
+          <file> 114</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 139</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 112 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 32 193 96 82 117 45 36 61 92 124 137 99 33 72 60 111 84 134 139 116 112 12 168 157 151 14 79 88 97 98 106 126 113 115 128 135 101</file>
+=======
+          <file> 3 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 132 183 24 18 148 40 134 71 21 170 171 25 117 45 140 13 6 152 143 166 3 116 99 89 107 60 66 32 23 1 155 156 146 162 154 168 10</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\misc.c</name>
       <outputs>
         <tool>
@@ -414,16 +709,35 @@
         <tool>
           <name>__cstat</name>
           <file> 231</file>
+=======
+      <name>$PROJ_DIR$\Libraries\BgLib\gecko_bglib.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 126</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 101 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 99 124 36 61 92 137 82 193 96 117 32 45 33 72 60 111 84 134 139 116 101 12 168 157 151 14 79 88 97 112 98 106 126 113 115 128 135</file>
+=======
+          <file> 30 29 35 45 71 99 107 60 89 134 100 34 22 40 52 31 16 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 45 71 40 35 31 134 29 22 8 100 34 99 89 107 60 52 30 16</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -432,6 +746,7 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 160</file>
         </tool>
         <tool>
@@ -441,20 +756,36 @@
         <tool>
           <name>__cstat</name>
           <file> 232</file>
+=======
+          <file> 97</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 124</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 81 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 82 193 96 45 117 32 36 61 92 124 137 115 99 33 72 60 111 84 134 139 116 81 12 168 157 151 14 79 88 97 112 98 106 126 113 128 135 101</file>
+=======
+          <file> 15 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 183 24 40 148 132 134 71 21 170 171 162 25 117 45 140 13 6 152 143 166 15 116 99 89 107 60 66 32 23 3 1 155 156 146 154 168 10</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_flash.c</name>
       <outputs>
         <tool>
@@ -468,16 +799,35 @@
         <tool>
           <name>__cstat</name>
           <file> 200</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_aes_util.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 130</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 96 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 82 79 106 88 128 99 12 72 157 151 112 113 101 32 45 168 14 97 98 126 115 135 96 193 33 61 36 60 111 92 84 134 124 139 117 116 137</file>
+=======
+          <file> 15 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 183 24 40 148 132 134 71 21 170 171 25 117 45 140 13 6 152 143 166 15 116 99 89 107 60 66 32 23 3 1 155 156 146 162 154 168 10</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -486,6 +836,7 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 24</file>
         </tool>
         <tool>
@@ -495,20 +846,36 @@
         <tool>
           <name>__cstat</name>
           <file> 237</file>
+=======
+          <file> 128</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 55</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 97 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 79 106 88 128 82 99 12 72 157 151 112 113 101 32 45 168 14 97 98 126 115 135 193 33 61 36 60 111 92 84 96 134 124 139 117 116 137</file>
+=======
+          <file> 23 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 66 155 32 154 18 25 116 45 89 107 3 146 10 132 40 99 60 23 1 156 162 168 183 117 71 134 140 13 21 6 24 152 170 143 148 166 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_crc.c</name>
       <outputs>
         <tool>
@@ -522,20 +889,49 @@
         <tool>
           <name>__cstat</name>
           <file> 230</file>
+=======
+      <name>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Source\Templates\iar\startup_stm32l1xx_md.s</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 91</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_adc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 102</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 94</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 111 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 12 72 113 82 157 151 112 101 99 79 88 106 128 32 45 168 14 97 98 126 115 135 111 193 33 61 36 60 92 84 96 134 124 139 117 116 137</file>
+=======
+          <file> 32 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 140 6 25 117 71 45 143 40 13 152 166 162 132 183 134 21 24 170 148 171 32 116 99 89 107 60 66 23 3 1 155 156 146 154 168 10</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_fsmc.c</name>
       <outputs>
         <tool>
@@ -549,20 +945,40 @@
         <tool>
           <name>__cstat</name>
           <file> 201</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_crc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 125</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 82</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 104 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 82 128 45 88 79 106 32 12 72 157 151 112 113 101 115 99 168 14 97 98 126 135 104 193 33 61 36 60 111 92 84 96 134 124 139 117 116 137</file>
+=======
+          <file> 13 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 116 45 146 18 89 107 3 10 25 66 32 155 154 132 40 99 60 23 1 156 162 168 13 183 117 71 134 140 21 6 24 152 170 143 148 166 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_gpio.c</name>
       <outputs>
         <tool>
@@ -576,20 +992,40 @@
         <tool>
           <name>__cstat</name>
           <file> 204</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dac.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 56</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 76</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 106 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 116 82 45 111 60 134 32 33 61 72 84 139 115 99 193 36 92 96 124 117 137 106 12 168 157 151 14 79 88 97 112 98 126 113 128 135 101</file>
+=======
+          <file> 21 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 40 148 183 24 132 134 71 21 170 171 162 25 117 45 140 13 6 152 143 166 116 99 89 107 60 66 32 23 3 1 155 156 146 154 168 10</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_flash_ramfunc.c</name>
       <outputs>
         <tool>
@@ -603,29 +1039,56 @@
         <tool>
           <name>__cstat</name>
           <file> 209</file>
+=======
+      <name>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Source\Templates\system_stm32l1xx.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 79</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 98</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 96 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 82 79 106 88 128 99 12 72 157 151 112 113 101 32 45 168 14 97 98 126 115 135 96 193 33 61 36 60 111 92 84 134 124 139 117 116 137</file>
+=======
+          <file> 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 154 32 40 66 155 132 116 45 89 107 3 146 10 18 25 99 60 23 1 156 162 168 183 117 71 134 140 13 21 6 24 152 170 143 148 166 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_aes_util.c</name>
       <outputs>
         <tool>
           <name>ICCARM</name>
           <file> 68</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\misc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 69</file>
+>>>>>>> skypack_reset
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 18</file>
+          <file> 110</file>
         </tool>
         <tool>
           <name>__cstat</name>
@@ -635,15 +1098,24 @@
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 81 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 82 193 96 45 117 32 36 61 92 124 137 99 33 72 60 111 84 134 139 116 81 12 168 157 151 14 79 88 97 112 98 106 126 113 115 128 135 101</file>
+=======
+          <file> 10 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 25 170 134 71 21 171 18 183 24 148 132 40 117 45 140 13 6 152 143 166 10 116 99 89 107 60 66 32 23 3 1 155 156 146 162 154 168</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Source\Templates\system_stm32l1xx.c</name>
       <outputs>
         <tool>
@@ -657,24 +1129,37 @@
         <tool>
           <name>__cstat</name>
           <file> 234</file>
+=======
+      <name>$PROJ_DIR$\Debug\Exe\c.out</name>
+      <outputs>
+        <tool>
+          <name>OBJCOPY</name>
+          <file> 43</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
+<<<<<<< HEAD
           <name>ICCARM</name>
           <file> 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 128 88 45 79 106 32 12 72 157 151 112 113 101 82 99 168 14 97 98 126 115 135 193 33 61 36 60 111 92 84 96 134 124 139 117 116 137</file>
+=======
+          <name>ILINK</name>
+          <file> 106 80 85 115 195 104 44 47 90 69 84 103 185 91 102 97 38 128 125 56 114 64 105 62 70 129 109 33 122 137 39 73 67 88 123 196 36 50 194 135 42 79 127 81 78 37</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_adc.c</name>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_spi.c</name>
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 171</file>
         </tool>
         <tool>
@@ -684,20 +1169,36 @@
         <tool>
           <name>__cstat</name>
           <file> 235</file>
+=======
+          <file> 196</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 113</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 88 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 82 60 84 99 33 61 72 139 45 111 134 116 115 32 193 36 92 96 124 117 137 88 12 168 157 151 14 79 97 112 98 106 126 113 128 135 101</file>
+=======
+          <file> 154 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 25 18 156 99 45 23 168 60 1 162 132 40 116 89 107 66 32 3 155 146 154 10 183 117 71 134 140 13 21 6 24 152 170 143 148 166 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_rcc.c</name>
       <outputs>
         <tool>
@@ -711,16 +1212,35 @@
         <tool>
           <name>__cstat</name>
           <file> 215</file>
+=======
+      <name>$PROJ_DIR$\Source\app_data.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 80</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 77</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 115 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 12 72 82 113 32 157 151 112 101 45 79 88 106 128 99 168 14 97 98 126 115 135 193 33 61 36 60 111 92 84 96 134 124 139 117 116 137</file>
+=======
+          <file> 153 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10 178 186 199 192 176 180 191 175 189 188 197 72 75 100 57 35 34 193</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 40 25 166 72 75 13 176 175 140 152 18 199 192 188 193 117 71 45 6 143 178 180 189 197 35 132 183 134 21 24 170 148 171 100 153 116 99 89 107 60 66 32 23 3 1 155 156 146 162 154 168 10 186 191 57 34</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -729,6 +1249,7 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 48</file>
         </tool>
         <tool>
@@ -738,16 +1259,31 @@
         <tool>
           <name>__cstat</name>
           <file> 208</file>
+=======
+          <file> 33</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 138</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 126 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 82 99 115 14 72 98 168 97 126 135 32 45 12 157 151 79 88 112 106 113 128 101 193 33 61 36 60 111 92 84 96 134 124 139 117 116 137</file>
+=======
+          <file> 156 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 25 162 60 45 1 99 23 156 168 132 40 116 89 107 66 32 3 155 146 154 10 183 117 71 134 140 13 21 6 24 152 170 143 148 166 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -756,6 +1292,7 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 41</file>
         </tool>
         <tool>
@@ -765,16 +1302,31 @@
         <tool>
           <name>__cstat</name>
           <file> 224</file>
+=======
+          <file> 67</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 51</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 121 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 82 193 96 117 99 36 61 92 124 137 115 32 45 33 72 60 111 84 134 139 116 121 12 168 157 151 14 79 88 97 112 98 106 126 113 128 135 101</file>
+=======
+          <file> 162 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 116 45 18 146 132 89 107 3 10 40 66 32 155 154 25 99 60 23 1 156 162 168 183 117 71 134 140 13 21 6 24 152 170 143 148 166 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -783,6 +1335,7 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 57</file>
         </tool>
         <tool>
@@ -792,20 +1345,36 @@
         <tool>
           <name>__cstat</name>
           <file> 205</file>
+=======
+          <file> 39</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 54</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 133 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 128 88 45 79 106 82 32 12 72 157 151 112 113 101 99 168 14 97 98 126 115 135 133 193 33 61 36 60 111 92 84 96 134 124 139 117 116 137</file>
+=======
+          <file> 157 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 154 32 40 66 155 18 132 116 45 89 107 3 146 10 25 99 60 23 1 156 162 168 157 183 117 71 134 140 13 21 6 24 152 170 143 148 166 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_pwr.c</name>
       <outputs>
         <tool>
@@ -819,20 +1388,40 @@
         <tool>
           <name>__cstat</name>
           <file> 211</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_fsmc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 129</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 95</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 139 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 99 117 82 193 96 36 61 92 124 137 115 32 45 33 72 60 111 84 134 139 116 12 168 157 151 14 79 88 97 112 98 106 126 113 128 135 101</file>
+=======
+          <file> 145 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 154 40 32 66 155 132 116 45 89 107 3 146 10 162 25 99 60 23 1 156 168 145 183 117 71 134 140 13 21 6 24 152 170 143 148 166 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_spi.c</name>
       <outputs>
         <tool>
@@ -846,16 +1435,35 @@
         <tool>
           <name>__cstat</name>
           <file> 216</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_gpio.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 109</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 133</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 128 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 99 82 126 168 72 97 135 14 98 115 32 45 12 157 151 79 88 112 106 113 128 101 193 33 61 36 60 111 92 84 96 134 124 139 117 116 137</file>
+=======
+          <file> 155 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 166 18 40 13 140 152 132 117 71 45 6 143 162 25 183 134 21 24 170 148 171 155 116 99 89 107 60 66 32 23 3 1 156 146 154 168 10</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -864,6 +1472,7 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 162</file>
         </tool>
         <tool>
@@ -873,16 +1482,31 @@
         <tool>
           <name>__cstat</name>
           <file> 199</file>
+=======
+          <file> 137</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 119</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 113 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 82 60 84 32 33 61 72 139 45 111 134 116 115 99 193 36 92 96 124 117 137 113 12 168 157 151 14 79 88 97 112 98 106 126 128 135 101</file>
+=======
+          <file> 146 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 140 6 132 117 71 45 143 40 13 152 166 162 25 183 134 21 24 170 148 171 146 116 99 89 107 60 66 32 23 3 1 155 156 154 168 10</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -891,6 +1515,7 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 187</file>
         </tool>
         <tool>
@@ -900,20 +1525,36 @@
         <tool>
           <name>__cstat</name>
           <file> 202</file>
+=======
+          <file> 122</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 83</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 124 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 128 88 79 106 99 12 72 157 151 112 113 101 82 32 45 168 14 97 98 126 115 135 124 193 33 61 36 60 111 92 84 96 134 139 117 116 137</file>
+=======
+          <file> 170 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 154 32 66 155 25 116 45 89 107 3 146 10 18 132 40 99 60 23 1 156 162 168 170 183 117 71 134 140 13 21 6 24 152 143 148 166 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_syscfg.c</name>
       <outputs>
         <tool>
@@ -927,16 +1568,35 @@
         <tool>
           <name>__cstat</name>
           <file> 217</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_pwr.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 73</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 96</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 134 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 112 82 157 151 101 12 72 113 99 79 88 106 128 115 32 45 168 14 97 98 126 135 134 193 33 61 36 60 111 92 84 96 124 139 117 116 137</file>
+=======
+          <file> 143 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 25 148 18 183 24 134 71 21 170 171 162 132 40 117 45 140 13 6 152 143 166 116 99 89 107 60 66 32 23 3 1 155 156 146 154 168 10</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -945,6 +1605,7 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 147</file>
         </tool>
         <tool>
@@ -954,20 +1615,36 @@
         <tool>
           <name>__cstat</name>
           <file> 220</file>
+=======
+          <file> 88</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 48</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 117 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 82 79 106 88 128 99 12 72 157 151 112 113 101 115 32 45 168 14 97 98 126 135 117 193 33 61 36 60 111 92 84 96 134 124 139 116 137</file>
+=======
+          <file> 148 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 66 155 32 154 25 116 45 89 107 3 146 10 162 132 40 99 60 23 1 156 168 148 183 117 71 134 140 13 21 6 24 152 170 143 166 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_tim.c</name>
       <outputs>
         <tool>
@@ -981,20 +1658,40 @@
         <tool>
           <name>__cstat</name>
           <file> 221</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_sdio.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 123</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 111</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 116 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 82 126 45 168 72 97 135 32 14 98 115 99 12 157 151 79 88 112 106 113 128 101 116 193 33 61 36 60 111 92 84 96 134 124 139 117 137</file>
+=======
+          <file> 149 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 183 24 148 25 134 71 21 170 171 162 132 40 117 45 140 13 6 152 143 166 149 116 99 89 107 60 66 32 23 3 1 155 156 146 154 168 10</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_usart.c</name>
       <outputs>
         <tool>
@@ -1008,16 +1705,35 @@
         <tool>
           <name>__cstat</name>
           <file> 223</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_syscfg.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 36</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 118</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 135 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 135 168 72 97 82 45 126 32 14 98 115 99 12 157 151 79 88 112 106 113 128 101 193 33 61 36 60 111 92 84 96 134 124 139 117 116 137</file>
+=======
+          <file> 152 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 3 18 89 107 10 116 45 146 25 66 32 155 154 162 132 40 99 60 23 1 156 168 152 183 117 71 134 140 13 21 6 24 170 143 148 166 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -1026,6 +1742,7 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 23</file>
         </tool>
         <tool>
@@ -1035,20 +1752,36 @@
         <tool>
           <name>__cstat</name>
           <file> 218</file>
+=======
+          <file> 50</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 68</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 137 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 82 96 193 117 99 36 61 92 124 137 115 32 45 33 72 60 111 84 134 139 116 12 168 157 151 14 79 88 97 112 98 106 126 113 128 135 101</file>
+=======
+          <file> 166 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 156 40 99 45 23 168 132 60 1 162 25 116 89 107 66 32 3 155 146 154 10 166 183 117 71 134 140 13 21 6 24 152 170 143 148 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\app_data.c</name>
       <outputs>
         <tool>
@@ -1062,11 +1795,23 @@
         <tool>
           <name>__cstat</name>
           <file> 222</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_wwdg.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 135</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 108</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 107 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101 179 178 198 195 192 196 186 180 177 182 190 9 37 161 62 65 74 183</file>
         </tool>
         <tool>
@@ -1087,10 +1832,18 @@
         <tool>
           <name>ILINK</name>
           <file> 239 40 73 43 163 141 27 46 153 13 148 142 166 63 171 160 68 24 42 146 6 29 78 7 20 11 164 48 187 162 57 38 54 147 41 165 55 154 31 23 64 8 50 155 26 80</file>
+=======
+          <file> 171 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 24 183 148 25 134 71 21 170 171 162 132 40 117 45 140 13 6 152 143 166 116 99 89 107 60 66 32 23 3 1 155 156 146 154 168 10</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\main.c</name>
       <outputs>
         <tool>
@@ -1104,20 +1857,40 @@
         <tool>
           <name>__cstat</name>
           <file> 210</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_usart.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 194</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 121</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 183 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101 9 190 107 37 161 62 65 74</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 82 45 126 65 168 72 97 135 107 32 14 98 115 62 190 37 9 99 12 157 151 79 88 112 106 113 128 101 61 183 193 33 36 60 111 92 84 96 134 124 139 117 116 137 161 74</file>
+=======
+          <file> 168 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 168 99 45 23 18 40 156 132 60 1 162 25 116 89 107 66 32 3 155 146 154 10 183 117 71 134 140 13 21 6 24 152 170 143 148 166 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\lps25hb.c</name>
       <outputs>
         <tool>
@@ -1131,20 +1904,40 @@
         <tool>
           <name>__cstat</name>
           <file> 229</file>
+=======
+      <name>$PROJ_DIR$\Source\lsm6ds3.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 47</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 112</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 196 186 45 72 61 168 151 14 157 36 198 82 32 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 128 88 186 36 61 82 79 106 72 99 12 112 113 101 198 45 168 157 151 14 32 97 98 126 115 135 196 193 33 60 111 92 84 96 134 124 139 117 116 137</file>
+=======
+          <file> 178 186 40 45 71 99 107 60 89 134 199 18 132 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10 58 74 92</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 92 156 18 71 186 134 132 23 168 40 45 1 162 58 199 99 89 107 60 25 116 66 32 3 155 146 154 10 178 183 117 140 13 21 6 24 152 170 143 148 166 171 74</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\misc_sense.c</name>
       <outputs>
         <tool>
@@ -1158,20 +1951,40 @@
         <tool>
           <name>__cstat</name>
           <file> 225</file>
+=======
+      <name>$PROJ_DIR$\Source\pct2075.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 185</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 131</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 182 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101 183 9</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 124 32 36 61 92 137 82 9 45 193 96 117 183 99 33 72 60 111 84 134 139 116 182 12 168 157 151 14 79 88 97 112 98 106 126 113 115 128 135 101</file>
+=======
+          <file> 175 199 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 154 25 32 66 155 199 18 116 45 89 107 3 146 10 132 40 99 60 23 1 156 162 168 175 183 117 71 134 140 13 21 6 24 152 170 143 148 166 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\pct2075.c</name>
       <outputs>
         <tool>
@@ -1185,16 +1998,35 @@
         <tool>
           <name>__cstat</name>
           <file> 226</file>
+=======
+      <name>$PROJ_DIR$\Source\main.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 90</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 120</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 180 198 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 128 99 88 79 106 198 82 12 72 157 151 112 113 101 32 45 168 14 97 98 126 115 135 180 193 33 61 36 60 111 92 84 96 134 124 139 117 116 137</file>
+=======
+          <file> 193 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10 72 197 153 75 100 57 35 34</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 40 156 35 99 45 23 168 153 132 60 1 162 57 197 75 72 25 116 89 107 66 32 3 155 146 154 10 71 193 183 117 134 140 13 21 6 24 152 170 143 148 166 171 100 34</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -1203,6 +2035,7 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 141</file>
         </tool>
         <tool>
@@ -1212,20 +2045,36 @@
         <tool>
           <name>__cstat</name>
           <file> 213</file>
+=======
+          <file> 84</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 86</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 195 192 45 72 61 168 151 14 157 36 198 82 32 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101 39 30 77</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 157 151 72 32 79 106 88 128 198 168 14 45 12 112 113 101 82 39 192 61 36 99 97 98 126 115 135 30 195 193 33 60 111 92 84 96 134 124 139 117 116 137 77</file>
+=======
+          <file> 188 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10 193 72</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 170 132 134 71 21 171 18 72 40 183 24 148 193 25 117 45 140 13 6 152 143 166 188 116 99 89 107 60 66 32 23 3 1 155 156 146 162 154 168 10</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\sys_ctrl.c</name>
       <outputs>
         <tool>
@@ -1239,20 +2088,40 @@
         <tool>
           <name>__cstat</name>
           <file> 214</file>
+=======
+      <name>$PROJ_DIR$\Source\lis3mdl.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 104</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 87</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 183 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101 9</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 82 60 84 33 61 72 139 9 99 45 111 134 116 32 193 36 92 96 124 117 137 183 12 168 157 151 14 79 88 97 112 98 106 126 113 115 128 135 101</file>
+=======
+          <file> 192 176 40 45 71 99 107 60 89 134 199 18 132 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10 58 74 92</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 89 107 45 132 66 155 32 154 199 99 60 40 116 3 146 10 18 58 176 71 134 25 23 1 156 162 168 74 192 183 117 140 13 21 6 24 152 170 143 148 166 171 92</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\lsm6ds3.c</name>
       <outputs>
         <tool>
@@ -1266,20 +2135,40 @@
         <tool>
           <name>__cstat</name>
           <file> 219</file>
+=======
+      <name>$PROJ_DIR$\Source\opt3001.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 103</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 93</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 179 178 45 72 61 168 151 14 157 36 198 82 32 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101 39 30 77</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 77 126 82 61 178 36 32 97 135 45 72 98 115 39 198 168 157 151 14 99 12 79 88 112 106 113 128 101 179 193 33 60 111 92 84 96 134 124 139 117 116 137 30</file>
+=======
+          <file> 189 199 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 154 32 18 66 155 25 116 45 89 107 3 146 10 199 132 40 99 60 23 1 156 162 168 189 183 117 71 134 140 13 21 6 24 152 170 143 148 166 171</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\bgm111.c</name>
       <outputs>
         <tool>
@@ -1293,20 +2182,40 @@
         <tool>
           <name>__cstat</name>
           <file> 212</file>
+=======
+      <name>$PROJ_DIR$\Source\sys_ctrl.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 42</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 49</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 190 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101 9 65 161 74 4 103 1 75 5 2 0 107</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 117 61 82 193 96 4 9 99 36 92 124 137 1 65 107 45 32 33 72 60 111 84 134 139 116 103 0 190 12 168 157 151 14 79 88 97 112 98 106 126 113 115 128 135 101 161 74 5 75 2</file>
+=======
+          <file> 193 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10 72</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 140 6 117 71 45 143 72 25 40 13 152 166 132 183 134 21 24 170 148 171 193 116 99 89 107 60 66 32 23 3 1 155 156 146 162 154 168 10</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\i2c_bus.c</name>
       <outputs>
         <tool>
@@ -1320,16 +2229,35 @@
         <tool>
           <name>__cstat</name>
           <file> 228</file>
+=======
+      <name>$PROJ_DIR$\Source\bgm111.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 85</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 53</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 198 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 82 193 96 117 99 36 61 92 124 137 32 45 33 72 60 111 84 134 139 116 198 12 168 157 151 14 79 88 97 112 98 106 126 113 115 128 135 101</file>
+=======
+          <file> 197 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10 72 35 100 34 30 29 22 52 31 16 8 153</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 148 71 18 183 24 30 72 25 134 21 170 171 22 35 153 40 132 117 45 140 13 6 152 143 166 29 8 197 116 99 89 107 60 66 32 23 3 1 155 156 146 162 154 168 10 100 34 31 52 16</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -1338,6 +2266,7 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 142</file>
         </tool>
         <tool>
@@ -1347,16 +2276,54 @@
         <tool>
           <name>__cstat</name>
           <file> 227</file>
+=======
+          <file> 44</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 63</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 177 198 82 32 45 72 61 168 151 14 157 36 12 60 79 33 99 193 88 111 97 92 112 84 98 96 106 134 126 124 113 139 115 117 128 116 135 137 101</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 128 88 82 79 106 99 12 72 157 151 112 113 101 198 32 45 168 14 97 98 126 115 135 177 193 33 61 36 60 111 92 84 96 134 124 139 117 116 137</file>
+=======
+          <file> 180 191 40 45 71 99 107 60 89 134 199 18 132 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 154 32 191 134 71 18 66 155 45 25 116 3 146 10 199 40 99 89 107 60 132 23 1 156 162 168 180 183 117 140 13 21 6 24 152 170 143 148 166 171</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Source\i2c_bus.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 195</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 61</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 199 18 132 40 45 71 99 107 60 89 134 116 140 66 117 25 183 32 13 23 21 3 6 1 24 155 152 156 170 146 143 162 148 154 166 168 171 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 183 24 148 25 134 71 21 170 171 132 40 117 45 140 13 6 152 143 166 199 116 99 89 107 60 66 32 23 3 1 155 156 146 162 154 168 10</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -1364,6 +2331,7 @@
   <configuration>
     <name>Release</name>
     <outputs>
+<<<<<<< HEAD
       <file>$PROJ_DIR$\Release\Obj\stm32l1xx_sdio.pbi</file>
       <file>$PROJ_DIR$\Release\Obj\stm32l1xx_iwdg.pbi</file>
       <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
@@ -1604,6 +2572,248 @@
       <file>$PROJ_DIR$\Source\misc_sense.c</file>
       <file>$PROJ_DIR$\Source\misc_sense.h</file>
       <file>$PROJ_DIR$\Source\stm32l1xx_conf.h</file>
+=======
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_flash_ramfunc.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_exti.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_exti.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_dbgmcu.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_flash.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dma.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_dma.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dbgmcu.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\misc.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_aes.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_aes_util.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_crc.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_comp.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_aes.h</file>
+      <file>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Source\Templates\iar\startup_stm32l1xx_md.s</file>
+      <file>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Include\stm32l1xx.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_adc.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_crc.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_dac.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_comp.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_flash.h</file>
+      <file>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Include\system_stm32l1xx.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dac.c</file>
+      <file>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Source\Templates\system_stm32l1xx.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\misc.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_adc.h</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_crc.pbi</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\includes\hci_internal.h</file>
+      <file>$PROJ_DIR$\Release\Obj\rxm_gps_rm.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_dac.pbi</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\includes\bluenrg_hci_internal.h</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_i2c.o</file>
+      <file>$PROJ_DIR$\Source\nmea.h</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\includes\clock.h</file>
+      <file>$PROJ_DIR$\Release\Obj\bluenrg_hci.o</file>
+      <file>$PROJ_DIR$\Release\Obj\spi_flash.o</file>
+      <file>$PROJ_DIR$\Release\Obj\misc_sense.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_spi.o</file>
+      <file>$PROJ_DIR$\Release\Obj\l3gd20.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_aes.pbi</file>
+      <file>$PROJ_DIR$\Source\nmea.c</file>
+      <file>$PROJ_DIR$\Source\ble112.h</file>
+      <file>$PROJ_DIR$\Release\Obj\bglib_stubs.o</file>
+      <file>$PROJ_DIR$\Source\rxm-gps-rm.c</file>
+      <file>$PROJ_DIR$\Source\debug_led.c</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_syscfg.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_adc.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_dbgmcu.pbi</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\includes\hci.h</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_i2c.pbi</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\includes\hal_types.h</file>
+      <file>$PROJ_DIR$\Source\spi_flash.c</file>
+      <file>$PROJ_DIR$\Source\max17043.c</file>
+      <file>$PROJ_DIR$\Source\rxm-gps-rm.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\xlocale.h</file>
+      <file>$PROJ_DIR$\Libraries\BgLib\commands.c</file>
+      <file>$PROJ_DIR$\Release\Obj\rxm-gps-rm.o</file>
+      <file>$PROJ_DIR$\Release\Obj\max17043.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_pwr.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\bluenrg_spi.o</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_flash.o</file>
+      <file>$PROJ_DIR$\Release\Obj\misc_sense.o</file>
+      <file>$PROJ_DIR$\main.c</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_wwdg.o</file>
+      <file>$PROJ_DIR$\Release\Obj\max17043.o</file>
+      <file>$PROJ_DIR$\Release\Obj\misc.pbi</file>
+      <file>$TOOLKIT_DIR$\config\linker\ST\stm32l100xB.icf</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_sdio.o</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_exti.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_fsmc.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_tim.o</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_aes_util.o</file>
+      <file>$PROJ_DIR$\Release\Obj\main.o</file>
+      <file>$PROJ_DIR$\Release\Obj\nmea.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_flash.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\xtls.h</file>
+      <file>$PROJ_DIR$\Release\Obj\commands.o</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_rcc.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_opamp.o</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_exti.o</file>
+      <file>$PROJ_DIR$\Release\Obj\list.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\rxm_gps_rm.o</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_pwr.o</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\includes\ble_status.h</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\includes\list.h</file>
+      <file>$PROJ_DIR$\Source\bluenrg_spi.h</file>
+      <file>$PROJ_DIR$\Libraries\BgLib\cmd_def.c</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_aes.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\xlocale_c.h</file>
+      <file>$PROJ_DIR$\Release\Exe\c.out</file>
+      <file>$PROJ_DIR$\Source\l3gd20.c</file>
+      <file>$PROJ_DIR$\Source\ble112.c</file>
+      <file>$PROJ_DIR$\Source\rxm_gps_rm.c</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\includes\gatt_server.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdarg.h</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_lcd.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\ble112.pbi</file>
+      <file>$PROJ_DIR$\Source\l3gd20.h</file>
+      <file>$PROJ_DIR$\Libraries\BgLib\apitypes.h</file>
+      <file>$PROJ_DIR$\Source\max17043.h</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\includes\bluenrg_hci.h</file>
+      <file>$PROJ_DIR$\Release\Obj\nmea.o</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\includes\compiler.h</file>
+      <file>$PROJ_DIR$\Source\spi_flash.h</file>
+      <file>$PROJ_DIR$\Source\debug_led.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\wchar.h</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\includes\gp_timer.h</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\hci\hci.c</file>
+      <file>$PROJ_DIR$\Source\bglib_stubs.c</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\utils\list.c</file>
+      <file>$PROJ_DIR$\Release\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_aes_util.pbi</file>
+      <file>$PROJ_DIR$\Source\bluenrg_spi.c</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_wwdg.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_sdio.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+      <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_opamp.pbi</file>
+      <file>$PROJ_DIR$\Source\lsm303d.h</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_iwdg.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\hci.o</file>
+      <file>$PROJ_DIR$\Libraries\BgLib\cmd_def.h</file>
+      <file>$PROJ_DIR$\Release\Obj\debug_led.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+      <file>$PROJ_DIR$\Release\Obj\debug_led.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\ystdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+      <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
+      <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_crc.o</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_lcd.o</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\utils\gp_timer.c</file>
+      <file>$PROJ_DIR$\Source\rxm_gps_rm.h</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_flash_ramfunc.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\spi_flash.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\rxm-gps-rm.pbi</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\includes\hal.h</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_flash_ramfunc.o</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_comp.o</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_rcc.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\time.h</file>
+      <file>$PROJ_DIR$\Release\Obj\system_stm32l1xx.o</file>
+      <file>$PROJ_DIR$\Release\Obj\i2c_bus.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\cmd_def.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_fsmc.o</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_spi.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_dma.o</file>
+      <file>$PROJ_DIR$\Release\Obj\gp_timer.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_adc.o</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\includes\osal.h</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_dbgmcu.o</file>
+      <file>$PROJ_DIR$\Release\Obj\system_stm32l1xx.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_usart.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\ble112.o</file>
+      <file>$PROJ_DIR$\Release\Obj\cmd_def.o</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_rtc.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\app_data.o</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_gpio.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\ctype.h</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_iwdg.o</file>
+      <file>$PROJ_DIR$\Release\Obj\app_data.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\lsm303d.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_dac.o</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_gpio.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_syscfg.o</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\includes\link_layer.h</file>
+      <file>$PROJ_DIR$\Source\lsm303d.c</file>
+      <file>$PROJ_DIR$\Release\Obj\bluenrg_spi.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\startup_stm32l1xx_md.o</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_usart.o</file>
+      <file>$PROJ_DIR$\Release\Obj\misc.o</file>
+      <file>$PROJ_DIR$\Release\Obj\commands.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\bluenrg_hci.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_dma.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\bglib_stubs.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\hci.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\gp_timer.o</file>
+      <file>$PROJ_DIR$\Release\Obj\l3gd20.o</file>
+      <file>$PROJ_DIR$\Release\Obj\list.o</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_tim.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\i2c_bus.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\xmtx.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\xlocaleuse.h</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_rtc.o</file>
+      <file>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\hci\controller\bluenrg_hci.c</file>
+      <file>$PROJ_DIR$\Release\Obj\stm32l1xx_comp.pbi</file>
+      <file>$PROJ_DIR$\Release\Obj\lsm303d.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cmInstr.h</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cmFunc.h</file>
+      <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cm3.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\cmsis_iar.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_spi.c</file>
+      <file>$PROJ_DIR$\Source\app_data.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_pwr.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_i2c.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_fsmc.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_lcd.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_rcc.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_rtc.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_sdio.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_opamp.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_fsmc.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_syscfg.h</file>
+      <file>$PROJ_DIR$\Source\app_data.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_spi.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_gpio.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_i2c.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_opamp.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_gpio.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_lcd.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_iwdg.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_pwr.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_rcc.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_rtc.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_sdio.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_syscfg.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_tim.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_tim.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_usart.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_wwdg.c</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_iwdg.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\inc\stm32l1xx_wwdg.h</file>
+      <file>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_usart.c</file>
+      <file>$PROJ_DIR$\Source\main.c</file>
+      <file>$PROJ_DIR$\Source\misc_sense.c</file>
+      <file>$PROJ_DIR$\Source\stm32l1xx_conf.h</file>
+      <file>$PROJ_DIR$\Source\misc_sense.h</file>
+>>>>>>> skypack_reset
       <file>$PROJ_DIR$\Source\i2c_bus.c</file>
       <file>$PROJ_DIR$\Source\i2c_bus.h</file>
     </outputs>
@@ -1612,80 +2822,133 @@
       <outputs>
         <tool>
           <name>ILINK</name>
+<<<<<<< HEAD
           <file> 146</file>
+=======
+          <file> 89</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\Source\bluenrg_spi.c</name>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_flash_ramfunc.c</name>
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 75</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 100</file>
+=======
+          <file> 143</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 139</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 71 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 157 155</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 71 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 157 155</file>
+=======
+          <file> 20 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 20 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\hci\controller\bluenrg_hci.c</name>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_exti.c</name>
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 87</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 29</file>
+=======
+          <file> 79</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 68</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 155 109 115 112 235 231 8 233 107 125 117 58 131 171 72 157 34 120 60 164 57 73</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 155 109 115 112 235 231 8 233 107 125 117 58 131 171 72 157 34 120 60 164 57 73</file>
+=======
+          <file> 1 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 1 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\Source\lsm303d.c</name>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_flash.c</name>
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 11</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 12</file>
+=======
+          <file> 60</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 74</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 17 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 241</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 17 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 241</file>
+=======
+          <file> 20 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 20 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\l3gd20.c</name>
       <outputs>
         <tool>
@@ -1695,79 +2958,152 @@
         <tool>
           <name>BICOMP</name>
           <file> 169</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dma.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 153</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 180</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 76 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 241</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 76 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 241</file>
+=======
+          <file> 6 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 6 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\Source\rxm_gps_rm.c</name>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dbgmcu.c</name>
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 92</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 168</file>
+=======
+          <file> 157</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 47</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 139 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 143 234 114 116 108 113</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 139 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 143 234 114 116 108 113</file>
+=======
+          <file> 3 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 3 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\bglib_stubs.c</name>
       <outputs>
         <tool>
           <name>ICCARM</name>
           <file> 62</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_aes.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 87</file>
+>>>>>>> skypack_reset
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 32</file>
         </tool>
       </outputs>
+<<<<<<< HEAD
+=======
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 13 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 13 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+      </inputs>
+>>>>>>> skypack_reset
     </file>
     <file>
-      <name>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\utils\list.c</name>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_aes_util.c</name>
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 44</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 84</file>
+=======
+          <file> 71</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 111</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 155 109 115 112 235 231 8 233 107 60</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 155 109 115 112 235 231 8 233 107 60</file>
+=======
+          <file> 13 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 13 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\BgLib\cmd_def.c</name>
       <outputs>
         <tool>
@@ -1796,20 +3132,40 @@
         <tool>
           <name>BICOMP</name>
           <file> 69</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_comp.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 144</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 192</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 149 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 143 234 114 116 108 113</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 149 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 143 234 114 116 108 113</file>
+=======
+          <file> 19 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 19 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\main.c</name>
       <outputs>
         <tool>
@@ -1819,6 +3175,26 @@
         <tool>
           <name>BICOMP</name>
           <file> 140</file>
+=======
+      <name>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Source\Templates\iar\startup_stm32l1xx_md.s</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 175</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_adc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 155</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 46</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
     </file>
@@ -1827,6 +3203,7 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 4</file>
         </tool>
         <tool>
@@ -1842,10 +3219,18 @@
         <tool>
           <name>BICOMP</name>
           <file> 155 109 115 112 235 231 8 233 107 125 117 58 131 171 72 157 34 120 60 52</file>
+=======
+          <file> 25 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 25 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\rxm-gps-rm.c</name>
       <outputs>
         <tool>
@@ -1855,16 +3240,37 @@
         <tool>
           <name>BICOMP</name>
           <file> 129</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_crc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 135</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 26</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
+<<<<<<< HEAD
           <name>BICOMP</name>
           <file> 167 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 143 234 114 116 108 113</file>
+=======
+          <name>ICCARM</name>
+          <file> 11 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 11 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\utils\gp_timer.c</name>
       <outputs>
         <tool>
@@ -1874,20 +3280,40 @@
         <tool>
           <name>BICOMP</name>
           <file> 119</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dac.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 169</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 29</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 157 155 109 115 112 235 231 8 233 107 52</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 157 155 109 115 112 235 231 8 233 107 52</file>
+=======
+          <file> 18 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 18 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\nmea.c</name>
       <outputs>
         <tool>
@@ -1897,12 +3323,28 @@
         <tool>
           <name>BICOMP</name>
           <file> 77</file>
+=======
+      <name>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Source\Templates\system_stm32l1xx.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 147</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 158</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
+<<<<<<< HEAD
           <name>BICOMP</name>
           <file> 24 115 112 235 231 8 233 107 234 144 172 61 38 143 3 56 122 114 116 165 109 2</file>
+=======
+          <name>ICCARM</name>
+          <file> 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -1910,12 +3352,18 @@
       <name>$PROJ_DIR$\Release\Exe\c.out</name>
       <inputs>
         <tool>
+<<<<<<< HEAD
           <name>ILINK</name>
           <file> 101 159 18 59 25 20 11 65 78 42 70 92 162 30 135 136 79 121 133 19 123 142 48 83 154 27 21 68 163 127 90 85 128 14 89 54 5 88 33 94 86 110 232 104 118</file>
+=======
+          <name>BICOMP</name>
+          <file> 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\debug_led.c</name>
       <outputs>
         <tool>
@@ -1925,20 +3373,40 @@
         <tool>
           <name>BICOMP</name>
           <file> 28</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\misc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 177</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 65</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 67 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 67 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 8 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 8 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\max17043.c</name>
       <outputs>
         <tool>
@@ -1948,39 +3416,68 @@
         <tool>
           <name>BICOMP</name>
           <file> 152</file>
+=======
+      <name>$PROJ_DIR$\Source\nmea.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 101</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 73</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
+<<<<<<< HEAD
           <name>ICCARM</name>
           <file> 50 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 241</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 50 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 241</file>
+=======
+          <name>BICOMP</name>
+          <file> 146 125 130 195 197 128 194 202 196 165 54 75 188 152 189 88 105 116 115 32 124 131</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\Libraries\BgLib\commands.c</name>
+      <name>$PROJ_DIR$\Source\rxm-gps-rm.c</name>
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 81</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 36</file>
+=======
+          <file> 56</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 141</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD
           <file> 13 49 115 112 235 231 8 233 107 64</file>
+=======
+          <file> 53 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 152 196 116 115 132 127</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\spi_flash.c</name>
       <outputs>
         <tool>
@@ -1990,16 +3487,35 @@
         <tool>
           <name>BICOMP</name>
           <file> 23</file>
+=======
+      <name>$PROJ_DIR$\Source\debug_led.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 126</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 123</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 137 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 137 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 104 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 104 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -2008,25 +3524,42 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 142</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 39</file>
+=======
+          <file> 35</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 140</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 176 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 176 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 103 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 103 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Source\Templates\iar\startup_stm32l1xx_md.s</name>
       <outputs>
         <tool>
@@ -2045,20 +3578,40 @@
         <tool>
           <name>BICOMP</name>
           <file> 93</file>
+=======
+      <name>$PROJ_DIR$\Source\max17043.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 64</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 57</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 190 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 190 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 99 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 241</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 99 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 241</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dac.c</name>
       <outputs>
         <tool>
@@ -2068,20 +3621,49 @@
         <tool>
           <name>BICOMP</name>
           <file> 132</file>
+=======
+      <name>$PROJ_DIR$\Libraries\BgLib\commands.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 76</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 178</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
+          <name>BICOMP</name>
+          <file> 122 94 125 130 195 197 128 194 202 98</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\main.c</name>
+      <outputs>
+        <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 184 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 184 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 72</file>
         </tool>
-      </inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 110</file>
+>>>>>>> skypack_reset
+        </tool>
+      </outputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dbgmcu.c</name>
       <outputs>
         <tool>
@@ -2091,20 +3673,47 @@
         <tool>
           <name>BICOMP</name>
           <file> 130</file>
+=======
+      <name>$PROJ_DIR$\Libraries\BgLib\cmd_def.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 161</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 149</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
+<<<<<<< HEAD
           <name>ICCARM</name>
           <file> 203 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
-        </tool>
-        <tool>
+=======
           <name>BICOMP</name>
-          <file> 203 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+          <file> 132 125 130 195 197 128 194 202 196 127 122 94 98</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+      <name>$PROJ_DIR$\Release\Exe\c.out</name>
+      <inputs>
+        <tool>
+<<<<<<< HEAD
+          <name>BICOMP</name>
+          <file> 203 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <name>ILINK</name>
+          <file> 66 163 160 126 187 184 193 72 64 177 61 81 35 175 155 87 71 144 135 169 157 153 79 60 143 150 164 31 166 136 78 82 145 190 67 37 171 70 176 63 147 200 134 133 117</file>
+>>>>>>> skypack_reset
+        </tool>
+      </inputs>
+    </file>
+    <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\misc.c</name>
       <outputs>
         <tool>
@@ -2114,20 +3723,40 @@
         <tool>
           <name>BICOMP</name>
           <file> 98</file>
+=======
+      <name>$PROJ_DIR$\Source\l3gd20.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 184</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 38</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 193 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 193 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228</file>
+=======
+          <file> 97 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 241</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 97 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 241</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_aes.c</name>
       <outputs>
         <tool>
@@ -2137,20 +3766,40 @@
         <tool>
           <name>BICOMP</name>
           <file> 166</file>
+=======
+      <name>$PROJ_DIR$\Source\ble112.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 160</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 96</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 173 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 173 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 41 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 152 196 116 115 132 127</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 41 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 152 196 116 115 132 127</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_flash.c</name>
       <outputs>
         <tool>
@@ -2160,21 +3809,44 @@
         <tool>
           <name>BICOMP</name>
           <file> 97</file>
+=======
+      <name>$PROJ_DIR$\Source\rxm_gps_rm.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 81</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 28</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 188 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 188 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 138 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 152 196 116 115 132 127</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 138 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 152 196 116 115 132 127</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_comp.c</name>
+=======
+      <name>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\hci\hci.c</name>
+>>>>>>> skypack_reset
       <outputs>
         <tool>
           <name>ICCARM</name>
@@ -2182,21 +3854,34 @@
         </tool>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD
           <file> 9</file>
+=======
+          <file> 182</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 189 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 189 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 50 124 125 130 195 197 128 194 202 156 129 83 142 27 102 33 172 48 84 106</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 50 124 125 130 195 197 128 194 202 156 129 83 142 27 102 33 172 48 84 106</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_crc.c</name>
       <outputs>
         <tool>
@@ -2229,20 +3914,53 @@
         <tool>
           <name>BICOMP</name>
           <file> 103</file>
+=======
+      <name>$PROJ_DIR$\Source\bglib_stubs.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 42</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 181</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\utils\list.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 185</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 80</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 195 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 195 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 50 124 125 130 195 197 128 194 202 84</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 50 124 125 130 195 197 128 194 202 84</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_gpio.c</name>
       <outputs>
         <tool>
@@ -2252,66 +3970,118 @@
         <tool>
           <name>BICOMP</name>
           <file> 91</file>
+=======
+      <name>$PROJ_DIR$\Source\bluenrg_spi.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 59</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 174</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 197 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 225 217 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 197 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 85 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 33 50</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 85 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 33 50</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_flash_ramfunc.c</name>
       <outputs>
         <tool>
           <name>ICCARM</name>
           <file> 154</file>
+=======
+      <name>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\utils\gp_timer.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 183</file>
+>>>>>>> skypack_reset
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 22</file>
+          <file> 154</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 188 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 188 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 33 50 124 125 130 195 197 128 194 202 106</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 33 50 124 125 130 195 197 128 194 202 106</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_aes_util.c</name>
+      <name>$PROJ_DIR$\Source\lsm303d.c</name>
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 79</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 45</file>
+=======
+          <file> 193</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 168</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 173 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 173 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 119 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 241</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 119 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 241</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Source\Templates\system_stm32l1xx.c</name>
       <outputs>
         <tool>
@@ -2321,43 +4091,75 @@
         <tool>
           <name>BICOMP</name>
           <file> 148</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_adc.c</name>
+=======
+      <name>$PROJ_DIR$\Libraries\SimpleBlueNRG_HCI\hci\controller\bluenrg_hci.c</name>
       <outputs>
         <tool>
           <name>ICCARM</name>
-          <file> 135</file>
+          <file> 34</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 170</file>
+          <file> 179</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
+          <file> 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 50 124 125 130 195 197 128 194 202 156 129 83 142 27 102 33 172 48 84 30 100 93</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 50 124 125 130 195 197 128 194 202 156 129 83 142 27 102 33 172 48 84 30 100 93</file>
+>>>>>>> skypack_reset
+        </tool>
+      </inputs>
+    </file>
+    <file>
+<<<<<<< HEAD
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_adc.c</name>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_spi.c</name>
+>>>>>>> skypack_reset
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 37</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 151</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 180 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 180 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 217 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 217 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_rcc.c</name>
       <outputs>
         <tool>
@@ -2367,16 +4169,35 @@
         <tool>
           <name>BICOMP</name>
           <file> 80</file>
+=======
+      <name>$PROJ_DIR$\Source\app_data.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 163</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 167</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 206 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 206 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 208 219 207 226 228 193</file>
+=======
+          <file> 216 119 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 241 97 99 239 132 196 127 116 115</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 216 119 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 241 97 239 132 196 127 116 115</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -2385,25 +4206,42 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 68</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 147</file>
+=======
+          <file> 31</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 49</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 217 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 217 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 219 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 219 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_sdio.c</name>
       <outputs>
         <tool>
@@ -2413,16 +4251,35 @@
         <tool>
           <name>BICOMP</name>
           <file> 0</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_rcc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 145</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 77</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 212 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 212 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 225 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 225 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -2431,25 +4288,42 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 90</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 7</file>
+=======
+          <file> 78</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 118</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 224 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 224 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 220 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 220 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_pwr.c</name>
       <outputs>
         <tool>
@@ -2459,20 +4333,40 @@
         <tool>
           <name>BICOMP</name>
           <file> 82</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_fsmc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 150</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 69</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 230 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 230 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 206 208 219 207 226 228 193</file>
+=======
+          <file> 208 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 208 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_spi.c</name>
       <outputs>
         <tool>
@@ -2482,16 +4376,35 @@
         <tool>
           <name>BICOMP</name>
           <file> 26</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_gpio.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 164</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 170</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 219 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 219 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 207 226 228 193</file>
+=======
+          <file> 218 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 218 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -2500,21 +4413,37 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 127</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 126</file>
+=======
+          <file> 136</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 95</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 204 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 204 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 209 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 209 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -2523,25 +4452,65 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 163</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 1</file>
+=======
+          <file> 166</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 120</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+          <file> 233 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 233 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_pwr.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 82</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 58</file>
+>>>>>>> skypack_reset
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 215 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 215 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 206 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 206 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_syscfg.c</name>
       <outputs>
         <tool>
@@ -2551,20 +4520,40 @@
         <tool>
           <name>BICOMP</name>
           <file> 160</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_rtc.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 190</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 162</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 225 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 217 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 225 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 211 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 211 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_rtc.c</name>
       <outputs>
         <tool>
@@ -2574,20 +4563,40 @@
         <tool>
           <name>BICOMP</name>
           <file> 35</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_sdio.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 67</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 114</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 208 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 208 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 219 207 226 228 193</file>
+=======
+          <file> 212 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 212 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_tim.c</name>
       <outputs>
         <tool>
@@ -2597,20 +4606,40 @@
         <tool>
           <name>BICOMP</name>
           <file> 31</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_syscfg.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 171</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 45</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 207 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 207 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 226 228 193</file>
+=======
+          <file> 215 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 215 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_usart.c</name>
       <outputs>
         <tool>
@@ -2620,16 +4649,35 @@
         <tool>
           <name>BICOMP</name>
           <file> 55</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_tim.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 70</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 186</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 226 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 226 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 228 193</file>
+=======
+          <file> 229 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 229 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -2638,25 +4686,42 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 94</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 15</file>
+=======
+          <file> 63</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 113</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 228 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 228 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 193</file>
+=======
+          <file> 234 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 234 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <file>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\app_data.c</name>
       <outputs>
         <tool>
@@ -2666,16 +4731,35 @@
         <tool>
           <name>BICOMP</name>
           <file> 16</file>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_usart.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 176</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 159</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 198 17 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 241 76 50 238 108 234 113 114 116</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 198 17 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 241 76 238 108 234 113 114 116</file>
+=======
+          <file> 231 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 231 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -2684,21 +4768,37 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 65</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 140</file>
+=======
+          <file> 72</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 110</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 137 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 139 143 234 149 67 198 108 113</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 149 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 143 234 67 198 108 113 114 116</file>
+=======
+          <file> 103 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 138 152 196 41 104 216 132 127</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 41 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 152 196 104 216 132 127 116 115</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -2707,21 +4807,37 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 70</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 47</file>
+=======
+          <file> 61</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 36</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 238 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 67</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 238 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193 67</file>
+=======
+          <file> 239 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 104</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 239 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8 104</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
@@ -2730,61 +4846,94 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 25</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 156</file>
+=======
+          <file> 187</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 148</file>
+>>>>>>> skypack_reset
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD
           <file> 241 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
         </tool>
         <tool>
           <name>BICOMP</name>
           <file> 241 174 105 109 115 112 235 231 8 233 107 6 111 117 106 191 239 180 202 189 184 203 176 190 188 197 225 217 215 204 230 206 208 219 207 226 228 193</file>
+=======
+          <file> 241 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 241 15 201 124 125 130 195 197 128 194 202 198 203 129 199 21 238 25 11 19 18 3 6 1 20 218 215 219 233 209 206 225 211 217 229 231 234 8</file>
+>>>>>>> skypack_reset
         </tool>
       </inputs>
     </file>
     <forcedrebuild>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\lsm303d.c</name>
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>
       <name>$PROJ_DIR$\Source\l3gd20.c</name>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_flash_ramfunc.c</name>
+>>>>>>> skypack_reset
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>
-      <name>$PROJ_DIR$\Source\rxm_gps_rm.c</name>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_exti.c</name>
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>
-      <name>$PROJ_DIR$\Libraries\BgLib\cmd_def.c</name>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_flash.c</name>
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>
-      <name>$PROJ_DIR$\Source\ble112.c</name>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dma.c</name>
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\rxm-gps-rm.c</name>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dbgmcu.c</name>
+>>>>>>> skypack_reset
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>
-      <name>$PROJ_DIR$\Source\nmea.c</name>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_aes.c</name>
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\debug_led.c</name>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_aes_util.c</name>
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>
-      <name>$PROJ_DIR$\Libraries\BgLib\commands.c</name>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_comp.c</name>
+>>>>>>> skypack_reset
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_adc.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dma.c</name>
       <tool>ICCARM</tool>
     </forcedrebuild>
@@ -2802,13 +4951,33 @@
     </forcedrebuild>
     <forcedrebuild>
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\misc.c</name>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_crc.c</name>
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>
-      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_aes.c</name>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_dac.c</name>
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>
+      <name>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Source\Templates\system_stm32l1xx.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\misc.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Source\nmea.c</name>
+>>>>>>> skypack_reset
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Source\rxm-gps-rm.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_flash.c</name>
       <tool>ICCARM</tool>
     </forcedrebuild>
@@ -2838,13 +5007,45 @@
     </forcedrebuild>
     <forcedrebuild>
       <name>$PROJ_DIR$\Libraries\CMSIS\Device\ST\STM32L1xx\Source\Templates\system_stm32l1xx.c</name>
+=======
+      <name>$PROJ_DIR$\Source\debug_led.c</name>
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>
-      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_adc.c</name>
+      <name>$PROJ_DIR$\Libraries\BgLib\commands.c</name>
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>
+      <name>$PROJ_DIR$\Libraries\BgLib\cmd_def.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Source\l3gd20.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Source\ble112.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Source\rxm_gps_rm.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Source\lsm303d.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_spi.c</name>
+>>>>>>> skypack_reset
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Source\app_data.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_rcc.c</name>
       <tool>ICCARM</tool>
     </forcedrebuild>
@@ -2866,6 +5067,29 @@
     </forcedrebuild>
     <forcedrebuild>
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_spi.c</name>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_i2c.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_rcc.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_opamp.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_fsmc.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_gpio.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_lcd.c</name>
+>>>>>>> skypack_reset
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>
@@ -2873,6 +5097,7 @@
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_iwdg.c</name>
       <tool>ICCARM</tool>
     </forcedrebuild>
@@ -2890,6 +5115,25 @@
     </forcedrebuild>
     <forcedrebuild>
       <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_usart.c</name>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_pwr.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_rtc.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_sdio.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_syscfg.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_tim.c</name>
+>>>>>>> skypack_reset
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>
@@ -2897,7 +5141,11 @@
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>
+<<<<<<< HEAD
       <name>$PROJ_DIR$\Source\app_data.c</name>
+=======
+      <name>$PROJ_DIR$\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_usart.c</name>
+>>>>>>> skypack_reset
       <tool>ICCARM</tool>
     </forcedrebuild>
     <forcedrebuild>

@@ -412,6 +412,10 @@ void SkyPack_Reset( int code )
   delay_100msec(10);
   SetLED(false);
   delay_100msec(10);
+  // Alternate way to reset....Power Down Power Plane.
+  SetUSBPower( USB_POWER_OFF );
+  delay_100msec(100);
+  
   // Reset Micro and Start Over...
   NVIC_SystemReset();
 }
