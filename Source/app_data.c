@@ -291,6 +291,7 @@ void SAMPLE_TIM_IRQHandler(void)
 void ProcessSensorState(void)
 {
   char characteristic[21];
+  static int nullCnt = 0;
   
   /* Is a reading scheduled? */
   if (data.reading_scheduled)
@@ -309,6 +310,19 @@ void ProcessSensorState(void)
     data.irradiance = OPT3001_GetData();
     /* Read the miscellaneous cap sensors */
     ReadMiscSensors();
+    
+    // Verify Data quality by checking irradiance.
+    if ( data.irradiance == 0)
+    {
+      // We have null data from irradiance...Inc nullCnt.
+      nullCnt++;
+      if (nullCnt >= NULL_MAX)
+      {
+        nullCnt = 0;
+        // Oops...Detected a fatal error...RESET!!!
+        SkyPack_Reset( FATAL_I2CDROP );
+      }
+    }
     
     /* Create the accelerometer characteristic string */
     sprintf(characteristic, "#6%+05d%+05d%+05d", data.imu.accel.named.x,

@@ -14,6 +14,7 @@ typedef enum
   FATAL_OVERFLOW        = 0x0004,	// Fatal Buffer Overflow.
   FATAL_TIMEOUT		= 0x0005,	// 90 Second Timeout.
   FATAL_CNCTDROP	= 0x0006,	// Connection Dropped
+  FATAL_I2CDROP         = 0x0007,       // I2C Channel Hung.
 }ResetCodes;
 
 /* Sample timer definitions */
@@ -22,6 +23,7 @@ typedef enum
 #define SAMPLE_TIM_RCC          RCC_APB1Periph_TIM6
 #define SAMPLE_TIM_IRQn         TIM6_IRQn
 #define SAMPLE_TIM_IRQHandler   TIM6_IRQHandler
+#define NULL_MAX                5        // Maximum number of null readings before reset.
 
 
 /* Initialize all sensors */
