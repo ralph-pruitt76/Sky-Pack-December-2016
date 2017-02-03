@@ -390,6 +390,7 @@ void BGM111_UART_IRQHandler(void)
 
 void BGM111_ProcessInput(void)
 {
+  static uint32_t temp1;
   bool Boot_evt = false;
 
   /* Check whether there is an event to service */
@@ -400,7 +401,8 @@ void BGM111_ProcessInput(void)
   if (ble.evt)
   {
     /* Service based on event header message ID */
-    switch (BGLIB_MSG_ID(ble.evt->header))
+    temp1 = BGLIB_MSG_ID(ble.evt->header);
+    switch(temp1)
     {
       /* System boot handler */
       case gecko_evt_system_boot_id:
@@ -431,7 +433,27 @@ void BGM111_ProcessInput(void)
         ble.connection = true;
         ble.evt = NULL;
         break;
+      case 0x020A0020:
+      //case 0x030A0000:
+      case gecko_evt_gatt_server_characteristic_status_id:
+        // Clear Heart Beat... We have detected it.
+        Flicker_Led();
+        Clr_HeartBeat();
+        ble.evt = NULL;
+        break;
+      case 0x080000A0:
+      case 0x020800A0:
+      case 0x020B00A0:
+      case 0x000000A0:
+      case 0x200000A0:
+      case 0x050A0020:
+//      case 0x200000A0:
+//      case gecko_cmd_gatt_server_send_characteristic_notification_id:
       /* Dummy catchall */
+        /* Don't handle this event again */
+        ble.evt = NULL;
+        break;
+/* Dummy catchall */
       default:
         /* Don't handle this event again */
         ble.evt = NULL;

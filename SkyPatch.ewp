@@ -2666,7 +2666,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$TOOLKIT_DIR$\config\linker\ST\stm32l151x6.icf</state>
+          <state>$TOOLKIT_DIR$\config\linker\ST\stm32l151xB.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>

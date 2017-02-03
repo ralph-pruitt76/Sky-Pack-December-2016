@@ -17,5 +17,11 @@ extern const struct bg_gattdb_def bg_gattdb_data;
 #define gattdb_wiper_freq                      28
 #define gattdb_swept_freq_idx                  32
 #define gattdb_pressure                        36
+#define gattdb_xgatt_rev                       40
+#define gattdb_AnlErrCnt                       45
+#define gattdb_AnlErrCd                        49
+#define gattdb_AnlDevCd                        53
+#define gattdb_AnlTickCnt                      57
+#define gattdb_AnlHrtBt                        61
 
 #endif

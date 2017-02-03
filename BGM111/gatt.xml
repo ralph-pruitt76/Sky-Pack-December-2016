@@ -67,5 +67,40 @@
             <value length="8" />
         </characteristic>
 
+	<characteristic uuid="bfbf0000-0000-0000-0000-1234567890ab" id="xgatt_rev">
+		<description>SN/HWREV/SWREV</description>
+		<properties read="true" notify="true" />
+		<value length="20" />
+	</characteristic>
     </service>
+
+	<service uuid="b1b10000-0000-0000-0000-5A5A5A000005" advertise="true">
+        <description>Analytics</description>
+		<characteristic uuid="57656174-1010-4016-y001-000000000028" id="AnlErrCnt">
+            <description>Error Count</description>
+            <properties read="true" notify="true" />
+            <value length="6" />
+        </characteristic>
+		<characteristic uuid="57656174-1010-4016-y001-000000000029" id="AnlErrCd">
+            <description>Error Code</description>
+            <properties read="true" notify="true" />
+            <value length="7" />
+        </characteristic>
+		<characteristic uuid="57656174-1010-4016-y001-00000000002A" id="AnlDevCd">
+            <description>Device Code</description>
+            <properties read="true" notify="true" />
+            <value length="7" />
+        </characteristic>
+		<characteristic uuid="57656174-1010-4016-y001-00000000002B" id="AnlTickCnt">
+            <description>Tick Count</description>
+            <properties read="true" notify="true" />
+            <value length="12" />
+        </characteristic>
+		<characteristic uuid="57656174-1010-4016-y001-00000000002C" id="AnlHrtBt">
+            <description>Heart Beat</description>
+            <properties read="true" indicate="true" />
+            <value length="12" />
+        </characteristic>
+ 	</service>
+
 </gatt>

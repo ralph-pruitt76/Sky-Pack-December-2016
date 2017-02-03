@@ -15,7 +15,6 @@
 #include "sys_ctrl.h"
 
 /* Characteristic handles */
-
 #define gattdb_accelerometer                    8
 #define gattdb_magnetometer                    12
 #define gattdb_temperature                     16
@@ -24,6 +23,12 @@
 #define gattdb_wiper_freq                      28
 #define gattdb_swept_freq_idx                  32
 #define gattdb_pressure                        36
+#define gattdb_xgatt_rev                       40
+#define gattdb_AnlErrCnt                       45
+#define gattdb_AnlErrCd                        49
+#define gattdb_AnlDevCd                        53
+#define gattdb_AnlTickCnt                      57
+#define gattdb_AnlHrtBt                        61
 
 /* App data measurment structure */
 
@@ -38,9 +43,17 @@ union u3DVector
   int16_t               indexed[3];
 };
 
+// Analytics Structure
+struct
+{
+  bool  HrtBeat_Flg;
+  uint16_t HrtBeat_Cnt;
+} static analytics;
+
 struct
 {
   volatile bool         reading_scheduled;
+  bool          Legacy_OneTime;
   struct {
     union u3DVector     accel;
     union u3DVector     gyro;
@@ -260,6 +273,7 @@ void ReadMiscSensors(void)
 
 void InitSensors(void)
 {
+  data.Legacy_OneTime = true;                   // Clear Legacy One time flag so that we can set key characteristics...once.
   /* Initialize the I2C peripheral */
   I2C_LowLevel_Init();
   
@@ -291,6 +305,7 @@ void SAMPLE_TIM_IRQHandler(void)
 void ProcessSensorState(void)
 {
   char characteristic[21];
+  uint8_t tempStr[13];
   static int nullCnt = 0;
   
   /* Is a reading scheduled? */
@@ -371,6 +386,39 @@ void ProcessSensorState(void)
     /* Send the swept frequency to the BLE module */
     BGM111_WriteCharacteristic(gattdb_swept_freq_idx,
                             strlen(characteristic), (uint8_t *)characteristic);
+    // Test Analytics flag and determine if we need to update that characteristic
+    if (!(Tst_HeartBeat()))
+    {
+      sprintf( (char *)tempStr, "%010dHB", analytics.HrtBeat_Cnt++);
+      BGM111_WriteCharacteristic(gattdb_AnlHrtBt,
+                             strlen((char *)tempStr), (uint8_t *)tempStr);
+      Set_HeartBeat();
+    }
+    // Test Legacy flag to perform one time operations
+    if( data.Legacy_OneTime )
+    {
+      // Clear Flag...We are done.
+      data.Legacy_OneTime = false;
+      // Update BLE Characteristics
+      BGM111_WriteCharacteristic(gattdb_xgatt_rev,
+                                 strlen((char *)LEGACY_BANNER), (uint8_t *)LEGACY_BANNER);
+    }
+  }
+}
+
+/**
+  * @brief  This routine delays for 10 msec and returns
+  *         from the BGM111
+  * @param  none
+  * @retval none
+  */
+void delay_10ms( void )
+{
+  uint32_t count = 44000;      // Delay loop for 10msec
+  
+  while (count != 0)
+  {
+    count--;
   }
 }
 
@@ -403,6 +451,19 @@ void delay_100msec( int value )
     delay_100ms();
     value--;
   }
+}
+
+/**
+  * @brief  This routine blinks the LED.
+  * @param  none.
+  * @retval none
+  */
+void Flicker_Led( void )
+{
+  SetLED(true);
+  delay_10ms();
+  SetLED(false);
+  delay_10ms();
 }
 
 /**
@@ -442,24 +503,87 @@ void SkyPack_Reset( int code )
 void Test_Connection( void )
 {
   static uint16_t connection_cnt = 0;
-  
+  static uint16_t HeartBeat_Cnt = 0;
+ 
   // Test Connection
   if ( BGM111_Connected() )
   {
     // Yes...Clear count
     connection_cnt = 0;
-    
-  }
+     // Test Heart Beat. Has it been cleared?
+    if (Tst_HeartBeat())
+    {
+      // No We need to watch this closely.
+      // Test Heart Beat Count and determine if time to reset.
+      HeartBeat_Cnt++;
+      // Test Heart Beat Count. If expired, reset.
+      if (HeartBeat_Cnt > HEARTBEAT_CNT)
+      {
+        // Has been 30 Seconds....Time to reset Code.
+        HeartBeat_Cnt = 0;
+        Clr_HrtBeat_Cnt();
+        SkyPack_Reset( FATAL_TIMEOUT );
+      }
+    } // EndIf (Tst_HeartBeat())
+    else
+    {
+      // OK. Clear Count.
+      HeartBeat_Cnt = 0;
+      // Set Heart Beat Flag for next Sequence.
+      //Set_HeartBeat();
+    }
+  } // EndIf ( BGM111_Connected() )
   else
   {
     // No...Increment Count...
     connection_cnt++;
     
     // Wait 90 Seconds before forcing reset.
-    if (connection_cnt > 450)
+    if (connection_cnt > CONNECTION_CNT)
     {
+      Clr_HrtBeat_Cnt();
       SkyPack_Reset( FATAL_TIMEOUT );
     }
-  }
-  
+  } // EndElse ( BGM111_Connected() )
 }
+
+  /**
+  * @brief  This function Clears the Heart Beat Count.
+  * @param  None
+  * @retval bool: Status of Heart Beat Flag
+  */
+void Clr_HrtBeat_Cnt( void )
+{
+  analytics.HrtBeat_Cnt = 0;
+}
+
+  /**
+  * @brief  This function returns the status of the Heart Beat Flag.
+  * @param  None
+  * @retval bool: Status of Heart Beat Flag
+  */
+bool Tst_HeartBeat( void )
+{
+  return analytics.HrtBeat_Flg;
+}
+
+  /**
+  * @brief  This function sets the Heart Beat Flag.
+  * @param  None
+  * @retval None
+  */
+void Set_HeartBeat( void )
+{
+  analytics.HrtBeat_Flg = true;
+}
+
+  /**
+  * @brief  This function clears the Heart Beat Flag.
+  * @param  None
+  * @retval None
+  */
+void Clr_HeartBeat( void )
+{
+  analytics.HrtBeat_Flg = false;
+}
+

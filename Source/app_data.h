@@ -6,6 +6,7 @@
 #define APP_DATA_H_
 
 #include "stm32l1xx.h"
+#include "stdbool.h"
 
 typedef enum
 {
@@ -24,6 +25,9 @@ typedef enum
 #define SAMPLE_TIM_IRQn         TIM6_IRQn
 #define SAMPLE_TIM_IRQHandler   TIM6_IRQHandler
 #define NULL_MAX                5        // Maximum number of null readings before reset.
+#define CONNECTION_CNT          450      // 90 Seconds.
+#define HEARTBEAT_CNT           150      // 30 Seconds
+#define LEGACY_BANNER   "K.7 01/19/17"        // Needed to allow Legacy Design to work
 
 
 /* Initialize all sensors */
@@ -35,7 +39,12 @@ void InitSensors(void);
 void ProcessSensorState(void);
 void delay_100ms( void );
 void delay_100msec( int value );
+void Flicker_Led( void );
 void SkyPack_Reset( int code );
 void Test_Connection( void );
+bool Tst_HeartBeat( void );
+void Set_HeartBeat( void );
+void Clr_HeartBeat( void );
+void Clr_HrtBeat_Cnt( void );
 
 #endif

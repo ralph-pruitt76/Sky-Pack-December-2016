@@ -6,3 +6,9 @@ irradiance 24
 wiper_freq 28
 swept_freq_idx 32
 pressure 36
+xgatt_rev 40
+AnlErrCnt 45
+AnlErrCd 49
+AnlDevCd 53
+AnlTickCnt 57
+AnlHrtBt 61

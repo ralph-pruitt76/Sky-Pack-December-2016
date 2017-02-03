@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=-1240703258
+Checksum=149917562
 [CodeCoverage]
 Enabled=_ 0
 [Exceptions]
@@ -53,28 +53,13 @@ ITMportsEnable=0
 ITMportsTermIO=0
 ITMportsLogFile=0
 ITMlogFile=$PROJ_DIR$\ITM.log
-[PowerLog]
-Title_0=I0
-Symbol_0=0 4 0
-LogEnabled=0
-GraphEnabled=0
-ShowTimeLog=1
-LiveEnabled=0
-LiveFile=PowerLogLive.log
-[PowerProbe]
-Frequency=10000
-Probe0=I0
-ProbeSetup0=2 1 1 2 0 0
-[PowerProbe]
-Frequency=10000
-Probe0=I0
-ProbeSetup0=2 1 1 2 0 0
 [struct_types]
 Fmt0=struct gecko_cmd_packet-header	4	0
 [watch_formats]
-Fmt0={W}1:xyz[0]	4	0
-Fmt1={W}1:xyz[1]	4	0
-Fmt2={W}1:xyz[2]	4	0
+Fmt0={W}1:temp1	4	0
+Fmt1={W}1:xyz[0]	4	0
+Fmt2={W}1:xyz[1]	4	0
+Fmt3={W}1:xyz[2]	4	0
 [Trace1]
 Enabled=0
 ShowSource=1
@@ -90,6 +75,14 @@ EventEXC=0
 EventFOLD=0
 EventLSU=0
 EventSLEEP=0
+[PowerLog]
+Title_0=I0
+Symbol_0=0 4 0
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+LiveEnabled=0
+LiveFile=PowerLogLive.log
 [DataLog]
 LogEnabled=0
 GraphEnabled=0
@@ -135,12 +128,18 @@ Exclusions=
 Enabled=0
 [CallStackStripe]
 ShowTiming=1
+[PowerProbe]
+Frequency=10000
+Probe0=I0
+ProbeSetup0=2 1 1 2 0 0
 [Disassemble mode]
 mode=0
 [Breakpoints2]
-Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\Source\app_data.c}.321.9" 0 0 1 "" 0 "" 0
-Bp1=_ 1 "EMUL_CODE" "{$PROJ_DIR$\Source\app_data.c}.434.3" 0 0 1 "" 0 "" 0
-Count=2
+Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\Source\bgm111.c}.459.9" 0 0 1 "" 0 "" 0
+Bp1=_ 1 "EMUL_CODE" "{$PROJ_DIR$\Source\app_data.c}.523.9" 0 0 1 "" 0 "" 0
+Bp2=_ 1 "EMUL_CODE" "{$PROJ_DIR$\Source\app_data.c}.338.9" 0 0 1 "" 0 "" 0
+Bp3=_ 1 "EMUL_CODE" "{$PROJ_DIR$\Source\app_data.c}.479.3" 0 0 1 "" 0 "" 0
+Count=4
 [Aliases]
 Count=0
 SuppressDialog=0
