@@ -488,8 +488,10 @@ void SkyPack_Reset( int code )
   SetLED(false);
   delay_100msec(10);
   // Alternate way to reset....Power Down Power Plane.
+#ifndef DISABLE_HARD_REBOOT
   SetUSBPower( USB_POWER_OFF );
   delay_100msec(100);
+#endif
   
   // Reset Micro and Start Over...
   NVIC_SystemReset();
@@ -510,7 +512,8 @@ void Test_Connection( void )
   {
     // Yes...Clear count
     connection_cnt = 0;
-     // Test Heart Beat. Has it been cleared?
+#ifndef DISBALE_HEARTBEAT
+    // Test Heart Beat. Has it been cleared?
     if (Tst_HeartBeat())
     {
       // No We need to watch this closely.
@@ -532,12 +535,13 @@ void Test_Connection( void )
       // Set Heart Beat Flag for next Sequence.
       //Set_HeartBeat();
     }
+    
   } // EndIf ( BGM111_Connected() )
   else
   {
     // No...Increment Count...
     connection_cnt++;
-    
+#endif   
     // Wait 90 Seconds before forcing reset.
     if (connection_cnt > CONNECTION_CNT)
     {
