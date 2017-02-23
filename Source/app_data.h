@@ -25,9 +25,14 @@ typedef enum
 #define SAMPLE_TIM_IRQn         TIM6_IRQn
 #define SAMPLE_TIM_IRQHandler   TIM6_IRQHandler
 #define NULL_MAX                5        // Maximum number of null readings before reset.
-#define CONNECTION_CNT          450      // 90 Seconds.
-#define HEARTBEAT_CNT           150      // 30 Seconds
-#define LEGACY_BANNER   "K.7 01/19/17"        // Needed to allow Legacy Design to work
+#ifdef LONG_DELAY
+  #define CONNECTION_CNT          4500     // 15 Minutes.
+  #define HEARTBEAT_CNT           1500     // 5 Minutes.
+#else
+  #define CONNECTION_CNT          450      // 90 Seconds.
+  #define HEARTBEAT_CNT           150      // 30 Seconds.
+#endif
+#define LEGACY_BANNER   "K.8 02/07/17"        // Needed to allow Legacy Design to work
 
 
 /* Initialize all sensors */
