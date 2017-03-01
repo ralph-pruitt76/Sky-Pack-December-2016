@@ -7,6 +7,7 @@
 
 #include "stm32l1xx.h"
 #include "stdbool.h"
+#include "main.h"
 
 typedef enum
 {
@@ -32,7 +33,7 @@ typedef enum
   #define CONNECTION_CNT          450      // 90 Seconds.
   #define HEARTBEAT_CNT           150      // 30 Seconds.
 #endif
-#define LEGACY_BANNER   "K.8 02/07/17"        // Needed to allow Legacy Design to work
+//#define LEGACY_BANNER   "K.8 02/07/17"        // Needed to allow Legacy Design to work
 
 
 /* Initialize all sensors */

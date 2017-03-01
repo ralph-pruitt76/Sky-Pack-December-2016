@@ -7054,6 +7054,9 @@
     <file>
       <name>$PROJ_DIR$\Source\sys_ctrl.h</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\Source\usart.c</name>
+    </file>
   </group>
 </project>
 

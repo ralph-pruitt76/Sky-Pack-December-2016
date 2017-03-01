@@ -1,6 +1,8 @@
 #include "sys_ctrl.h"
 #include "bgm111.h"
 #include "app_data.h"
+#include "main.h"
+#include "usart.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -10,6 +12,9 @@ void main()
 {
   /* Initialize all hardware */
   Sys_Ctrl_Init();
+  // Initialize Monitor USART.
+  MX_MNTR_UART_Init();
+
   SetCapSenseShield(true);
   BGM111_Init();
   InitSensors();
