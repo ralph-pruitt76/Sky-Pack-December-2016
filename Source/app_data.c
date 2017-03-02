@@ -283,7 +283,10 @@ void InitSensors(void)
   InitIrradianceSensor();
   
   /* Initialize misc sensors we run from the micro */
+  // Actually. This enables the Cap Sense Code.
+#ifndef NO_CAP
   MiscSensors_Init();
+#endif
   
   /* Initialize the sample timer */
   InitSampleTimer();
