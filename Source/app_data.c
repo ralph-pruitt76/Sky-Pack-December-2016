@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "sys_ctrl.h"
+#include "ErrCodes.h"
 
 /* Characteristic handles */
 #define gattdb_accelerometer                    8
@@ -309,6 +310,7 @@ void ProcessSensorState(void)
 {
   char characteristic[21];
   uint8_t tempStr[13];
+  uint8_t tempBffr2[10];
   static int nullCnt = 0;
   
   /* Is a reading scheduled? */
@@ -326,6 +328,10 @@ void ProcessSensorState(void)
     ReadPressureTempSensors();
     /* Read the irradiance in 1/100 lux */
     data.irradiance = OPT3001_GetData();
+    // Build Display String from value.
+    sprintf( (char *)tempBffr2, "<%5dlx>", data.irradiance);
+    SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2);
+
     /* Read the miscellaneous cap sensors */
     ReadMiscSensors();
     
@@ -478,6 +484,8 @@ void SkyPack_Reset( int code )
 {
   int x;
   
+  // Alert Monitor of Error
+  SkPck_ErrCdLogErrCd( Get_ErrorCode( code ), MODULE_Reset );
   // Alert User by Blinking LED Fast and then wait 1 Second.
   for (x=0; x<code; x++)
   {

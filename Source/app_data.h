@@ -7,6 +7,7 @@
 
 #include "stm32l1xx.h"
 #include "stdbool.h"
+#include "main.h"
 
 typedef enum
 {
@@ -16,6 +17,7 @@ typedef enum
   FATAL_TIMEOUT		= 0x0005,	// 90 Second Timeout.
   FATAL_CNCTDROP	= 0x0006,	// Connection Dropped
   FATAL_I2CDROP         = 0x0007,       // I2C Channel Hung.
+  FATAL_ERROR           = 0x0020,       // Generic Fatal Error(USART).
 }ResetCodes;
 
 /* Sample timer definitions */
@@ -32,7 +34,7 @@ typedef enum
   #define CONNECTION_CNT          450      // 90 Seconds.
   #define HEARTBEAT_CNT           150      // 30 Seconds.
 #endif
-#define LEGACY_BANNER   "K.8 02/07/17"        // Needed to allow Legacy Design to work
+//#define LEGACY_BANNER   "K.8 02/07/17"        // Needed to allow Legacy Design to work
 
 
 /* Initialize all sensors */

@@ -7961,6 +7961,9 @@
       <name>$PROJ_DIR$\Source\bgm111.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\Source\ErrCodes.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\Source\i2c_bus.c</name>
     </file>
     <file>
@@ -8022,6 +8025,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\Source\sys_ctrl.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Source\usart.c</name>
     </file>
   </group>
 </project>

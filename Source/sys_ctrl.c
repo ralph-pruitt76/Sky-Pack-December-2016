@@ -16,8 +16,11 @@ void Sys_Ctrl_Init(void)
 #endif
   
   /* Enable clocks for the peripheral modules we'll use */
+  // Specifically this command enables RCC_APB2Periph_TIM11(TIM11EN/ TIM11 Timer Clock).
   RCC_APB2PeriphClockCmd(STATUS_LED_TIM_RCC, ENABLE);
+  
   /* Enable GPIO clocks */
+  // Specifically this command enables RCC_AHBPeriph_GPIOA and RCC_AHBPeriph_GPIOB.
   RCC_AHBPeriphClockCmd(SHIELD_ON_GPIO_CLK | CHARGE_ON_GPIO_CLK |
                          HEAT_ON_GPIO_CLK | STATUS_LED_GPIO_CLK, ENABLE);
   
