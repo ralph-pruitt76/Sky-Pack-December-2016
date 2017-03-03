@@ -17,6 +17,7 @@ typedef enum
   FATAL_TIMEOUT		= 0x0005,	// 90 Second Timeout.
   FATAL_CNCTDROP	= 0x0006,	// Connection Dropped
   FATAL_I2CDROP         = 0x0007,       // I2C Channel Hung.
+  FATAL_ERROR           = 0x0020,       // Generic Fatal Error(USART).
 }ResetCodes;
 
 /* Sample timer definitions */

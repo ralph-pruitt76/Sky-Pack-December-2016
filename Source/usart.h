@@ -48,12 +48,42 @@
 #include "bgm111.h"
 #include "app_data.h"
 
+/**************************** enums *******************************************/
+
+/** 
+  * @brief  HAL Status structures definition  
+  */  
+typedef enum 
+{
+  HAL_OK       = 0x00,
+  HAL_ERROR    = 0x01,
+  HAL_BUSY     = 0x02,
+  HAL_TIMEOUT  = 0x03
+} HAL_StatusTypeDef;
+
+/** 
+  * @brief HAL UART State structures definition  
+  */ 
+typedef enum
+{
+  HAL_UART_STATE_RESET             = 0x00,    /*!< Peripheral is not initialized                      */
+  HAL_UART_STATE_READY             = 0x01,    /*!< Peripheral Initialized and ready for use           */
+  HAL_UART_STATE_BUSY              = 0x02,    /*!< an internal process is ongoing                     */
+  HAL_UART_STATE_BUSY_TX           = 0x12,    /*!< Data Transmission process is ongoing               */
+  HAL_UART_STATE_BUSY_RX           = 0x22,    /*!< Data Reception process is ongoing                  */
+  HAL_UART_STATE_BUSY_TX_RX        = 0x32,    /*!< Data Transmission and Reception process is ongoing */
+  HAL_UART_STATE_TIMEOUT           = 0x03,    /*!< Timeout state                                      */
+  HAL_UART_STATE_ERROR             = 0x04     /*!< Error                                              */
+}HAL_UART_StateTypeDef;
+
 /*************************** Defines ******************************************/
 
 /* Size of Trasmission buffer */
 #define TXBUFFERSIZE                    80
 /* Size of Reception buffer */
 #define RXBUFFERSIZE                    TXBUFFERSIZE
+// Maximum Delay for a Transfer.....30 Seconds
+#define HAL_MAX_DELAY                   300000
 
 #define MNTR_UART                      	USART1
 #define MNTR_UART_CLK                  	RCC_APB2ENR_USART1EN
@@ -76,6 +106,11 @@
 /*************************** Prototypes ***************************************/
 
 void MX_MNTR_UART_Init(void);
+HAL_StatusTypeDef MNTR_UART_Transmit( uint8_t *pData, uint16_t Size, uint32_t Timeout );
+void delay_100us( void );
+HAL_StatusTypeDef SkyPack_MNTR_UART_Transmit( uint8_t *pData );
+HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout( uint32_t Timeout );
+
 #if 0
    
 typedef enum 

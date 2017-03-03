@@ -40,6 +40,11 @@
 
 /* Buffer used for transmission */
 uint8_t aTxBuffer[TXBUFFERSIZE];
+static  uint32_t        mntr_state = 0;
+//static  uint16_t        mntr_TxXferSize;        /*!< UART Tx Transfer size              */
+static  uint16_t        mntr_TxXferCount;       /*!< UART Tx Transfer Counter           */
+
+
 
 /* MNTR USART(USART1) init function */
 
@@ -94,9 +99,182 @@ void MX_MNTR_UART_Init(void)
   /* Enable the MNTR UART module USART */
   USART_Cmd(MNTR_UART, ENABLE);
   
+  // Housekeeping.
+  mntr_state = HAL_UART_STATE_READY;
+//  mntr_TxXferSize = 0;
+  mntr_TxXferCount = 0;
+  
 }
 
+/**
+  * @brief  This routine delays for 100 usec and returns.
+  * @param  none
+  * @retval none
+  */
+void delay_100us( void )
+{
+  uint32_t count = 440;      // Delay loop for 10msec
+  
+  while (count != 0)
+  {
+    count--;
+  }
+}
 
+HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout( uint32_t Timeout )
+{
+    bool test_flg;
+    uint32_t temp_Time;
+    
+    test_flg = true;
+    temp_Time = Timeout;
+    while (test_flg)
+    {
+      // Test Key Status Bits
+      if (USART_GetFlagStatus(MNTR_UART, USART_FLAG_TXE) == SET)
+//      if (USART_GetITStatus(MNTR_UART, USART_IT_TXE) == SET)
+      {
+        test_flg = false;
+        break;
+      }
+      // Test Timeout Value
+      if ( temp_Time == 0)
+      {
+        test_flg = 0;
+        break;
+      }
+      // Wait 100 usec
+      delay_100us();
+      // Decrement timeout.
+      temp_Time--;
+    }
+    
+    if (temp_Time > 0)
+      return HAL_OK;
+    else
+      return HAL_TIMEOUT;
+}
+
+/**
+  * @brief  Sends an amount of data in blocking mode. 
+  * @param  huart: Pointer to a UART_HandleTypeDef structure that contains
+  *                the configuration information for the specified UART module.
+  * @param  pData: Pointer to data buffer
+  * @param  Size: Amount of data to be sent
+  * @param  Timeout: Timeout duration  
+  * @retval HAL status
+  */
+HAL_StatusTypeDef MNTR_UART_Transmit( uint8_t *pData, uint16_t Size, uint32_t Timeout )
+{
+  uint32_t tmp_state = 0;
+  uint16_t tmp_data;
+  
+  tmp_state = mntr_state;
+  if((tmp_state == HAL_UART_STATE_READY) || (tmp_state == HAL_UART_STATE_BUSY_RX))
+  {
+    if((pData == NULL) || (Size == 0))
+    {
+      return  HAL_ERROR;
+    }
+
+    /* Process Locked */
+//    __HAL_LOCK(huart);
+
+//    huart->ErrorCode = HAL_UART_ERROR_NONE;
+    /* Check if a non-blocking receive process is ongoing or not */
+    if(mntr_state == HAL_UART_STATE_BUSY_RX) 
+    {
+      mntr_state = HAL_UART_STATE_BUSY_TX_RX;
+    }
+    else
+    {
+      mntr_state = HAL_UART_STATE_BUSY_TX;
+    }
+
+//    mntr_TxXferSize = Size;
+    mntr_TxXferCount = Size;
+
+    // Enable Writes
+    //USART_ITConfig(MNTR_UART, USART_IT_TXE, ENABLE);
+
+    while(mntr_TxXferCount > 0)
+    {
+      mntr_TxXferCount--;
+
+      if( UART_WaitOnFlagUntilTimeout( Timeout ) != HAL_OK)
+      {
+        return HAL_TIMEOUT;
+      }
+      tmp_data = (*pData++ & (uint8_t)0xFF);
+      USART_SendData( MNTR_UART, tmp_data );
+      //huart->Instance->DR = (*pData++ & (uint8_t)0xFF);
+
+    }
+    if(UART_WaitOnFlagUntilTimeout( Timeout ) != HAL_OK)
+    { 
+      return HAL_TIMEOUT;
+    }
+
+    // Disable Writes
+    //USART_ITConfig(MNTR_UART, USART_IT_TXE, DISABLE);
+
+    /* Check if a non-blocking receive process is ongoing or not */
+    if(mntr_state == HAL_UART_STATE_BUSY_TX_RX) 
+    {
+      mntr_state = HAL_UART_STATE_BUSY_RX;
+    }
+    else
+    {
+      mntr_state = HAL_UART_STATE_READY;
+    }
+
+    /* Process Unlocked */
+//    __HAL_UNLOCK(huart);
+
+   return HAL_OK;
+  }
+  else
+  {
+    return HAL_BUSY;
+  }
+}
+
+/**
+  * @brief  SkyPack_MNTR_Transmit
+  * @note   This routine uses the HAL USART routines to send the reqiuested buffer to the requested channel
+  *         in a blocking mode. 
+  *         It does wait for completion.
+  * @retval HAL_StatusTypeDef:     HAL_OK:       Tasking of block of data to UART success.
+  *                                HAL_ERROR:    Error found in Tasking or data passed.
+  *                                HAL_BUSY:     UART is busy.
+  *                                HAL_TIMEOUT:  UART timed out.
+  */
+HAL_StatusTypeDef SkyPack_MNTR_UART_Transmit( uint8_t *pData )
+{
+  HAL_StatusTypeDef Status;
+  uint16_t Size;
+  
+  Size = strlen((char *)pData);  
+  // Test parameters before starting process
+  if (Size > TXBUFFERSIZE)
+    return HAL_ERROR;
+  
+  // Is UART Busy right now?
+  if (mntr_state != HAL_UART_STATE_READY)
+    return HAL_BUSY;
+  else
+  {
+    Status = MNTR_UART_Transmit((uint8_t*)pData, Size, HAL_MAX_DELAY);
+    if(Status != HAL_OK)
+    {
+      return Status;
+    }
+    else
+    {
+       return Status;
+    }
+  }
+}
 
 #if 0
 /* Buffer used for reception */
@@ -248,68 +426,6 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 } 
 
 /* USER CODE BEGIN 1 */
-/**
-  * @brief  RoadBrd_UART_Transmit
-  * @param  RoadBrd_uart_TypeDef Port: USART Port, uint8_t *pData: Pointer to Data buffer to transmit. 
-  * @note   This routine uses the HAL USART routines to send the reqiuested buffer to the requested channel
-  *         in a blocking mode. 
-  *         It does wait for completion.
-  * @retval HAL_StatusTypeDef:     HAL_OK:       Tasking of block of data to UART success.
-  *                                HAL_ERROR:    Error found in Tasking or data passed.
-  *                                HAL_BUSY:     UART is busy.
-  *                                HAL_TIMEOUT:  UART timed out.
-  */
-HAL_StatusTypeDef RoadBrd_UART_Transmit(RoadBrd_uart_TypeDef Port, uint8_t *pData)
-{
-  HAL_StatusTypeDef Status;
-  uint16_t Size;
-  
-  Size = strlen((char *)pData);  
-  // Test parameters before starting process
-  if (Size > TXBUFFERSIZE)
-    return HAL_ERROR;
-  
-  // Test Port to determine which uart to use for this transfer.
-  if (Port == USART_2)
-  {
-    // Is UART Busy right now?
-    if (Uart2Ready != RESET)
-      return HAL_BUSY;
-    else
-    {
-      Status = HAL_UART_Transmit(&huart2, (uint8_t*)pData, Size, HAL_MAX_DELAY);
-      if(Status != HAL_OK)
-      {
-        return Status;
-      }
-      else
-      {
-         return Status;
-      }
-    }
-  }
-  else if (Port == USART_3)
-  {
-    // Is UART Busy right now?
-    if (Uart3Ready != RESET)
-      return HAL_BUSY;
-    else
-    {
-      Status = HAL_UART_Transmit(&huart3, (uint8_t*)pData, Size, HAL_MAX_DELAY);
-      if(Status != HAL_OK)
-      {
-        return Status;
-      }
-      else
-      {
-         return Status;
-      }
-    }
-  }
-  else 
-    return HAL_ERROR;
-}
-
 /**
   * @brief  RoadBrd_UART_Transmit_ITSZ
   * @param  RoadBrd_uart_TypeDef Port: USART Port, uint8_t *pData: Pointer to Data buffer to transmit. 

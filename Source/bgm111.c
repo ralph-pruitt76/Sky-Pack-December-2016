@@ -4,6 +4,7 @@
 #include <string.h>
 #include "gecko_bglib.h"
 #include "app_data.h"
+#include "usart.h"
 
 
 /* BGLib instantiation */
@@ -406,6 +407,7 @@ void BGM111_ProcessInput(void)
     {
       /* System boot handler */
       case gecko_evt_system_boot_id:
+        SkyPack_MNTR_UART_Transmit( (uint8_t *)"<BGM_BOOT>" );
         /* Flag that the BLE module has booted */
         ble.booted = true;
         Boot_evt = true;
@@ -420,6 +422,7 @@ void BGM111_ProcessInput(void)
           // The following is a simple patch...Best way right now to recover is to force HARD Reset....
           if (Boot_evt == false)
           {
+            SkyPack_MNTR_UART_Transmit( (uint8_t *)"<BGM_CNCTCLOSE>" );
             SkyPack_Reset( FATAL_CNCTDROP );
           }
           /* We succeeded, don't handle this event again */
@@ -430,14 +433,20 @@ void BGM111_ProcessInput(void)
       case gecko_evt_le_connection_opened_id:
         /* Open Event...Set Active Connection Flag */
         /* Don't handle this event again */
+        SkyPack_MNTR_UART_Transmit( (uint8_t *)"<BGM_CNCTOPEN>" );
         ble.connection = true;
         ble.evt = NULL;
         break;
       case 0x020A0020:
+        SkyPack_MNTR_UART_Transmit( (uint8_t *)"-*-" );
+        Clr_HeartBeat();
+        ble.evt = NULL;
+        break;
       //case 0x030A0000:
       case gecko_evt_gatt_server_characteristic_status_id:
         // Clear Heart Beat... We have detected it.
         Flicker_Led();
+        SkyPack_MNTR_UART_Transmit( (uint8_t *)"-O-" );
         Clr_HeartBeat();
         ble.evt = NULL;
         break;

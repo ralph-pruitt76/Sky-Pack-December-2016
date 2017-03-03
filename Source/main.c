@@ -10,6 +10,9 @@
 
 void main()
 {
+  HAL_StatusTypeDef Status;
+  uint8_t tempBffr2[80];
+
   /* Initialize all hardware */
   Sys_Ctrl_Init();
   // Initialize Monitor USART.
@@ -18,6 +21,21 @@ void main()
   SetCapSenseShield(true);
   BGM111_Init();
   InitSensors();
+
+  // Display Banner
+  strcpy( (char *)tempBffr2, "*********************  WEATHERCLOUD *********************\r\n\r\n");
+  Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+  if (Status != HAL_OK)
+    SkyPack_Reset( FATAL_ERROR );;
+  sprintf( (char *)tempBffr2, "     Sky Pack Monitor %s Hardware Version %s \r\n", VERSION_NUM, BRD_REV);
+  Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+  if (Status != HAL_OK)
+    SkyPack_Reset( FATAL_ERROR );;
+  sprintf( (char *)tempBffr2, "                  Copyright %s. \r\n\r\n\r\n> ", REL_DATE);
+  Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+  if (Status != HAL_OK)
+    SkyPack_Reset( FATAL_ERROR );;
+ 
   
   /* Endless main loop */
   for (;;)

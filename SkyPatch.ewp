@@ -7961,6 +7961,9 @@
       <name>$PROJ_DIR$\Source\bgm111.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\Source\ErrCodes.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\Source\i2c_bus.c</name>
     </file>
     <file>
