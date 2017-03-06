@@ -311,6 +311,7 @@ void ProcessSensorState(void)
   char characteristic[21];
   uint8_t tempStr[13];
   uint8_t tempBffr2[10];
+  uint8_t tempbffr[30];
   static int nullCnt = 0;
   
   /* Is a reading scheduled? */
@@ -329,17 +330,21 @@ void ProcessSensorState(void)
     /* Read the irradiance in 1/100 lux */
     data.irradiance = OPT3001_GetData();
     // Build Display String from value.
-    sprintf( (char *)tempBffr2, "<%5dlx>", data.irradiance);
+    //sprintf( (char *)tempBffr2, "<%5dlx>", data.irradiance);
+    sprintf( (char *)tempBffr2, "  <%05dlx/%d>  ", data.irradiance, data.pressure);
     SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2);
 
     /* Read the miscellaneous cap sensors */
     ReadMiscSensors();
     
     // Verify Data quality by checking irradiance.
-    if ( data.irradiance == 0)
+    //data.pressure = 0;
+    if ( data.pressure == 0)
     {
       // We have null data from irradiance...Inc nullCnt.
       nullCnt++;
+      sprintf(( char *)tempbffr, "<<<I2C=NULL:Strike %01d>>>\r\n", nullCnt);
+      SkyPack_MNTR_UART_Transmit( (uint8_t *)tempbffr );
       if (nullCnt >= NULL_MAX)
       {
         nullCnt = 0;

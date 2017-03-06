@@ -4,3 +4,5 @@ Release/
 BLE112/attributes.txt
 BLE112/out.hex
 BLE112/variable_memory_usage.txt
+*.dep
+settings/SkyPatch.*

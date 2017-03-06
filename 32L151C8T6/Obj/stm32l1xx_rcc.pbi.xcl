@@ -1,4 +1,4 @@
-"D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_wwdg.c"
+"D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_rcc.c"
 -std=c99
 -ferror-limit=100
 -I
@@ -27,7 +27,6 @@ D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-20
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.4\arm\CMSIS\Include
 -DUSE_STDPERIPH_DRIVER=1
 -DDEBUG=1
--DLONG_DELAY=1
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0
