@@ -15,7 +15,7 @@ TraceBufferSize=0x00010000
 TraceStallIfFIFOFull=0x00000000
 TracePortSize=0x00000004
 [DebugChecksum]
-Checksum=-716452947
+Checksum=-141886888
 [CodeCoverage]
 Enabled=_ 0
 [Exceptions]
@@ -91,6 +91,12 @@ ShowTimeLog=1
 SumEnabled=0
 ShowTimeSum=1
 SumSortOrder=0
+[Disassemble mode]
+mode=0
+[Breakpoints2]
+Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\Source\bgm111.c}.468.9" 0 0 1 "" 0 "" 0
+Bp1=_ 0 "EMUL_CODE" "{$PROJ_DIR$\Source\sys_ctrl.c}.120.3" 0 0 1 "" 0 "" 0
+Count=2
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -98,6 +104,9 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
+[Aliases]
+Count=0
+SuppressDialog=0
 [DriverProfiling]
 Enabled=0
 Mode=1
@@ -112,12 +121,3 @@ ShowTiming=0
 Frequency=10000
 Probe0=I0
 ProbeSetup0=2 1 1 2 0 0
-[Disassemble mode]
-mode=0
-[Breakpoints2]
-Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\Source\bgm111.c}.468.9" 0 0 1 "" 0 "" 0
-Bp1=_ 0 "EMUL_CODE" "{$PROJ_DIR$\Source\sys_ctrl.c}.120.3" 0 0 1 "" 0 "" 0
-Count=2
-[Aliases]
-Count=0
-SuppressDialog=0
