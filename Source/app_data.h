@@ -29,7 +29,8 @@ typedef enum
 #define NULL_MAX                5        // Maximum number of null readings before reset.
 #ifdef LONG_DELAY
   #define CONNECTION_CNT          4500     // 15 Minutes.
-  #define HEARTBEAT_CNT           1500     // 5 Minutes.
+  //#define HEARTBEAT_CNT           1500     // 5 Minutes.
+  #define HEARTBEAT_CNT           900     // 3 Minutes.
 #else
   #define CONNECTION_CNT          450      // 90 Seconds.
   #define HEARTBEAT_CNT           150      // 30 Seconds.
