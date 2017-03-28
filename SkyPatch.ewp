@@ -8003,6 +8003,9 @@
       <name>$PROJ_DIR$\Source\misc_sense.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\Source\miscRoutines.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\Source\opt3001.c</name>
     </file>
     <file>

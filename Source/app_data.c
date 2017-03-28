@@ -14,6 +14,7 @@
 #include <string.h>
 #include "sys_ctrl.h"
 #include "ErrCodes.h"
+#include "miscRoutines.h"
 
 /* Characteristic handles */
 #define gattdb_accelerometer                    8
@@ -474,9 +475,11 @@ void delay_100msec( int value )
   */
 void Flicker_Led( void )
 {
-  SetLED(true);
+  //SetLED(true);
+  SkyPack_gpio_On(BLUE_LED);
   delay_10ms();
-  SetLED(false);
+  //SetLED(false);
+  SkyPack_gpio_Off(BLUE_LED);
   delay_10ms();
 }
 
@@ -494,14 +497,18 @@ void SkyPack_Reset( int code )
   // Alert User by Blinking LED Fast and then wait 1 Second.
   for (x=0; x<code; x++)
   {
-    SetLED(true);
+    //SetLED(true);
+    SkyPack_gpio_On(BLUE_LED);
     delay_100msec(1);
-    SetLED(false);
+    //SetLED(false);
+    SkyPack_gpio_Off(BLUE_LED);
     delay_100msec(1);
   }
-  SetLED(true);
+  //SetLED(true);
+  SkyPack_gpio_On(BLUE_LED);
   delay_100msec(10);
-  SetLED(false);
+  //SetLED(false
+  SkyPack_gpio_Off(BLUE_LED);
   delay_100msec(10);
   // Alternate way to reset....Power Down Power Plane.
 #ifndef DISABLE_HARD_REBOOT

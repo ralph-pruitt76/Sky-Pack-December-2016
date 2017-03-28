@@ -5,7 +5,7 @@
 
 #include "misc_sense.h"
 #include "sys_ctrl.h"
-
+#include "miscRoutines.h"
 
 /* Cap sense timer interrupts per second */
 
@@ -319,7 +319,8 @@ void CAP_TIM_IRQHandler(void)
       cap_sense.detect_debounce = 0;
       cap_sense.events++;
       /* Pulse the LED */
-      SetLED(true);
+      //SetLED(true);
+      SkyPack_gpio_On(BLUE_LED);
     }
   }
   else
@@ -335,7 +336,8 @@ void CAP_TIM_IRQHandler(void)
       /* No current event anymore */
       cap_sense.detect = 0;
       /* Turn the LED off */
-      SetLED(false);
+      //SetLED(false);
+      SkyPack_gpio_Off(BLUE_LED);
     }
   }
   

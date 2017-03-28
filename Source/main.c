@@ -5,6 +5,7 @@
 #include "usart.h"
 #include <stdio.h>
 #include <string.h>
+#include "miscRoutines.h"
 
 /* Program entry point */
 
@@ -19,6 +20,19 @@ void main()
   MX_MNTR_UART_Init();
 
   SetCapSenseShield(true);
+
+  // Wait for power to stabilize off...200msec
+  delay_100msec(2);
+  // Turn on Power Supplies.
+  SkyPack_gpio_On(gVDD_PWR);            // Turn on VDD(I2C Sensors).
+  delay_100msec(2);                     // Wait 200 msec to settle.
+  SkyPack_gpio_On(gBGM_PWR);            // Turn on V+(BGM Power).
+
+  // Wait for power to stabilize...200msec
+  delay_100msec(2);
+  // Reset all Drivers to Off before starting init process.
+//  Reset_DriverStates();
+
   BGM111_Init();
   InitSensors();
 

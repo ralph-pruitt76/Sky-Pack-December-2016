@@ -26,6 +26,14 @@ enum eUSBPower
 
 /* System control interface pins and peripherals */
 
+#define CHARGE_ON_GPIO_PORT             GPIOA
+#define CHARGE_ON_PIN                   GPIO_Pin_7
+#define CHARGE_ON_GPIO_CLK              RCC_AHBPeriph_GPIOA
+
+#define HEAT_ON_GPIO_PORT               GPIOA
+#define HEAT_ON_PIN                     GPIO_Pin_8
+#define HEAT_ON_GPIO_CLK                RCC_AHBPeriph_GPIOA
+
 #define SHIELD_ON_GPIO_PORT             GPIOA
 #define SHIELD_ON_PIN                   GPIO_Pin_5
 #define SHIELD_ON_GPIO_CLK              RCC_AHBPeriph_GPIOA
@@ -38,8 +46,24 @@ enum eUSBPower
 #define HEAT_ON_PIN                     GPIO_Pin_8
 #define HEAT_ON_GPIO_CLK                RCC_AHBPeriph_GPIOA
 
+#define VDD_ON_GPIO_PORT                GPIOA
+#define VDD_ON_PIN                      GPIO_Pin_0
+#define VDD_ON_GPIO_CLK                 RCC_AHBPeriph_GPIOA
+
+#define BGM_ON_GPIO_PORT                GPIOA
+#define BGM_ON_PIN                      GPIO_Pin_1
+#define BGM_ON_GPIO_CLK                 RCC_AHBPeriph_GPIOA
+
+#define RESET_BGM111_PIN                GPIO_Pin_15
+#define RESET_BGM111_GPIO_PORT          GPIOB
 #define STATUS_LED_GPIO_PORT            GPIOB
 #define STATUS_LED_PIN                  GPIO_Pin_9
+#define BLUE_PIN                        GPIO_Pin_9
+#define BLUE_GPIO_PORT                  GPIOB
+#define GREEN_PIN                       GPIO_Pin_12
+#define GREEN_GPIO_PORT                 GPIOB
+#define YELLOW_PIN                      GPIO_Pin_8
+#define YELLOW_GPIO_PORT                GPIOB
 #define STATUS_LED_GPIO_CLK             RCC_AHBPeriph_GPIOB
 #define STATUS_LED_SOURCE               GPIO_PinSource9
 #define STATUS_LED_AF                   GPIO_AF_TIM11
