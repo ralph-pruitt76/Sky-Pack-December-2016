@@ -320,7 +320,7 @@ void CAP_TIM_IRQHandler(void)
       cap_sense.events++;
       /* Pulse the LED */
       //SetLED(true);
-      SkyPack_gpio_On(BLUE_LED);
+      SkyPack_gpio_On(MICRO_LED);
     }
   }
   else
@@ -337,7 +337,7 @@ void CAP_TIM_IRQHandler(void)
       cap_sense.detect = 0;
       /* Turn the LED off */
       //SetLED(false);
-      SkyPack_gpio_Off(BLUE_LED);
+      SkyPack_gpio_Off(MICRO_LED);
     }
   }
   

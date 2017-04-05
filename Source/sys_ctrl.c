@@ -3,7 +3,7 @@
  * charging chip, the charging heater and the status LED */
 
 #include "sys_ctrl.h"
-
+#include "miscRoutines.h"
 
 /* Initialize the system control */
 
@@ -45,7 +45,25 @@ void Sys_Ctrl_Init(void)
   GPIO_Init(CHARGE_ON_GPIO_PORT, &GPIO_InitStructure);
   GPIO_SetBits(CHARGE_ON_GPIO_PORT, CHARGE_ON_PIN);
   
-  /* Status LED configuration */
+  // I2C_ON  pin configuration.
+  GPIO_InitStructure.GPIO_Pin = VDD_ON_PIN;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(VDD_ON_GPIO_PORT, &GPIO_InitStructure);
+  SkyPack_gpio_On(gVDD_PWR);
+
+  // BGM_ON  pin configuration.
+  GPIO_InitStructure.GPIO_Pin = BGM_ON_PIN;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(BGM_ON_GPIO_PORT, &GPIO_InitStructure);
+  SkyPack_gpio_On(gBGM_PWR);
+  
+  /* BGM_LED configuration */
   GPIO_InitStructure.GPIO_Pin = STATUS_LED_PIN;
 #ifdef LED_PWM
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
@@ -56,6 +74,24 @@ void Sys_Ctrl_Init(void)
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
   GPIO_Init(STATUS_LED_GPIO_PORT, &GPIO_InitStructure);
+
+  // STATUS_LED configuration.
+  GPIO_InitStructure.GPIO_Pin = YELLOW_PIN;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(YELLOW_GPIO_PORT, &GPIO_InitStructure);
+  SkyPack_gpio_Off(STATUS_LED);
+
+  // MICRO_LED configuration.
+  GPIO_InitStructure.GPIO_Pin = GREEN_PIN;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GREEN_GPIO_PORT, &GPIO_InitStructure);
+  SkyPack_gpio_Off(MICRO_LED);
   
 #if LED_PWM
   /* Configure TIM11 to drive the status LED:

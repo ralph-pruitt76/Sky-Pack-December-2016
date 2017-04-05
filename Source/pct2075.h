@@ -82,7 +82,7 @@ typedef struct
 /* Sensor Configuration */
 /* Provide an init stucture, returns PCT2075_OK or PCT2075_ERR */
 
-uint8_t PCT2075_Init(PCT2075_InitTypeDef *PCT2075_InitStruct);
+HAL_StatusTypeDef PCT2075_Init(PCT2075_InitTypeDef *PCT2075_InitStruct);
 
 /* Data functions */
 

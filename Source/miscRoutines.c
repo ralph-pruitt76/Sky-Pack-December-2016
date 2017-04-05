@@ -35,6 +35,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "miscRoutines.h"
 #include "sys_ctrl.h"
+#include "app_data.h"
 //#include "usart.h"
 //#include <stdio.h>
 //#include <string.h>
@@ -82,6 +83,151 @@ void SkyPack_gpio_On(SkyPack_Led_TypeDef Port)
 void SkyPack_gpio_Off(SkyPack_Led_TypeDef Port)
 {
   GPIO_ResetBits(SkyPack_LED_PORT[Port], SkyPack_LED_PIN[Port]);
+}
+
+/**
+  * @brief  Turns selected gpio Input(Tri-State).
+  * @param  Led: Specifies the gpio to be set Tri-State. 
+  *   This parameter can be one of following parameters:
+  * @retval None
+  */
+void SkyPack_gpio_TriState(SkyPack_Led_TypeDef Port)
+{
+  GPIO_InitTypeDef GPIO_InitStructure;
+
+  GPIO_InitStructure.GPIO_Pin = SkyPack_LED_PIN[Port];
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;                  // Set as Input....No Drive.
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;                // Open Drain...NO Drive.
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;              // NO PULL.
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;              // Low Speed
+  GPIO_Init(SkyPack_LED_PORT[Port], &GPIO_InitStructure);
+}
+
+/**
+  * @brief  Re-Init selected gpio Input.
+  * @param  Led: Specifies the gpio to be set initialized. 
+  *   This parameter can be one of following parameters:
+  * @retval None
+  */
+void SkyPack_gpio_ReInit(SkyPack_Led_TypeDef Port)
+{
+  GPIO_InitTypeDef GPIO_InitStructure;
+
+  GPIO_InitStructure.GPIO_Pin = SkyPack_LED_PIN[Port];
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;                  // Set as Output
+  if (Port == gCHARGE_ON)
+    GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;              // Open Drain...NO Drive.
+  else
+    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;              // Normal Push-Pull.
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;              // NO PULL.
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;              // Low Speed
+  GPIO_Init(SkyPack_LED_PORT[Port], &GPIO_InitStructure);
+}
+
+/**
+  * @brief  Re-Power Up IO Pins to known state.
+  * @param  None
+  * @retval None
+  */
+void SkyPack_RePowerUpIO( void )
+{
+  // 1. Enable gRESET_BGM111 Pin and assert Low.
+  SkyPack_gpio_ReInit(gRESET_BGM111);
+  SkyPack_gpio_Off(gRESET_BGM111);
+  // 2. Enable LEDs.
+  SkyPack_gpio_ReInit(BGM_LED);
+  SkyPack_gpio_Off(BGM_LED);
+  SkyPack_gpio_ReInit(MICRO_LED);
+  SkyPack_gpio_Off(MICRO_LED);
+  SkyPack_gpio_ReInit(STATUS_LED);
+  SkyPack_gpio_Off(STATUS_LED);
+  // 3. Power up VDD
+  SkyPack_gpio_On(gVDD_PWR);            // Turn on VDD(I2C Sensors).
+  // 4. Wait 100msec for power plane o stabilize.
+  delay_100msec(1);
+  // 5. Power Up BGM111.
+  SkyPack_gpio_On(gBGM_PWR);            // Turn on V+(BGM Power).
+  // 6. Wait for power to stabilize...200msec
+  delay_100msec(1);
+}
+
+/**
+  * @brief  Power Down IO Pinsknown state.
+  * @param  None
+  * @retval None
+  */
+void SkyPack_PowerDnIO( void )
+{
+  // Power Down Planes in Order.
+  //    1. Assert Reset Pin on BGM111
+  SkyPack_gpio_Off(gRESET_BGM111);
+  //    2. Wait 100 msec for it to stabilize.
+  delay_100msec(1);
+  //    3. Power down BGM111.
+  SkyPack_gpio_TriState(gBGM_PWR);
+  //    4. Wait 100 msec.
+  delay_100msec(1);
+  //    5. Power Down I2C Bus.
+  SkyPack_gpio_TriState(gVDD_PWR);
+  //    6. Wait 100 msec.
+  delay_100msec(1);
+  
+  // NEXT, Lets set all IO Pins into correct state.
+  SkyPack_gpio_TriState(gCHARGE_ON);
+  SkyPack_gpio_TriState(gHEAT_ON);
+  SkyPack_gpio_TriState(STATUS_LED);
+  SkyPack_gpio_TriState(BGM_LED);
+  SkyPack_gpio_TriState(MICRO_LED);
+  SkyPack_gpio_TriState(gRESET_BGM111);
+}
+
+/**
+  * @brief  Test LEDs by flashing each for 100msec.
+  * @param  None
+  * @retval None
+  */
+void SkyPack_LEDTest( void )
+{
+  //    1. Test Blue LED
+  SkyPack_gpio_On(BLUE_LED);
+  delay_100msec(1);
+  SkyPack_gpio_Off(BLUE_LED);
+  delay_100msec(1);
+  //    2. Test Green LED
+  SkyPack_gpio_On(GREEN_LED);
+  delay_100msec(1);
+  SkyPack_gpio_Off(GREEN_LED);
+  delay_100msec(1);
+  //    3. Test Yellow LED
+  SkyPack_gpio_On(YELLOW_LED);
+  delay_100msec(1);
+  SkyPack_gpio_Off(YELLOW_LED);
+  delay_100msec(1);
+}
+
+/**
+  * @brief  Reads the specified input port pin.
+  * @param  GPIOx: where x can be (A..G depending on device used) to select the GPIO peripheral for STM32L1XX family devices 
+  * @param  GPIO_Pin: specifies the port bit to read.
+  *         This parameter can be GPIO_PIN_x where x can be (0..15).
+  * @retval The input port pin value.
+  */
+GPIO_PinState HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
+{
+  GPIO_PinState bitstatus;
+
+  /* Check the parameters */
+  assert_param(IS_GPIO_PIN(GPIO_Pin));
+
+  if ((GPIOx->IDR & GPIO_Pin) != (uint32_t)GPIO_PIN_RESET)
+  {
+    bitstatus = GPIO_PIN_SET;
+  }
+  else
+  {
+    bitstatus = GPIO_PIN_RESET;
+  }
+  return bitstatus;
 }
 
 

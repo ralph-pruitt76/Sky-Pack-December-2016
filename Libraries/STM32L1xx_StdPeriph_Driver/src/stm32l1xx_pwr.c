@@ -37,6 +37,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32l1xx_pwr.h"
 #include "stm32l1xx_rcc.h"
+#include "miscRoutines.h"
+#include "app_data.h"
 
 /** @addtogroup STM32L1xx_StdPeriph_Driver
   * @{
@@ -626,6 +628,9 @@ void PWR_EnterSleepMode(uint32_t PWR_Regulator, uint8_t PWR_SLEEPEntry)
 
   assert_param(IS_PWR_SLEEP_ENTRY(PWR_SLEEPEntry));
   
+  // Power Down Planes in Order.
+  SkyPack_PowerDnIO();
+  
   /* Select the regulator state in Sleep mode ---------------------------------*/
   tmpreg = PWR->CR;
   
@@ -652,6 +657,8 @@ void PWR_EnterSleepMode(uint32_t PWR_Regulator, uint8_t PWR_SLEEPEntry)
     /* Request Wait For Event */
     __WFE();
   }
+  // Power Up Board after sleep.
+  SkyPack_RePowerUpIO();
 }
 
 /**
@@ -681,6 +688,9 @@ void PWR_EnterSTOPMode(uint32_t PWR_Regulator, uint8_t PWR_STOPEntry)
   assert_param(IS_PWR_REGULATOR(PWR_Regulator));
   assert_param(IS_PWR_STOP_ENTRY(PWR_STOPEntry));
   
+  // Power Down Planes in Order.
+  SkyPack_PowerDnIO();
+  
   /* Select the regulator state in STOP mode ---------------------------------*/
   tmpreg = PWR->CR;
   /* Clear PDDS and LPDSR bits */
@@ -708,6 +718,8 @@ void PWR_EnterSTOPMode(uint32_t PWR_Regulator, uint8_t PWR_STOPEntry)
   }
   /* Reset SLEEPDEEP bit of Cortex System Control Register */
   SCB->SCR &= (uint32_t)~((uint32_t)SCB_SCR_SLEEPDEEP);  
+  // Power Up Board after sleep.
+  SkyPack_RePowerUpIO();
 }
 
 /**
@@ -722,6 +734,9 @@ void PWR_EnterSTOPMode(uint32_t PWR_Regulator, uint8_t PWR_STOPEntry)
   */
 void PWR_EnterSTANDBYMode(void)
 {
+  // Power Down Planes in Order.
+  SkyPack_PowerDnIO();
+  
   /* Clear Wakeup flag */
   PWR->CR |= PWR_CR_CWUF;
   
@@ -737,6 +752,8 @@ void PWR_EnterSTANDBYMode(void)
 #endif
   /* Request Wait For Interrupt */
   __WFI();
+  // Power Up Board after sleep.
+  SkyPack_RePowerUpIO();
 }
 
 /**

@@ -59,8 +59,8 @@ uint8_t LPS25HB_SlaveAddress = LPS25HB_ADDRESS_HIGH;
  * @}
  */
 
-static PRESSURE_StatusTypeDef LPS25HB_I2C_ReadRawPressure(int32_t *raw_press);
-static PRESSURE_StatusTypeDef LPS25HB_I2C_ReadRawTemperature(int16_t *raw_data);
+static HAL_StatusTypeDef LPS25HB_I2C_ReadRawPressure(int32_t *raw_press);
+static HAL_StatusTypeDef LPS25HB_I2C_ReadRawTemperature(int16_t *raw_data);
 
 /** @defgroup LPS25HB_Private_Functions LPS25HB_Private_Functions
  * @{
@@ -69,26 +69,26 @@ static PRESSURE_StatusTypeDef LPS25HB_I2C_ReadRawTemperature(int16_t *raw_data);
 /**
  * @brief  Set LPS25HB Initialization
  * @param  LPS25HB_Init the configuration setting for the LPS25HB
- * @retval PRESSURE_OK in case of success, an error code otherwise
+ * @retval HAL_OK in case of success, an error code otherwise
  */
-PRESSURE_StatusTypeDef LPS25HB_Init(PRESSURE_InitTypeDef *LPS25HB_Init)
+HAL_StatusTypeDef LPS25HB_Init(PRESSURE_InitTypeDef *LPS25HB_Init)
 {
   uint8_t tmp1 = 0x00;
   
   /* Configure the low level interface ---------------------------------------*/
-  if(LPS25HB_IO_Init() != PRESSURE_OK)
+  if(LPS25HB_IO_Init() != HAL_OK)
   {
-    return PRESSURE_ERROR;
+    return HAL_ERROR;
   }
   
-  if(LPS25HB_PowerOn() != PRESSURE_OK)
+  if(LPS25HB_PowerOn() != HAL_OK)
   {
-    return PRESSURE_ERROR;
+    return HAL_ERROR;
   }
   
-  if(LPS25HB_IO_Read(&tmp1, LPS25HB_SlaveAddress, LPS25HB_CTRL_REG1_ADDR, 1) != PRESSURE_OK)
+  if(LPS25HB_IO_Read(&tmp1, LPS25HB_SlaveAddress, LPS25HB_CTRL_REG1_ADDR, 1) != HAL_OK)
   {
-    return PRESSURE_ERROR;
+    return HAL_ERROR;
   }
   
   /* Output Data Rate selection */
@@ -107,14 +107,14 @@ PRESSURE_StatusTypeDef LPS25HB_Init(PRESSURE_InitTypeDef *LPS25HB_Init)
   tmp1 &= ~(LPS25HB_SPI_SIM_MASK);
   tmp1 |= LPS25HB_Init->SPIMode;
   
-  if(LPS25HB_IO_Write(&tmp1, LPS25HB_SlaveAddress, LPS25HB_CTRL_REG1_ADDR, 1) != PRESSURE_OK)
+  if(LPS25HB_IO_Write(&tmp1, LPS25HB_SlaveAddress, LPS25HB_CTRL_REG1_ADDR, 1) != HAL_OK)
   {
-    return PRESSURE_ERROR;
+    return HAL_ERROR;
   }
   
-  if(LPS25HB_IO_Read(&tmp1, LPS25HB_SlaveAddress, LPS25HB_RES_CONF_ADDR, 1) != PRESSURE_OK)
+  if(LPS25HB_IO_Read(&tmp1, LPS25HB_SlaveAddress, LPS25HB_RES_CONF_ADDR, 1) != HAL_OK)
   {
-    return PRESSURE_ERROR;
+    return HAL_ERROR;
   }
   
   /* Serial Interface Mode selection */
@@ -125,26 +125,26 @@ PRESSURE_StatusTypeDef LPS25HB_Init(PRESSURE_InitTypeDef *LPS25HB_Init)
   tmp1 &= ~(LPS25HB_T_RES_MASK);
   tmp1 |= LPS25HB_Init->TemperatureResolution;
   
-  if(LPS25HB_IO_Write(&tmp1, LPS25HB_SlaveAddress, LPS25HB_RES_CONF_ADDR, 1) != PRESSURE_OK)
+  if(LPS25HB_IO_Write(&tmp1, LPS25HB_SlaveAddress, LPS25HB_RES_CONF_ADDR, 1) != HAL_OK)
   {
-    return PRESSURE_ERROR;
+    return HAL_ERROR;
   }
   
   //LPS25HB_IO_ITConfig();
   
-  return PRESSURE_OK;
+  return HAL_OK;
 }
 
 /**
  * @brief  Read ID address of LPS25HB
  * @param  ht_id the pointer where the ID of the device is stored
- * @retval PRESSURE_OK in case of success, an error code otherwise
+ * @retval HAL_OK in case of success, an error code otherwise
  */
-PRESSURE_StatusTypeDef LPS25HB_ReadID(uint8_t *p_id)
+HAL_StatusTypeDef LPS25HB_ReadID(uint8_t *p_id)
 {
   if(!p_id)
   {
-    return PRESSURE_ERROR;
+    return HAL_ERROR;
   }
   
   return LPS25HB_IO_Read(p_id, LPS25HB_SlaveAddress, LPS25HB_WHO_AM_I_ADDR, 1);
@@ -152,37 +152,37 @@ PRESSURE_StatusTypeDef LPS25HB_ReadID(uint8_t *p_id)
 
 /**
  * @brief  Reboot memory content of LPS25HB
- * @retval PRESSURE_OK in case of success, an error code otherwise
+ * @retval HAL_OK in case of success, an error code otherwise
  */
-PRESSURE_StatusTypeDef LPS25HB_RebootCmd(void)
+HAL_StatusTypeDef LPS25HB_RebootCmd(void)
 {
   uint8_t tmpreg;
   
   /* Read CTRL_REG5 register */
-  if(LPS25HB_IO_Read(&tmpreg, LPS25HB_SlaveAddress, LPS25HB_CTRL_REG2_ADDR, 1) != PRESSURE_OK)
+  if(LPS25HB_IO_Read(&tmpreg, LPS25HB_SlaveAddress, LPS25HB_CTRL_REG2_ADDR, 1) != HAL_OK)
   {
-    return PRESSURE_ERROR;
+    return HAL_ERROR;
   }
   
   /* Enable or Disable the reboot memory */
   tmpreg |= LPS25HB_RESET_MEMORY;
   
   /* Write value to MEMS CTRL_REG5 regsister */
-  if(LPS25HB_IO_Write(&tmpreg, LPS25HB_SlaveAddress, LPS25HB_CTRL_REG2_ADDR, 1) != PRESSURE_OK)
+  if(LPS25HB_IO_Write(&tmpreg, LPS25HB_SlaveAddress, LPS25HB_CTRL_REG2_ADDR, 1) != HAL_OK)
   {
-    return PRESSURE_ERROR;
+    return HAL_ERROR;
   }
   
-  return PRESSURE_OK;
+  return HAL_OK;
 }
 
 
 /**
  * @brief  Read LPS25HB output register, and calculate the raw pressure
  * @param  raw_press the pressure raw value
- * @retval PRESSURE_OK in case of success, an error code otherwise
+ * @retval HAL_OK in case of success, an error code otherwise
  */
-static PRESSURE_StatusTypeDef LPS25HB_I2C_ReadRawPressure(int32_t *raw_press)
+static HAL_StatusTypeDef LPS25HB_I2C_ReadRawPressure(int32_t *raw_press)
 {
   uint8_t buffer[3], i;
   uint32_t tempVal = 0;
@@ -190,9 +190,9 @@ static PRESSURE_StatusTypeDef LPS25HB_I2C_ReadRawPressure(int32_t *raw_press)
   /* Read the register content */
   
   if(LPS25HB_IO_Read(buffer, LPS25HB_SlaveAddress, (LPS25HB_PRESS_POUT_XL_ADDR | LPS25HB_I2C_MULTIPLEBYTE_CMD),
-                     3) != PRESSURE_OK)
+                     3) != HAL_OK)
   {
-    return PRESSURE_ERROR;
+    return HAL_ERROR;
   }
   
   /* Build the raw data */
@@ -206,43 +206,43 @@ static PRESSURE_StatusTypeDef LPS25HB_I2C_ReadRawPressure(int32_t *raw_press)
   /* return the built value */
   *raw_press = ((int32_t) tempVal);
   
-  return PRESSURE_OK;
+  return HAL_OK;
 }
 
 /**
  * @brief  Read LPS25HB output register, and calculate the pressure in mbar
  * @param  pfData the pressure value in mbar
- * @retval PRESSURE_OK in case of success, an error code otherwise
+ * @retval HAL_OK in case of success, an error code otherwise
  */
-PRESSURE_StatusTypeDef LPS25HB_GetPressure(float* pfData)
+HAL_StatusTypeDef LPS25HB_GetPressure(float* pfData)
 {
   int32_t raw_press = 0;
   
-  if(LPS25HB_I2C_ReadRawPressure(&raw_press) != PRESSURE_OK)
+  if(LPS25HB_I2C_ReadRawPressure(&raw_press) != HAL_OK)
   {
-    return PRESSURE_ERROR;
+    return HAL_ERROR;
   }
   
   *pfData = (float)raw_press / 4096.0f;
   
-  return PRESSURE_OK;
+  return HAL_OK;
 }
 
 /**
  * @brief  Read LPS25HB output register, and calculate the raw temperature
  * @param  raw_data the temperature raw value
- * @retval PRESSURE_OK in case of success, an error code otherwise
+ * @retval HAL_OK in case of success, an error code otherwise
  */
-static PRESSURE_StatusTypeDef LPS25HB_I2C_ReadRawTemperature(int16_t *raw_data)
+static HAL_StatusTypeDef LPS25HB_I2C_ReadRawTemperature(int16_t *raw_data)
 {
   uint8_t buffer[2];
   uint16_t tempVal = 0;
   
   /* Read the register content */
   if(LPS25HB_IO_Read(buffer, LPS25HB_SlaveAddress, (LPS25HB_TEMP_OUT_L_ADDR | LPS25HB_I2C_MULTIPLEBYTE_CMD),
-                     2) != PRESSURE_OK)
+                     2) != HAL_OK)
   {
-    return PRESSURE_ERROR;
+    return HAL_ERROR;
   }
   
   /* Build the raw value */
@@ -251,78 +251,78 @@ static PRESSURE_StatusTypeDef LPS25HB_I2C_ReadRawTemperature(int16_t *raw_data)
   /* Return it */
   *raw_data = ((int16_t)tempVal);
   
-  return PRESSURE_OK;
+  return HAL_OK;
 }
 
 /**
  * @brief  Read LPS25HB output register, and calculate the temperature
  * @param  pfData the temperature value
- * @retval PRESSURE_OK in case of success, an error code otherwise
+ * @retval HAL_OK in case of success, an error code otherwise
  */
-PRESSURE_StatusTypeDef LPS25HB_GetTemperature(float *pfData)
+HAL_StatusTypeDef LPS25HB_GetTemperature(float *pfData)
 {
   int16_t raw_data;
   
-  if(LPS25HB_I2C_ReadRawTemperature(&raw_data) != PRESSURE_OK)
+  if(LPS25HB_I2C_ReadRawTemperature(&raw_data) != HAL_OK)
   {
-    return PRESSURE_ERROR;
+    return HAL_ERROR;
   }
   
   *pfData = (float)((((float)raw_data / 480.0f) + 42.5f));
   
-  return PRESSURE_OK;
+  return HAL_OK;
 }
 /**
  * @brief  Exit the shutdown mode for LPS25HB
- * @retval PRESSURE_OK in case of success, an error code otherwise
+ * @retval HAL_OK in case of success, an error code otherwise
  */
-static PRESSURE_StatusTypeDef LPS25HB_PowerOn(void)
+static HAL_StatusTypeDef LPS25HB_PowerOn(void)
 {
   uint8_t tmpreg;
   
   /* Read the register content */
-  if(LPS25HB_IO_Read(&tmpreg, LPS25HB_SlaveAddress, LPS25HB_CTRL_REG1_ADDR, 1) != PRESSURE_OK)
+  if(LPS25HB_IO_Read(&tmpreg, LPS25HB_SlaveAddress, LPS25HB_CTRL_REG1_ADDR, 1) != HAL_OK)
   {
-    return PRESSURE_ERROR;
+    return HAL_ERROR;
   }
   
   /* Set the power down bit */
   tmpreg |= LPS25HB_MODE_ACTIVE;
   
   /* Write register */
-  if(LPS25HB_IO_Write(&tmpreg, LPS25HB_SlaveAddress, LPS25HB_CTRL_REG1_ADDR, 1) != PRESSURE_OK)
+  if(LPS25HB_IO_Write(&tmpreg, LPS25HB_SlaveAddress, LPS25HB_CTRL_REG1_ADDR, 1) != HAL_OK)
   {
-    return PRESSURE_ERROR;
+    return HAL_ERROR;
   }
   
-  return PRESSURE_OK;
+  return HAL_OK;
 }
 
 
 /**
  * @brief  Enter the shutdown mode for LPS25HB
- * @retval PRESSURE_OK in case of success, an error code otherwise
+ * @retval HAL_OK in case of success, an error code otherwise
  */
-PRESSURE_StatusTypeDef LPS25HB_PowerOff(void)
+HAL_StatusTypeDef LPS25HB_PowerOff(void)
 {
   uint8_t tmpreg;
   
   /* Read the register content */
-  if(LPS25HB_IO_Read(&tmpreg, LPS25HB_SlaveAddress, LPS25HB_CTRL_REG1_ADDR, 1) != PRESSURE_OK)
+  if(LPS25HB_IO_Read(&tmpreg, LPS25HB_SlaveAddress, LPS25HB_CTRL_REG1_ADDR, 1) != HAL_OK)
   {
-    return PRESSURE_ERROR;
+    return HAL_ERROR;
   }
   
   /* Reset the power down bit */
   tmpreg &= ~(LPS25HB_MODE_ACTIVE);
   
   /* Write register */
-  if(LPS25HB_IO_Write(&tmpreg, LPS25HB_SlaveAddress, LPS25HB_CTRL_REG1_ADDR, 1) != PRESSURE_OK)
+  if(LPS25HB_IO_Write(&tmpreg, LPS25HB_SlaveAddress, LPS25HB_CTRL_REG1_ADDR, 1) != HAL_OK)
   {
-    return PRESSURE_ERROR;
+    return HAL_ERROR;
   }
   
-  return PRESSURE_OK;
+  return HAL_OK;
 }
 
 /**

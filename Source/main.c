@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "miscRoutines.h"
+#include "i2c_bus.h"
 
 /* Program entry point */
 
@@ -21,20 +22,28 @@ void main()
 
   SetCapSenseShield(true);
 
-  // Wait for power to stabilize off...200msec
-  delay_100msec(2);
+  // Test LEDs
+  SkyPack_LEDTest();
+  
   // Turn on Power Supplies.
-  SkyPack_gpio_On(gVDD_PWR);            // Turn on VDD(I2C Sensors).
+  SkyPack_gpio_Off(gVDD_PWR);            // Turn on VDD(I2C Sensors).
   delay_100msec(2);                     // Wait 200 msec to settle.
-  SkyPack_gpio_On(gBGM_PWR);            // Turn on V+(BGM Power).
+  SkyPack_gpio_Off(gBGM_PWR);            // Turn on V+(BGM Power).
 
   // Wait for power to stabilize...200msec
   delay_100msec(2);
   // Reset all Drivers to Off before starting init process.
-//  Reset_DriverStates();
+  Reset_DriverStates();
 
+  // Test I2C Channel and see if we even have a working I2C.
+  SkyPack_TestI2C();
+  
   BGM111_Init();
-  InitSensors();
+  // Test I2C Status and Task init I2C if Active driver.
+  if ( Get_DriverStates( I2C_STATE ) )
+  {
+    InitSensors();
+  }
 
   // Display Banner
   strcpy( (char *)tempBffr2, "*********************  WEATHERCLOUD *********************\r\n\r\n");
@@ -62,7 +71,7 @@ void main()
       ProcessSensorState();
     }
     /* Sleep when we have nothing to process */
-    PWR_EnterSleepMode(PWR_Regulator_ON, PWR_SLEEPEntry_WFI);
+    //PWR_EnterSleepMode(PWR_Regulator_ON, PWR_SLEEPEntry_WFI);
   }
 }
 

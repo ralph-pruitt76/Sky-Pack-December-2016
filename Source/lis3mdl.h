@@ -71,11 +71,11 @@ extern "C" {
 /* Alias: access the LIS3MDL by accessing the I2C bus */
 
 #define LIS3MDL_IO_Init() \
-        (MAGNETO_OK /* I2C init is done elsewhere in the code */)
+        (HAL_OK /* I2C init is done elsewhere in the code */)
 #define LIS3MDL_IO_Read(data, addr, reg, count)   \
-        (I2C_Read((addr), (reg), (data), (count)) == I2C_OK ? MAGNETO_OK : MAGNETO_ERROR)
+        (I2C_Read((addr), (reg), (data), (count)) == HAL_OK ? HAL_OK : HAL_ERROR)
 #define LIS3MDL_IO_Write(data, addr, reg, count)  \
-        (I2C_Write((addr), (reg), (data), (count)) == I2C_OK ? MAGNETO_OK : MAGNETO_ERROR)
+        (I2C_Write((addr), (reg), (data), (count)) == HAL_OK ? HAL_OK : HAL_ERROR)
 
 
 /******************************************************************************/
@@ -430,10 +430,10 @@ extern void LIS3MDL_IO_ITConfig( void );
 
 /* LIS3MDL API functions */
 
-MAGNETO_StatusTypeDef LIS3MDL_Init(MAGNETO_InitTypeDef *LIS3MDL_Init);
-MAGNETO_StatusTypeDef LIS3MDL_Read_M_ID(uint8_t *m_id);
-MAGNETO_StatusTypeDef LIS3MDL_M_GetAxes(int32_t *pData);
-MAGNETO_StatusTypeDef LIS3MDL_M_GetAxesRaw(int16_t *pData);
+HAL_StatusTypeDef LIS3MDL_Init(MAGNETO_InitTypeDef *LIS3MDL_Init);
+HAL_StatusTypeDef LIS3MDL_Read_M_ID(uint8_t *m_id);
+HAL_StatusTypeDef LIS3MDL_M_GetAxes(int32_t *pData);
+HAL_StatusTypeDef LIS3MDL_M_GetAxesRaw(int16_t *pData);
 
 /**
  * @}

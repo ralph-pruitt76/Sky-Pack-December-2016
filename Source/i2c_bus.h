@@ -6,7 +6,7 @@
 #define I2C_BUS_H_
 
 #include "stm32l1xx.h"
-
+#include "usart.h"
 
 /* OK and Fail definitions */
 
@@ -42,18 +42,18 @@
 
 /* Low level initialization of the I2C bus */
 
-void I2C_LowLevel_Init(void);
+HAL_StatusTypeDef I2C_LowLevel_Init(void);
 
 /* Generic read and write funtions */
 
-uint32_t I2C_Write(uint8_t DeviceAddr, uint8_t RegAddr,
+HAL_StatusTypeDef I2C_Write(uint8_t DeviceAddr, uint8_t RegAddr,
                    uint8_t* pBuffer, uint16_t NumBytesToWrite);
-uint32_t I2C_Read(uint8_t DeviceAddr, uint8_t RegAddr,
+HAL_StatusTypeDef I2C_Read(uint8_t DeviceAddr, uint8_t RegAddr,
                   uint8_t* pBuffer, uint16_t NumBytesToRead);
 
 /* Write a 8-bit register to a chip */
 
-void I2C_Write8bit(uint8_t DeviceAddr, uint8_t RegAddr, uint8_t value);
+HAL_StatusTypeDef I2C_Write8bit(uint8_t DeviceAddr, uint8_t RegAddr, uint8_t value);
 
 /* Read a 8-bit register from a chip */
 
@@ -62,12 +62,14 @@ uint8_t I2C_Read8bit(uint8_t DeviceAddr, uint8_t RegAddr);
 /* Write a 16-bit big endian register to a chip after converting from
  * native little endian */
 
-void I2C_Write16bitBE(uint8_t DeviceAddr, uint8_t RegAddr, uint16_t value);
+HAL_StatusTypeDef I2C_Write16bitBE(uint8_t DeviceAddr, uint8_t RegAddr, uint16_t value);
 
 /* Read a 16-bit big endian register from a chip and convert to native
  * little endian */
 
 uint16_t I2C_Read16bitBE(uint8_t DeviceAddr, uint8_t RegAddr);
 
+HAL_StatusTypeDef SkyPack_TestI2C( void );
+HAL_StatusTypeDef WAIT_FOR_I2C_EVENT(uint32_t ev);
 
 #endif

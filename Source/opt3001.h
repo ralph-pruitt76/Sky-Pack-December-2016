@@ -128,7 +128,7 @@ typedef struct
 /* Sensor Configuration */
 /* Provide an init stucture, returns OPT3001_OK or OPT3001_ERR */
 
-uint8_t OPT3001_Init(OPT3001_InitTypeDef *OPT3001_InitStruct);
+HAL_StatusTypeDef OPT3001_Init(OPT3001_InitTypeDef *OPT3001_InitStruct);
 
 /* Data functions */
 

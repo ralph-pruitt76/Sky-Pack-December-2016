@@ -72,9 +72,9 @@ extern "C" {
 #define LSM6DS3_IO_Init() \
         (IMU_6AXES_OK /* I2C init is done elsewhere in the code */)
 #define LSM6DS3_IO_Read(data, addr, reg, count)   \
-        (I2C_Read((addr), (reg), (data), (count)) == I2C_OK ? IMU_6AXES_OK : IMU_6AXES_ERROR)
+        (I2C_Read((addr), (reg), (data), (count)) == HAL_OK ? HAL_OK : HAL_ERROR)
 #define LSM6DS3_IO_Write(data, addr, reg, count)  \
-        (I2C_Write((addr), (reg), (data), (count)) == I2C_OK ? IMU_6AXES_OK : IMU_6AXES_ERROR)
+        (I2C_Write((addr), (reg), (data), (count)) == HAL_OK ? HAL_OK : HAL_ERROR)
   
   
 /******************************************************************************/
@@ -1444,25 +1444,25 @@ extern void LSM6DS3_IO_ITConfig( void );
 
 /* LSM6DS3 API functions */
   
-IMU_6AXES_StatusTypeDef LSM6DS3_Init( IMU_6AXES_InitTypeDef *LSM6DS3_Init );
-IMU_6AXES_StatusTypeDef LSM6DS3_Read_XG_ID( uint8_t *xg_id );
-IMU_6AXES_StatusTypeDef LSM6DS3_X_GetAxes( int32_t *pData );
-IMU_6AXES_StatusTypeDef LSM6DS3_X_GetAxesRaw( int16_t *pData );
-IMU_6AXES_StatusTypeDef LSM6DS3_G_GetAxes( int32_t *pData );
-IMU_6AXES_StatusTypeDef LSM6DS3_G_GetAxesRaw( int16_t *pData );
-IMU_6AXES_StatusTypeDef LSM6DS3_X_Get_ODR( float *odr );
-IMU_6AXES_StatusTypeDef LSM6DS3_X_Set_ODR( float odr );
-IMU_6AXES_StatusTypeDef LSM6DS3_X_GetSensitivity( float *pfData );
-IMU_6AXES_StatusTypeDef LSM6DS3_X_Get_FS( float *fullScale );
-IMU_6AXES_StatusTypeDef LSM6DS3_X_Set_FS( float fullScale );
-IMU_6AXES_StatusTypeDef LSM6DS3_G_Get_ODR( float *odr );
-IMU_6AXES_StatusTypeDef LSM6DS3_G_Set_ODR( float odr );
-IMU_6AXES_StatusTypeDef LSM6DS3_G_GetSensitivity( float *pfData );
-IMU_6AXES_StatusTypeDef LSM6DS3_G_Get_FS( float *fullScale );
-IMU_6AXES_StatusTypeDef LSM6DS3_G_Set_FS( float fullScale );
-IMU_6AXES_StatusTypeDef LSM6DS3_Enable_Free_Fall_Detection( void );
-IMU_6AXES_StatusTypeDef LSM6DS3_Disable_Free_Fall_Detection( void );
-IMU_6AXES_StatusTypeDef LSM6DS3_Get_Status_Free_Fall_Detection( uint8_t *status );
+HAL_StatusTypeDef LSM6DS3_Init( IMU_6AXES_InitTypeDef *LSM6DS3_Init );
+HAL_StatusTypeDef LSM6DS3_Read_XG_ID( uint8_t *xg_id );
+HAL_StatusTypeDef LSM6DS3_X_GetAxes( int32_t *pData );
+HAL_StatusTypeDef LSM6DS3_X_GetAxesRaw( int16_t *pData );
+HAL_StatusTypeDef LSM6DS3_G_GetAxes( int32_t *pData );
+HAL_StatusTypeDef LSM6DS3_G_GetAxesRaw( int16_t *pData );
+HAL_StatusTypeDef LSM6DS3_X_Get_ODR( float *odr );
+HAL_StatusTypeDef LSM6DS3_X_Set_ODR( float odr );
+HAL_StatusTypeDef LSM6DS3_X_GetSensitivity( float *pfData );
+HAL_StatusTypeDef LSM6DS3_X_Get_FS( float *fullScale );
+HAL_StatusTypeDef LSM6DS3_X_Set_FS( float fullScale );
+HAL_StatusTypeDef LSM6DS3_G_Get_ODR( float *odr );
+HAL_StatusTypeDef LSM6DS3_G_Set_ODR( float odr );
+HAL_StatusTypeDef LSM6DS3_G_GetSensitivity( float *pfData );
+HAL_StatusTypeDef LSM6DS3_G_Get_FS( float *fullScale );
+HAL_StatusTypeDef LSM6DS3_G_Set_FS( float fullScale );
+HAL_StatusTypeDef LSM6DS3_Enable_Free_Fall_Detection( void );
+HAL_StatusTypeDef LSM6DS3_Disable_Free_Fall_Detection( void );
+HAL_StatusTypeDef LSM6DS3_Get_Status_Free_Fall_Detection( uint8_t *status );
 
 /**
  * @}

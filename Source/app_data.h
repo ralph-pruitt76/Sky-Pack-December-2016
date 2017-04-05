@@ -37,6 +37,22 @@ typedef enum
 #endif
 //#define LEGACY_BANNER   "K.8 02/07/17"        // Needed to allow Legacy Design to work
 
+typedef enum 
+{
+  IMU_STATE_TASK = 0,
+  IRRADIANCE_MNTR_TASK = 1,
+  PRESSURE_MNTR_TASK = 2,
+  I2C_STATE = 3,
+  TASK_LENGTH = 4
+} task_defs;
+
+typedef enum 
+{
+  DRIVER_OFF = 0,
+  DRIVER_ON = 1
+} driver_state;
+
+
 
 /* Initialize all sensors */
 
@@ -47,8 +63,13 @@ void InitSensors(void);
 void ProcessSensorState(void);
 void delay_100ms( void );
 void delay_100msec( int value );
+void delay_10ms( void );
 void Flicker_Led( void );
 void SkyPack_Reset( int code );
+void Reset_DriverStates( void );
+void Set_DriverStates( task_defs Task, bool State );
+bool Get_DriverStates( task_defs Task );
+uint16_t Get_DriverStatus( void );
 void Test_Connection( void );
 bool Tst_HeartBeat( void );
 void Set_HeartBeat( void );

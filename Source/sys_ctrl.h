@@ -56,6 +56,8 @@ enum eUSBPower
 
 #define RESET_BGM111_PIN                GPIO_Pin_15
 #define RESET_BGM111_GPIO_PORT          GPIOB
+#define RESET_BGM111_GPIO_CLK           RCC_AHBPeriph_GPIOB
+
 #define STATUS_LED_GPIO_PORT            GPIOB
 #define STATUS_LED_PIN                  GPIO_Pin_9
 #define BLUE_PIN                        GPIO_Pin_9
@@ -70,6 +72,11 @@ enum eUSBPower
 #define STATUS_LED_TIM                  TIM11
 #define STATUS_LED_TIM_RCC              RCC_APB2Periph_TIM11
 
+#define I2C_SCL_Pin                     GPIO_Pin_6
+#define I2C_SCL_GPIO_Port               GPIOB
+
+#define I2C_SDA_Pin                     GPIO_Pin_7
+#define I2C_SDA_GPIO_Port               GPIOB
 
 /* Initialize the system control */
 void Sys_Ctrl_Init(void);

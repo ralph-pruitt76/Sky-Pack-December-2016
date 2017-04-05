@@ -57,37 +57,37 @@
 /**
  * @brief  Set LIS3MDL Initialization
  * @param  LIS3MDL_Init the configuration setting for the LIS3MDL
- * @retval MAGNETO_OK in case of success, an error code otherwise
+ * @retval HAL_OK in case of success, an error code otherwise
  */
-MAGNETO_StatusTypeDef LIS3MDL_Init(MAGNETO_InitTypeDef *LIS3MDL_Init)
+HAL_StatusTypeDef LIS3MDL_Init(MAGNETO_InitTypeDef *LIS3MDL_Init)
 {
   uint8_t tmp1 = 0x00;
   
   /* Configure the low level interface ---------------------------------------*/
-  if(LIS3MDL_IO_Init() != MAGNETO_OK)
+  if(LIS3MDL_IO_Init() != HAL_OK)
   {
-    return MAGNETO_ERROR;
+    return HAL_ERROR;
   }
   
   /****** Magnetic sensor *******/
   
-  if(LIS3MDL_IO_Read(&tmp1, LIS3MDL_M_MEMS_ADDRESS, LIS3MDL_M_CTRL_REG3_M, 1) != MAGNETO_OK)
+  if(LIS3MDL_IO_Read(&tmp1, LIS3MDL_M_MEMS_ADDRESS, LIS3MDL_M_CTRL_REG3_M, 1) != HAL_OK)
   {
-    return MAGNETO_ERROR;
+    return HAL_ERROR;
   }
   
   /* Conversion mode selection */
   tmp1 &= ~(LIS3MDL_M_MD_MASK);
   tmp1 |= LIS3MDL_Init->M_OperatingMode;
   
-  if(LIS3MDL_IO_Write(&tmp1, LIS3MDL_M_MEMS_ADDRESS, LIS3MDL_M_CTRL_REG3_M, 1) != MAGNETO_OK)
+  if(LIS3MDL_IO_Write(&tmp1, LIS3MDL_M_MEMS_ADDRESS, LIS3MDL_M_CTRL_REG3_M, 1) != HAL_OK)
   {
-    return MAGNETO_ERROR;
+    return HAL_ERROR;
   }
   
-  if(LIS3MDL_IO_Read(&tmp1, LIS3MDL_M_MEMS_ADDRESS, LIS3MDL_M_CTRL_REG1_M, 1) != MAGNETO_OK)
+  if(LIS3MDL_IO_Read(&tmp1, LIS3MDL_M_MEMS_ADDRESS, LIS3MDL_M_CTRL_REG1_M, 1) != HAL_OK)
   {
-    return MAGNETO_ERROR;
+    return HAL_ERROR;
   }
   
   /* Output data rate selection */
@@ -98,29 +98,29 @@ MAGNETO_StatusTypeDef LIS3MDL_Init(MAGNETO_InitTypeDef *LIS3MDL_Init)
   tmp1 &= ~(LIS3MDL_M_OM_MASK);
   tmp1 |= LIS3MDL_Init->M_XYOperativeMode;
   
-  if(LIS3MDL_IO_Write(&tmp1, LIS3MDL_M_MEMS_ADDRESS, LIS3MDL_M_CTRL_REG1_M, 1) != MAGNETO_OK)
+  if(LIS3MDL_IO_Write(&tmp1, LIS3MDL_M_MEMS_ADDRESS, LIS3MDL_M_CTRL_REG1_M, 1) != HAL_OK)
   {
-    return MAGNETO_ERROR;
+    return HAL_ERROR;
   }
   
-  if(LIS3MDL_IO_Read(&tmp1, LIS3MDL_M_MEMS_ADDRESS, LIS3MDL_M_CTRL_REG2_M, 1) != MAGNETO_OK)
+  if(LIS3MDL_IO_Read(&tmp1, LIS3MDL_M_MEMS_ADDRESS, LIS3MDL_M_CTRL_REG2_M, 1) != HAL_OK)
   {
-    return MAGNETO_ERROR;
+    return HAL_ERROR;
   }
   
   /* Full scale selection */
   tmp1 &= ~(LIS3MDL_M_FS_MASK);
   tmp1 |= LIS3MDL_Init->M_FullScale;
   
-  if(LIS3MDL_IO_Write(&tmp1, LIS3MDL_M_MEMS_ADDRESS, LIS3MDL_M_CTRL_REG2_M, 1) != MAGNETO_OK)
+  if(LIS3MDL_IO_Write(&tmp1, LIS3MDL_M_MEMS_ADDRESS, LIS3MDL_M_CTRL_REG2_M, 1) != HAL_OK)
   {
-    return MAGNETO_ERROR;
+    return HAL_ERROR;
   }
   
   /* Configure interrupt lines */
   //LIS3MDL_IO_ITConfig();
   
-  return MAGNETO_OK;
+  return HAL_OK;
   
   /******************************/
 }
@@ -129,13 +129,13 @@ MAGNETO_StatusTypeDef LIS3MDL_Init(MAGNETO_InitTypeDef *LIS3MDL_Init)
 /**
  * @brief  Read ID of LIS3MDL Magnetic sensor
  * @param  m_id the pointer where the ID of the device is stored
- * @retval MAGNETO_OK in case of success, an error code otherwise
+ * @retval HAL_OK in case of success, an error code otherwise
  */
-MAGNETO_StatusTypeDef LIS3MDL_Read_M_ID(uint8_t *m_id)
+HAL_StatusTypeDef LIS3MDL_Read_M_ID(uint8_t *m_id)
 {
   if(!m_id)
   {
-    return MAGNETO_ERROR;
+    return HAL_ERROR;
   }
   
   return LIS3MDL_IO_Read(m_id, LIS3MDL_M_MEMS_ADDRESS, LIS3MDL_M_WHO_AM_I_ADDR, 1);
@@ -145,59 +145,59 @@ MAGNETO_StatusTypeDef LIS3MDL_Read_M_ID(uint8_t *m_id)
 /**
  * @brief  Read raw data from LIS3MDL Magnetic sensor output register
  * @param  pData the pointer where the magnetometer raw data are stored
- * @retval MAGNETO_OK in case of success, an error code otherwise
+ * @retval HAL_OK in case of success, an error code otherwise
  */
-MAGNETO_StatusTypeDef LIS3MDL_M_GetAxesRaw(int16_t *pData)
+HAL_StatusTypeDef LIS3MDL_M_GetAxesRaw(int16_t *pData)
 {
   uint8_t tempReg[2] = {0, 0};
   
   if(LIS3MDL_IO_Read(&tempReg[0], LIS3MDL_M_MEMS_ADDRESS, (LIS3MDL_M_OUT_X_L_M | LIS3MDL_I2C_MULTIPLEBYTE_CMD),
-                     2) != MAGNETO_OK)
+                     2) != HAL_OK)
   {
-    return MAGNETO_ERROR;
+    return HAL_ERROR;
   }
   
   pData[0] = ((((int16_t)tempReg[1]) << 8) + (int16_t)tempReg[0]);
   
   if(LIS3MDL_IO_Read(&tempReg[0], LIS3MDL_M_MEMS_ADDRESS, (LIS3MDL_M_OUT_Y_L_M | LIS3MDL_I2C_MULTIPLEBYTE_CMD),
-                     2) != MAGNETO_OK)
+                     2) != HAL_OK)
   {
-    return MAGNETO_ERROR;
+    return HAL_ERROR;
   }
   
   pData[1] = ((((int16_t)tempReg[1]) << 8) + (int16_t)tempReg[0]);
   
   if(LIS3MDL_IO_Read(&tempReg[0], LIS3MDL_M_MEMS_ADDRESS, (LIS3MDL_M_OUT_Z_L_M | LIS3MDL_I2C_MULTIPLEBYTE_CMD),
-                     2) != MAGNETO_OK)
+                     2) != HAL_OK)
   {
-    return MAGNETO_ERROR;
+    return HAL_ERROR;
   }
   
   pData[2] = ((((int16_t)tempReg[1]) << 8) + (int16_t)tempReg[0]);
   
-  return MAGNETO_OK;
+  return HAL_OK;
 }
 
 
 /**
  * @brief Read data from LIS3MDL Magnetic sensor and calculate Magnetic in mgauss
  * @param pData the pointer where the magnetometer data are stored
- * @retval MAGNETO_OK in case of success, an error code otherwise
+ * @retval HAL_OK in case of success, an error code otherwise
  */
-MAGNETO_StatusTypeDef LIS3MDL_M_GetAxes(int32_t *pData)
+HAL_StatusTypeDef LIS3MDL_M_GetAxes(int32_t *pData)
 {
   uint8_t tempReg = 0x00;
   int16_t pDataRaw[3];
   float sensitivity = 0;
   
-  if(LIS3MDL_M_GetAxesRaw(pDataRaw) != MAGNETO_OK)
+  if(LIS3MDL_M_GetAxesRaw(pDataRaw) != HAL_OK)
   {
-    return MAGNETO_ERROR;
+    return HAL_ERROR;
   }
   
-  if(LIS3MDL_IO_Read(&tempReg, LIS3MDL_M_MEMS_ADDRESS, LIS3MDL_M_CTRL_REG2_M, 1) != MAGNETO_OK)
+  if(LIS3MDL_IO_Read(&tempReg, LIS3MDL_M_MEMS_ADDRESS, LIS3MDL_M_CTRL_REG2_M, 1) != HAL_OK)
   {
-    return MAGNETO_ERROR;
+    return HAL_ERROR;
   }
   
   tempReg &= LIS3MDL_M_FS_MASK;
@@ -222,7 +222,7 @@ MAGNETO_StatusTypeDef LIS3MDL_M_GetAxes(int32_t *pData)
   pData[1] = (int32_t)(pDataRaw[1] * sensitivity);
   pData[2] = (int32_t)(pDataRaw[2] * sensitivity);
   
-  return MAGNETO_OK;
+  return HAL_OK;
 }
 
 /**

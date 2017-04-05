@@ -42,30 +42,32 @@
 // Constant Strings Definition
 const char * const CodesArray[] = { "       ",                      // CODE 000: NULL...NO Error Code
                                     "I2CBUSY",                      // CODE 001: I2C Bus detected busy. Rogue I2C part holding bus low.
-                                    "VM_INIT",                      // CODE 002: Initialization of V Monitor Code failed.
-                                    "BGMSYNC",                      // CODE 003: BGM111 processing code has detected a sync error on traffic from BGM111.
-                                    "GEYE_IN",                      // CODE 004: Initialization of Grid Eye Sensor failed.
-                                    "PRSS_IN",                      // CODE 005: Initialization of Pressure Sensor failed.
-                                    "BGMRFUL",                      // CODE 006: BGM111 processing code has detected a Receive Buffer Full error on traffic from BGM111.
-                                    "HUMD_IN",                      // CODE 007: Initialization of Humidity Sensor failed.
-                                    "RGBINIT",                      // CODE 008: Initialization of RGB Sensor failed.
-                                    "TEMPINI",                      // CODE 009: Initialization of Temperature Sensor failed.
-                                    "CEYE_IN",                      // CODE 010: Initialization of Cool Eye Sensor failed.
-                                    "I2CSCLK",                      // CODE 011: I2C Bus Test Failed. SCLK held low.
-                                    "I2CSDAT",                      // CODE 012: I2C Bus Test Failed. SDAT held low.
-                                    "BGMCNCT",                      // CODE 013: BGM111 processing code has detected a Connection Dropped Event.
-                                    "BGMHRBT",                      // CODE 014: BGM111 processing code has detected a Heart Beat Timeout Event.
-                                    "ERRMISC",                      // CODE 015: Misc Error that cannot be cartaloged
-                                    "       ",                      // CODE 016: NULL...
-                                    "       " };                    // CODE 017: NULL...
+                                    "BGMSYNC",                      // CODE 002: BGM111 processing code has detected a sync error on traffic from BGM111.
+                                    "PRSS_IN",                      // CODE 003: Initialization of Pressure Sensor failed.
+                                    "BGMRFUL",                      // CODE 004: BGM111 processing code has detected a Receive Buffer Full error on traffic from BGM111.
+                                    "I2CSCLK",                      // CODE 005: I2C Bus Test Failed. SCLK held low.
+                                    "I2CSDAT",                      // CODE 006: I2C Bus Test Failed. SDAT held low.
+                                    "BGMCNCT",                      // CODE 007: BGM111 processing code has detected a Connection Dropped Event.
+                                    "BGMHRBT",                      // CODE 008: BGM111 processing code has detected a Heart Beat Timeout Event.
+                                    "ERRMISC",                      // CODE 009: Misc Error that cannot be cartaloged
+                                    "IMU_INI",                      // CODE 010: IMU Initialization has failed.
+                                    "ILLM_IN",                      // CODE 011: Illuminance Initialization has failed.
+                                    "IMU_ERR",                      // CODE 012: IMU Tasking has failed.
+                                    "PRSS_ER",                      // CODE 013: Pressure Sensor Tasking has failed.
+                                    "       ",                      // CODE 014: NULL...
+                                    "       ",                      // CODE 015: NULL...
+                                    "       ",                      // CODE 017: NULL...
+                                    "       ",                      // CODE 018: NULL...
+                                    "       " };                    // CODE 019: NULL...
 const char * const ModuleArray[] = { "       ",                    // CODE 000: NULL...NO Device Code
                                      "   main",                    // CODE 001: module: main.c
                                      " bgm111",                    // CODE 002: module: bgm111.c
-                                     "    i2c",                    // CODE 003: module: i2c.c...
+                                     "i2c_Bus",                    // CODE 003: module: i2c_bus.c...
                                      " SP_Rst",                    // CODE 004: module: app_data.c: SkyPack_Reset( int code )
-                                     "       ",                    // CODE 005: module: NULL...
+                                     "AppData",                    // CODE 005: module: app_data.c
                                      "       ",                    // CODE 006: module: NULL...
-                                     "       " };                  // CODE 007: module: NULL...
+                                     "       ",                    // CODE 007: module: NULL...
+                                     "       " };                  // CODE 008: module: NULL...
     
 /* Error Code structure */
 struct

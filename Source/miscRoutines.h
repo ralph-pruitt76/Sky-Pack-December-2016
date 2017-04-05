@@ -62,11 +62,24 @@ typedef enum
   NUCLEO_LED_GREEN = LED1
 } SkyPack_Led_TypeDef;
 #define SkyPack_LEDn                     9
+
+typedef enum
+{
+  GPIO_PIN_RESET = 0,
+  GPIO_PIN_SET
+}GPIO_PinState;
+
 // Structure
 
 /* Prototypes */
 void SkyPack_gpio_On(SkyPack_Led_TypeDef Port);
 void SkyPack_gpio_Off(SkyPack_Led_TypeDef Port);
+void SkyPack_gpio_TriState(SkyPack_Led_TypeDef Port);
+void SkyPack_gpio_ReInit(SkyPack_Led_TypeDef Port);
+void SkyPack_RePowerUpIO( void );
+void SkyPack_PowerDnIO( void );
+void SkyPack_LEDTest( void );
+GPIO_PinState HAL_GPIO_ReadPin(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
 
 #ifdef __cplusplus
 }

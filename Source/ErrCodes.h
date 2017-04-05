@@ -49,20 +49,18 @@ typedef enum
 {
   ERROR_NULL		= 0x0000,  		// NULL...NO Error Code
   ERROR_I2CBUSY         = 0x0001,               // I2C Bus detected busy. Rogue I2C part holding bus low.
-  ERROR_VMNTR_INIT      = 0x0002,               // Initialization of V Monitor Code failed.
-  ERROR_BGMSYNC         = 0x0003,               // BGM111 processing code has detected a sync error on traffic from BGM111.
-  ERROR_GDEYE_INIT      = 0x0004,               // Initialization of Grid Eye Sensor failed.
-  ERROR_PRESSURE_INIT   = 0x0005,               // Initialization of Pressure Sensor failed.
-  ERROR_BGMBUF_FULL     = 0x0006,               // BGM111 processing code has detected a Receive Buffer Full error on traffic from BGM111.
-  ERROR_HUMIDITY_INIT   = 0x0007,               // Initialization of Humidity Sensor failed.
-  ERROR_RGB_INIT        = 0x0008,               // Initialization of RGB Sensor failed.
-  ERROR_TEMP_INIT       = 0x0009,               // Initialization of Temperature Sensor failed.
-  ERROR_CLEYE_INIT      = 0x000A,               // Initialization of Cool Eye Sensor failed.
-  ERROR_I2C_SCLK        = 0x000B,               // I2C Bus Test Failed. SCLK held low.
-  ERROR_I2C_SDAT        = 0x000C,               // I2C Bus Test Failed. SDAT held low.
-  ERROR_BGM_CNNCT       = 0x000D,               // BGM111 processing code has detected a Connection Dropped Event.
-  ERROR_BGM_HRTBT       = 0x000E,               // BGM111 processing code has detected a Heart Beat Timeout Event.
-  ERROR_MISC            = 0x000F,               // Misc Error that cannot be cartaloged.
+  ERROR_BGMSYNC         = 0x0002,               // BGM111 processing code has detected a sync error on traffic from BGM111.
+  ERROR_PRESSURE_INIT   = 0x0003,               // Initialization of Pressure Sensor failed.
+  ERROR_BGMBUF_FULL     = 0x0004,               // BGM111 processing code has detected a Receive Buffer Full error on traffic from BGM111.
+  ERROR_I2C_SCLK        = 0x0005,               // I2C Bus Test Failed. SCLK held low.
+  ERROR_I2C_SDAT        = 0x0006,               // I2C Bus Test Failed. SDAT held low.
+  ERROR_BGM_CNNCT       = 0x0007,               // BGM111 processing code has detected a Connection Dropped Event.
+  ERROR_BGM_HRTBT       = 0x0008,               // BGM111 processing code has detected a Heart Beat Timeout Event.
+  ERROR_MISC            = 0x0009,               // Misc Error that cannot be cartaloged.
+  ERROR_IMU_INIT        = 0x000A,               // IMU Initialization has failed.
+  ERROR_ILL_INIT        = 0x000B,               // Illuminance Initialization has failed.
+  ERROR_IMU_ERR         = 0x000C,               // IMU Tasking has failed.
+  ERROR_PRESSURE_ERR    = 0x000D,               // Pressure Sensor Tasking has failed.
 
   ERROR_END             = 0xffff,       	// End Of Error Code List
 }ErrorCodes;
@@ -72,8 +70,9 @@ typedef enum
   MODULE_NULL		= 0x0000,	// NULL...NO Device Code
   MODULE_main		= 0x0001,	// module: main.c
   MODULE_bgm111		= 0x0002,	// module: bgm111.c
-  MODULE_i2c		= 0x0003,	// module: i2c.c
+  MODULE_i2c		= 0x0003,	// module: i2c_bus.c
   MODULE_Reset          = 0x0004,       // module: app_data.c: SkyPack_Reset( int code )
+  MODULE_AppData        = 0x0005,       // module: app_data.c
   MODULE_MISC           = 0xffff,	// End Of Device Code List
 }ModuleCodes;
 

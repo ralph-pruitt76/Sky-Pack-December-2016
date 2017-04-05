@@ -45,6 +45,15 @@ union u3DVector
   int16_t               indexed[3];
 };
 
+// Driver list Structure
+struct
+{
+  bool  Irradiance;
+  bool  Pressure;
+  bool  IMUSense;
+  bool  I2CState;
+} static driver_list;
+
 // Analytics Structure
 struct
 {
@@ -73,7 +82,7 @@ struct
 
 /* Initialize the IMU sensors */
 
-void InitIMUSensors(void)
+HAL_StatusTypeDef InitIMUSensors(void)
 {
   IMU_6AXES_InitTypeDef LSM6DS3_InitStructure;
   MAGNETO_InitTypeDef LIS3MDL_InitStructure;
@@ -92,8 +101,11 @@ void InitIMUSensors(void)
   LSM6DS3_InitStructure.G_Z_Axis = LSM6DS3_G_ZEN_ENABLE;
   
   /* Initialize the accelerometer/gyro */
-  LSM6DS3_Init(&LSM6DS3_InitStructure);
-  
+  if(LSM6DS3_Init(&LSM6DS3_InitStructure) != HAL_OK)
+  {
+    return HAL_ERROR;
+  }
+
   /* Set up the magnetometer init structure */
   LIS3MDL_InitStructure.M_OutputDataRate = LIS3MDL_M_DO_10;
   LIS3MDL_InitStructure.M_OperatingMode = LIS3MDL_M_MD_CONTINUOUS;
@@ -101,7 +113,12 @@ void InitIMUSensors(void)
   LIS3MDL_InitStructure.M_XYOperativeMode = LIS3MDL_M_OM_UHP;
   
   /* Initialize the magnetometer */
-  LIS3MDL_Init(&LIS3MDL_InitStructure);
+  if(LIS3MDL_Init(&LIS3MDL_InitStructure) != HAL_OK)
+  {
+    return HAL_ERROR;
+  }
+  
+  return HAL_OK;
 }
 
 /* Read the IMU sensor data
@@ -110,7 +127,7 @@ void InitIMUSensors(void)
  * - Magnetometer data is in mGauss
  * All scaling done according to typical sensitivity values in datasheet */
 
-void ReadIMUSensors(void)
+HAL_StatusTypeDef ReadIMUSensors(void)
 {
   int i;
   union u3DVector vector;
@@ -119,7 +136,7 @@ void ReadIMUSensors(void)
   LSM6DS3_Read_XG_ID(&id);
   
   /* Read the accelerometer data */
-  if (LSM6DS3_X_GetAxesRaw(vector.indexed) == IMU_6AXES_OK)
+  if (LSM6DS3_X_GetAxesRaw(vector.indexed) == HAL_OK)
   {
     /* Scale the values so they are in 1/1000 g when we run the sensor
      * at 4 g full scale (0.122 mg/LSB) */
@@ -129,9 +146,11 @@ void ReadIMUSensors(void)
                         (((int32_t)(vector.indexed[i]) * 4000) / 32786);
     }
   }
+  else
+    return HAL_ERROR;
   
   /* Read the gyro data */
-  if (LSM6DS3_G_GetAxesRaw(vector.indexed) == IMU_6AXES_OK)
+  if (LSM6DS3_G_GetAxesRaw(vector.indexed) == HAL_OK)
   {
     /* Scale the values so they are in 1/10 dps when we run the sensor
      * at 500 dps full scale (17.5 mdps/LSB) */
@@ -141,9 +160,11 @@ void ReadIMUSensors(void)
                         (((int32_t)(vector.indexed[i]) * 5000) / 28571);
     }
   }
+  else
+    return HAL_ERROR;
   
   /* Read the magnetometer data */
-  if (LIS3MDL_M_GetAxesRaw(vector.indexed) == MAGNETO_OK)
+  if (LIS3MDL_M_GetAxesRaw(vector.indexed) == HAL_OK)
   {
     /* Scale the values so they are in mgauss when we run the sensor
      * at 4 gauss full scale (6842 LSB/gauss) */
@@ -153,11 +174,15 @@ void ReadIMUSensors(void)
                         (((int32_t)(vector.indexed[i]) * 4000) / (6842 * 4));
     }
   }
+  else
+    return HAL_ERROR;
+  
+  return HAL_OK;
 }
 
 /* Initialize the pressure/temperature sensor */
 
-void InitPressureTempSensor(void)
+HAL_StatusTypeDef InitPressureTempSensor(void)
 {
   PRESSURE_InitTypeDef LPS25HB_InitStructure;
   PCT2075_InitTypeDef PCT2075_InitStructure;
@@ -171,7 +196,10 @@ void InitPressureTempSensor(void)
   LPS25HB_InitStructure.SPIMode = LPS25HB_SPI_SIM_4W;
   
   /* Initialize the pressure/temperature sensor */
-  LPS25HB_Init(&LPS25HB_InitStructure);
+  if(LPS25HB_Init(&LPS25HB_InitStructure) != HAL_OK)
+  {
+    return HAL_ERROR;
+  }
   
   /* Set up the separate temperature sensor init structure */
   PCT2075_InitStructure.Device_Mode = PCT2075_DEVMODE_NORMAL;
@@ -183,19 +211,24 @@ void InitPressureTempSensor(void)
   PCT2075_InitStructure.Idle_Time = 2;
   
   /* Initialize the separate temperature sensor */
-  PCT2075_Init(&PCT2075_InitStructure);
+  if(PCT2075_Init(&PCT2075_InitStructure) != HAL_OK)
+  {
+    return HAL_ERROR;
+  }
+
+  return HAL_OK;
 }
 
 /* Read the pressure and temperature data
  * - Pressure is in 1/10 mbar
  * - Temperature is in 1/10 degree celcius */
 
-void ReadPressureTempSensors(void)
+HAL_StatusTypeDef ReadPressureTempSensors(void)
 {
   float value;
   
   /* Read the temperature */
-  if (LPS25HB_GetTemperature(&value) == PRESSURE_OK)
+  if (LPS25HB_GetTemperature(&value) == HAL_OK)
   {
     /* Scale the value so it is in 1/10 C */
     data.temperature = (int16_t)(value * 10);
@@ -207,16 +240,20 @@ void ReadPressureTempSensors(void)
   }
   
   /* Read the pressure */
-  if (LPS25HB_GetPressure(&value) == PRESSURE_OK)
+  if (LPS25HB_GetPressure(&value) == HAL_OK)
   {
     /* Scale the value so it is in 1/10 mbar */
     data.pressure = (int16_t)(value * 10);
   }
+  else
+    return HAL_ERROR;
+  
+  return HAL_OK;
 }
 
 /* Initialize the irradiance sensor */
 
-void InitIrradianceSensor(void)
+HAL_StatusTypeDef InitIrradianceSensor(void)
 {
   OPT3001_InitTypeDef OPT3001_InitStructure;
   
@@ -231,7 +268,7 @@ void InitIrradianceSensor(void)
   OPT3001_InitStructure.High_Limit = 0xFFFFFFFF;
 
   /* Initialize the irradiance sensor */
-  OPT3001_Init(&OPT3001_InitStructure);
+  return (OPT3001_Init(&OPT3001_InitStructure));
 }
 
 /* Initialize sample timer */
@@ -275,14 +312,43 @@ void ReadMiscSensors(void)
 
 void InitSensors(void)
 {
+  HAL_StatusTypeDef Status;
+
   data.Legacy_OneTime = true;                   // Clear Legacy One time flag so that we can set key characteristics...once.
   /* Initialize the I2C peripheral */
   I2C_LowLevel_Init();
   
   /* Initialize I2C connected sensors for the application */
-  InitIMUSensors();
-  InitPressureTempSensor();
-  InitIrradianceSensor();
+  Status = InitIMUSensors();
+  if (Status == HAL_OK)
+  {
+    Set_DriverStates( IMU_STATE_TASK, DRIVER_ON );
+  }
+  else
+  {
+    SkPck_ErrCdLogErrCd( ERROR_IMU_INIT, MODULE_AppData );
+    Set_DriverStates( IMU_STATE_TASK, DRIVER_OFF );
+  }
+  Status = InitPressureTempSensor();
+  if (Status == HAL_OK)
+  {
+    Set_DriverStates( PRESSURE_MNTR_TASK, DRIVER_ON );
+  }
+  else
+  {
+    SkPck_ErrCdLogErrCd( ERROR_PRESSURE_INIT, MODULE_AppData );
+    Set_DriverStates( PRESSURE_MNTR_TASK, DRIVER_OFF );
+  }
+  Status = InitIrradianceSensor();
+  if (Status == HAL_OK)
+  {
+    Set_DriverStates( IRRADIANCE_MNTR_TASK, DRIVER_ON );
+  }
+  else
+  {
+    SkPck_ErrCdLogErrCd( ERROR_ILL_INIT, MODULE_AppData );
+    Set_DriverStates( IRRADIANCE_MNTR_TASK, DRIVER_OFF );
+  }
   
   /* Initialize misc sensors we run from the micro */
   // Actually. This enables the Cap Sense Code.
@@ -303,12 +369,15 @@ void SAMPLE_TIM_IRQHandler(void)
   /* Schedule a sensor reading */
   data.reading_scheduled = true;
   // This tick occurs every 200msec.
+  // Turn off the Blue LED NOW.
+  SkyPack_gpio_Off(BGM_LED);
 }
 
 /* Process sensor state machine */
 
 void ProcessSensorState(void)
 {
+  HAL_StatusTypeDef Status;
   char characteristic[21];
   uint8_t tempStr[13];
   uint8_t tempBffr2[10];
@@ -325,11 +394,38 @@ void ProcessSensorState(void)
     data.reading_scheduled = false;
     
     /* Read the IMU sensor data */
-    ReadIMUSensors();
+    if ( Get_DriverStates( IMU_STATE_TASK ))
+    {
+      Status = ReadIMUSensors();
+      if (Status == HAL_OK)
+      {
+        Set_DriverStates( IMU_STATE_TASK, DRIVER_ON );
+      }
+      else
+      {
+        SkPck_ErrCdLogErrCd( ERROR_IMU_ERR, MODULE_AppData );
+        Set_DriverStates( IMU_STATE_TASK, DRIVER_OFF );
+      }
+    }
     /* Read the pressure and temperature */
-    ReadPressureTempSensors();
+    if ( Get_DriverStates( PRESSURE_MNTR_TASK ))
+    {
+      Status = ReadPressureTempSensors();
+      if (Status == HAL_OK)
+      {
+        Set_DriverStates( PRESSURE_MNTR_TASK, DRIVER_ON );
+      }
+      else
+      {
+        SkPck_ErrCdLogErrCd( ERROR_PRESSURE_ERR, MODULE_AppData );
+        Set_DriverStates( PRESSURE_MNTR_TASK, DRIVER_OFF );
+      }
+    }
     /* Read the irradiance in 1/100 lux */
-    data.irradiance = OPT3001_GetData();
+    if ( Get_DriverStates( IRRADIANCE_MNTR_TASK ))
+    {
+      data.irradiance = OPT3001_GetData();
+    }
     // Build Display String from value.
     //sprintf( (char *)tempBffr2, "<%5dlx>", data.irradiance);
     sprintf( (char *)tempBffr2, "  <%05dlx/%d>  ", data.irradiance, data.pressure);
@@ -354,6 +450,7 @@ void ProcessSensorState(void)
       }
     }
     
+    SkyPack_gpio_On(BGM_LED);
     /* Create the accelerometer characteristic string */
     sprintf(characteristic, "#6%+05d%+05d%+05d", data.imu.accel.named.x,
             data.imu.accel.named.y, data.imu.accel.named.z);
@@ -612,5 +709,91 @@ void Set_HeartBeat( void )
 void Clr_HeartBeat( void )
 {
   analytics.HrtBeat_Flg = false;
+}
+
+  /**
+  * @brief  This function resets the driver State List to all off.
+  * @param  None
+  * @retval None
+  */
+void Reset_DriverStates( void )
+{
+  driver_list.IMUSense = DRIVER_OFF;
+  driver_list.Pressure = DRIVER_OFF;
+  driver_list.Irradiance = DRIVER_OFF;
+  driver_list.I2CState = DRIVER_OFF;
+}
+
+  /**
+  * @brief  This function updates the Driver list based on parameter passed.
+  * @param  task_defs Task: Driver State to be modified, bool New State for Driver
+  * @retval None
+  */
+void Set_DriverStates( task_defs Task, bool State )
+{
+  switch(Task)
+  {
+  case IMU_STATE_TASK:
+    driver_list.IMUSense = State;
+    break;
+  case IRRADIANCE_MNTR_TASK:
+    driver_list.Irradiance = State;
+    break;
+  case PRESSURE_MNTR_TASK:
+    driver_list.Pressure = State;
+    break;
+  case I2C_STATE:
+    driver_list.I2CState = State;
+    break;
+  default:
+    break;
+  }
+}
+
+  /**
+  * @brief  This function returns the status based on parameter passed.
+  * @param  task_defs Task: Driver State to be modified
+  * @retval bool State for Driver
+  */
+bool Get_DriverStates( task_defs Task )
+{
+  switch(Task)
+  {
+  case IMU_STATE_TASK:
+    return driver_list.IMUSense;
+    break;
+  case IRRADIANCE_MNTR_TASK:
+    return driver_list.Irradiance;
+    break;
+  case PRESSURE_MNTR_TASK:
+    return driver_list.Pressure;
+    break;
+  case I2C_STATE:
+    return driver_list.I2CState;
+    break;
+  default:
+    return DRIVER_OFF;
+    break;
+  }
+}
+
+  /**
+  * @brief  This function returns the status of all Drivers.
+  * @param  task_defs Task: Driver State to be modified
+  * @retval bool State for Driver
+  */
+uint16_t Get_DriverStatus( void )
+{
+  uint16_t Status = 0x00;
+  
+  if ( Get_DriverStates( IMU_STATE_TASK ) )
+    Status += 0x0001;
+  if ( Get_DriverStates( IRRADIANCE_MNTR_TASK ) )
+    Status += 0x0002;
+  if ( Get_DriverStates( PRESSURE_MNTR_TASK ) )
+    Status += 0x0004;
+  if ( Get_DriverStates( I2C_STATE ) )
+    Status += 0x0008;
+  return Status;
 }
 

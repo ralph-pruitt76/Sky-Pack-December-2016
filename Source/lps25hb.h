@@ -71,11 +71,11 @@ extern "C" {
 /* Alias: access the LPS25HB by accessing the I2C bus */
 
 #define LPS25HB_IO_Init() \
-        (PRESSURE_OK /* I2C init is done elsewhere in the code */)
+        (HAL_OK /* I2C init is done elsewhere in the code */)
 #define LPS25HB_IO_Read(data, addr, reg, count)   \
-        (I2C_Read((addr), (reg), (data), (count)) == I2C_OK ? PRESSURE_OK : PRESSURE_ERROR)
+        (I2C_Read((addr), (reg), (data), (count)) == HAL_OK ? HAL_OK : HAL_ERROR)
 #define LPS25HB_IO_Write(data, addr, reg, count)  \
-        (I2C_Write((addr), (reg), (data), (count)) == I2C_OK ? PRESSURE_OK : PRESSURE_ERROR)
+        (I2C_Write((addr), (reg), (data), (count)) == HAL_OK ? HAL_OK : HAL_ERROR)
   
 
 /******************************************************************************/
@@ -547,13 +547,13 @@ extern void LPS25HB_IO_ITConfig( void );
 
 /* LPS25HB API functions */
 
-PRESSURE_StatusTypeDef LPS25HB_Init(PRESSURE_InitTypeDef *LPS25HB_Init);
-PRESSURE_StatusTypeDef LPS25HB_ReadID(uint8_t *p_id);
-PRESSURE_StatusTypeDef LPS25HB_RebootCmd(void);
-PRESSURE_StatusTypeDef LPS25HB_GetPressure(float* pfData);
-PRESSURE_StatusTypeDef LPS25HB_GetTemperature(float* pfData);
-PRESSURE_StatusTypeDef LPS25HB_PowerOff(void);
-PRESSURE_StatusTypeDef LPS25HB_PowerOn(void);
+HAL_StatusTypeDef LPS25HB_Init(PRESSURE_InitTypeDef *LPS25HB_Init);
+HAL_StatusTypeDef LPS25HB_ReadID(uint8_t *p_id);
+HAL_StatusTypeDef LPS25HB_RebootCmd(void);
+HAL_StatusTypeDef LPS25HB_GetPressure(float* pfData);
+HAL_StatusTypeDef LPS25HB_GetTemperature(float* pfData);
+HAL_StatusTypeDef LPS25HB_PowerOff(void);
+HAL_StatusTypeDef LPS25HB_PowerOn(void);
 void LPS25HB_SlaveAddrRemap(uint8_t SA0_Bit_Status);
 
 /**
