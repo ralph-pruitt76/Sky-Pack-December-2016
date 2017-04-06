@@ -38,7 +38,6 @@ void main()
   // Test I2C Channel and see if we even have a working I2C.
   SkyPack_TestI2C();
   
-  BGM111_Init();
   // Test I2C Status and Task init I2C if Active driver.
   if ( Get_DriverStates( I2C_STATE ) )
   {
@@ -59,7 +58,8 @@ void main()
   if (Status != HAL_OK)
     SkyPack_Reset( FATAL_ERROR );;
  
-  
+  BGM111_Init();
+
   /* Endless main loop */
   for (;;)
   {

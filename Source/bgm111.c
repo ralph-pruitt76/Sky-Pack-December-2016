@@ -2,6 +2,7 @@
 
 #include "bgm111.h"
 #include <string.h>
+#include <stdio.h>
 #include "gecko_bglib.h"
 #include "app_data.h"
 #include "usart.h"
@@ -13,7 +14,8 @@ BGLIB_DEFINE();
 
 /* Define buffer size for BLE communication */
 
-#define BG_DATA_LENGTH          70
+// #define BG_DATA_LENGTH          70    // Modified in ROad Board to 200. Same Overflow observed here 4/6/17.
+#define BG_DATA_LENGTH          200   
 
 /* Define number of free bytes in buffer when we need to process a packet
  * even if that means we need to wait in a loop */
@@ -127,7 +129,7 @@ uint8_t NextBufIdx(uint8_t idx)
 //#pragma inline=forced
 bool IsBufFull(uint8_t wr_idx, uint8_t rd_idx)
 {
-  return NextBufIdx(wr_idx) == rd_idx;
+  return (NextBufIdx(wr_idx) == rd_idx);
 }
 
 /* Get the used space in the buffer based on its indexes */
@@ -228,6 +230,8 @@ void BGM111_Init(void)
   GPIO_ResetBits(BGM111_RESET_GPIO_PORT, BGM111_RESET_PIN);
   /* Initialize BGLib with our transmit, receive and peek routines */
   BGLIB_INITIALIZE_NONBLOCK(BGM111_Transmit, BGM111_Receive, BGM111_Peek);
+  // Wait 10 Msec before releasing Reset.
+  delay_10ms();
   /* Release the BGM111 reset pin */
   GPIO_SetBits(BGM111_RESET_GPIO_PORT, BGM111_RESET_PIN);
 }
@@ -237,6 +241,7 @@ void BGM111_Init(void)
 void BGM111_UART_IRQHandler(void)
 {
   static uint8_t header_cnt, payload_cnt, payload_len;
+//  uint8_t tempBffr2[10];
   
   /* Transmit register empty? */
   if (USART_GetITStatus(BGM111_UART, USART_IT_TXE) == SET)
@@ -273,6 +278,10 @@ void BGM111_UART_IRQHandler(void)
   {
     /* Get the byte (this also clears the flag) */
     uint8_t c = USART_ReceiveData(BGM111_UART);
+    // TEST CODE....
+    //sprintf( (char *)tempBffr2, "<%02x>", c);
+    //SkyPack_MNTR_UART_Transmit(tempBffr2);
+    //SkyPack_MNTR_UART_Transmit( (uint8_t *)"O" );
     /* Execution based on state */
     switch (ble.rx_state)
     {
@@ -300,50 +309,63 @@ void BGM111_UART_IRQHandler(void)
         /* Fallthrough intentional */
       /* Receiving header */
       case BGRX_HDR:
-        /* Save the received byte */
-        ble.rx_buf[ble.rx_wr] = c;
-        /* Increment the index and header byte counter */
-        ble.rx_wr = NextBufIdx(ble.rx_wr);
-        header_cnt++;
-        /* If this is the second header byte, we can grab the payload
-         * length.  We ignore the first byte, since the spec says that
-         * due to memory limitations in the modules, the packet is
-         * never more than 64 bytes. */
-        if (header_cnt == 2)
+        if (IsBufFull(ble.rx_wr, ble.rx_rd))
         {
-          /* Get the payload length */
-          payload_len = c;
-          /* If we have a payload bigger than 60 bytes, something's wrong */
-          if (payload_len > 60)
-          {
-            // Oops...Detected a fatal error...RESET!!!
-            SkyPack_Reset( FATAL_PAYLDSYNC );
-            /* Reset receive state to synchronizing */
-            ble.rx_state = BGRX_SYNC;
-            /* Indicate we need to execute the BLE stack to free space */
-            ble.req_exec = true;
-          }
+          // Oops...Detected a fatal error...RESET!!!
+          SkyPack_Reset( FATAL_OVERFLOW );
+          /* Indicate we need to execute the BLE stack, it's the
+           * only way to get more space in the buffer */
+          ble.req_exec = true;
+          /* We're back to synchronizing */
+          ble.rx_state = BGRX_SYNC;
         }
-        /* Are we done with the header? */
-        if (header_cnt >= BGLIB_MSG_HEADER_LEN)
+        else
         {
-          /* Is there no payload? */
-          if (payload_len == 0)
+          /* Save the received byte */
+          ble.rx_buf[ble.rx_wr] = c;
+          /* Increment the index and header byte counter */
+          ble.rx_wr = NextBufIdx(ble.rx_wr);
+          header_cnt++;
+          /* If this is the second header byte, we can grab the payload
+           * length.  We ignore the first byte, since the spec says that
+           * due to memory limitations in the modules, the packet is
+           * never more than 64 bytes. */
+          if (header_cnt == 2)
           {
-            /* Reset receive state to synchronizing */
-            ble.rx_state = BGRX_SYNC;
-            /* Indicate we need to execute the BLE stack to process 
-             * the received packet */
-            ble.req_exec = true;
+            /* Get the payload length */
+            payload_len = c;
+            /* If we have a payload bigger than 60 bytes, something's wrong */
+            if (payload_len > 60)
+            {
+              // Oops...Detected a fatal error...RESET!!!
+              SkyPack_Reset( FATAL_PAYLDSYNC );
+              /* Reset receive state to synchronizing */
+              ble.rx_state = BGRX_SYNC;
+              /* Indicate we need to execute the BLE stack to free space */
+              ble.req_exec = true;
+            }
           }
-          else
+          /* Are we done with the header? */
+          if (header_cnt >= BGLIB_MSG_HEADER_LEN)
           {
-            /* Start receiving payload data */
-            ble.rx_state = BGRX_DATA;
-            /* Initialize the payload counter */
-            payload_cnt = 0;
-          }
-        }
+            /* Is there no payload? */
+            if (payload_len == 0)
+            {
+              /* Reset receive state to synchronizing */
+              ble.rx_state = BGRX_SYNC;
+              /* Indicate we need to execute the BLE stack to process 
+               * the received packet */
+              ble.req_exec = true;
+            }
+            else
+            {
+              /* Start receiving payload data */
+              ble.rx_state = BGRX_DATA;
+              /* Initialize the payload counter */
+              payload_cnt = 0;
+            }
+          } // EndIf (header_cnt >= BGLIB_MSG_HEADER_LEN)
+        } // EndElse (IsBufFull(ble.rx_wr, ble.rx_rd))
         break;
       /* Receiving data */
       case BGRX_DATA:
@@ -467,8 +489,15 @@ void BGM111_ProcessInput(void)
         /* Don't handle this event again */
         ble.evt = NULL;
         break;
-    };
-  }
+    }; // EndSwitch (temp1)
+    // Test RX Buffer and Set req_exec flag.
+    if (BufUsed(ble.rx_wr, ble.rx_rd) != 0)
+    {
+      /* Indicate we need to execute the BLE stack to process 
+       * the received packet */
+      ble.req_exec = true;
+    }
+  } // EndIf (ble.evt)
 }
 
 /* BLE write characteristic */
