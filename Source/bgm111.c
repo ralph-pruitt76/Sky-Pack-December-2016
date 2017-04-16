@@ -237,7 +237,6 @@ void BGM111_Init(void)
 }
 
 /* UART TX, RX and error interrupt handler */
-
 void BGM111_UART_IRQHandler(void)
 {
   static uint8_t header_cnt, payload_cnt, payload_len;
@@ -409,7 +408,8 @@ void BGM111_UART_IRQHandler(void)
   }
 }
 
-/* Process any input from the BLE module */
+
+/* Proces any input from the BLE module */
 
 void BGM111_ProcessInput(void)
 {

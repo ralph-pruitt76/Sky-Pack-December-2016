@@ -46,6 +46,36 @@ static  uint16_t        mntr_TxXferCount;       /*!< UART Tx Transfer Counter   
 
 
 
+/* Monitor UART TX, RX and error interrupt handler */
+void MNTR_UART_IRQHandler(void)
+{
+//  uint8_t tempBffr2[10];
+  
+  /* Transmit register empty? */
+  if (USART_GetITStatus(MNTR_UART, USART_IT_TXE) == SET)
+  {
+    /* Turn off the transmit interrupt */
+    USART_ITConfig(MNTR_UART, USART_IT_TXE, DISABLE);
+  }
+  
+  /* Was there an error? */
+  if (USART_GetITStatus(MNTR_UART, USART_IT_ORE_RX | 
+      USART_IT_ORE_ER | USART_IT_NE | USART_IT_FE) == SET)
+  {
+    /* Clear the error by reading the data register */
+    USART_ReceiveData(MNTR_UART);
+    /* We're done */
+    return;
+  }
+  
+  /* Was a new byte received? */
+  if (USART_GetITStatus(MNTR_UART, USART_IT_RXNE) == SET)
+  {
+    /* Get the byte (this also clears the flag) */
+    uint8_t c = USART_ReceiveData(MNTR_UART);
+  }
+}
+
 /* MNTR USART(USART1) init function */
 
 void MX_MNTR_UART_Init(void)

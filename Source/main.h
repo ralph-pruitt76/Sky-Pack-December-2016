@@ -13,11 +13,11 @@
  
    
 /* Definition for USARTx's NVIC */
-#define BRD_REV         "Rev K.4"               // PCB Revision          
-#define VERSION_NUM     "K.3.0"                 // Monitor Revision
-#define REL_DATE        "April 6, 2017"
+#define BRD_REV         "Rev K.5"               // PCB Revision          
+#define VERSION_NUM     "K.3.1"                 // Monitor Revision
+#define REL_DATE        "April 16, 2017"
 //#define LEGACY_BANNER   "Rev G+ REV C"        // OLD.....Needed to allow Legacy Design to work
-#define LEGACY_BANNER   "K.3.0 04/06/17"        // Needed to allow Legacy Design to work
+#define LEGACY_BANNER   "K.3.1 04/16/17"        // Needed to allow Legacy Design to work
 
 /* Prototypes */
 
