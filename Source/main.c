@@ -14,6 +14,7 @@ void main()
 {
   HAL_StatusTypeDef Status;
   uint8_t tempBffr2[80];
+  uint8_t mntrCmd[10];
 
   /* Initialize all hardware */
   Sys_Ctrl_Init();
@@ -69,6 +70,18 @@ void main()
     if (BGM111_Ready())
     {
       ProcessSensorState();
+    }
+    // Do we have a command to parse?
+    if ( Mntr_Cmd() )
+    {
+      // Parse Monitor Command.
+      sprintf( (char *)tempBffr2, "\r\n\r\n*********MONITOR COMMAND*********\r\n\r\n> ");
+      SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+      getMntrCmd( mntrCmd );
+      SkyPack_MNTR_UART_Transmit( (uint8_t *)mntrCmd );
+      sprintf( (char *)tempBffr2, "\r\n\r\n");
+      SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+      //Mntr_Clr();
     }
     /* Sleep when we have nothing to process */
     //PWR_EnterSleepMode(PWR_Regulator_ON, PWR_SLEEPEntry_WFI);

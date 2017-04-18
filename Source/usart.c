@@ -35,8 +35,11 @@
 /* Includes ------------------------------------------------------------------*/
 #include "usart.h"
 #include <string.h>
+#include <stdio.h>
 
 //#include "gpio.h"
+
+#define MNTR_DATA_LENGTH          50   
 
 /* Buffer used for transmission */
 uint8_t aTxBuffer[TXBUFFERSIZE];
@@ -44,12 +47,50 @@ static  uint32_t        mntr_state = 0;
 //static  uint16_t        mntr_TxXferSize;        /*!< UART Tx Transfer size              */
 static  uint16_t        mntr_TxXferCount;       /*!< UART Tx Transfer Counter           */
 
+/* Monitor communication structure */
 
+struct
+{
+  uint8_t rx_buf[MNTR_DATA_LENGTH];
+  volatile uint8_t rx_wr;
+  uint8_t rx_rd;
+  bool cmd;
+} static Mntr;
+
+/* Next buffer index based on current index and buffer size */
+uint8_t MNextBufIdx(uint8_t idx)
+{
+  idx++;
+  return idx < MNTR_DATA_LENGTH ? idx : 0;
+}
+
+/* Report if the buffer is full based on its indexes */
+bool IsMBufFull(uint8_t wr_idx, uint8_t rd_idx)
+{
+  return (MNextBufIdx(wr_idx) == rd_idx);
+}
+
+/* Get the used space in the buffer based on its indexes */
+uint8_t MBufUsed(uint8_t wr_idx, uint8_t rd_idx)
+{
+  int size = (int)wr_idx - (int)rd_idx;
+  if (size < 0)
+  {
+    size = MNTR_DATA_LENGTH + size;
+  }
+  return size;
+}
+
+/* Get the free space in the buffer based on its indexes */
+uint8_t MBufFree(uint8_t wr_idx, uint8_t rd_idx)
+{
+  return (MNTR_DATA_LENGTH - 1) - MBufUsed(wr_idx, rd_idx);
+}
 
 /* Monitor UART TX, RX and error interrupt handler */
 void MNTR_UART_IRQHandler(void)
 {
-//  uint8_t tempBffr2[10];
+  //uint8_t tempBffr2[5];
   
   /* Transmit register empty? */
   if (USART_GetITStatus(MNTR_UART, USART_IT_TXE) == SET)
@@ -73,9 +114,66 @@ void MNTR_UART_IRQHandler(void)
   {
     /* Get the byte (this also clears the flag) */
     uint8_t c = USART_ReceiveData(MNTR_UART);
+    if (!(IsMBufFull(Mntr.rx_wr, Mntr.rx_rd)))
+    {
+      /* Save the received byte */
+      Mntr.rx_buf[Mntr.rx_wr] = c;
+      /* Increment the index and header byte counter */
+      Mntr.rx_wr = MNextBufIdx(Mntr.rx_wr);
+      // Test Byte to see if termination character.
+      if (c == 0x0d)
+        Mntr.cmd = true;
+      // Test Code...
+      //sprintf( (char *)tempBffr2, "<%c>", c);
+      //SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+    }
   }
 }
 
+bool Mntr_Cmd( void )
+{
+  return Mntr.cmd;
+}
+
+void Mntr_Clr( void )
+{
+  Mntr.cmd = false;
+}
+
+void getMntrCmd(uint8_t *data)
+{
+  /* Wait until we received the requested number of data bytes */
+  while ((Mntr.rx_buf[Mntr.rx_rd] != 0x0d) &&
+         (MBufUsed(Mntr.rx_rd, Mntr.rx_wr) > 0))
+  {
+    /* Is there a byte in the receive buffer? */
+    if (Mntr.rx_rd != Mntr.rx_wr)
+    {
+      /* Disable interrupt */
+      NVIC_DisableIRQ(MNTR_UART_IRQn);
+      /* Write to the output buffer */
+      *data++ = Mntr.rx_buf[Mntr.rx_rd];
+      /* Next byte in the receive buffer */
+      Mntr.rx_rd = MNextBufIdx(Mntr.rx_rd);
+      /* Enable interrupt */
+      NVIC_EnableIRQ(MNTR_UART_IRQn);
+    }
+  }
+  // Increment to next key beyond Termination character
+  if (Mntr.rx_buf[Mntr.rx_rd] == 0x0d)
+  {
+    /* Disable interrupt */
+    NVIC_DisableIRQ(MNTR_UART_IRQn);
+    /* Next byte in the receive buffer */
+    Mntr.rx_rd = MNextBufIdx(Mntr.rx_rd);
+    /* Enable interrupt */
+    NVIC_EnableIRQ(MNTR_UART_IRQn);
+  }
+  // Now add Null to backend of string..
+  *data++ = 0x00;
+  // Clear Mntr CMD Fag...We are done.
+  Mntr_Clr();
+}
 /* MNTR USART(USART1) init function */
 
 void MX_MNTR_UART_Init(void)
@@ -83,6 +181,11 @@ void MX_MNTR_UART_Init(void)
   GPIO_InitTypeDef GPIO_InitStructure;
   USART_InitTypeDef USART_InitStructure;
   NVIC_InitTypeDef NVIC_InitStructure;
+  
+  // Initialize Monitor Buffer.
+  Mntr.cmd = false;
+  Mntr.rx_rd = 0;
+  Mntr.rx_wr = 0;
   
   /* Enable the USART peripheral */
   RCC_APB2PeriphClockCmd(MNTR_UART_CLK, ENABLE);

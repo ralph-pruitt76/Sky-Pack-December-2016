@@ -110,64 +110,9 @@ HAL_StatusTypeDef MNTR_UART_Transmit( uint8_t *pData, uint16_t Size, uint32_t Ti
 void delay_100us( void );
 HAL_StatusTypeDef SkyPack_MNTR_UART_Transmit( uint8_t *pData );
 HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout( uint32_t Timeout );
-
-#if 0
-   
-typedef enum 
-{
-  USART_2 = 0,
-  USART_3 = 1,
-
-  NUCLEO_USART = USART_2,
-  ROADBRD_USART = USART_3,
-  BGM_USART = USART_3,
-//  BGM_USART = USART_2,
-#ifdef PATCH_UART
-  MONITOR_UART = USART_3
-#else
-  MONITOR_UART = USART_2
-//  MONITOR_UART = USART_3
-#endif
-} RoadBrd_uart_TypeDef;
-
-/* USER CODE END Includes */
-extern UART_HandleTypeDef huart2;
-extern UART_HandleTypeDef huart3;
-
-/* Exported macro ------------------------------------------------------------*/
-#define COUNTOF(__BUFFER__)   (sizeof(__BUFFER__) / sizeof(*(__BUFFER__)))
-/* Exported functions ------------------------------------------------------- */
-
-
-/* USER CODE END Private defines */
-
-extern void Error_Handler(void);
-
-void MX_USART2_UART_Init(void);
-void MX_USART3_UART_Init(void);
-
-/* USER CODE BEGIN Prototypes */
-HAL_StatusTypeDef RoadBrd_UART_Transmit_IT(RoadBrd_uart_TypeDef Port, uint8_t *pData);
-HAL_StatusTypeDef RoadBrd_UART_Transmit_ITSZ(RoadBrd_uart_TypeDef Port, uint8_t *pData, uint16_t Size);
-ITStatus RoadBrd_Uart_Status(RoadBrd_uart_TypeDef Port);
-#ifndef PATCH_UART
-  HAL_StatusTypeDef RoadBrd_UART_Receive_ITBG(RoadBrd_uart_TypeDef Port, uint16_t Size);
-  uint8_t *RoadBrd_GetBGPtr( void );
-  void RoadBrd_SetBffrFlg( void );
-  void RoadBrd_ClrBffrFlg( void );
-  bool RoadBrd_GetBffrFlg( void );
-  int RoadBrd_getSaveLen( void );
-  void HAL_UART_EnableBGM_TXE( void );
-  void HAL_UART_EnableBGM_RX( void );
-#endif
-HAL_StatusTypeDef RoadBrd_UART_Receive_IT(RoadBrd_uart_TypeDef Port, uint8_t *pData, uint16_t Size);
-HAL_StatusTypeDef RoadBrd_UART_Receive(RoadBrd_uart_TypeDef Port, uint8_t *pData, uint16_t Size);
-HAL_UART_StateTypeDef RoadBrd_Uart_GetState(RoadBrd_uart_TypeDef Port);
-HAL_StatusTypeDef RoadBrd_UART_Transmit(RoadBrd_uart_TypeDef Port, uint8_t *pData);
-void clrUsartState( RoadBrd_uart_TypeDef Port );
-
-/* USER CODE END Prototypes */
-#endif
+bool Mntr_Cmd( void );
+void Mntr_Clr( void );
+void getMntrCmd(uint8_t *data);
 
 #ifdef __cplusplus
 }
