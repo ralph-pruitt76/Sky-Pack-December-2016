@@ -185,7 +185,12 @@ HAL_StatusTypeDef I2C_Write(uint8_t DeviceAddr, uint8_t RegAddr,
     /* Wait until the start condition has been successfully released */
     //WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_MODE_SELECT);
     if (WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_MODE_SELECT) == HAL_TIMEOUT)
+    {
+      // Clear busy flag
+      busy_flg = false;
+      // Declare Error.
       return HAL_TIMEOUT;
+    }
     
     /* Send and select slave address for writing */
     I2C_Send7bitAddress(I2C, DeviceAddr, I2C_Direction_Transmitter);
@@ -193,7 +198,12 @@ HAL_StatusTypeDef I2C_Write(uint8_t DeviceAddr, uint8_t RegAddr,
     /* Wait until the slave acknowledges */
     //WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED);
     if (WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED) == HAL_TIMEOUT)
+    {
+      // Clear busy flag
+      busy_flg = false;
+      // Declare Error.
       return HAL_TIMEOUT;
+    }
 
     /* Send the register address */
     I2C_SendData(I2C, RegAddr);
@@ -201,7 +211,12 @@ HAL_StatusTypeDef I2C_Write(uint8_t DeviceAddr, uint8_t RegAddr,
     /* Wait until transmission is started */
     //WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_BYTE_TRANSMITTING);
     if (WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_BYTE_TRANSMITTING) == HAL_TIMEOUT)
+    {
+      // Clear busy flag
+      busy_flg = false;
+      // Declare Error.
       return HAL_TIMEOUT;
+    }
     
     /* Loop until all data are transmitted */
     while (NumBytesToWrite)
@@ -216,7 +231,12 @@ HAL_StatusTypeDef I2C_Write(uint8_t DeviceAddr, uint8_t RegAddr,
       /* Wait until transmission is done */
       //WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_BYTE_TRANSMITTED);
       if (WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_BYTE_TRANSMITTED) == HAL_TIMEOUT)
+      {
+        // Clear busy flag
+        busy_flg = false;
+        // Declare Error.
         return HAL_TIMEOUT;
+      }
     }
     
     /* Send the stop condition after the byte is transmitted */
@@ -264,7 +284,12 @@ HAL_StatusTypeDef I2C_Read(uint8_t DeviceAddr, uint8_t RegAddr,
     
     /* Wait until the start condition has been successfully released */
     if (WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_MODE_SELECT) == HAL_TIMEOUT)
+    {
+      // Clear busy flag
+      busy_flg = false;
+      // Declare Error.
       return HAL_TIMEOUT;
+    }
     
     /* Send and select slave address for writing */
     I2C_Send7bitAddress(I2C, DeviceAddr, I2C_Direction_Transmitter);
@@ -272,7 +297,12 @@ HAL_StatusTypeDef I2C_Read(uint8_t DeviceAddr, uint8_t RegAddr,
     /* Wait until the slave acknowledges */
     //WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED);
     if (WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED) == HAL_TIMEOUT)
+    {
+      // Clear busy flag
+      busy_flg = false;
+      // Declare Error.
       return HAL_TIMEOUT;
+    }
     
     /* Send the register address */
     I2C_SendData(I2C, RegAddr);
@@ -280,7 +310,12 @@ HAL_StatusTypeDef I2C_Read(uint8_t DeviceAddr, uint8_t RegAddr,
     /* Wait until transmission is done */
     //WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_BYTE_TRANSMITTED);
     if (WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_BYTE_TRANSMITTED) == HAL_TIMEOUT)
+    {
+      // Clear busy flag
+      busy_flg = false;
+      // Declare Error.
       return HAL_TIMEOUT;
+    }
 
     /* Generate start condition */
     I2C_GenerateSTART(I2C, ENABLE);
@@ -288,7 +323,12 @@ HAL_StatusTypeDef I2C_Read(uint8_t DeviceAddr, uint8_t RegAddr,
     /* Wait until the start condition has been successfully released */
     //WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_MODE_SELECT);
     if (WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_MODE_SELECT) == HAL_TIMEOUT)
+    {
+      // Clear busy flag
+      busy_flg = false;
+      // Declare Error.
       return HAL_TIMEOUT;
+    }
     
     /* Send and select slave address for reading */
     I2C_Send7bitAddress(I2C, DeviceAddr, I2C_Direction_Receiver);
@@ -296,7 +336,12 @@ HAL_StatusTypeDef I2C_Read(uint8_t DeviceAddr, uint8_t RegAddr,
     /* Wait until the slave acknowledges */
     //WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED);
     if (WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED) == HAL_TIMEOUT)
+    {
+      // Clear busy flag
+      busy_flg = false;
+      // Declare Error.
       return HAL_TIMEOUT;
+    }
 
     /* Loop until all data are received */
     while (NumBytesToRead)
@@ -310,7 +355,12 @@ HAL_StatusTypeDef I2C_Read(uint8_t DeviceAddr, uint8_t RegAddr,
       /* Wait for a byte to arrive */
       //WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_BYTE_RECEIVED);
       if (WAIT_FOR_I2C_EVENT(I2C_EVENT_MASTER_BYTE_RECEIVED) == HAL_TIMEOUT)
+      {
+        // Clear busy flag
+        busy_flg = false;
+        // Declare Error.
         return HAL_TIMEOUT;
+      }
       
       /* Read a data byte */
       *pBuffer = I2C_ReceiveData(I2C);

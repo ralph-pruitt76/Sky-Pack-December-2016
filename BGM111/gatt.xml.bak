@@ -7,7 +7,7 @@
 
       <characteristic uuid="2a00">
         <properties read="true" const="true" />
-        <value>Sky Pack BGM111 BGAPI</value>
+        <value>Sky Pck2</value>
       </characteristic>
 
       <characteristic uuid="2a01">
@@ -98,8 +98,8 @@
         </characteristic>
 		<characteristic uuid="57656174-1010-4016-y001-00000000002C" id="AnlHrtBt">
             <description>Heart Beat</description>
-            <properties read="true" indicate="true" />
-            <value length="12" />
+            <properties read="true" notify="true" />
+            <value length="40" />
         </characteristic>
  	</service>
 
