@@ -31,6 +31,7 @@
 #define gattdb_AnlDevCd                        53
 #define gattdb_AnlTickCnt                      57
 #define gattdb_AnlHrtBt                        61
+#define gattdb_AnlHrtBt2                       65
 
 /* App data measurment structure */
 
@@ -80,6 +81,9 @@ struct
   } cap;
 } data;
 
+static uint16_t connection_cnt = 0;
+static uint16_t HeartBeat_Cnt = 0;
+ 
 /* Initialize the IMU sensors */
 
 HAL_StatusTypeDef InitIMUSensors(void)
@@ -377,16 +381,29 @@ void SAMPLE_TIM_IRQHandler(void)
 
 void ProcessSensorState(void)
 {
+  static int TimeTagCnt = 0;
+  static int HeartCnt = 0;
   HAL_StatusTypeDef Status;
   char characteristic[21];
-  uint8_t tempStr[13];
-  uint8_t tempBffr2[10];
+//  uint8_t tempStr[13];
+  uint8_t tempBffr2[40];
   uint8_t tempbffr[30];
   static int nullCnt = 0;
-  
+ 
   /* Is a reading scheduled? */
   if (data.reading_scheduled)
   {
+    // Build Time Tag Every 25th Call to report back to App.
+    TimeTagCnt++;
+    HeartCnt++;
+    if (TimeTagCnt >= 25)
+    {
+      // Clear Count.
+      TimeTagCnt = 0;
+      sprintf( (char *)tempBffr2, " \r\n\r\n<TICK:%08x/%04x/%04x> ", HeartCnt, HeartBeat_Cnt, connection_cnt);
+      SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+      SendApp_String( (uint8_t *)tempBffr2 );
+    }
     // Test Connection. Have we timed out??
     Test_Connection();
     
@@ -501,9 +518,9 @@ void ProcessSensorState(void)
     // Test Analytics flag and determine if we need to update that characteristic
     if (!(Tst_HeartBeat()))
     {
-      sprintf( (char *)tempStr, "%010dHB", analytics.HrtBeat_Cnt++);
-      BGM111_WriteCharacteristic(gattdb_AnlHrtBt,
-                             strlen((char *)tempStr), (uint8_t *)tempStr);
+//      sprintf( (char *)tempStr, "%010dHB", analytics.HrtBeat_Cnt++);
+//      BGM111_WriteCharacteristic(gattdb_AnlHrtBt,
+//                             strlen((char *)tempStr), (uint8_t *)tempStr);
       Set_HeartBeat();
     }
     // Test Legacy flag to perform one time operations
@@ -617,6 +634,34 @@ void SkyPack_Reset( int code )
   NVIC_SystemReset();
 }
 
+/**
+  * @brief  This function streams the passed string to the App via characteristics..
+  * @param  uint8_t *pData
+  * @retval None
+  */
+void SendApp_String( uint8_t *pData )
+{
+  uint8_t tempBffr3[25];
+  uint8_t *tempPtr;
+  //int tempval;
+
+  if (BGM111_Ready())
+  {
+    strncpy( (char *)tempBffr3, (char *)pData, 20);
+    BGM111_WriteCharacteristic(gattdb_AnlHrtBt,
+                              strlen((char *)tempBffr3), (uint8_t *)tempBffr3);
+    //tempval = strlen((char *)pData);
+    //if (tempval > 20)
+    if (strlen((char *)pData) > 20)
+      tempPtr = &pData[20];
+    else
+      tempPtr = &pData[0];
+    strncpy( (char *)tempBffr3, (char *)tempPtr, 20);
+    BGM111_WriteCharacteristic(gattdb_AnlHrtBt2,
+                              strlen((char *)tempBffr3), (uint8_t *)tempBffr3);
+  }
+}
+
   /**
   * @brief  This function Tests for an active connection.
   * @param  None
@@ -624,9 +669,6 @@ void SkyPack_Reset( int code )
   */
 void Test_Connection( void )
 {
-  static uint16_t connection_cnt = 0;
-  static uint16_t HeartBeat_Cnt = 0;
- 
   // Test Connection
   if ( BGM111_Connected() )
   {

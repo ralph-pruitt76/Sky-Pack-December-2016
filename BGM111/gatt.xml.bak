@@ -72,35 +72,50 @@
 		<properties read="true" notify="true" />
 		<value length="20" />
 	</characteristic>
+		<characteristic uuid="002C0000-0000-0000-0000-1234567890ab" id="AnlHrtBt">
+		<!--<characteristic uuid="abab0000-0000-0000-0000-1234567890ab" id="AnlHrtBt">-->
+            <description>Heart Beat</description>
+            <properties read="true" notify="true" />
+            <value length="20" />
+        </characteristic>
+		<characteristic uuid="002D0000-0000-0000-0000-1234567890ab" id="AnlHrtBt2">
+            <description>Heart Beat2</description>
+            <properties read="true" notify="true" />
+            <value length="20" />
+        </characteristic>
     </service>
-
 	<service uuid="b1b10000-0000-0000-0000-5A5A5A000005" advertise="true">
         <description>Analytics</description>
-		<characteristic uuid="57656174-1010-4016-y001-000000000028" id="AnlErrCnt">
+		<characteristic uuid="00280000-0000-0000-0000-5A5A5A000005" id="AnlErrCnt">
             <description>Error Count</description>
             <properties read="true" notify="true" />
             <value length="6" />
         </characteristic>
-		<characteristic uuid="57656174-1010-4016-y001-000000000029" id="AnlErrCd">
+		<characteristic uuid="00290000-0000-0000-0000-5A5A5A000005" id="AnlErrCd">
             <description>Error Code</description>
             <properties read="true" notify="true" />
             <value length="7" />
         </characteristic>
-		<characteristic uuid="57656174-1010-4016-y001-00000000002A" id="AnlDevCd">
+		<characteristic uuid="002A0000-0000-0000-0000-5A5A5A000005" id="AnlDevCd">
             <description>Device Code</description>
             <properties read="true" notify="true" />
             <value length="7" />
         </characteristic>
-		<characteristic uuid="57656174-1010-4016-y001-00000000002B" id="AnlTickCnt">
+		<characteristic uuid="002B0000-0000-0000-0000-5A5A5A000005" id="AnlTickCnt">
             <description>Tick Count</description>
             <properties read="true" notify="true" />
             <value length="12" />
         </characteristic>
-		<characteristic uuid="57656174-1010-4016-y001-00000000002C" id="AnlHrtBt">
-            <description>Heart Beat</description>
+		<!--<characteristic uuid="002C0000-0000-0000-0000-5A5A5A000005" id="AnlHrtBt">-->
+		<!--<characteristic uuid="abab0000-0000-0000-0000-1234567890ab" id="AnlHrtBt">-->
+            <!--<description>Heart Beat</description>
             <properties read="true" notify="true" />
-            <value length="40" />
+            <value length="20" />
         </characteristic>
+		<characteristic uuid="002D0000-0000-0000-0000-5A5A5A000005" id="AnlHrtBt2">
+            <description>Heart Beat2</description>
+            <properties read="true" notify="true" />
+            <value length="20" />
+        </characteristic>-->
  	</service>
-
 </gatt>

@@ -430,6 +430,7 @@ void BGM111_ProcessInput(void)
       /* System boot handler */
       case gecko_evt_system_boot_id:
         SkyPack_MNTR_UART_Transmit( (uint8_t *)"<<<BGM_BOOT>>>\r\n" );
+        SendApp_String( (uint8_t *)"<<<BGM_BOOT>>>");
         /* Flag that the BLE module has booted */
         ble.booted = true;
         Boot_evt = true;
@@ -445,6 +446,7 @@ void BGM111_ProcessInput(void)
           if (Boot_evt == false)
           {
             SkyPack_MNTR_UART_Transmit( (uint8_t *)"<<<BGM_CNCTCLOSE>>>\r\n" );
+            SendApp_String( (uint8_t *)"<<<BGM_CNCTCLOSE>>>");
             SkyPack_Reset( FATAL_CNCTDROP );
           }
           /* We succeeded, don't handle this event again */
@@ -456,6 +458,7 @@ void BGM111_ProcessInput(void)
         /* Open Event...Set Active Connection Flag */
         /* Don't handle this event again */
         SkyPack_MNTR_UART_Transmit( (uint8_t *)"<<<BGM_CNCTOPEN>>>\r\n" );
+        SendApp_String( (uint8_t *)"<<<BGM_CNCTOPEN>>>");
         ble.connection = true;
         ble.evt = NULL;
         break;
