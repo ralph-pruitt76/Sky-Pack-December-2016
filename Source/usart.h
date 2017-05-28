@@ -32,8 +32,8 @@
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __usart_H
-#define __usart_H
+#ifndef __usartA_H
+#define __usartA_H
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -47,19 +47,9 @@
 /* USER CODE BEGIN Includes */
 #include "bgm111.h"
 #include "app_data.h"
+#include "main.h"
 
 /**************************** enums *******************************************/
-
-/** 
-  * @brief  HAL Status structures definition  
-  */  
-typedef enum 
-{
-  HAL_OK       = 0x00,
-  HAL_ERROR    = 0x01,
-  HAL_BUSY     = 0x02,
-  HAL_TIMEOUT  = 0x03
-} HAL_StatusTypeDef;
 
 /** 
   * @brief HAL UART State structures definition  

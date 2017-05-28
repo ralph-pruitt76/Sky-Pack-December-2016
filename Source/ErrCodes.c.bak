@@ -33,8 +33,8 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "usart.h"
 #include "ErrCodes.h"
+#include "usart.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -54,14 +54,11 @@ const char * const CodesArray[] = { "       ",                      // CODE 000:
                                     "ILLM_IN",                      // CODE 011: Illuminance Initialization has failed.
                                     "IMU_ERR",                      // CODE 012: IMU Tasking has failed.
                                     "PRSS_ER",                      // CODE 013: Pressure Sensor Tasking has failed.
-                                    "BGMOVFL",                      // CODE 014: BGM111 processing code has detected Serial Stream Overflow.
-                                    "BGTXFUL",                      // CODE 015: BGM111 processing code has detected a Transmit Buffer Full error on traffic to BGM111.
-                                    "FRMINIT",                      // CODE 016: Could not Initialize Flash Frame.
+                                    "       ",                      // CODE 014: NULL...
+                                    "       ",                      // CODE 015: NULL...
                                     "       ",                      // CODE 017: NULL...
                                     "       ",                      // CODE 018: NULL...
-                                    "       ",                      // CODE 019: NULL...
-                                    "       ",                      // CODE 020: NULL...
-                                    "       " };                    // CODE 021: NULL...
+                                    "       " };                    // CODE 019: NULL...
 const char * const ModuleArray[] = { "       ",                    // CODE 000: NULL...NO Device Code
                                      "   main",                    // CODE 001: module: main.c
                                      " bgm111",                    // CODE 002: module: bgm111.c

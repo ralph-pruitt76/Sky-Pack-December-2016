@@ -67,13 +67,8 @@ void main()
     /* Process BLE input */
     BGM111_ProcessInput();
     /* Process the sensor state machine if the BLE module is ready */
-    if ((BGM111_Ready()) &&
-        (BGM111_Connected()) &&
-        (BGM111_DataConnected()) )
+    if (BGM111_Ready())
     {
-      // Service Watchdog
-//**CHANGE**
-//      RoadBrd_WWDG_Refresh();     // Refresh WatchDog
       ProcessSensorState();
     }
     // Do we have a command to parse?

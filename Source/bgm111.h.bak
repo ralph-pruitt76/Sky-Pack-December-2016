@@ -1,13 +1,11 @@
 /* SiLabs BGM111 module access header file */
 
-#ifndef BGM111A_H_
-#define BGM111A_H_
+#ifndef BGM111_H_
+#define BGM111_H_
 
-#include "usart.h"
 #include "stm32l1xx.h"
 #include <stdint.h>
 #include <stdbool.h>
-#include "main.h"
 
 
 /* BGM111 module interface pins and peripherals */
@@ -44,7 +42,6 @@
 #define BGM111_RESET_PIN                 GPIO_Pin_15
 #define BGM111_RESET_GPIO_CLK            RCC_AHBPeriph_GPIOB
 
-#define TX_TIMEOUT_CNT                   2000           // Loop 2000 Times for Timeout
 /* Initialize the BGM111 module and BGLib */
 void BGM111_Init(void);
 
@@ -53,16 +50,9 @@ void BGM111_ProcessInput(void);
 
 /* BLE write characteristic */
 void BGM111_WriteCharacteristic(uint8_t handle, uint8_t len, uint8_t *data);
-HAL_StatusTypeDef SkyBrd_ProcessBGMChar(uint8_t c);
-bool SkyBrd_tstReqexec( void );
-//void BGM111_UART_IRQHandler(UART_HandleTypeDef *huart);
-//uint16_t USART_ReceiveData(UART_HandleTypeDef *huart);
-//void USART_SendData(UART_HandleTypeDef *huart, uint16_t Data);
-void BGM111_Transmit(uint32_t len, uint8_t *data);
 
 /* Report if the BLE is ready for a command */
 bool BGM111_Ready(void);
 bool BGM111_Connected(void);
-bool BGM111_DataConnected(void);
 
 #endif
