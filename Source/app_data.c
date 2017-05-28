@@ -294,9 +294,11 @@ void InitSampleTimer(void)
   /* Enable clock for the sample timer */
   RCC_APB1PeriphClockCmd(SAMPLE_TIM_RCC, ENABLE);
 
-  /* Configure to generate an interrupt every 200ms */
+  /* OLD: Configure to generate an interrupt every 200ms */
+  /* BRONZE: Configure to generate an interrupt every 1000ms */
+  /* BRONZE.2: Configure to generate an interrupt every 10000ms */
   TIM_TimeBaseInitStructure.TIM_Prescaler = 32 * 1000;
-  TIM_TimeBaseInitStructure.TIM_Period = 1000;
+  TIM_TimeBaseInitStructure.TIM_Period = 10000;
   TIM_TimeBaseInit(SAMPLE_TIM, &TIM_TimeBaseInitStructure);
 
   /* Enable and configure sample timer update interrupt */
@@ -394,7 +396,6 @@ void SAMPLE_TIM_IRQHandler(void)
   data.reading_scheduled = true;
   // This tick occurs every 200msec.
   // Turn off the Blue LED NOW.
-  SkyPack_gpio_Off(BGM_LED);
 }
 
 /* Process sensor state machine */
@@ -415,13 +416,13 @@ void ProcessSensorState(void)
     // Build Time Tag Every 25th Call to report back to App.
     TimeTagCnt++;
     HeartCnt++;
-    if (TimeTagCnt >= 5)
+    if (TimeTagCnt >= 3)
     {
       // Clear Count.
       TimeTagCnt = 0;
       sprintf( (char *)tempBffr2, " \r\n\r\n");
       SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
-      sprintf( (char *)tempBffr2, "<TICK>:SP/%08x/%04x/%04x></TICK>", HeartCnt, HeartBeat_Cnt, connection_cnt);
+      sprintf( (char *)tempBffr2, "<TICK>SP/%08x/%04x/%04x></TICK>", HeartCnt, HeartBeat_Cnt, connection_cnt);
       SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
       BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), tempBffr2);
       SendApp_String( (uint8_t *)tempBffr2 );
@@ -500,7 +501,7 @@ void ProcessSensorState(void)
       data.imu.accel.named.y = TmpData.imu.accel.named.y;
       data.imu.accel.named.y = TmpData.imu.accel.named.z;
      
-      sprintf(characteristic, "<B6B6>%05d%05d%05d</B6B6>", data.imu.accel.named.x,
+      sprintf(characteristic, "<UB6B6>%05d%05d%05d</UB6B6>", data.imu.accel.named.x,
               data.imu.accel.named.y, data.imu.accel.named.z);
       /* Send the accelerometer data to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
@@ -518,7 +519,7 @@ void ProcessSensorState(void)
       data.imu.gyro.named.y = TmpData.imu.gyro.named.y;
       data.imu.gyro.named.z = TmpData.imu.gyro.named.z;
      
-      sprintf(characteristic, "<B9B9>%05d%05d%05d</B9B9>", data.imu.gyro.named.x,
+      sprintf(characteristic, "<UB9B9>%05d%05d%05d</UB9B9>", data.imu.gyro.named.x,
               data.imu.gyro.named.y, data.imu.gyro.named.z);
       /* Send the gyro data to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
@@ -536,7 +537,7 @@ void ProcessSensorState(void)
       data.imu.mag.named.y = TmpData.imu.mag.named.y;
       data.imu.mag.named.z = TmpData.imu.mag.named.z;
      
-      sprintf(characteristic, "<B7B7>%05d%05d%05d</B7B7>", data.imu.mag.named.x,
+      sprintf(characteristic, "<UB7B7>%05d%05d%05d</UB7B7>", data.imu.mag.named.x,
               data.imu.mag.named.y, data.imu.mag.named.z);
       /* Send the magnetometer data to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
@@ -550,7 +551,7 @@ void ProcessSensorState(void)
        // Update Information in data structure
       data.temperature = TmpData.temperature;
 
-      sprintf(characteristic, "<B8B8>%05d</B8B8>", data.temperature);
+      sprintf(characteristic, "<UB8B8>%05d</UB8B8>", data.temperature);
       /* Send the temperature to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -563,7 +564,7 @@ void ProcessSensorState(void)
        // Update Information in data structure
       data.pressure = TmpData.pressure;
 
-      sprintf(characteristic, "<BEBE>%06d</BEBE>", data.pressure);
+      sprintf(characteristic, "<UBEBE>%06d</UBEBE>", data.pressure);
       /* Send the pressure to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -576,7 +577,7 @@ void ProcessSensorState(void)
        // Update Information in data structure
       data.irradiance = TmpData.irradiance;
 
-      sprintf(characteristic, "<BBBB>%08d</BBBB>", data.irradiance);
+      sprintf(characteristic, "<UBBBB>%08d</UBBBB>", data.irradiance);
       /* Send the irradiance to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -589,7 +590,7 @@ void ProcessSensorState(void)
        // Update Information in data structure
       data.cap.event_freq = TmpData.cap.event_freq;
 
-      sprintf(characteristic, "<BCBC>%05d</BCBC>", data.cap.event_freq);
+      sprintf(characteristic, "<UBCBC>%05d</UBCBC>", data.cap.event_freq);
       /* Send the cap sense event frequency to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -604,7 +605,7 @@ void ProcessSensorState(void)
       data.cap.swept_idx = TmpData.cap.swept_idx;
       data.cap.swept_level = TmpData.cap.swept_level;
      
-      sprintf(characteristic, "<BDBD>%05d%06d</BDBD>", data.cap.swept_idx,
+      sprintf(characteristic, "<UBDBD>%05d%06d</UBDBD>", data.cap.swept_idx,
                                               data.cap.swept_level);
       /* Send the swept frequency to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
@@ -626,13 +627,14 @@ void ProcessSensorState(void)
       // Clear Flag...We are done.
       data.Legacy_OneTime = false;
       // Update BLE Characteristics
-      sprintf( characteristic, "<BFBF>%s</BFBF>", (char *)LEGACY_BANNER);
+      sprintf( characteristic, "<UBFBF>%s</UBFBF>", (char *)LEGACY_BANNER);
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
 //      BGM111_WriteCharacteristic(gattdb_xgatt_rev,
 //                                 strlen((char *)LEGACY_BANNER), (uint8_t *)LEGACY_BANNER);
     }
-  }
+    SkyPack_gpio_Off(BGM_LED);          // Turn off BGM LED.
+  } // EndIf (data.reading_scheduled)
 }
 
 /**
