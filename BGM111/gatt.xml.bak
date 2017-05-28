@@ -1,121 +1,62 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<gatt out="gatt_db.c" header="gatt_db.h" prefix="gattdb_">
+<gatt>
 
-    <service uuid="1800">
-      <description>Generic Access Profile</description>
+	<!-- Generic Access Service -->
+	<!-- https://developer.bluetooth.org/gatt/services/Pages/ServiceViewer.aspx?u=org.bluetooth.service.generic_access.xml -->    
+	<service uuid="1800">
 
-      <characteristic uuid="2a00">
-        <properties read="true" const="true" />
-        <value>Sky Pck2</value>
-      </characteristic>
-
-      <characteristic uuid="2a01">
-        <properties read="true" const="true" />
-        <value type="hex">0000</value>
-      </characteristic>
-    </service>
-    
-    <service uuid="b0b00000-0000-0000-0000-1234567890ab" advertise="true">
-        <description>Sky Pack</description>
+		<description>Generic Access Service</description>
 		
-	<characteristic uuid="b6b60000-0000-0000-0000-1234567890ab" id="accelerometer">
-            <description>XYZ Accel</description>
-            <properties read="true" notify="true" />
-            <value length="17" />
-        </characteristic>
+		<!-- Device name -->
+		<!-- https://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicViewer.aspx?u=org.bluetooth.characteristic.gap.device_name.xml -->
+		<characteristic uuid="2a00">
+			<properties read="true" const="true" />
+			<value>Sky Pack BLEHD</value>
+		</characteristic>
 
-	<characteristic uuid="b7b70000-0000-0000-0000-1234567890ab" id="magnetometer">
-            <description>XYZ Mag</description>
-            <properties read="true" notify="true" />
-            <value length="17" />
-        </characteristic>
-    
-	<characteristic uuid="b8b80000-0000-0000-0000-1234567890ab" id="temperature">
-            <description>Temperature</description>
-            <properties read="true" notify="true" />
-            <value length="7" />
-        </characteristic>
+		<!-- Appearances -->
+		<!-- https://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicViewer.aspx?u=org.bluetooth.characteristic.gap.appearance.xml -->
+		<characteristic uuid="2a01">
+			<properties read="true" const="true" />
+			<value type="hex">0000</value>
+		</characteristic>
 
-	<characteristic uuid="b9b90000-0000-0000-0000-1234567890ab" id="gyro">
-            <description>XYZ Gyro</description>
-            <properties read="true" notify="true" />
-            <value length="17" />
-        </characteristic>
+	</service>
 
-	<characteristic uuid="bbbb0000-0000-0000-0000-1234567890ab" id="irradiance">
-            <description>Irradiance</description>
-            <properties read="true" notify="true" />
-            <value length="10" />
-        </characteristic>
+	<!-- Device Information Service -->
+	<!-- https://developer.bluetooth.org/gatt/services/Pages/ServiceViewer.aspx?u=org.bluetooth.service.device_information.xml -->
+	<service uuid="180A">
 
-	<characteristic uuid="bcbc0000-0000-0000-0000-1234567890ab" id="wiper_freq">
-            <description>Wiper Freq</description>
-            <properties read="true" notify="true" />
-            <value length="7" />
-        </characteristic>
+		<description>Device Information Service</description>
+	
+		<!-- Manufacturer name string -->
+		<!-- https://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicViewer.aspx?u=org.bluetooth.characteristic.manufacturer_name_string.xml -->
+		<characteristic uuid="2A29">
+			<properties read="true" const="true" />
+			<value>Silicon Labs</value>
+		</characteristic>
 
-	<characteristic uuid="bdbd0000-0000-0000-0000-1234567890ab" id="swept_freq_idx">
-            <description>Swept freq index</description>
-            <properties read="true" notify="true" />
-            <value length="13" />
-        </characteristic>
+		<!-- Model number string string -->
+		<!-- https://developer.bluetooth.org/gatt/characteristics/Pages/CharacteristicViewer.aspx?u=org.bluetooth.characteristic.model_number_string.xml -->
+		<characteristic uuid="2A24">
+			<properties read="true" const="true" />
+			<value>Sky Pack BLEHD</value>
+		</characteristic>
 
-	<characteristic uuid="bebe0000-0000-0000-0000-1234567890ab" id="pressure">
-            <description>Pressure</description>
-            <properties read="true" notify="true" />
-            <value length="8" />
-        </characteristic>
-
-	<characteristic uuid="bfbf0000-0000-0000-0000-1234567890ab" id="xgatt_rev">
-		<description>SN/HWREV/SWREV</description>
-		<properties read="true" notify="true" />
-		<value length="20" />
-	</characteristic>
-		<characteristic uuid="002C0000-0000-0000-0000-1234567890ab" id="AnlHrtBt">
-		<!--<characteristic uuid="abab0000-0000-0000-0000-1234567890ab" id="AnlHrtBt">-->
-            <description>Heart Beat</description>
-            <properties read="true" notify="true" />
-            <value length="20" />
-        </characteristic>
-		<characteristic uuid="002D0000-0000-0000-0000-1234567890ab" id="AnlHrtBt2">
-            <description>Heart Beat2</description>
-            <properties read="true" notify="true" />
-            <value length="20" />
-        </characteristic>
+	</service>
+	
+	<!-- Our custom accelerometer service is declared here -->	 
+	<!-- UUID values generated with https://www.guidgenerator.com/ --> 
+	<service uuid="0bd51666-e7cb-469b-8e4d-2742f1ba77cc" advertise="true">
+        <description>SPP Service</description>
+        
+		<characteristic uuid="e7add780-b042-4876-aae1-112855353cc1" id="xgatt_spp_data">
+            <description>SPP Data</description>
+            <properties write="true" notify="true" />
+			<value variable_length="true" length="20" type="hex"></value>
+		</characteristic>
+		
     </service>
-	<service uuid="b1b10000-0000-0000-0000-5A5A5A000005" advertise="true">
-        <description>Analytics</description>
-		<characteristic uuid="00280000-0000-0000-0000-5A5A5A000005" id="AnlErrCnt">
-            <description>Error Count</description>
-            <properties read="true" notify="true" />
-            <value length="6" />
-        </characteristic>
-		<characteristic uuid="00290000-0000-0000-0000-5A5A5A000005" id="AnlErrCd">
-            <description>Error Code</description>
-            <properties read="true" notify="true" />
-            <value length="7" />
-        </characteristic>
-		<characteristic uuid="002A0000-0000-0000-0000-5A5A5A000005" id="AnlDevCd">
-            <description>Device Code</description>
-            <properties read="true" notify="true" />
-            <value length="7" />
-        </characteristic>
-		<characteristic uuid="002B0000-0000-0000-0000-5A5A5A000005" id="AnlTickCnt">
-            <description>Tick Count</description>
-            <properties read="true" notify="true" />
-            <value length="12" />
-        </characteristic>
-		<!--<characteristic uuid="002C0000-0000-0000-0000-5A5A5A000005" id="AnlHrtBt">-->
-		<!--<characteristic uuid="abab0000-0000-0000-0000-1234567890ab" id="AnlHrtBt">-->
-            <!--<description>Heart Beat</description>
-            <properties read="true" notify="true" />
-            <value length="20" />
-        </characteristic>
-		<characteristic uuid="002D0000-0000-0000-0000-5A5A5A000005" id="AnlHrtBt2">
-            <description>Heart Beat2</description>
-            <properties read="true" notify="true" />
-            <value length="20" />
-        </characteristic>-->
- 	</service>
+	
 </gatt>

@@ -1,15 +1,1 @@
-accelerometer 8
-magnetometer 12
-temperature 16
-gyro 20
-irradiance 24
-wiper_freq 28
-swept_freq_idx 32
-pressure 36
-xgatt_rev 40
-AnlErrCnt 45
-AnlErrCd 49
-AnlDevCd 53
-AnlTickCnt 57
-AnlHrtBt 61
-AnlHrtBt2 65
+xgatt_spp_data 13
