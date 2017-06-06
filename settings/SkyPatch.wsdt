@@ -91,18 +91,6 @@
         </Tab>
         <Tab>
           <Factory>TextEditor</Factory>
-          <Filename>$WS_DIR$\Source\app_data.c</Filename>
-          <XPos>0</XPos>
-          <YPos>0</YPos>
-          <SelStart>0</SelStart>
-          <SelEnd>0</SelEnd>
-          <XPos2>0</XPos2>
-          <YPos2>891</YPos2>
-          <SelStart2>27976</SelStart2>
-          <SelEnd2>27976</SelEnd2>
-        </Tab>
-        <Tab>
-          <Factory>TextEditor</Factory>
           <Filename>$WS_DIR$\Source\bgm111.h</Filename>
           <XPos>0</XPos>
           <YPos>0</YPos>
@@ -134,8 +122,8 @@
           <SelEnd>0</SelEnd>
           <XPos2>0</XPos2>
           <YPos2>113</YPos2>
-          <SelStart2>4758</SelStart2>
-          <SelEnd2>4762</SelEnd2>
+          <SelStart2>0</SelStart2>
+          <SelEnd2>0</SelEnd2>
         </Tab>
         <Tab>
           <Factory>TextEditor</Factory>
@@ -158,10 +146,10 @@
           <SelEnd>0</SelEnd>
           <XPos2>0</XPos2>
           <YPos2>0</YPos2>
-          <SelStart2>227</SelStart2>
-          <SelEnd2>227</SelEnd2>
+          <SelStart2>223</SelStart2>
+          <SelEnd2>223</SelEnd2>
         </Tab>
-        <ActiveTab>7</ActiveTab>
+        <ActiveTab>6</ActiveTab>
         <Tab>
           <Factory>TextEditor</Factory>
           <Filename>$WS_DIR$\Source\main.h</Filename>
@@ -171,8 +159,8 @@
           <SelEnd>0</SelEnd>
           <XPos2>0</XPos2>
           <YPos2>0</YPos2>
-          <SelStart2>500</SelStart2>
-          <SelEnd2>500</SelEnd2>
+          <SelStart2>851</SelStart2>
+          <SelEnd2>851</SelEnd2>
         </Tab>
       </Pane>
       <ActivePane>0</ActivePane>
@@ -193,6 +181,9 @@
             </Toolbar-055EEA58>
           </Sizes>
         </Row0>
+        <Row1>
+          <Sizes/>
+        </Row1>
       </Top>
       <Left>
         <Row0>
