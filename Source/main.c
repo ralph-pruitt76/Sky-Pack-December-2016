@@ -49,7 +49,7 @@ void main()
   strcpy( (char *)tempBffr2, "*********************  WEATHERCLOUD *********************\r\n\r\n");
   Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
   if (Status != HAL_OK)
-    SkyPack_Reset( FATAL_ERROR );;
+    SkyPack_Reset( FATAL_ERROR );
   sprintf( (char *)tempBffr2, "     Sky Pack Monitor %s Hardware Version %s \r\n", VERSION_NUM, BRD_REV);
   Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
   if (Status != HAL_OK)
