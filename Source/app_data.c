@@ -413,6 +413,10 @@ void ProcessSensorState(void)
   /* Is a reading scheduled? */
   if (data.reading_scheduled)
   {
+    // Send Start of new Frame Tag...
+    SkyPack_MNTR_UART_Transmit( (uint8_t *)"<FRM>" );
+    BGM111_Transmit((uint32_t)(strlen((char *)"<FRM>")), "<FRM>");
+
     // Build Time Tag Every 25th Call to report back to App.
     TimeTagCnt++;
     HeartCnt++;
@@ -420,9 +424,8 @@ void ProcessSensorState(void)
     {
       // Clear Count.
       TimeTagCnt = 0;
-      sprintf( (char *)tempBffr2, " \r\n\r\n");
-      SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
-      sprintf( (char *)tempBffr2, "<TICK>SP/%08x/%04x/%04x></TICK>", HeartCnt, HeartBeat_Cnt, connection_cnt);
+      //sprintf( (char *)tempBffr2, "<TICK>SP/%08x/%04x/%04x></TICK>", HeartCnt, HeartBeat_Cnt, connection_cnt);
+      sprintf( (char *)tempBffr2, "<TICK>SP/%08x></TICK>", HeartCnt);
       SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
       BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), tempBffr2);
       SendApp_String( (uint8_t *)tempBffr2 );
@@ -468,8 +471,8 @@ void ProcessSensorState(void)
     }
     // Build Display String from value.
     //sprintf( (char *)tempBffr2, "<%5dlx>", data.irradiance);
-    sprintf( (char *)tempBffr2, "  <%05dlx/%d>  ", data.irradiance, data.pressure);
-    SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2);
+    //sprintf( (char *)tempBffr2, "  <%05dlx/%d>  ", data.irradiance, data.pressure);
+    //SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2);
 
     /* Read the miscellaneous cap sensors */
     ReadMiscSensors();
@@ -634,7 +637,12 @@ void ProcessSensorState(void)
 //                                 strlen((char *)LEGACY_BANNER), (uint8_t *)LEGACY_BANNER);
     }
     SkyPack_gpio_Off(BGM_LED);          // Turn off BGM LED.
-  } // EndIf (data.reading_scheduled)
+    // Send Termination Frame Tag...
+    SkyPack_MNTR_UART_Transmit( (uint8_t *)"</FRM>" );
+    BGM111_Transmit((uint32_t)(strlen((char *)"</FRM>")), "</FRM>");
+    sprintf( (char *)tempBffr2, " \r\n\r\n");
+    SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+ } // EndIf (data.reading_scheduled)
 }
 
 /**
@@ -771,7 +779,7 @@ void SendApp_String( uint8_t *pData )
   */
 void Test_Connection( void )
 {
-  uint8_t tempBffr2[40];
+//  uint8_t tempBffr2[40];
 
   // Test Connection
   if ( BGM111_Connected() )
@@ -786,12 +794,12 @@ void Test_Connection( void )
       // Test Heart Beat Count and determine if time to reset.
       HeartBeat_Cnt++;
       // Time to Build Status?
-      if ( (HeartBeat_Cnt % 5) == 0 )
+/*      if ( (HeartBeat_Cnt % 5) == 0 )
       {
         sprintf( (char *)tempBffr2, " \r\n<HB:%04x/%08x> ", HeartBeat_Cnt, HeartCnt);
         SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
         SendApp_String( tempBffr2 );
-      }
+      } */
       // Test Heart Beat Count. If expired, reset.
       if (HeartBeat_Cnt > HEARTBEAT_CNT)
       {
