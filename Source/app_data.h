@@ -29,6 +29,7 @@ typedef enum
 #define SAMPLE_TIM_IRQn         TIM6_IRQn
 #define SAMPLE_TIM_IRQHandler   TIM6_IRQHandler
 #define NULL_MAX                5        // Maximum number of null readings before reset.
+#define ANALYTICS_MAXCNT        18        // 180 Seconds
 #ifdef LONG_DELAY
   #define CONNECTION_CNT          4500     // 15 Minutes.
   //#define HEARTBEAT_CNT           1500     // 5 Minutes.
@@ -79,5 +80,6 @@ void Set_HeartBeat( void );
 void Clr_HeartBeat( void );
 void Clr_HrtBeat_Cnt( void );
 void SendApp_String( uint8_t *pData );
+void ClrDataStructure(void);
 
 #endif

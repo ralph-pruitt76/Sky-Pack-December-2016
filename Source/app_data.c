@@ -323,6 +323,19 @@ void ReadMiscSensors(void)
   TmpData.cap.swept_level = GetSweptFreqHighLevel();
 }
 
+void ClrDataStructure(void)
+{
+  data.Legacy_OneTime = true;                   // Clear Legacy One time flag so that we can set key characteristics...once.
+  data.imu.accel.named.x = -12345;
+  data.imu.gyro.named.x = -12345;
+  data.imu.mag.named.x = -12345;
+  data.temperature = -12345;
+  data.pressure = -12345;
+  data.irradiance = -12345;
+  data.cap.event_freq = 0xffff;
+  data.cap.swept_idx = 0xffff;
+}
+
 /* Initialize all sensors */
 
 void InitSensors(void)
@@ -330,6 +343,7 @@ void InitSensors(void)
   HAL_StatusTypeDef Status;
 
   data.Legacy_OneTime = true;                   // Clear Legacy One time flag so that we can set key characteristics...once.
+  ClrDataStructure();                           // Clear Backup data structure.
   
   // Preset some data to force a sample.
   data.imu.accel.named.x = 0xffff;
@@ -424,8 +438,8 @@ void ProcessSensorState(void)
     {
       // Clear Count.
       TimeTagCnt = 0;
-      //sprintf( (char *)tempBffr2, "<TICK>SP/%08x/%04x/%04x></TICK>", HeartCnt, HeartBeat_Cnt, connection_cnt);
-      sprintf( (char *)tempBffr2, "<TICK>SP/%08x></TICK>", HeartCnt);
+      //sprintf( (char *)tempBffr2, "<TICK>SP/%08x/%04x/%04x</TICK>", HeartCnt, HeartBeat_Cnt, connection_cnt);
+      sprintf( (char *)tempBffr2, "<TICK>SP/%08x</TICK>", HeartCnt);
       SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
       BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), tempBffr2);
       SendApp_String( (uint8_t *)tempBffr2 );
@@ -617,8 +631,11 @@ void ProcessSensorState(void)
 //                            strlen(characteristic), (uint8_t *)characteristic);
     // Test Analytics flag and determine if we need to update that characteristic
     }
-    if (!(Tst_HeartBeat()))
+//    if (!(Tst_HeartBeat()))
+    if (analytics.HrtBeat_Cnt++ >= ANALYTICS_MAXCNT)
     {
+      analytics.HrtBeat_Cnt = 0;
+      ClrDataStructure();                           // Clear Backup data structure.
 //      sprintf( (char *)tempStr, "%010dHB", analytics.HrtBeat_Cnt++);
 //      BGM111_WriteCharacteristic(gattdb_AnlHrtBt,
 //                             strlen((char *)tempStr), (uint8_t *)tempStr);
