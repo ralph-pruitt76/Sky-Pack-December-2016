@@ -7,6 +7,9 @@
 #include <string.h>
 #include "miscRoutines.h"
 #include "i2c_bus.h"
+#include "ErrCodes.h"
+#include "wwdg.h"
+#include "parser.h"
 
 /* Program entry point */
 
@@ -39,6 +42,36 @@ void main()
   // Test I2C Channel and see if we even have a working I2C.
   SkyPack_TestI2C();
   
+  //**
+  //**
+  //** Initialize all Flash Structures.
+  //**
+  //**
+  //*******1. Initializ WWDG Flash Structure
+  // 1a. Is WWDG Flash Frame Initialized?
+#ifdef STM32L151CBT6
+  if (SkyBrd_WWDG_VerifyFrame())
+  {
+    //Yes....Set FRAME_TASK Bit in Driver State Variable.
+//    Set_DriverStates( FRAME_TASK, DRIVER_ON );
+  } // EndIf (RoadBrd_WWDG_VerifyFrame())
+  else
+  {
+    //No....1b. Attempt to Initialize WWDG Flash Frame.
+    if (SkyBrd_WWDG_InitializeFrmFlash() != HAL_OK)
+    {
+      //FAILED....Indicate Error Code and Fail Driver State.
+      SkPck_ErrCdLogErrCd( ERROR_FRAME_INIT, MODULE_main );
+//      Set_DriverStates( FRAME_TASK, DRIVER_OFF );
+    }
+    else
+    {
+      //SUCCESS....Set FRAME_TASK Bit in Driver State Variable.
+//      Set_DriverStates( FRAME_TASK, DRIVER_ON );
+    }
+  } // EndElse (SkyBrd_WWDG_VerifyFrame())
+#endif
+
   // Test I2C Status and Task init I2C if Active driver.
   if ( Get_DriverStates( I2C_STATE ) )
   {
@@ -54,11 +87,17 @@ void main()
   Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
   if (Status != HAL_OK)
     SkyPack_Reset( FATAL_ERROR );;
-  sprintf( (char *)tempBffr2, "                  Copyright %s. \r\n\r\n\r\n> ", REL_DATE);
+  sprintf( (char *)tempBffr2, "                  Copyright %s. \r\n\r\n", REL_DATE);
   Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
   if (Status != HAL_OK)
     SkyPack_Reset( FATAL_ERROR );;
- 
+#ifdef STM32L151CBT6
+  sprintf( (char *)tempBffr2, "Sensor Sample Rate: %3.1f Seconds.\r\n\r\n> ", ((float)SkyPack_GetSampleTime()/10));
+  Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+  if (Status != HAL_OK)
+    SkyPack_Reset( FATAL_ERROR );
+#endif
+  
   BGM111_Init();
 
   /* Endless main loop */
@@ -83,9 +122,12 @@ void main()
       sprintf( (char *)tempBffr2, "\r\n\r\n*********MONITOR COMMAND*********\r\n\r\n> ");
       SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
       getMntrCmd( mntrCmd );
-      SkyPack_MNTR_UART_Transmit( (uint8_t *)mntrCmd );
-      sprintf( (char *)tempBffr2, "\r\n\r\n");
+      sprintf( (char *)tempBffr2, "CMD Received<%s>\r\n\r\n", mntrCmd);
       SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+      // We have a good Tasking String. Time to determine action.
+      Status = SkyBrd_ParseString((char *)mntrCmd);
+      if (Status != HAL_OK)
+        SkyPack_Reset( FATAL_ERROR );
       //Mntr_Clr();
     }
     /* Sleep when we have nothing to process */

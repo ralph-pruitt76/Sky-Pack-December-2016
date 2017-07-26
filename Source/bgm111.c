@@ -571,6 +571,7 @@ HAL_StatusTypeDef SkyBrd_ProcessBGMChar(uint8_t c)
       ble.connection = false;
       ble.data_Connection = false;
       ClrDataStructure();                           // Clear Backup data structure.
+      ClrAnalyticsRepeat();                          // Clear Frame Repeat Count.
       Status = SkyPack_MNTR_UART_Transmit((uint8_t *)"<DISCONNECTED> ");
     }
     // Data String?

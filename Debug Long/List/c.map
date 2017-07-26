@@ -1,0 +1,877 @@
+###############################################################################
+#
+# IAR ELF Linker V7.60.2.11341/W32 for ARM                26/Jul/2017  12:47:53
+# Copyright 2007-2016 IAR Systems AB.
+#
+#    Output file  =  
+#        D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Exe\c.out
+#    Map file     =  
+#        D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\List\c.map
+#    Command line =  
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\app_data.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\bgm111.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\ErrCodes.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\Flash.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\gecko_bglib.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\i2c_bus.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\lis3mdl.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\lps25hb.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\lsm6ds3.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\main.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\misc.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\misc_sense.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\miscRoutines.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\opt3001.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\parser.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\pct2075.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\startup_stm32l1xx_md.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_adc.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_aes.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_aes_util.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_comp.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_crc.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_dac.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_dbgmcu.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_dma.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_exti.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_flash.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_flash_ramfunc.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_fsmc.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_gpio.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_i2c.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_iwdg.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_lcd.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_opamp.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_pwr.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_rcc.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_rtc.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_sdio.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_spi.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_syscfg.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_tim.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_usart.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\stm32l1xx_wwdg.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\sys_ctrl.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\system_stm32l1xx.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\usart.o"
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Obj\wwdg.o" -o
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\Exe\c.out" --redirect _Printf=_PrintfFull --redirect
+#        _Scanf=_ScanfFull --map
+#        "D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug
+#        Long\List\c.map" --config "C:\Program Files (x86)\IAR Systems\Embedded
+#        Workbench 7.4\arm\config\linker\ST\stm32l151x6.icf" --semihosting
+#        --entry __iar_program_start --vfe
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__SystemLibrary = DLib
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A1":  place at 0x08000000 { ro section .intvec };
+"P1":  place in [from 0x08000000 to 0x08007fff] { ro };
+"P2":  place in [from 0x20000000 to 0x200027ff] { rw, block CSTACK, block HEAP };
+initialize by copy { rw };
+
+  Section             Kind        Address    Size  Object
+  -------             ----        -------    ----  ------
+"A1":                                        0xf4
+  .intvec             ro code  0x08000000    0xf4  startup_stm32l1xx_md.o [1]
+                             - 0x080000f4    0xf4
+
+"P1":                                      0x6cd6
+  .text               ro code  0x080000f4   0xde2  xprintffull.o [3]
+  .text               ro code  0x08000ed6     0xa  xsprout.o [3]
+  .text               ro code  0x08000ee0    0x16  strchr.o [5]
+  .text               ro code  0x08000ef8    0x36  strlen.o [5]
+  .text               ro code  0x08000f30    0x58  memchr.o [5]
+  .text               ro code  0x08000f88    0xee  I64DivMod.o [5]
+  .text               ro code  0x08001078    0x76  ABImemcpy_unaligned.o [5]
+  .text               ro code  0x080010ee    0x44  xdnorm.o [4]
+  .text               ro code  0x08001134    0x2e  DblCmpLe.o [4]
+  .text               ro code  0x08001164    0x2e  DblCmpGe.o [4]
+  .text               ro code  0x08001194   0x10c  xdscale.o [4]
+  .text               ro code  0x080012a0    0x58  DblToI32.o [4]
+  .text               ro code  0x080012f8    0x30  I32ToDbl.o [4]
+  .text               ro code  0x08001328   0x180  DblSub.o [4]
+  .text               ro code  0x080014a8   0x1a2  DblMul.o [4]
+  .text               ro code  0x0800164c   0x256  DblDiv.o [4]
+  .text               ro code  0x080018a2     0xe  div.o [3]
+  .text               ro code  0x080018b0     0x2  I64DivZer.o [5]
+  .text               ro code  0x080018b4    0xd4  DblAdd.o [4]
+  .text               ro code  0x08001988   0xb64  app_data.o [1]
+  .text               ro code  0x080024ec   0x6a4  lsm6ds3.o [1]
+  .text               ro code  0x08002b90   0x15e  lis3mdl.o [1]
+  .text               ro code  0x08002cf0   0x21c  lps25hb.o [1]
+  .text               ro code  0x08002f0c    0xb2  pct2075.o [1]
+  .text               ro code  0x08002fc0    0xd8  FltMul.o [4]
+  .text               ro code  0x08003098    0x44  FltToS32.o [4]
+  .text               ro code  0x080030dc    0xe2  opt3001.o [1]
+  .text               ro code  0x080031c0   0x174  stm32l1xx_rcc.o [1]
+  .text               ro code  0x08003334   0x2d8  stm32l1xx_tim.o [1]
+  .text               ro code  0x0800360c    0x70  misc.o [1]
+  .text               ro code  0x0800367c   0x564  misc_sense.o [1]
+  .text               ro code  0x08003be0   0x390  i2c_bus.o [1]
+  .text               ro code  0x08003f70    0xf8  ErrCodes.o [1]
+  .text               ro code  0x08004068   0x3ac  usart.o [1]
+  .text               ro code  0x08004414   0x84c  bgm111.o [1]
+  .text               ro code  0x08004c60    0x34  sprintf.o [3]
+  .text               ro code  0x08004c94    0x96  miscRoutines.o [1]
+  .text               ro code  0x08004d2c   0x1bc  sys_ctrl.o [1]
+  .text               ro code  0x08004ee8    0x6c  strncpy_unaligned.o [5]
+  .text               ro code  0x08004f54    0x24  FltCmpLe.o [4]
+  .text               ro code  0x08004f78    0x32  I32ToFlt.o [4]
+  .text               ro code  0x08004fac    0xfc  FltDiv.o [4]
+  .text               ro code  0x080050a8    0x84  FltAdd.o [4]
+  .text               ro code  0x0800512c   0x108  stm32l1xx_gpio.o [1]
+  .text               ro code  0x08005234    0x7c  stm32l1xx_dac.o [1]
+  .text               ro code  0x080052b0    0x24  stm32l1xx_comp.o [1]
+  .text               ro code  0x080052d4    0x54  stm32l1xx_syscfg.o [1]
+  .text               ro code  0x08005328   0x20c  stm32l1xx_adc.o [1]
+  .text               ro code  0x08005534   0x188  stm32l1xx_i2c.o [1]
+  .text               ro code  0x080056bc   0x1b8  stm32l1xx_usart.o [1]
+  .text               ro code  0x08005874   0x17c  gecko_bglib.o [1]
+  .text               ro code  0x080059f0    0x2c  strncmp.o [3]
+  .text               ro code  0x08005a1c    0x5e  ABImemset.o [5]
+  .text               ro code  0x08005a7c    0xd6  FltSub.o [4]
+  .text               ro code  0x08005b54   0x258  parser.o [1]
+  .text               ro code  0x08005dac    0x44  strcpy_unaligned.o [5]
+  .text               ro code  0x08005df0     0xa  isdigit.o [3]
+  .text               ro code  0x08005dfa     0x8  atoi.o [3]
+  .text               ro code  0x08005e04   0x19c  xstoul.o [3]
+  .text               ro code  0x08005fa0     0xc  errno.o [3]
+  .text               ro code  0x08005fac     0x2  xtls.o [3]
+  .text               ro code  0x08005fb0   0x174  system_stm32l1xx.o [1]
+  .rodata             const    0x08006124   0x12c  misc_sense.o [1]
+  .text               ro code  0x08006250   0x11c  main.o [1]
+  .rodata             const    0x0800636c    0x58  ErrCodes.o [1]
+  .rodata             const    0x080063c4    0x40  main.o [1]
+  .text               ro code  0x08006404    0x40  zero_init3.o [5]
+  .rodata             const    0x08006444    0x38  parser.o [1]
+  .text               ro code  0x0800647c    0x38  packbits_init_single.o [5]
+  .rodata             const    0x080064b4    0x34  parser.o [1]
+  .rodata             const    0x080064e8    0x30  main.o [1]
+  .rodata             const    0x08006518    0x30  parser.o [1]
+  .rodata             const    0x08006548    0x2c  main.o [1]
+  .rodata             const    0x08006574    0x2c  parser.o [1]
+  .rodata             const    0x080065a0    0x2c  parser.o [1]
+  .rodata             const    0x080065cc    0x2c  parser.o [1]
+  .rodata             const    0x080065f8    0x28  app_data.o [1]
+  .rodata             const    0x08006620    0x28  main.o [1]
+  .rodata             const    0x08006648    0x28  parser.o [1]
+  .rodata             const    0x08006670    0x28  parser.o [1]
+  .rodata             const    0x08006698    0x28  parser.o [1]
+  .rodata             const    0x080066c0    0x28  parser.o [1]
+  .rodata             const    0x080066e8    0x28  parser.o [1]
+  .text               ro code  0x08006710    0x28  data_init.o [5]
+  .rodata             const    0x08006738    0x24  app_data.o [1]
+  .rodata             const    0x0800675c    0x24  app_data.o [1]
+  .rodata             const    0x08006780    0x24  app_data.o [1]
+  .rodata             const    0x080067a4    0x24  ErrCodes.o [1]
+  .rodata             const    0x080067c8    0x24  parser.o [1]
+  .rodata             const    0x080067ec    0x24  parser.o [1]
+  .rodata             const    0x08006810    0x24  parser.o [1]
+  .iar.init_table     const    0x08006834    0x20  - Linker created -
+  .rodata             const    0x08006854    0x20  app_data.o [1]
+  .rodata             const    0x08006874    0x20  app_data.o [1]
+  .rodata             const    0x08006894    0x20  bgm111.o [1]
+  .rodata             const    0x080068b4    0x20  parser.o [1]
+  .rodata             const    0x080068d4    0x20  parser.o [1]
+  .rodata             const    0x080068f4    0x1c  app_data.o [1]
+  .rodata             const    0x08006910    0x1c  app_data.o [1]
+  .rodata             const    0x0800692c    0x1c  app_data.o [1]
+  .rodata             const    0x08006948    0x1c  bgm111.o [1]
+  .rodata             const    0x08006964    0x1c  bgm111.o [1]
+  .text               ro code  0x08006980    0x1a  cmain.o [5]
+  .text               ro code  0x0800699a     0x4  low_level_init.o [3]
+  .text               ro code  0x0800699e     0x4  exit.o [3]
+  .text               ro code  0x080069a4     0xa  cexit.o [5]
+  .text               ro code  0x080069b0    0x14  exit.o [6]
+  .rodata             const    0x080069c4    0x18  app_data.o [1]
+  .rodata             const    0x080069dc    0x18  bgm111.o [1]
+  .rodata             const    0x080069f4    0x18  bgm111.o [1]
+  .rodata             const    0x08006a0c    0x18  bgm111.o [1]
+  .rodata             const    0x08006a24    0x18  main.o [1]
+  .rodata             const    0x08006a3c    0x18  parser.o [1]
+  .rodata             const    0x08006a54    0x18  parser.o [1]
+  .rodata             const    0x08006a6c    0x14  app_data.o [1]
+  .rodata             const    0x08006a80    0x14  bgm111.o [1]
+  .rodata             const    0x08006a94    0x14  bgm111.o [1]
+  .rodata             const    0x08006aa8    0x14  bgm111.o [1]
+  .rodata             const    0x08006abc    0x14  bgm111.o [1]
+  .rodata             const    0x08006ad0    0x14  bgm111.o [1]
+  .rodata             const    0x08006ae4    0x14  ErrCodes.o [1]
+  .rodata             const    0x08006af8    0x14  miscRoutines.o [1]
+  .rodata             const    0x08006b0c    0x10  app_data.o [1]
+  .rodata             const    0x08006b1c    0x10  bgm111.o [1]
+  .rodata             const    0x08006b2c    0x10  bgm111.o [1]
+  .rodata             const    0x08006b3c    0x10  bgm111.o [1]
+  .rodata             const    0x08006b4c    0x10  bgm111.o [1]
+  .rodata             const    0x08006b5c    0x10  main.o [1]
+  .text               ro code  0x08006b6c    0x10  startup_stm32l1xx_md.o [1]
+  .rodata             const    0x08006b7c     0xc  bgm111.o [1]
+  .rodata             const    0x08006b88     0xc  bgm111.o [1]
+  .rodata             const    0x08006b94     0xc  bgm111.o [1]
+  .rodata             const    0x08006ba0     0xc  bgm111.o [1]
+  .rodata             const    0x08006bac     0xc  parser.o [1]
+  .text               ro code  0x08006bb8     0xc  cstartup_M.o [5]
+  .rodata             const    0x08006bc4     0x8  app_data.o [1]
+  .rodata             const    0x08006bcc     0x8  app_data.o [1]
+  .rodata             const    0x08006bd4     0x8  app_data.o [1]
+  .rodata             const    0x08006bdc     0x8  bgm111.o [1]
+  .rodata             const    0x08006be4     0x8  bgm111.o [1]
+  .rodata             const    0x08006bec     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006bf4     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006bfc     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c04     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c0c     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c14     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c1c     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c24     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c2c     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c34     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c3c     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c44     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c4c     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c54     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c5c     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c64     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c6c     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c74     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c7c     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c84     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c8c     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c94     0x8  ErrCodes.o [1]
+  .rodata             const    0x08006c9c     0x8  main.o [1]
+  .rodata             const    0x08006ca4     0x8  main.o [1]
+  .rodata             const    0x08006cac     0x8  parser.o [1]
+  .text               ro code  0x08006cb4     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006cb8     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006cbc     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006cc0     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006cc4     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006cc8     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006ccc     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006cd0     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006cd4     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006cd8     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006cdc     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006ce0     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006ce4     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006ce8     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006cec     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006cf0     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006cf4     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006cf8     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006cfc     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d00     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d04     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d08     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d0c     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d10     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d14     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d18     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d1c     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d20     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d24     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d28     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d2c     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d30     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d34     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d38     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d3c     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d40     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d44     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d48     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d4c     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d50     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d54     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d58     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d5c     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d60     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d64     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d68     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d6c     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d70     0x4  startup_stm32l1xx_md.o [1]
+  .text               ro code  0x08006d74     0x2  wwdg.o [1]
+  .rodata             const    0x08006d76     0x0  zero_init3.o [5]
+  .rodata             const    0x08006d76     0x0  packbits_init_single.o [5]
+  Initializer bytes   const    0x08006d76    0x54  <for P2-1>
+                             - 0x08006dca  0x6cd6
+
+"P2", part 1 of 3:                          0x2ad
+  P2-1                         0x20000000   0x2ad  <Init block>
+    .data             inited   0x20000000     0x4  bgm111.o [1]
+    .data             inited   0x20000004     0x4  bgm111.o [1]
+    .data             inited   0x20000008   0x260  misc_sense.o [1]
+    .data             inited   0x20000268    0x24  miscRoutines.o [1]
+    .data             inited   0x2000028c     0xc  stm32l1xx_rcc.o [1]
+    .data             inited   0x20000298    0x10  stm32l1xx_rcc.o [1]
+    __DLIB_PERTHREAD  inited   0x200002a8     0x4  errno.o [3]
+    .data             inited   0x200002ac     0x1  lps25hb.o [1]
+                             - 0x200002ad   0x2ad
+
+"P2", part 2 of 3:                          0x800
+  CSTACK                       0x200002b0   0x800  <Block>
+    CSTACK            uninit   0x200002b0   0x800  <Block tail>
+                             - 0x20000ab0   0x800
+
+"P2", part 3 of 3:                         0x1974
+  .bss                zero     0x20000ab0   0xf78  bgm111.o [1]
+  .bss                zero     0x20001a28   0x324  bgm111.o [1]
+  .bss                zero     0x20001d4c   0x324  ErrCodes.o [1]
+  .bss                zero     0x20002070   0x1a0  bgm111.o [1]
+  .bss                zero     0x20002210    0x84  bgm111.o [1]
+  .bss                zero     0x20002294    0x84  bgm111.o [1]
+  .bss                zero     0x20002318    0x38  usart.o [1]
+  .bss                zero     0x20002350    0x28  bgm111.o [1]
+  .bss                zero     0x20002378    0x24  app_data.o [1]
+  .bss                zero     0x2000239c    0x24  app_data.o [1]
+  .bss                zero     0x200023c0    0x24  misc_sense.o [1]
+  .bss                zero     0x200023e4     0x8  app_data.o [1]
+  .bss                zero     0x200023ec     0x4  app_data.o [1]
+  .bss                zero     0x200023f0     0x4  app_data.o [1]
+  .bss                zero     0x200023f4     0x4  app_data.o [1]
+  .bss                zero     0x200023f8     0x4  app_data.o [1]
+  .bss                zero     0x200023fc     0x4  bgm111.o [1]
+  .bss                zero     0x20002400     0x4  bgm111.o [1]
+  .bss                zero     0x20002404     0x4  bgm111.o [1]
+  .bss                zero     0x20002408     0x4  bgm111.o [1]
+  .bss                zero     0x2000240c     0x4  bgm111.o [1]
+  .bss                zero     0x20002410     0x4  bgm111.o [1]
+  .bss                zero     0x20002414     0x4  usart.o [1]
+  .bss                zero     0x20002418     0x2  app_data.o [1]
+  .bss                zero     0x2000241a     0x2  app_data.o [1]
+  .bss                zero     0x2000241c     0x2  usart.o [1]
+  .bss                zero     0x2000241e     0x1  bgm111.o [1]
+  .bss                zero     0x2000241f     0x1  i2c_bus.o [1]
+  .bss                zero     0x20002420     0x1  i2c_bus.o [1]
+  .bss                zero     0x20002421     0x1  parser.o [1]
+                             - 0x20002422  0x1972
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address     Size
+          -------     ----
+Zero (__iar_zero_init3)
+    1 destination range, total size 0x1972:
+          0x20000ab0  0x1972
+
+Copy/packbits (__iar_packbits_init_single3)
+    1 source range, total size 0x54 (12% of destination):
+          0x08006d76    0x54
+    1 destination range, total size 0x2ad:
+          0x20000000   0x2ad
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module                  ro code  ro data  rw data
+    ------                  -------  -------  -------
+D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug Long\Obj: [1]
+    ErrCodes.o                  248      320      804
+    app_data.o                2 916      380      100
+    bgm111.o                  2 124      388    5 517
+    gecko_bglib.o               380
+    i2c_bus.o                   912                 2
+    lis3mdl.o                   350
+    lps25hb.o                   540        1        1
+    lsm6ds3.o                 1 700
+    main.o                      284      252
+    misc.o                      112
+    miscRoutines.o              150       24       36
+    misc_sense.o              1 380      375      644
+    opt3001.o                   226
+    parser.o                    600      728        1
+    pct2075.o                   178
+    startup_stm32l1xx_md.o      452
+    stm32l1xx_adc.o             524
+    stm32l1xx_comp.o             36
+    stm32l1xx_dac.o             124
+    stm32l1xx_gpio.o            264
+    stm32l1xx_i2c.o             392
+    stm32l1xx_rcc.o             372        4       28
+    stm32l1xx_syscfg.o           84
+    stm32l1xx_tim.o             728
+    stm32l1xx_usart.o           440
+    sys_ctrl.o                  444
+    system_stm32l1xx.o          372
+    usart.o                     940                62
+    wwdg.o                        2
+    -------------------------------------------------
+    Total:                   17 274    2 472    7 195
+
+command line: [2]
+    -------------------------------------------------
+    Total:
+
+dl7M_tln.a: [3]
+    atoi.o                        8
+    div.o                        14
+    errno.o                      12                 4
+    exit.o                        4
+    isdigit.o                    10
+    low_level_init.o              4
+    sprintf.o                    52
+    strncmp.o                    44
+    xprintffull.o             3 554
+    xsprout.o                    10
+    xstoul.o                    412
+    xtls.o                        2
+    -------------------------------------------------
+    Total:                    4 126                 4
+
+m7M_tl.a: [4]
+    DblAdd.o                    212
+    DblCmpGe.o                   46
+    DblCmpLe.o                   46
+    DblDiv.o                    598
+    DblMul.o                    418
+    DblSub.o                    384
+    DblToI32.o                   88
+    FltAdd.o                    132
+    FltCmpLe.o                   36
+    FltDiv.o                    252
+    FltMul.o                    216
+    FltSub.o                    214
+    FltToS32.o                   68
+    I32ToDbl.o                   48
+    I32ToFlt.o                   50
+    xdnorm.o                     68
+    xdscale.o                   268
+    -------------------------------------------------
+    Total:                    3 144
+
+rt7M_tl.a: [5]
+    ABImemcpy_unaligned.o       118
+    ABImemset.o                  94
+    I64DivMod.o                 238
+    I64DivZer.o                   2
+    cexit.o                      10
+    cmain.o                      26
+    cstartup_M.o                 12
+    data_init.o                  40
+    memchr.o                     88
+    packbits_init_single.o       56
+    strchr.o                     22
+    strcpy_unaligned.o           68
+    strlen.o                     54
+    strncpy_unaligned.o         108
+    zero_init3.o                 64
+    -------------------------------------------------
+    Total:                    1 000
+
+shb_l.a: [6]
+    exit.o                       20
+    -------------------------------------------------
+    Total:                       20
+
+    Gaps                         38
+    Linker created                        32    2 048
+-----------------------------------------------------
+    Grand Total:             25 602    2 504    9 247
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                      Address   Size  Type      Object
+-----                      -------   ----  ----      ------
+.iar.init_table$$Base   0x08006834          --   Gb  - Linker created -
+.iar.init_table$$Limit  0x08006854          --   Gb  - Linker created -
+?main                   0x08006981         Code  Gb  cmain.o [5]
+ADC_Cmd                 0x08005387   0x1a  Code  Gb  stm32l1xx_adc.o [1]
+ADC_CommonInit          0x08005373   0x14  Code  Gb  stm32l1xx_adc.o [1]
+ADC_GetConversionValue  0x08005519    0x6  Code  Gb  stm32l1xx_adc.o [1]
+ADC_GetFlagStatus       0x0800551f   0x16  Code  Gb  stm32l1xx_adc.o [1]
+ADC_Init                0x08005329   0x4a  Code  Gb  stm32l1xx_adc.o [1]
+ADC_RegularChannelConfig
+                        0x080053ad  0x16c  Code  Gb  stm32l1xx_adc.o [1]
+APBAHBPrescTable        0x20000298   0x10  Data  Lc  stm32l1xx_rcc.o [1]
+BGM111_Connected        0x080048df    0x8  Code  Gb  bgm111.o [1]
+BGM111_DataConnected    0x080048e7    0x8  Code  Gb  bgm111.o [1]
+BGM111_Init             0x08004659   0x42  Code  Gb  bgm111.o [1]
+BGM111_LowLevel_Init    0x0800447d  0x134  Code  Gb  bgm111.o [1]
+BGM111_Peek             0x0800464f    0xa  Code  Gb  bgm111.o [1]
+BGM111_ProcessInput     0x0800469b  0x23c  Code  Gb  bgm111.o [1]
+BGM111_ProcessInput::temp1
+                        0x20002410    0x4  Data  Lc  bgm111.o [1]
+BGM111_Ready            0x080048d7    0x8  Code  Gb  bgm111.o [1]
+BGM111_Receive          0x080045cf   0x80  Code  Gb  bgm111.o [1]
+BGM111_Transmit         0x08004979  0x114  Code  Gb  bgm111.o [1]
+BufUsed                 0x080045bf   0x10  Code  Gb  bgm111.o [1]
+Bypass                  0x20002421    0x1  Data  Lc  parser.o [1]
+COMP_Init               0x080052b1   0x1c  Code  Gb  stm32l1xx_comp.o [1]
+CSTACK$$Base            0x200002b0          --   Gb  - Linker created -
+CSTACK$$Limit           0x20000ab0          --   Gb  - Linker created -
+ClrAnalyticsRepeat      0x08002469    0x8  Code  Gb  app_data.o [1]
+ClrDataStructure        0x08001c63   0x5a  Code  Gb  app_data.o [1]
+Clr_HeartBeat           0x080023b3    0x8  Code  Gb  app_data.o [1]
+CodesArray              0x0800636c   0x58  Data  Gb  ErrCodes.o [1]
+DAC_Cmd                 0x08005263   0x2c  Code  Gb  stm32l1xx_dac.o [1]
+DAC_Init                0x08005235   0x2e  Code  Gb  stm32l1xx_dac.o [1]
+DAC_SetChannel1Data     0x0800528f   0x1c  Code  Gb  stm32l1xx_dac.o [1]
+Flicker_Led             0x080022c3   0x18  Code  Gb  app_data.o [1]
+GPIO_Init               0x0800512d   0xa2  Code  Gb  stm32l1xx_gpio.o [1]
+GPIO_PinAFConfig        0x080051e5   0x50  Code  Gb  stm32l1xx_gpio.o [1]
+GPIO_ResetBits          0x080051d3    0x4  Code  Gb  stm32l1xx_gpio.o [1]
+GPIO_SetBits            0x080051cf    0x4  Code  Gb  stm32l1xx_gpio.o [1]
+GPIO_WriteBit           0x080051d7    0xe  Code  Gb  stm32l1xx_gpio.o [1]
+GetCapSenseEventFreq    0x08003b95   0x14  Code  Gb  misc_sense.o [1]
+GetSweptFreqHighIdx     0x08003ba9    0x8  Code  Gb  misc_sense.o [1]
+GetSweptFreqHighLevel   0x08003bb1    0x8  Code  Gb  misc_sense.o [1]
+Get_DriverStates        0x08002401   0x2e  Code  Gb  app_data.o [1]
+Get_DriverStatus        0x0800242f   0x3a  Code  Gb  app_data.o [1]
+Get_ErrorCode           0x08003f99   0x3e  Code  Gb  ErrCodes.o [1]
+HAL_GPIO_ReadPin        0x08004d19   0x12  Code  Gb  miscRoutines.o [1]
+HeartBeat_Cnt           0x2000241a    0x2  Data  Lc  app_data.o [1]
+HeartCnt                0x200023f0    0x4  Data  Lc  app_data.o [1]
+I2C_AcknowledgeConfig   0x08005655   0x1c  Code  Gb  stm32l1xx_i2c.o [1]
+I2C_CheckEvent          0x08005693   0x2a  Code  Gb  stm32l1xx_i2c.o [1]
+I2C_Cmd                 0x08005601   0x1c  Code  Gb  stm32l1xx_i2c.o [1]
+I2C_GenerateSTART       0x0800561d   0x1c  Code  Gb  stm32l1xx_i2c.o [1]
+I2C_GenerateSTOP        0x08005639   0x1c  Code  Gb  stm32l1xx_i2c.o [1]
+I2C_Init                0x08005535   0xc0  Code  Gb  stm32l1xx_i2c.o [1]
+I2C_LowLevel_Init       0x08003eb9   0x8e  Code  Gb  i2c_bus.o [1]
+I2C_Read                0x08003dad  0x10c  Code  Gb  i2c_bus.o [1]
+I2C_Read16bitBE         0x08003ca3   0x2e  Code  Gb  i2c_bus.o [1]
+I2C_Read::busy_flg      0x20002420    0x1  Data  Lc  i2c_bus.o [1]
+I2C_ReceiveData         0x0800568d    0x6  Code  Gb  stm32l1xx_i2c.o [1]
+I2C_Send7bitAddress     0x08005671   0x16  Code  Gb  stm32l1xx_i2c.o [1]
+I2C_SendData            0x08005687    0x6  Code  Gb  stm32l1xx_i2c.o [1]
+I2C_Write               0x08003cf3   0xba  Code  Gb  i2c_bus.o [1]
+I2C_Write16bitBE        0x08003c7f   0x24  Code  Gb  i2c_bus.o [1]
+I2C_Write8bit           0x08003c6f   0x10  Code  Gb  i2c_bus.o [1]
+I2C_Write::busy_flg     0x2000241f    0x1  Data  Lc  i2c_bus.o [1]
+InitIMUSensors          0x080019ab   0x7a  Code  Gb  app_data.o [1]
+InitIrradianceSensor    0x08001ba7   0x3e  Code  Gb  app_data.o [1]
+InitPressureTempSensor  0x08001ad9   0x70  Code  Gb  app_data.o [1]
+InitSampleTimer         0x08001be5   0x5c  Code  Gb  app_data.o [1]
+InitSensors             0x08001cbd   0xf0  Code  Gb  app_data.o [1]
+IsMBufFull              0x080040a3   0x1a  Code  Gb  usart.o [1]
+LIS3MDL_Init            0x08002b91   0xe8  Code  Gb  lis3mdl.o [1]
+LIS3MDL_M_GetAxesRaw    0x08002c79   0x76  Code  Gb  lis3mdl.o [1]
+LPS25HB_GetPressure     0x08002e39   0x2c  Code  Gb  lps25hb.o [1]
+LPS25HB_GetTemperature  0x08002e95   0x2e  Code  Gb  lps25hb.o [1]
+LPS25HB_I2C_ReadRawPressure
+                        0x08002df5   0x44  Code  Lc  lps25hb.o [1]
+LPS25HB_I2C_ReadRawTemperature
+                        0x08002e65   0x30  Code  Lc  lps25hb.o [1]
+LPS25HB_Init            0x08002cf1  0x104  Code  Gb  lps25hb.o [1]
+LPS25HB_PowerOn         0x08002ec3   0x3e  Code  Lc  lps25hb.o [1]
+LPS25HB_SlaveAddress    0x200002ac    0x1  Data  Gb  lps25hb.o [1]
+LSM6DS3_Common_Sensor_Enable
+                        0x08002581   0x9c  Code  Lc  lsm6ds3.o [1]
+LSM6DS3_G_GetAxesRaw    0x08002693   0x76  Code  Gb  lsm6ds3.o [1]
+LSM6DS3_G_Set_Axes_Status
+                        0x080027ab   0xa2  Code  Lc  lsm6ds3.o [1]
+LSM6DS3_G_Set_FS        0x08002a51  0x100  Code  Gb  lsm6ds3.o [1]
+LSM6DS3_G_Set_ODR       0x080029a1   0xb0  Code  Gb  lsm6ds3.o [1]
+LSM6DS3_Init            0x080024ed   0x70  Code  Gb  lsm6ds3.o [1]
+LSM6DS3_Read_XG_ID      0x0800255d   0x24  Code  Gb  lsm6ds3.o [1]
+LSM6DS3_X_GetAxesRaw    0x0800261d   0x76  Code  Gb  lsm6ds3.o [1]
+LSM6DS3_X_Set_Axes_Status
+                        0x08002709   0xa2  Code  Lc  lsm6ds3.o [1]
+LSM6DS3_X_Set_FS        0x08002927   0x7a  Code  Gb  lsm6ds3.o [1]
+LSM6DS3_X_Set_ODR       0x0800284d   0xda  Code  Gb  lsm6ds3.o [1]
+LoadInt                 0x0800069d   0x70  Code  Lc  xprintffull.o [3]
+MBufUsed                0x080040bd   0x10  Code  Gb  usart.o [1]
+MNTR_UART_Transmit      0x08004323   0x96  Code  Gb  usart.o [1]
+MNextBufIdx             0x08004095    0xe  Code  Gb  usart.o [1]
+MX_MNTR_UART_Init       0x080041ff   0xe0  Code  Gb  usart.o [1]
+MiscSensors_Init        0x0800367d  0x348  Code  Gb  misc_sense.o [1]
+Mntr                    0x20002318   0x38  Data  Lc  usart.o [1]
+Mntr_Clr                0x0800415d    0xa  Code  Gb  usart.o [1]
+Mntr_Cmd                0x08004155    0x8  Code  Gb  usart.o [1]
+ModuleArray             0x080067a4   0x24  Data  Gb  ErrCodes.o [1]
+NVIC_DisableIRQ         0x0800442b   0x16  Code  Lc  bgm111.o [1]
+NVIC_DisableIRQ         0x0800407f   0x16  Code  Lc  usart.o [1]
+NVIC_EnableIRQ          0x08004415   0x16  Code  Lc  bgm111.o [1]
+NVIC_EnableIRQ          0x08004069   0x16  Code  Lc  usart.o [1]
+NVIC_Init               0x0800360d   0x60  Code  Gb  misc.o [1]
+NVIC_SystemReset        0x08001989   0x22  Code  Lc  app_data.o [1]
+NextBufIdx              0x080045b1    0xe  Code  Gb  bgm111.o [1]
+OPT3001_GetData         0x080031ad   0x12  Code  Gb  opt3001.o [1]
+OPT3001_Init            0x08003103   0xaa  Code  Gb  opt3001.o [1]
+PCT2075_GetTemp         0x08002fa7   0x18  Code  Gb  pct2075.o [1]
+PCT2075_Init            0x08002f0d   0x9a  Code  Gb  pct2075.o [1]
+PLLMulTable             0x2000028c    0xc  Data  Lc  stm32l1xx_rcc.o [1]
+ProcessSensorState      0x08001dc3  0x4d4  Code  Gb  app_data.o [1]
+ProcessSensorState::TimeTagCnt
+                        0x200023f4    0x4  Data  Lc  app_data.o [1]
+ProcessSensorState::nullCnt
+                        0x200023f8    0x4  Data  Lc  app_data.o [1]
+RBIsBufFull             0x08003f7f   0x1a  Code  Gb  ErrCodes.o [1]
+RBNextBufIdx            0x08003f71    0xe  Code  Gb  ErrCodes.o [1]
+RCC_AHBPeriphClockCmd   0x080032ab   0x20  Code  Gb  stm32l1xx_rcc.o [1]
+RCC_APB1PeriphClockCmd  0x080032eb   0x20  Code  Gb  stm32l1xx_rcc.o [1]
+RCC_APB2PeriphClockCmd  0x080032cb   0x20  Code  Gb  stm32l1xx_rcc.o [1]
+RCC_GetClocksFreq       0x080031cb   0xe0  Code  Gb  stm32l1xx_rcc.o [1]
+RCC_HSICmd              0x080031c1    0xa  Code  Gb  stm32l1xx_rcc.o [1]
+ReadIMUSensors          0x08001a25   0xb4  Code  Gb  app_data.o [1]
+ReadMiscSensors         0x08001c41   0x22  Code  Gb  app_data.o [1]
+ReadPressureTempSensors
+                        0x08001b49   0x5e  Code  Gb  app_data.o [1]
+Region$$Table$$Base     0x08006834          --   Gb  - Linker created -
+Region$$Table$$Limit    0x08006854          --   Gb  - Linker created -
+Reset_DriverStates      0x080023bb   0x1a  Code  Gb  app_data.o [1]
+SYSCFG_RIIOSwitchConfig
+                        0x080052d5   0x4a  Code  Gb  stm32l1xx_syscfg.o [1]
+SendApp_String          0x08002339   0x34  Code  Gb  app_data.o [1]
+SetCapSenseShield       0x08004ec3   0x1c  Code  Gb  sys_ctrl.o [1]
+SetSysClock             0x08006001   0xf8  Code  Lc  system_stm32l1xx.o [1]
+SetUSBPower             0x08004e7b   0x48  Code  Gb  sys_ctrl.o [1]
+Set_DriverStates        0x080023d5   0x2c  Code  Gb  app_data.o [1]
+Set_HeartBeat           0x080023ab    0x8  Code  Gb  app_data.o [1]
+SkPck_ErrCdLogErrCd     0x08003fd7   0x7e  Code  Gb  ErrCodes.o [1]
+SkyBrd_ParseString      0x08005b55  0x204  Code  Gb  parser.o [1]
+SkyBrd_ProcessBGMChar   0x08004a95  0x100  Code  Gb  bgm111.o [1]
+SkyBrd_ProcessBGMChar::in_ptr
+                        0x2000241e    0x1  Data  Lc  bgm111.o [1]
+SkyBrd_ProcessBGMChar::tempBffr2
+                        0x20002350   0x28  Data  Lc  bgm111.o [1]
+SkyPack_LEDTest         0x08004ccd   0x4c  Code  Gb  miscRoutines.o [1]
+SkyPack_LED_PIN         0x08006af8   0x14  Data  Gb  miscRoutines.o [1]
+SkyPack_LED_PORT        0x20000268   0x24  Data  Gb  miscRoutines.o [1]
+SkyPack_MNTR_UART_Transmit
+                        0x080043b9   0x3a  Code  Gb  usart.o [1]
+SkyPack_Reset           0x080022db   0x5e  Code  Gb  app_data.o [1]
+SkyPack_TestI2C         0x08003be1   0x8e  Code  Gb  i2c_bus.o [1]
+SkyPack_gpio_Off        0x08004cad   0x18  Code  Gb  miscRoutines.o [1]
+SkyPack_gpio_On         0x08004c95   0x18  Code  Gb  miscRoutines.o [1]
+Sys_Ctrl_Init           0x08004d2d  0x14e  Code  Gb  sys_ctrl.o [1]
+SystemInit              0x08005fb1   0x50  Code  Gb  system_stm32l1xx.o [1]
+TI1_Config              0x0800352d   0x34  Code  Lc  stm32l1xx_tim.o [1]
+TI2_Config              0x08003561   0x3a  Code  Lc  stm32l1xx_tim.o [1]
+TI3_Config              0x0800359b   0x38  Code  Lc  stm32l1xx_tim.o [1]
+TI4_Config              0x080035d3   0x3a  Code  Lc  stm32l1xx_tim.o [1]
+TIM2_IRQHandler         0x080039c5  0x11e  Code  Gb  misc_sense.o [1]
+TIM6_IRQHandler         0x08001dad   0x16  Code  Gb  app_data.o [1]
+TIM9_IRQHandler         0x08003ae3   0xb2  Code  Gb  misc_sense.o [1]
+TIM_ClearITPendingBit   0x08003519    0x8  Code  Gb  stm32l1xx_tim.o [1]
+TIM_Cmd                 0x080033a1   0x1c  Code  Gb  stm32l1xx_tim.o [1]
+TIM_GetCapture3         0x080034b1    0x4  Code  Gb  stm32l1xx_tim.o [1]
+TIM_ICInit              0x08003441   0x70  Code  Gb  stm32l1xx_tim.o [1]
+TIM_ITConfig            0x08003501   0x18  Code  Gb  stm32l1xx_tim.o [1]
+TIM_InternalClockConfig
+                        0x08003521    0xc  Code  Gb  stm32l1xx_tim.o [1]
+TIM_OC2Init             0x080033bd   0x3e  Code  Gb  stm32l1xx_tim.o [1]
+TIM_OC4Init             0x080033fb   0x3e  Code  Gb  stm32l1xx_tim.o [1]
+TIM_SetAutoreload       0x0800339d    0x4  Code  Gb  stm32l1xx_tim.o [1]
+TIM_SetCompare2         0x08003439    0x4  Code  Gb  stm32l1xx_tim.o [1]
+TIM_SetCompare4         0x0800343d    0x4  Code  Gb  stm32l1xx_tim.o [1]
+TIM_SetCounter          0x08003399    0x4  Code  Gb  stm32l1xx_tim.o [1]
+TIM_SetIC1Prescaler     0x080034b5   0x12  Code  Gb  stm32l1xx_tim.o [1]
+TIM_SetIC2Prescaler     0x080034c7   0x14  Code  Gb  stm32l1xx_tim.o [1]
+TIM_SetIC3Prescaler     0x080034db   0x12  Code  Gb  stm32l1xx_tim.o [1]
+TIM_SetIC4Prescaler     0x080034ed   0x14  Code  Gb  stm32l1xx_tim.o [1]
+TIM_TimeBaseInit        0x08003335   0x4c  Code  Gb  stm32l1xx_tim.o [1]
+Test_Connection         0x0800236d   0x38  Code  Gb  app_data.o [1]
+TmpData                 0x20002378   0x24  Data  Lc  app_data.o [1]
+Tst_HeartBeat           0x080023a5    0x6  Code  Gb  app_data.o [1]
+UART_WaitOnFlagUntilTimeout
+                        0x080042ed   0x36  Code  Gb  usart.o [1]
+USART1_IRQHandler       0x080040cd   0x88  Code  Gb  usart.o [1]
+USART3_IRQHandler       0x080048ef   0x8a  Code  Gb  bgm111.o [1]
+USART_Cmd               0x08005779   0x1c  Code  Gb  stm32l1xx_usart.o [1]
+USART_GetFlagStatus     0x080057f7   0x1a  Code  Gb  stm32l1xx_usart.o [1]
+USART_GetITStatus       0x08005811   0x64  Code  Gb  stm32l1xx_usart.o [1]
+USART_ITConfig          0x080057a5   0x52  Code  Gb  stm32l1xx_usart.o [1]
+USART_Init              0x080056bd   0xb0  Code  Gb  stm32l1xx_usart.o [1]
+USART_ReceiveData       0x0800579d    0x8  Code  Gb  stm32l1xx_usart.o [1]
+USART_SendData          0x08005795    0x8  Code  Gb  stm32l1xx_usart.o [1]
+WAIT_FOR_I2C_EVENT      0x08003cd1   0x22  Code  Gb  i2c_bus.o [1]
+WWDG_IRQHandler         0x08006d75    0x2  Code  Gb  wwdg.o [1]
+_GenldFull              0x08000c25  0x26a  Code  Lc  xprintffull.o [3]
+_LdtobFull              0x08000819  0x406  Code  Lc  xprintffull.o [3]
+_LitobFull              0x0800070d  0x10a  Code  Lc  xprintffull.o [3]
+_PrintfFull             0x080000f5  0x5a2  Code  Gb  xprintffull.o [3]
+_PutcharsFull           0x08000e8f   0x2e  Code  Lc  xprintffull.o [3]
+_SProut                 0x08000ed7    0xa  Code  Gb  xsprout.o [3]
+__aeabi_cdcmple         0x08001135         Code  Gb  DblCmpLe.o [4]
+__aeabi_cdrcmple        0x08001165         Code  Gb  DblCmpGe.o [4]
+__aeabi_cfcmple         0x08004f55         Code  Gb  FltCmpLe.o [4]
+__aeabi_d2iz            0x080012a1         Code  Gb  DblToI32.o [4]
+__aeabi_d2uiz           0x080012cd         Code  Gb  DblToI32.o [4]
+__aeabi_ddiv            0x0800164d         Code  Gb  DblDiv.o [4]
+__aeabi_dmul            0x080014a9         Code  Gb  DblMul.o [4]
+__aeabi_dsub            0x08001329         Code  Gb  DblSub.o [4]
+__aeabi_errno_addr      0x08005fa1    0x6  Code  Gb  errno.o [3]
+__aeabi_f2iz            0x08003099         Code  Gb  FltToS32.o [4]
+__aeabi_fadd            0x080050a9         Code  Gb  FltAdd.o [4]
+__aeabi_fdiv            0x08004fad         Code  Gb  FltDiv.o [4]
+__aeabi_fmul            0x08002fc1         Code  Gb  FltMul.o [4]
+__aeabi_i2d             0x080012f9         Code  Gb  I32ToDbl.o [4]
+__aeabi_i2f             0x08004f79         Code  Gb  I32ToFlt.o [4]
+__aeabi_ldiv0           0x080018b1         Code  Gb  I64DivZer.o [5]
+__aeabi_ui2d            0x0800130d         Code  Gb  I32ToDbl.o [4]
+__aeabi_ui2f            0x08004f8d         Code  Gb  I32ToFlt.o [4]
+__aeabi_uldivmod        0x08000f89         Code  Gb  I64DivMod.o [5]
+__cmain                 0x08006981         Code  Gb  cmain.o [5]
+__exit                  0x080069b1   0x14  Code  Gb  exit.o [6]
+__iar_Dnorm             0x080010ef   0x44  Code  Gb  xdnorm.o [4]
+__iar_Dscale            0x08001195  0x10c  Code  Gb  xdscale.o [4]
+__iar_Errno             0x200002a8    0x4  Data  Gb  errno.o [3]
+__iar_Memchr            0x08000f31         Code  Gb  memchr.o [5]
+__iar_Memset_word       0x08005a1d         Code  Gb  ABImemset.o [5]
+__iar_Stoul             0x08005f4d    0x4  Code  Gb  xstoul.o [3]
+__iar_Stoulx            0x08005e05  0x142  Code  Gb  xstoul.o [3]
+__iar_Strchr            0x08000ee1         Code  Gb  strchr.o [5]
+__iar_d2uiz             0x080012d9         Code  Gb  DblToI32.o [4]
+__iar_dadd              0x080018b5         Code  Gb  DblAdd.o [4]
+__iar_data_init3        0x08006711   0x28  Code  Gb  data_init.o [5]
+__iar_dlib_perthread_access
+                        0x08005fad    0x2  Code  Gb  xtls.o [3]
+__iar_dsub              0x0800133d         Code  Gb  DblSub.o [4]
+__iar_dsubStart         0x0800134f         Code  Gb  DblSub.o [4]
+__iar_fadd              0x080050b9         Code  Gb  FltAdd.o [4]
+__iar_fsub              0x08005a7d         Code  Gb  FltSub.o [4]
+__iar_fsubStart         0x08005a8d         Code  Gb  FltSub.o [4]
+__iar_packbits_init_single3
+                        0x0800647d   0x38  Code  Gb  packbits_init_single.o [5]
+__iar_program_start     0x08006bb9         Code  Gb  cstartup_M.o [5]
+__iar_ui2d              0x08001311         Code  Gb  I32ToDbl.o [4]
+__iar_ui2f              0x08004f91         Code  Gb  I32ToFlt.o [4]
+__iar_unaligned___aeabi_memcpy
+                        0x08001079         Code  Gb  ABImemcpy_unaligned.o [5]
+__iar_unaligned___aeabi_memcpy4
+                        0x08001099         Code  Gb  ABImemcpy_unaligned.o [5]
+__iar_unaligned___aeabi_memcpy8
+                        0x08001099         Code  Gb  ABImemcpy_unaligned.o [5]
+__iar_unaligned_strcpy  0x08005dad         Code  Gb  strcpy_unaligned.o [5]
+__iar_unaligned_strncpy
+                        0x08004ee9         Code  Gb  strncpy_unaligned.o [5]
+__iar_zero_init3        0x08006405   0x40  Code  Gb  zero_init3.o [5]
+__low_level_init        0x0800699b    0x4  Code  Gb  low_level_init.o [3]
+__vector_table          0x08000000         Data  Gb  startup_stm32l1xx_md.o [1]
+_call_main              0x0800698d         Code  Gb  cmain.o [5]
+_exit                   0x080069a5         Code  Gb  cexit.o [5]
+_gecko_cmd_msg          0x20002210   0x84  Data  Gb  bgm111.o [1]
+_gecko_rsp_msg          0x20002294   0x84  Data  Gb  bgm111.o [1]
+_main                   0x08006997         Code  Gb  cmain.o [5]
+analytics               0x200023e4    0x8  Data  Lc  app_data.o [1]
+atoi                    0x08005dfb    0x8  Code  Gb  atoi.o [3]
+bglib_input             0x20002400    0x4  Data  Gb  bgm111.o [1]
+bglib_output            0x200023fc    0x4  Data  Gb  bgm111.o [1]
+bglib_peek              0x20002404    0x4  Data  Gb  bgm111.o [1]
+ble                     0x20002070  0x1a0  Data  Lc  bgm111.o [1]
+blemsgs                 0x20001a28  0x324  Data  Lc  bgm111.o [1]
+cap_sense               0x200023c0   0x24  Data  Lc  misc_sense.o [1]
+connection_cnt          0x20002418    0x2  Data  Lc  app_data.o [1]
+data                    0x2000239c   0x24  Data  Lc  app_data.o [1]
+delay_100ms             0x080022a5    0xc  Code  Gb  app_data.o [1]
+delay_100msec           0x080022b1   0x12  Code  Gb  app_data.o [1]
+delay_100us             0x080042df    0xe  Code  Gb  usart.o [1]
+delay_10ms              0x08002297    0xe  Code  Gb  app_data.o [1]
+digits                  0x08005f50   0x28  Data  Lc  xstoul.o [3]
+div                     0x080018a3    0xe  Code  Gb  div.o [3]
+driver_list             0x200023ec    0x4  Data  Lc  app_data.o [1]
+errStruct               0x20001d4c  0x324  Data  Lc  ErrCodes.o [1]
+exit                    0x0800699f    0x4  Code  Gb  exit.o [3]
+fromFracExp             0x080030f3   0x10  Code  Gb  opt3001.o [1]
+gecko_cmd_le_gap_set_mode
+                        0x08004441   0x3c  Code  Lc  bgm111.o [1]
+gecko_cmd_msg           0x20000000    0x4  Data  Gb  bgm111.o [1]
+gecko_get_event         0x08005931   0x56  Code  Gb  gecko_bglib.o [1]
+gecko_handle_command    0x080059a3   0x2c  Code  Gb  gecko_bglib.o [1]
+gecko_peek_event        0x08005987    0xa  Code  Gb  gecko_bglib.o [1]
+gecko_queue             0x20000ab0  0xf78  Data  Gb  bgm111.o [1]
+gecko_queue_r           0x2000240c    0x4  Data  Gb  bgm111.o [1]
+gecko_queue_w           0x20002408    0x4  Data  Gb  bgm111.o [1]
+gecko_rsp_msg           0x20000004    0x4  Data  Gb  bgm111.o [1]
+gecko_wait_message      0x08005875   0xbc  Code  Gb  gecko_bglib.o [1]
+gecko_wait_response     0x08005991   0x12  Code  Gb  gecko_bglib.o [1]
+getMntrCmd              0x08004167   0x98  Code  Gb  usart.o [1]
+isdigit                 0x08005df1    0xa  Code  Gb  isdigit.o [3]
+main                    0x08006251  0x11c  Code  Gb  main.o [1]
+memchr                  0x08000f31         Code  Gb  memchr.o [5]
+mntr_TxXferCount        0x2000241c    0x2  Data  Lc  usart.o [1]
+mntr_state              0x20002414    0x4  Data  Lc  usart.o [1]
+ndigs                   0x08005f78   0x28  Data  Lc  xstoul.o [3]
+sprintf                 0x08004c61   0x34  Code  Gb  sprintf.o [3]
+strchr                  0x08000ee1         Code  Gb  strchr.o [5]
+strlen                  0x08000ef9         Code  Gb  strlen.o [5]
+strncmp                 0x080059f1   0x2c  Code  Gb  strncmp.o [3]
+swept_freq              0x20000008  0x260  Data  Lc  misc_sense.o [1]
+swept_freq_div_table    0x08006124  0x12c  Data  Lc  misc_sense.o [1]
+toFracExp               0x080030dd   0x16  Code  Gb  opt3001.o [1]
+
+
+[1] = D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\Debug Long\Obj
+[2] = command line
+[3] = dl7M_tln.a
+[4] = m7M_tl.a
+[5] = rt7M_tl.a
+[6] = shb_l.a
+
+  25 602 bytes of readonly  code memory
+   2 504 bytes of readonly  data memory
+   9 247 bytes of readwrite data memory
+
+Errors: none
+Warnings: none

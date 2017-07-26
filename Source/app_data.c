@@ -15,6 +15,7 @@
 #include "sys_ctrl.h"
 #include "ErrCodes.h"
 #include "miscRoutines.h"
+#include "wwdg.h"
 
 /* Characteristic handles */
 /*
@@ -63,6 +64,7 @@ struct
 {
   bool  HrtBeat_Flg;
   uint16_t HrtBeat_Cnt;
+  uint16_t FrmRpt_Cnt;
 } static analytics;
 
 /* App data measurment structure */
@@ -298,7 +300,11 @@ void InitSampleTimer(void)
   /* BRONZE: Configure to generate an interrupt every 1000ms */
   /* BRONZE.2: Configure to generate an interrupt every 10000ms */
   TIM_TimeBaseInitStructure.TIM_Prescaler = 32 * 1000;
+#ifdef STM32L151CBT6
+  TIM_TimeBaseInitStructure.TIM_Period = SkyPack_GetSampleTime() * 100;
+#else
   TIM_TimeBaseInitStructure.TIM_Period = 10000;
+#endif
   TIM_TimeBaseInit(SAMPLE_TIM, &TIM_TimeBaseInitStructure);
 
   /* Enable and configure sample timer update interrupt */
@@ -308,6 +314,30 @@ void InitSampleTimer(void)
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   NVIC_Init(&NVIC_InitStructure);
   TIM_ITConfig(SAMPLE_TIM, TIM_IT_Update, ENABLE);
+
+  /* Enable the sample timer */
+  TIM_Cmd(SAMPLE_TIM, ENABLE);
+}
+
+/* Initialize sample timer */
+
+void ChangeSampleTimer(void)
+{
+  TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure;
+  
+  /* Disable the sample timer */
+  TIM_Cmd(SAMPLE_TIM, DISABLE);
+  
+  /* OLD: Configure to generate an interrupt every 200ms */
+  /* BRONZE: Configure to generate an interrupt every 1000ms */
+  /* BRONZE.2: Configure to generate an interrupt every 10000ms */
+  TIM_TimeBaseInitStructure.TIM_Prescaler = 32 * 1000;
+#ifdef STM32L151CBT6
+  TIM_TimeBaseInitStructure.TIM_Period = SkyPack_GetSampleTime() * 100;
+#else
+  TIM_TimeBaseInitStructure.TIM_Period = 10000;
+#endif
+  TIM_TimeBaseInit(SAMPLE_TIM, &TIM_TimeBaseInitStructure);
 
   /* Enable the sample timer */
   TIM_Cmd(SAMPLE_TIM, ENABLE);
@@ -344,6 +374,9 @@ void InitSensors(void)
 
   data.Legacy_OneTime = true;                   // Clear Legacy One time flag so that we can set key characteristics...once.
   ClrDataStructure();                           // Clear Backup data structure.
+  analytics.HrtBeat_Flg = false;                // Set flasg to clear before using it.
+  analytics.HrtBeat_Cnt = 0;                    // Clear count before using it.
+  analytics.FrmRpt_Cnt = 0;                     // Clear Frame Repeat Count.
   
   // Preset some data to force a sample.
   data.imu.accel.named.x = 0xffff;
@@ -507,6 +540,14 @@ void ProcessSensorState(void)
       }
     }
     
+    //This is to ensure the repeat of the full frame ofr data at least FRM_REPEAT_CNT Times.
+    // Test Whether we need to reload all settings.
+    if (analytics.FrmRpt_Cnt < FRM_REPEAT_CNT)
+    {
+      analytics.FrmRpt_Cnt++;
+      ClrDataStructure();                           // Clear Backup data structure.
+    } //EndIf (analytics.FrmRpt_Cnt < FRM_REPEAT_CNT)
+    
     SkyPack_gpio_On(BGM_LED);
     /* Create the accelerometer characteristic string */
     if((TmpData.imu.accel.named.x != data.imu.accel.named.x) ||
@@ -568,7 +609,7 @@ void ProcessSensorState(void)
        // Update Information in data structure
       data.temperature = TmpData.temperature;
 
-      sprintf(characteristic, "<UB8B8>%05d</UB8B8>", data.temperature);
+      sprintf(characteristic, "<UB8B8 Units=”10C”>%05d</UB8B8>", data.temperature);
       /* Send the temperature to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -581,7 +622,7 @@ void ProcessSensorState(void)
        // Update Information in data structure
       data.pressure = TmpData.pressure;
 
-      sprintf(characteristic, "<UBEBE>%06d</UBEBE>", data.pressure);
+      sprintf(characteristic, "<UBEBE Units=”10mbr”>%06d</UBEBE>", data.pressure);
       /* Send the pressure to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -594,7 +635,7 @@ void ProcessSensorState(void)
        // Update Information in data structure
       data.irradiance = TmpData.irradiance;
 
-      sprintf(characteristic, "<UBBBB>%08d</UBBBB>", data.irradiance);
+      sprintf(characteristic, "<UBBBB Units=”100lx”>%08d</UBBBB>", data.irradiance);
       /* Send the irradiance to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -607,7 +648,7 @@ void ProcessSensorState(void)
        // Update Information in data structure
       data.cap.event_freq = TmpData.cap.event_freq;
 
-      sprintf(characteristic, "<UBCBC>%05d</UBCBC>", data.cap.event_freq);
+      sprintf(characteristic, "<UBCBC Units=”Evts”>%05d</UBCBC>", data.cap.event_freq);
       /* Send the cap sense event frequency to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -622,7 +663,7 @@ void ProcessSensorState(void)
       data.cap.swept_idx = TmpData.cap.swept_idx;
       data.cap.swept_level = TmpData.cap.swept_level;
      
-      sprintf(characteristic, "<UBDBD>%05d%06d</UBDBD>", data.cap.swept_idx,
+      sprintf(characteristic, "<UBDBD Units=”SwpF”>%05d%06d</UBDBD>", data.cap.swept_idx,
                                               data.cap.swept_level);
       /* Send the swept frequency to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
@@ -635,6 +676,7 @@ void ProcessSensorState(void)
     if (analytics.HrtBeat_Cnt++ >= ANALYTICS_MAXCNT)
     {
       analytics.HrtBeat_Cnt = 0;
+      analytics.FrmRpt_Cnt = 0;                     // Clear Frame Repeat Count.
       ClrDataStructure();                           // Clear Backup data structure.
 //      sprintf( (char *)tempStr, "%010dHB", analytics.HrtBeat_Cnt++);
 //      BGM111_WriteCharacteristic(gattdb_AnlHrtBt,
@@ -975,3 +1017,12 @@ uint16_t Get_DriverStatus( void )
   return Status;
 }
 
+  /**
+  * @brief  This function clears Frame Repeat Count.
+  * @param  None
+  * @retval None
+  */
+void ClrAnalyticsRepeat( void )
+{
+      analytics.FrmRpt_Cnt = 0;                     // Clear Frame Repeat Count.
+}

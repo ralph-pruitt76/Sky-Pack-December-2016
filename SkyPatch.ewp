@@ -5544,7 +5544,7 @@
         </option>
         <option>
           <name>IlinkMapFile</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>IlinkLogFile</name>
@@ -5994,6 +5994,7 @@
           <state>USE_STDPERIPH_DRIVER</state>
           <state>DEBUG</state>
           <state>LONG_DELAY</state>
+          <state>STM32L151CBT6</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -7964,6 +7965,9 @@
       <name>$PROJ_DIR$\Source\ErrCodes.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\Source\Flash.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\Source\i2c_bus.c</name>
     </file>
     <file>
@@ -8012,6 +8016,9 @@
       <name>$PROJ_DIR$\Source\opt3001.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\Source\parser.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\Source\pct2075.c</name>
     </file>
     <file>
@@ -8031,6 +8038,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\Source\usart.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Source\wwdg.c</name>
     </file>
   </group>
 </project>
