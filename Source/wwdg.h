@@ -86,7 +86,8 @@ typedef struct wwdg_Frmes
 {
   uint32_t checksum;
   // Key Misc Variables
-  uint32_t SnsrTickCnt;
+  uint32_t      SnsrTickCnt;
+  bool          Units_flg;
   // Key Frame Tracking Variables
   uint8_t Frame_WrtPtr;
   uint8_t Frame_RdPtr;
@@ -114,6 +115,8 @@ bool SkyBrd_WWDG_VerifyFrame( void );
   HAL_StatusTypeDef SkyBrd_WWDG_ReadFlash( wwdg_SaveFrame* Read_Frame );
   HAL_StatusTypeDef SkyBrd_Set_SnsrTickCnt( uint32_t PassedSnsrTickCnt );
   uint32_t SkyPack_GetSampleTime( void );
+  HAL_StatusTypeDef SkyPack_Set_UnitsFlag( bool PassedUnitsFlag );
+  bool SkyPack_Get_UnitsFlag( void );
 #endif
 HAL_StatusTypeDef SkyBrd_Set_TickCounts( uint32_t PassedRdSndTickCnt, uint32_t PassedSnsrTickCnt );
 

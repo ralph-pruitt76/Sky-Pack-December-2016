@@ -28,6 +28,7 @@ C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.4\arm\CMSIS\Include
 -DUSE_STDPERIPH_DRIVER=1
 -DDEBUG=1
 -DLONG_DELAY=1
+-DSTM32L151CBT6=1
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0

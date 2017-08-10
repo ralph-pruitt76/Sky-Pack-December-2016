@@ -1559,6 +1559,40 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                       } //EndSwitch ( tempBffr[2] )
                     } //EndElse (Size < 3)
                     break;
+//++++++++++++++++++++++++++++++++++++++++++  Units Enable/Disable Commands.
+                  case 'U':
+                    // Key Flash Variable Commands.
+                    // Test Size to make sure we have enough Characters for this operation
+                    Status = HAL_OK;
+                    if (Size < 3)
+                      strcpy( (char *)tempBffr2, "TU SYNTAX ERROR: Not correct format.\r\n");
+                    else
+                    {
+                      switch( tempBffr[2] )
+                      {
+//------------------
+                        case 'E':
+                          //Units Enable Command.
+                          sprintf( (char *)tempBffr2, "Units XML State CHANGED: ENABLED\r\n\r\n> ");
+#ifdef STM32L151CBT6
+                           Status = SkyPack_Set_UnitsFlag( true );
+#endif
+                          break;
+//------------------
+                        case 'D':
+                          //Units Disable Command
+                          sprintf( (char *)tempBffr2, "Units XML State CHANGED: DISABLED\r\n\r\n> ");
+#ifdef STM32L151CBT6
+                           Status = SkyPack_Set_UnitsFlag( false );
+#endif
+                          break;
+                        default:
+                          strcpy( (char *)tempBffr2, "TU SYNTAX ERROR: Not a legal command.\r\n");
+                          break;
+                      } //EndSwitch ( tempBffr[2] )
+                    } //EndElse (Size < 3)
+                    break;
+ //++++++++++++++++++++++++++++++++++++++++++  Unknown Command.
                   default:
                     // ERROR if we get here.. 
                     strcpy( (char *)tempBffr2, "ERROR: Not a legal command.\r\n");

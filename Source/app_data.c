@@ -609,7 +609,10 @@ void ProcessSensorState(void)
        // Update Information in data structure
       data.temperature = TmpData.temperature;
 
-      sprintf(characteristic, "<UB8B8 Units=%c10C%c>%05d</UB8B8>", '"', '"', data.temperature);
+      if (SkyPack_Get_UnitsFlag())
+        sprintf(characteristic, "<UB8B8 Units=%c10C%c>%05d</UB8B8>", '"', '"', data.temperature);
+      else
+        sprintf(characteristic, "<UB8B8>%05d</UB8B8>", data.temperature);
       /* Send the temperature to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -622,7 +625,10 @@ void ProcessSensorState(void)
        // Update Information in data structure
       data.pressure = TmpData.pressure;
 
-      sprintf(characteristic, "<UBEBE Units=%c10mbr%c>%06d</UBEBE>", '"', '"', data.pressure);
+      if (SkyPack_Get_UnitsFlag())
+        sprintf(characteristic, "<UBEBE Units=%c10mbr%c>%06d</UBEBE>", '"', '"', data.pressure);
+      else
+        sprintf(characteristic, "<UBEBE>%06d</UBEBE>", data.pressure);
       /* Send the pressure to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -635,7 +641,10 @@ void ProcessSensorState(void)
        // Update Information in data structure
       data.irradiance = TmpData.irradiance;
 
-      sprintf(characteristic, "<UBBBB Units=%c100lx%c>%08d</UBBBB>", '"', '"', data.irradiance);
+      if (SkyPack_Get_UnitsFlag())
+        sprintf(characteristic, "<UBBBB Units=%c100lx%c>%08d</UBBBB>", '"', '"', data.irradiance);
+      else
+        sprintf(characteristic, "<UBBBB>%08d</UBBBB>", data.irradiance);
       /* Send the irradiance to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -648,7 +657,10 @@ void ProcessSensorState(void)
        // Update Information in data structure
       data.cap.event_freq = TmpData.cap.event_freq;
 
-      sprintf(characteristic, "<UBCBC Units=%cEvts%c>%05d</UBCBC>", '"', '"', data.cap.event_freq);
+      if (SkyPack_Get_UnitsFlag())
+        sprintf(characteristic, "<UBCBC Units=%cEvts%c>%05d</UBCBC>", '"', '"', data.cap.event_freq);
+      else
+        sprintf(characteristic, "<UBCBC>%05d</UBCBC>", data.cap.event_freq);
       /* Send the cap sense event frequency to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -663,8 +675,12 @@ void ProcessSensorState(void)
       data.cap.swept_idx = TmpData.cap.swept_idx;
       data.cap.swept_level = TmpData.cap.swept_level;
      
-      sprintf(characteristic, "<UBDBD Units=%cSwpF%c>%05d%06d</UBDBD>", '"', '"', data.cap.swept_idx,
-                                              data.cap.swept_level);
+      if (SkyPack_Get_UnitsFlag())
+        sprintf(characteristic, "<UBDBD Units=%cSwpF%c>%05d%06d</UBDBD>", '"', '"', data.cap.swept_idx,
+                data.cap.swept_level);
+      else
+        sprintf(characteristic, "<UBDBD>%05d%06d</UBDBD>", data.cap.swept_idx,
+                data.cap.swept_level);
       /* Send the swept frequency to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);

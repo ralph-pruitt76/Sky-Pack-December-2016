@@ -92,10 +92,22 @@ void main()
   if (Status != HAL_OK)
     SkyPack_Reset( FATAL_ERROR );;
 #ifdef STM32L151CBT6
-  sprintf( (char *)tempBffr2, "Sensor Sample Rate: %3.1f Seconds.\r\n\r\n> ", ((float)SkyPack_GetSampleTime()/10));
-  Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
-  if (Status != HAL_OK)
-    SkyPack_Reset( FATAL_ERROR );
+    sprintf( (char *)tempBffr2, "Sensor Sample Rate: %3.1f Seconds.\r\n", ((float)SkyPack_GetSampleTime()/10));
+    Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+    if (Status != HAL_OK)
+      SkyPack_Reset( FATAL_ERROR );
+    // Now Display the Units Enabled State.
+    if (SkyPack_Get_UnitsFlag())
+    {
+      sprintf( (char *)tempBffr2, "Units XML State: ENABLED\r\n\r\n> ");
+    }
+    else
+    {
+      sprintf( (char *)tempBffr2, "Units XML State: DISABLED\r\n\r\n> ");
+    }
+    Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+    if (Status != HAL_OK)
+      SkyPack_Reset( FATAL_ERROR );
 #endif
   
   BGM111_Init();
