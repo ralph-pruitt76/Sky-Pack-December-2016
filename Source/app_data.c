@@ -57,6 +57,8 @@ struct
   bool  Pressure;
   bool  IMUSense;
   bool  I2CState;
+  bool  FrameState;
+  bool  CalibrationState;
 } static driver_list;
 
 // Analytics Structure
@@ -1007,6 +1009,12 @@ bool Get_DriverStates( task_defs Task )
   case I2C_STATE:
     return driver_list.I2CState;
     break;
+  case FRAME_TASK:
+    return driver_list.FrameState;
+    break;
+  case CAL_TASK:
+    return driver_list.CalibrationState;
+    break;
   default:
     return DRIVER_OFF;
     break;
@@ -1030,6 +1038,10 @@ uint16_t Get_DriverStatus( void )
     Status += 0x0004;
   if ( Get_DriverStates( I2C_STATE ) )
     Status += 0x0008;
+  if ( Get_DriverStates( FRAME_TASK ) )
+    Status += 0x0100;
+  if ( Get_DriverStates( CAL_TASK ) )
+    Status += 0x0200;
   return Status;
 }
 

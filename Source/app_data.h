@@ -50,7 +50,9 @@ typedef enum
   IRRADIANCE_MNTR_TASK = 1,
   PRESSURE_MNTR_TASK = 2,
   I2C_STATE = 3,
-  TASK_LENGTH = 4
+  FRAME_TASK = 4,
+  CAL_TASK = 5,
+  TASK_LENGTH = 6
 } task_defs;
 
 typedef enum 

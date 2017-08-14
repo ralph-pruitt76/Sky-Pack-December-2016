@@ -53,7 +53,7 @@ void main()
   if (SkyBrd_WWDG_VerifyFrame())
   {
     //Yes....Set FRAME_TASK Bit in Driver State Variable.
-//    Set_DriverStates( FRAME_TASK, DRIVER_ON );
+    Set_DriverStates( FRAME_TASK, DRIVER_ON );
   } // EndIf (RoadBrd_WWDG_VerifyFrame())
   else
   {
@@ -62,12 +62,12 @@ void main()
     {
       //FAILED....Indicate Error Code and Fail Driver State.
       SkPck_ErrCdLogErrCd( ERROR_FRAME_INIT, MODULE_main );
-//      Set_DriverStates( FRAME_TASK, DRIVER_OFF );
+      Set_DriverStates( FRAME_TASK, DRIVER_OFF );
     }
     else
     {
       //SUCCESS....Set FRAME_TASK Bit in Driver State Variable.
-//      Set_DriverStates( FRAME_TASK, DRIVER_ON );
+      Set_DriverStates( FRAME_TASK, DRIVER_ON );
     }
   } // EndElse (SkyBrd_WWDG_VerifyFrame())
 #endif
