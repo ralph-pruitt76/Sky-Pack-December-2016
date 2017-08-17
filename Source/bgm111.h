@@ -9,6 +9,21 @@
 #include <stdbool.h>
 #include "main.h"
 
+// Enums
+typedef enum 
+{
+  TACK_OFF      = 0,
+  TACK_ARMED    = 1,
+  TACK_ARMED2   = 2,
+  TACK_SYNC     = 3,
+  TACK_ASYNC    = 4,
+} Tack_state;
+
+typedef enum
+{
+  SYNC_WAIT     = 0,
+  SYNC_PROC     = 1,
+} Sync_state;
 
 /* BGM111 module interface pins and peripherals */
 
@@ -45,6 +60,7 @@
 #define BGM111_RESET_GPIO_CLK            RCC_AHBPeriph_GPIOB
 
 #define TX_TIMEOUT_CNT                   2000           // Loop 2000 Times for Timeout
+#define TACK_LIMIT                       4              // Set limit at 40 seconds before dropping as reset.
 /* Initialize the BGM111 module and BGLib */
 void BGM111_Init(void);
 
@@ -59,6 +75,12 @@ bool SkyBrd_tstReqexec( void );
 //uint16_t USART_ReceiveData(UART_HandleTypeDef *huart);
 //void USART_SendData(UART_HandleTypeDef *huart, uint16_t Data);
 void BGM111_Transmit(uint32_t len, uint8_t *data);
+uint8_t BGM111_GetTackState(void);
+void BGM111_SetTackState(uint8_t NewValue);
+bool BGM111_SyncModeTest(void);
+void BGM111_SetSyncFlg(uint8_t NewFlag);
+void BGM111_cntrlSetSyncFlg(uint8_t NewFlag);
+bool BGM111_SyncModeTestNoInc(void);
 
 /* Report if the BLE is ready for a command */
 bool BGM111_Ready(void);

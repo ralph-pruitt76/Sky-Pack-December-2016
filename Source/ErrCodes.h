@@ -65,6 +65,7 @@ typedef enum
   ERROR_TXBGMBUF_FULL   = 0x000F,               // BGM111 processing code has detected a Transmit Buffer Full error on traffic to BGM111.
   ERROR_FRAME_INIT      = 0x0010,               // Could not Initialize Flash Frame.
   ERROR_CAL_INIT        = 0x0011,               // Could not Initialize Calibration Flash Structure.
+  ERROR_BGM_SYNCCNCT    = 0x0012,               // BGM111 processing code has detected a SYNC Connection Dropped Event.
 
   ERROR_END             = 0xffff,       	// End Of Error Code List
 }ErrorCodes;

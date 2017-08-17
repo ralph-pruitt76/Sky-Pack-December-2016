@@ -143,7 +143,8 @@ void main()
     /* Process the sensor state machine if the BLE module is ready */
     if ((BGM111_Ready()) &&
         (BGM111_Connected()) &&
-        (BGM111_DataConnected()) )
+        (BGM111_DataConnected()) &&
+        (BGM111_SyncModeTestNoInc()) )
     {
       // Service Watchdog
 //**CHANGE**

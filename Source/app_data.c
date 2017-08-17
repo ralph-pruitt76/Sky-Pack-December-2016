@@ -469,7 +469,7 @@ void ProcessSensorState(void)
     // Build Time Tag Every 25th Call to report back to App.
     TimeTagCnt++;
     HeartCnt++;
-    if (TimeTagCnt >= 3)
+    if (TimeTagCnt >= TICK_LIMIT)
     {
       // Clear Count.
       TimeTagCnt = 0;
@@ -478,6 +478,19 @@ void ProcessSensorState(void)
       SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
       BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), tempBffr2);
       SendApp_String( (uint8_t *)tempBffr2 );
+      // Set Sync Flag for Frame.
+      BGM111_cntrlSetSyncFlg( SYNC_WAIT );
+      // Test TACK State
+      if (BGM111_GetTackState() == TACK_ARMED)
+      {
+        BGM111_SetTackState(TACK_ARMED2);
+        SkyPack_MNTR_UART_Transmit( (uint8_t *)"<ble.TackArmed = TACK_ARMED2>");
+      }
+      else if (BGM111_GetTackState() == TACK_ARMED2)
+      {
+        BGM111_SetTackState(TACK_ASYNC);
+        SkyPack_MNTR_UART_Transmit( (uint8_t *)"<ble.TackArmed = TACK_ASYNC>");
+      }
     }
     // Test Connection. Have we timed out??
     Test_Connection();
