@@ -983,6 +983,12 @@ void Set_DriverStates( task_defs Task, bool State )
   case I2C_STATE:
     driver_list.I2CState = State;
     break;
+  case FRAME_TASK:
+    driver_list.FrameState = State;
+    break;
+  case CAL_TASK:
+    driver_list.CalibrationState = State;
+    break;
   default:
     break;
   }
@@ -1039,9 +1045,9 @@ uint16_t Get_DriverStatus( void )
   if ( Get_DriverStates( I2C_STATE ) )
     Status += 0x0008;
   if ( Get_DriverStates( FRAME_TASK ) )
-    Status += 0x0100;
+    Status += 0x0010;
   if ( Get_DriverStates( CAL_TASK ) )
-    Status += 0x0200;
+    Status += 0x0020;
   return Status;
 }
 

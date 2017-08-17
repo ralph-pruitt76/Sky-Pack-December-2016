@@ -40,9 +40,38 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "wwdg.h"
+#include "misc_sense.h"
 //#include "Calibration.h"
 
+HAL_StatusTypeDef ReadIMUSensorsLocal(void);
+
 static bool Bypass = false;
+
+union u3DVector
+{
+  struct
+  {
+    int16_t             x;
+    int16_t             y;
+    int16_t             z;
+  } named;
+  int16_t               indexed[3];
+};
+
+struct {
+  union u3DVector     accel;
+  union u3DVector     gyro;
+  union u3DVector     mag;
+} imu;
+int16_t         temperature;
+int16_t         pressure;
+int32_t         irradiance;
+float           value;
+struct {
+  uint16_t            event_freq;
+  uint16_t            swept_idx;
+  uint16_t            swept_level;
+} cap;
 
 /* Parser function */
 
@@ -56,21 +85,23 @@ static bool Bypass = false;
   */
 HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
 {
-    #define RECEIVE_SZ      30
-    uint16_t DriverStatus;
-    int8_t tempBffr2[120];
-//    int8_t tempBffr3[10];
+#define RECEIVE_SZ      30
+  uint16_t DriverStatus;
+  int8_t tempBffr2[120];
+  int8_t tempBffr3[10];
 //    int8_t* BufferPntr;
     HAL_StatusTypeDef Status;
 //    HAL_StatusTypeDef Save_Status;
     uint8_t Size;
-//    int Address;
-//    int num_bytes;
-//    int num_bytes_received;
-//    uint8_t i2cData[80];
+    int Address;
+    int num_bytes;
+    int num_bytes_received;
+    uint8_t i2cData[80];
+    uint8_t temp_reg;
     int x;
-//    int Error, y;
-    //Voltage VMeasure, VMeasureScaled;
+    int Error;
+//    int y;
+   //Voltage VMeasure, VMeasureScaled;
     //Current CMeasure, CMeasureScaled;
     //Power PMeasure, PMeasureScaled;
     //Temperature TMeasure, TMeasureScaled;
@@ -119,530 +150,160 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
             {
 
 //**************************************************************************************************
-            case 'D':
-              // Read Humidity. 
-              strcpy( (char *)tempBffr2, "TBD: Read Humidity NOT IMPLEMENTED\r\n");
-/*              if (Size == 1)
-              {
-//------------------ D Command: Read Humidity Values      
-                // Read Humidity Sensor sensor and return Humidity results....
-                Status = RoadBrd_Humidity_ReadHumidity( &HMeasure );
-                if (Status == HAL_OK)
-                  Status = RoadBrd_Humidity_ReadHumidity_Scaled( &HMeasureScaled );
-                if (Status == HAL_OK)
-                {
-                  // Send string to UART..
-                  strcpy( (char *)tempBffr2, "Humidity SENSOR...\r\n");
-#ifdef NUCLEO
-                  Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                  Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-                  if (Status != HAL_OK)
-                    return Status;
-                  // NOW, Build Data String..
-                  sprintf( (char *)tempBffr2, "     Humidity DATA: " );
-                  strcat( (char *)tempBffr2, (char *)HMeasure.HRaw );
-                  strcat( (char *)tempBffr2, "\r\n" );
-                }
-                else
-                  break;
-#ifdef NUCLEO
-                Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-                if (Status != HAL_OK)
-                  return Status;
-                // NOW, Build Data String..
-                sprintf( (char *)tempBffr2, "     Humidity DATA(Decimal): %d\r\n", HMeasure.HRawC );
-#ifdef NUCLEO
-                Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-                if (Status != HAL_OK)
-                  return Status;
-                // Now calculate Celcius and Farenheit Temp.
-                sprintf( (char *)tempBffr2, "     Humidity: %s/%s\r\n", (char *)HMeasure.Humidity, (char *)HMeasureScaled.Humidity );
-              }
-              else
-              {
-                switch( tempBffr[1] )
-                {
-//------------------ DI Command: Initialize Humidity Sensor
-                  case 'I':
-                    // Initialize Humidity Sensor.
-                    Status = RoadBrd_HumidityInit();
-                    if (Status == HAL_OK)
-                    {
-                      strcpy( (char *)tempBffr2, "Humidity Sensor: Initialization Complete.\r\n");;
-                    }
-                    break;
-//------------------ D0 Command...Read Humidity Values.....
-                  case '0':
-                    // Read Humidity Sensor sensor and return Humidity results....
-                    Status = RoadBrd_Humidity_ReadHumidity( &HMeasure );
-                    if (Status == HAL_OK)
-                    {
-                      // Send string to UART..
-                      strcpy( (char *)tempBffr2, "Humidity SENSOR...\r\n");
-#ifdef NUCLEO
-                      Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                      Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-                      if (Status != HAL_OK)
-                        return Status;
-                      // NOW, Build Data String..
-                      sprintf( (char *)tempBffr2, "     Humidity DATA: " );
-                      strcat( (char *)tempBffr2, (char *)HMeasure.HRaw );
-                      strcat( (char *)tempBffr2, "\r\n" );
-                    }
-                    else
-                      break;
-#ifdef NUCLEO
-                    Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                    Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-                    if (Status != HAL_OK)
-                      return Status;
-                    // NOW, Build Data String..
-                    sprintf( (char *)tempBffr2, "     Humidity DATA(Decimal): %d\r\n", HMeasure.HRawC );
-#ifdef NUCLEO
-                    Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                    Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-                    if (Status != HAL_OK)
-                      return Status;
-                    // Now calculate Humidity.
-                    sprintf( (char *)tempBffr2, "     Humidity: " );
-                    strcat( (char *)tempBffr2, (char *)HMeasure.Humidity );
-                    strcat( (char *)tempBffr2, "\r\n" );
-                    break;
-//------------------ D1 Command...Read Temperature Values..... 
-                  case '1':
-                    // Read Humidity Sensor sensor and return Temperature results....
-                    Status = RoadBrd_Humidity_ReadTemperature( &TMeasure );
-                    if (Status == HAL_OK)
-                    {
-                      // Send string to UART..
-                      strcpy( (char *)tempBffr2, "Humidity SENSOR...\r\n");
-#ifdef NUCLEO
-                      Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                      Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-                      if (Status != HAL_OK)
-                        return Status;
-                      // NOW, Build Data String..
-                      sprintf( (char *)tempBffr2, "     TEMP DATA: " );
-                      strcat( (char *)tempBffr2, (char *)TMeasure.Raw );
-                      strcat( (char *)tempBffr2, "\r\n" );
-                    }
-                    else
-                      break;
-#ifdef NUCLEO
-                    Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                    Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-                    if (Status != HAL_OK)
-                      return Status;
-                    // NOW, Build Data String..
-                    sprintf( (char *)tempBffr2, "     TEMP DATA(Decimal): %d\r\n", TMeasure.RawC );
-#ifdef NUCLEO
-                    Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                    Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-                    if (Status != HAL_OK)
-                      return Status;
-                    // Now calculate Celcius and Farenheit Temp.
-                    sprintf( (char *)tempBffr2, "     TempC: " );
-                    strcat( (char *)tempBffr2, (char *)TMeasure.TempC );
-                    strcat( (char *)tempBffr2, "     TempF: " );
-                    strcat( (char *)tempBffr2, (char *)TMeasure.TempF );
-                    strcat( (char *)tempBffr2, "\r\n" );
-                    break;
-                } //EndSwitch
-              } //EndElse (Size == 1) */
-              break; 
-//**************************************************************************************************
-            case 'E':
-              // Read Temp and Pressure. 
-              strcpy( (char *)tempBffr2, "TBD: Read Temp and Pressure NOT IMPLEMENTED\r\n");
-              break;
-//**************************************************************************************************
-            case 'F':
-              // NO ACTION. 
-              strcpy( (char *)tempBffr2, "NO Action...(0x00).\r\n");
-              break;
-//**************************************************************************************************
-            case 'G':
-              strcpy( (char *)tempBffr2, "TBD: Read Temperature NOT IMPLEMENTED\r\n");
-              // Read Temperature sensor and return results....Temperature Sensor U10(PCT2075GVJ).  Addr: 0x94
-/*              Status = RoadBrd_ReadTemp( &TMeasure );
-              if (Status == HAL_OK)
-                Status = RoadBrd_ReadTemp_Scaled( &TMeasureScaled );
+            case '0':
+              // Dump accelerometer data. 
+              // Read IMU Sensors
+              Status = ReadIMUSensorsLocal();
               if (Status == HAL_OK)
               {
                 // Send string to UART..
-                strcpy( (char *)tempBffr2, "TEMP SENSOR...\r\n");
-#ifdef NUCLEO
-                Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
+                strcpy( (char *)tempBffr2, "Dump Accelerometer Data...\r\n");
+                Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
                 if (Status != HAL_OK)
                   return Status;
-                // NOW, Build Data String..
-                sprintf( (char *)tempBffr2, "     TEMP DATA: " );
-                strcat( (char *)tempBffr2, (char *)TMeasure.Raw );
-                strcat( (char *)tempBffr2, "\r\n" );
+                sprintf( (char *)tempBffr2, "     X DATA: %05d (0.001g)\r\n", imu.accel.named.x );
+                Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+                if (Status != HAL_OK)
+                  return Status;
+                sprintf( (char *)tempBffr2, "     Y DATA: %05d (0.001g)\r\n", imu.accel.named.y );
+                Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+                if (Status != HAL_OK)
+                  return Status;
+                sprintf( (char *)tempBffr2, "     Z DATA: %05d (0.001g)\r\n", imu.accel.named.z );
               }
               else
                 break;
-#ifdef NUCLEO
-              Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-              Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-              if (Status != HAL_OK)
-                return Status;
-              // NOW, Build Data String..
-              sprintf( (char *)tempBffr2, "     TEMP DATA(Decimal): %d\r\n", TMeasure.RawC );
-#ifdef NUCLEO
-              Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-              Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-              if (Status != HAL_OK)
-                return Status;
-              // Now calculate Celcius and Farenheit Temp.
-              sprintf( (char *)tempBffr2, "     TempC: %s/%s     TempF: %s/%s\r\n", 
-                      (char *)TMeasure.TempC, 
-                      (char *)TMeasureScaled.TempC,
-                      (char *)TMeasure.TempF, 
-                      (char *)TMeasureScaled.TempF); */
+              break;
+//**************************************************************************************************
+            case '1':
+              // Dump Gyro data. 
+              // Read IMU Sensors
+              Status = ReadIMUSensorsLocal();
+              if (Status == HAL_OK)
+              {
+                // Send string to UART..
+                strcpy( (char *)tempBffr2, "Dump Gyro Data...\r\n");
+                Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+                if (Status != HAL_OK)
+                  return Status;
+                sprintf( (char *)tempBffr2, "     X DATA: %05d (0.1dps)\r\n", imu.gyro.named.x );
+                Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+                if (Status != HAL_OK)
+                  return Status;
+                sprintf( (char *)tempBffr2, "     Y DATA: %05d (0.1dps)\r\n", imu.gyro.named.y );
+                Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+                if (Status != HAL_OK)
+                  return Status;
+                sprintf( (char *)tempBffr2, "     Z DATA: %05d (0.1dps)\r\n", imu.gyro.named.z );
+              }
+              else
+                break;
+              break;
+//**************************************************************************************************
+            case '2':
+              // Dump Magnetometer data. 
+              // Read IMU Sensors
+              Status = ReadIMUSensorsLocal();
+              if (Status == HAL_OK)
+              {
+                // Send string to UART..
+                strcpy( (char *)tempBffr2, "Dump Magnetometer Data...\r\n");
+                Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+                if (Status != HAL_OK)
+                  return Status;
+                sprintf( (char *)tempBffr2, "     X DATA: %05d (mgauss)\r\n", imu.mag.named.x );
+                Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+                if (Status != HAL_OK)
+                  return Status;
+                sprintf( (char *)tempBffr2, "     Y DATA: %05d (mgauss)\r\n", imu.mag.named.y );
+                Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+                if (Status != HAL_OK)
+                  return Status;
+                sprintf( (char *)tempBffr2, "     Z DATA: %05d (mgauss)\r\n", imu.mag.named.z );
+              }
+              else
+                break;
+              break;
+//**************************************************************************************************
+            case 'A':
+              // Read Pressure Sensor. 
+               Status = LPS25HB_GetPressure(&value);
+              if (Status == HAL_OK)
+              {
+                // Send string to UART..
+                strcpy( (char *)tempBffr2, "Pressure Sensor...\r\n");
+                Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+                if (Status != HAL_OK)
+                  return Status;
+                // Now Display.
+                sprintf( (char *)tempBffr2, "     Pressure: %5.1fmbar\r\n", value);
+              }
+              else
+                break;
+              break;
+//**************************************************************************************************
+            case 'G':
+              // Read Temperature Sensor. 
+              Status = LPS25HB_GetTemperature(&value);
+              if (Status == HAL_OK)
+              {
+                // Send string to UART..
+                strcpy( (char *)tempBffr2, "Temperature Sensor...\r\n");
+                Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+                if (Status != HAL_OK)
+                  return Status;
+                // Now calculate Celcius and Farenheit Temp.
+                sprintf( (char *)tempBffr2, "     Temperature: %3.1fC\r\n", value);
+              }
+              else
+                break;
               break;
 //**************************************************************************************************
             case 'H':
-              // RGB Color Light Sensor U15(ISL91250).  Addr: 0x88
-              strcpy( (char *)tempBffr2, "TBD: Read Illuminance NOT IMPLEMENTED\r\n");
-/*              if (Size == 1)
-              {
-//------------------ H Command...Read RGB Values and Return as 3 (2 Byte Fields)....REDmsb,REDlsb,GREENmsb,GREENlsb,BLUEmsb,BLUElsb.....     
-                // 1. Time to send Command and collect status.
-                Status = RoadBrd_RGBReadValues( &RGBValues );
-                if (Status == HAL_OK)
-                {
-                  // Send string to UART..
-                  strcpy( (char *)tempBffr2, "RGB Color Light Sensor...\r\n");
-#ifdef NUCLEO
-                  Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                  Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-                  if (Status != HAL_OK)
-                    return Status;
-                  // NOW, Build Data String..
-                  sprintf( (char *)tempBffr2, " RGB(REDmsb,REDlsb,GREENmsb,GREENlsb,BLUEmsb,BLUElsb)\r\n" );
-#ifdef NUCLEO
-                  Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                  Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-                  if (Status != HAL_OK)
-                    return Status;
-                  strcpy( (char *)tempBffr2, "       DATA: ");
-                  strcat( (char *)tempBffr2, (char *)RGBValues.Raw );
-                  strcat( (char *)tempBffr2, "\r\n" );
-#ifdef NUCLEO
-                  Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                  Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-                  if (Status != HAL_OK)
-                    return Status;
-                  // Now DisplayEach Value Calculated.
-                  strcpy( (char *)tempBffr2, "    Red: ");
-                  strcat( (char *)tempBffr2, (char *)RGBValues.Red );
-                  strcat( (char *)tempBffr2, "    Green: ");
-                  strcat( (char *)tempBffr2, (char *)RGBValues.Green );
-                  strcat( (char *)tempBffr2, "    Blue: ");
-                  strcat( (char *)tempBffr2, (char *)RGBValues.Blue );
-                  strcat( (char *)tempBffr2, "\r\n" );
-                }
-                else
-                  break;
-              }
-              else
-              {
-                switch( tempBffr[1] )
-                {
-//------------------ HI Command...Initialize RGB Color Light Sensor.....     
-                  case 'I':
-                    if (Size == 2)
-                    {
-                      // This is the default init. Assume Default Parms and write them.
-                      Status = RoadBrd_RGBInit();
-
-                      if (Status == HAL_OK)
-                      {
-                        strcpy( (char *)tempBffr2, "RGB Color Light Sensor: Initialization Complete with DEFAULT Values.\r\n");;
-                      }
-                      
-                    }
-                    else
-                    {
-                      // This is the Parameter init. Will have to verify all parameters first.
-                      if ( Size != 29 )
-                      {
-                        strcpy( (char *)tempBffr2, "RGB Color Light Sensor: SYNTAX Error. Parameters are not correct.\r\n");;
-                      }
-                      else
-                      {
-                        // Step 1. Validate format.
-                        if( (tempBffr[2]!=':') ||
-                            (tempBffr[5]!='.') || 
-                            (tempBffr[8]!='.') || 
-                            (tempBffr[11]!='.') || 
-                            (tempBffr[14]!='.') || 
-                            (tempBffr[17]!='.') || 
-                            (tempBffr[20]!='.') || 
-                            (tempBffr[23]!='.') || 
-                            (tempBffr[26]!='.') )
-                        {
-                          strcpy( (char *)tempBffr2, "RGB Color Light Sensor SYNTAX ERROR: Not correct format. Punctuation!\r\n");
-                        }
-                        else
-                        {
-                          // Syntax correct. Time to grab parameters.
-                          Error = 0;
-                          for (x=0; x<9; x++)
-                          {
-                            tempBffr3[0] = tempBffr[3+x*3];
-                            tempBffr3[1] = tempBffr[4+x*3];
-                            tempBffr3[2] = 0x00;
-                            if (isHexNum( (char *)tempBffr3 ) == 0)
-                            {
-                              strcpy( (char *)tempBffr2, "RGB Color Light Sensor SYNTAX ERROR:Parameters not HEX Value.\r\n");
-                              Error = 1;
-                              break;
-                            }
-                            else
-                            {
-                              i2cData[x] =  hatoi( (char *)tempBffr3 );
-                            } //EndElse (isHexNum( (char *)tempBffr3 ) == 0)
-                          } //EndFor (x=0; x<num_bytes; x++)
-                          // Format and parameters now in i2cData array. Pull them out and validate them.
-                          // OP_MODE Verify.
-                          if(i2cData[0]>7)
-                          {
-                            strcpy( (char *)tempBffr2, "RGB Color Light Sensor SYNTAX ERROR: BAD PARAM: OP_MODE.\r\n");
-                            break;
-                          }
-                          else
-                            op_mode = (i2cData[0] & 0x07) * 1;
-                          // DS_RANGE Verify.
-                          if(i2cData[1]>1)
-                          {
-                            strcpy( (char *)tempBffr2, "RGB Color Light Sensor SYNTAX ERROR: BAD PARAM: DS_RANGE.\r\n");
-                            break;
-                          }
-                          else
-                            ds_range = (i2cData[1] & 0x01) * 8;
-                          // ADC_RSL Verify.
-                          if(i2cData[2]>1)
-                          {
-                            strcpy( (char *)tempBffr2, "RGB Color Light Sensor SYNTAX ERROR: BAD PARAM: ADC_RSL.\r\n");
-                            break;
-                          }
-                          else
-                            adc_rsl = (i2cData[2] & 0x01) * 16;
-                          // SYNC Verify.
-                          if(i2cData[3]>1)
-                          {
-                            strcpy( (char *)tempBffr2, "RGB Color Light Sensor SYNTAX ERROR: BAD PARAM: SYNC.\r\n");
-                            break;
-                          }
-                          else
-                            sync = (i2cData[3] & 0x01) * 32;
-                          // CMP_ADJST Verify.
-                          if(i2cData[4]>63)
-                          {
-                            strcpy( (char *)tempBffr2, "RGB Color Light Sensor SYNTAX ERROR: BAD PARAM: CMP_ADJST.\r\n");
-                            break;
-                          }
-                          else
-                            cmp_adjst = (i2cData[4] & 0x3f) * 1;
-                          // CMP_OFFST Verify.
-                          if(i2cData[5]>1)
-                          {
-                            strcpy( (char *)tempBffr2, "RGB Color Light Sensor SYNTAX ERROR: BAD PARAM: CMP_OFFST.\r\n");
-                            break;
-                          }
-                          else
-                            cmp_offst = (i2cData[5] & 0x01) * 128;
-                          // INT_ASSGN Verify.
-                          if(i2cData[6]>3)
-                          {
-                            strcpy( (char *)tempBffr2, "RGB Color Light Sensor SYNTAX ERROR: BAD PARAM: INT_ASSGN.\r\n");
-                            break;
-                          }
-                          else
-                            int_assgn = (i2cData[6] & 0x03) * 1;
-                          // INT_PERSIST Verify.
-                          if(i2cData[7]>3)
-                          {
-                            strcpy( (char *)tempBffr2, "RGB Color Light Sensor SYNTAX ERROR: BAD PARAM: INT_PERSIST.\r\n");
-                            break;
-                          }
-                          else
-                            int_persist = (i2cData[7] & 0x03) * 4;
-                          // CNVRSN_INT Verify.
-                          if(i2cData[8]>1)
-                          {
-                            strcpy( (char *)tempBffr2, "RGB Color Light Sensor SYNTAX ERROR: BAD PARAM: CNVRSN_INT.\r\n");
-                            break;
-                          }
-                          else
-                            cnvrsn_int = (i2cData[8] & 0x01) * 16;
-                          // OK, all parameters have been verified. Time to build final params.
-                          RGBMeasure.config1 = op_mode + ds_range + adc_rsl + sync;
-                          RGBMeasure.config2 = cmp_adjst + cmp_offst;
-                          RGBMeasure.config3 = int_assgn + int_persist + cnvrsn_int;
-                          // Load Config Register with Config Settings
-                          Status = RoadBrd_RGBFullInit( &RGBMeasure );
-
-                          if (Status == HAL_OK)
-                          {
-                            strcpy( (char *)tempBffr2, "RGB Color Light Sensor: Initialization Complete with USER Values.\r\n");;
-                          }
-                        } //ElseIf Validate format.
-                      } //ElseIf ( Size != 29 )
-                    } //ElseIf (Size == 2)
-                    break;
-//------------------ H0 Command...Read RGB Values and Return as 3 (2 Byte Fields)....REDmsb,REDlsb,GREENmsb,GREENlsb,BLUEmsb,BLUElsb.....     
-                  case '0':
-                    // 1. Time to send Command and collect status.
-                    Status = RoadBrd_RGBReadValues( &RGBValues );
-                    if (Status == HAL_OK)
-                    {
-                      // Send string to UART..
-                      strcpy( (char *)tempBffr2, "RGB Color Light Sensor...\r\n");
-#ifdef NUCLEO
-                      Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                      Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-                      if (Status != HAL_OK)
-                        return Status;
-                      // NOW, Build Data String..
-                      sprintf( (char *)tempBffr2, " RGB(REDmsb,REDlsb,GREENmsb,GREENlsb,BLUEmsb,BLUElsb)\r\n" );
-#ifdef NUCLEO
-                      Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                      Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-                      if (Status != HAL_OK)
-                        return Status;
-                      strcpy( (char *)tempBffr2, "       DATA: ");
-                      strcat( (char *)tempBffr2, (char *)RGBValues.Raw );
-                      strcat( (char *)tempBffr2, "\r\n" );
-#ifdef NUCLEO
-                      Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                      Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-                      if (Status != HAL_OK)
-                        return Status;
-                      // Now DisplayEach Value Calculated.
-                      strcpy( (char *)tempBffr2, "    Red: ");
-                      strcat( (char *)tempBffr2, (char *)RGBValues.Red );
-                      strcat( (char *)tempBffr2, "    Green: ");
-                      strcat( (char *)tempBffr2, (char *)RGBValues.Green );
-                      strcat( (char *)tempBffr2, "    Blue: ");
-                      strcat( (char *)tempBffr2, (char *)RGBValues.Blue );
-                      strcat( (char *)tempBffr2, "\r\n" );
-                    }
-                    else
-                      break;
-                    break;
-//------------------ H1 Command...Read Status.....     
-                  case '1':
-                    // 1. Time to send Command and collect status.  RGBSMeasure
-                    Status = RoadBrd_RGBReadStatus( &RGBSMeasure );
-
-                    if (Status == HAL_OK)
-                    {
-                      // Build Status
-                      strcpy( (char *)tempBffr2, "RGB Color Light Sensor Status: ");
-                      sprintf( (char *)tempBffr3, "%02x / ", RGBSMeasure.status);
-                      strcat( (char *)tempBffr2, (char *)tempBffr3 );
-                      strcat( (char *)tempBffr2, (char *)RGBSMeasure.Raw );
-                      strcat( (char *)tempBffr2, "\r\n" );
-                    }
-                    else
-                      break;
-                    break;
-//------------------ H2 Command...Reset Hardware......     
-                  case '2':
-                    Status = RoadBrd_RGBReset();
-                    if (Status == HAL_OK)
-                    {
-                      // Build Status
-                      strcpy( (char *)tempBffr2, "RGB Color Light Sensor: RESET CMD Sent Succesful.\r\n" );
-                    }
-                    else
-                      break;
-                    break;
-//------------------ H3 Command...Read ID.....     
-                  case '3':
-                    // 1. Time to send Command and collect status.  IDMeasure
-                    Status = RoadBrd_RGBReadID( &IDMeasure );
-                    if (Status == HAL_OK)
-                    {
-                      // Build Status
-                      strcpy( (char *)tempBffr2, "RGB Color Light Sensor ID Code: ");
-                      sprintf( (char *)tempBffr3, "%02x / ", IDMeasure.id);
-                      strcat( (char *)tempBffr2, (char *)tempBffr3 );
-                      strcat( (char *)tempBffr2, (char *)IDMeasure.Raw );
-                      strcat( (char *)tempBffr2, "\r\n" );
-                   }
-                    else
-                      break;
-                    break;
-                  default:
-                    strcpy( (char *)tempBffr2, "ERROR: Not a legal command.\r\n");
-                    break;
-                } //EndSwitch
-              } //EndElse (Size == 1) */
+              // Read Irradiance Light Sensor. 
+              irradiance = OPT3001_GetData();
+              // Send string to UART..
+              strcpy( (char *)tempBffr2, "Irradiance Light Sensor...\r\n");
+              Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+              if (Status != HAL_OK)
+                return Status;
+              // Now calculate Celcius and Farenheit Temp.
+              sprintf( (char *)tempBffr2, "     Irradiance: %d(100lx)\r\n", irradiance);
               break;    
 //**************************************************************************************************
-            case 'P':
-              // POWER SYSTEM. 
-              strcpy( (char *)tempBffr2, "TBD: POWER SYSTEM CMDS NOT IMPLEMENTED\r\n");
-/*              switch( tempBffr[1] )
-              {
-//++++++++++++++++++++++++++++++++++++++++++  5V Power Supply Commands.
-                case 'U':
-                  // Turn on 5V Power Supply.
-                  RoadBrd_gpio_On( gTAM_PWR );
-                  strcpy( (char *)tempBffr2, "5V Power Plane Powered UP.\r\n");
-                  break;
-                case 'D':
-                  // Turn off 5V Power Supply.
-                  RoadBrd_gpio_Off( gTAM_PWR );
-                  strcpy( (char *)tempBffr2, "5V Power Plane Powered DOWN.\r\n");
-                  break;
-                default:
-                  strcpy( (char *)tempBffr2, "ERROR: Illegal 5V Power Plane Command.\r\n");
-                  break;
-              } */
+            case 'C':
+              // Read Cap Sense Event Frequency. 
+              cap.event_freq = GetCapSenseEventFreq();
+              // Send string to UART..
+              strcpy( (char *)tempBffr2, "Cap Sense Event Frequency...\r\n");
+              Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+              if (Status != HAL_OK)
+                return Status;
+              // Now calculate Celcius and Farenheit Temp.
+              sprintf( (char *)tempBffr2, "     Frequency: %d(Hz/100)\r\n", cap.event_freq);
+              break;
+//**************************************************************************************************
+            case 'D':
+              // Read Swept Frequency. 
+              cap.swept_idx = GetSweptFreqHighIdx();
+              cap.swept_level = GetSweptFreqHighLevel();
+              // Send string to UART..
+              strcpy( (char *)tempBffr2, "Swept Frequency...\r\n");
+              Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+              if (Status != HAL_OK)
+                return Status;
+
+              strcpy( (char *)tempBffr2, "     Swept Frequency Sensor frequency index with the \r\n");
+              Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+              if (Status != HAL_OK)
+                return Status;
+              sprintf( (char *)tempBffr2, "          highest output level: %d\r\n", cap.swept_idx);
+              Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+              if (Status != HAL_OK)
+                return Status;
+
+              sprintf( (char *)tempBffr2, "     Swept Frequency Sensor highest level: %dHz\r\n", cap.swept_level);
+ 
               break;
 //**************************************************************************************************
             case 'T':
@@ -657,7 +318,7 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
 //++++++++++++++++++++++++++++++++++++++++++  I2C Commands.
                   case 'I':
                     strcpy( (char *)tempBffr2, "TI CMD: I2C CMDS NOT IMPLEMENTED\r\n");
-/*                    // I2C Commands.
+                    // I2C Commands.
                     // Test Size to make sure we have enough Characters for this operation
                     if (Size < 9)
                     strcpy( (char *)tempBffr2, "TI SYNTAX ERROR: Not correct format.\r\n");
@@ -734,8 +395,8 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                                 }
                                 strcat( (char *)tempBffr2, "\r\n" );
                                 // 6. Time to send Command and collect status.
-                                Status =  RoadBrd_I2C_Master_Transmit((uint16_t)Address, i2cData, (uint16_t)num_bytes, I2C_TIMEOUT);
-                                
+//                                Status =  RoadBrd_I2C_Master_Transmit((uint16_t)Address, i2cData, (uint16_t)num_bytes, I2C_TIMEOUT);
+                                Status =  I2C_Write((uint8_t)Address, (uint8_t)i2cData[0], (uint8_t *)&(i2cData[1]), (uint16_t)(num_bytes-1));
                               } //EndElse (isHexNum( (char *)tempBffr3 ) == 0)...NUMBER BYTES
                               
                             } //EndElse (isHexNum( (char *)tempBffr3 ) == 0)...Address
@@ -822,32 +483,15 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                                     strcat( (char *)tempBffr2, (char *)tempBffr3 );
                                   }
                                   strcat( (char *)tempBffr2, "\r\n" );
-                                  // 6. Time to send Command and collect status.
-                                  Status =  RoadBrd_I2C_Master_Transmit((uint16_t)Address, i2cData, (uint16_t)num_bytes, I2C_TIMEOUT);
-                                  // 6a. Wait for Command to complete(100ms).
- 
-                                  // 7. If Status was good, Time to get response.
-                                  if (Status == HAL_OK)
-                                  {
-                                    Status =  RoadBrd_I2C_Master_Receive((uint16_t)Address, i2cData, (uint16_t)num_bytes_received, I2C_TIMEOUT);
-                                  }
-                                  else
-                                    break;
-                                  // 7a. Wait for Command to complete(100ms).
-                                  if (Status == HAL_OK)
-                                  {
-                                    Status = RoadBrd_WaitForState( 20 );
-                                  }
-
+                                  // 6. Time to get response.
+                                  temp_reg = i2cData[0];
+//                                  Status =  RoadBrd_I2C_Master_Receive((uint16_t)Address, i2cData, (uint16_t)num_bytes_received, I2C_TIMEOUT);
+                                  Status =  I2C_Read((uint8_t)Address, temp_reg, (uint8_t*)i2cData, (uint16_t)num_bytes_received);
                                   // 8. IfGood report, Need to Output Data.
                                   if (Status == HAL_OK)
                                   {
                                     // Send string to UART..
-#ifdef NUCLEO
-                                    Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                                    Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
+                                    Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
                                     if (Status != HAL_OK)
                                       return Status;
                                     // NOW, Build Data String..
@@ -859,75 +503,6 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                                     }
                                     strcat( (char *)tempBffr2, "\r\n" );
                                   }
-                                }
-                              } //EndElse (isHexNum( (char *)tempBffr3 ) == 0)...NUMBER BYTES
-                              
-                            } //EndElse (isHexNum( (char *)tempBffr3 ) == 0)...Address
-                            
-                          } //EndElse ( (tempBffr[2]!=':') || (tempBffr[5]!='.') )
-                      
-                          break;
-//------------------
-                        case 'Q':
-                          //I2C Receive Command
-                          // Step 1. Validate format.
-                          if( (tempBffr[3]!=':') ||
-                              (tempBffr[6]!='.')  )
-                          {
-                            strcpy( (char *)tempBffr2, "TIQ SYNTAX ERROR: Not correct format.\r\n");
-                          }
-                          else
-                          {
-                            // 2. Grab Address and validate a legal number
-                            tempBffr3[0] = tempBffr[4];
-                            tempBffr3[1] = tempBffr[5];
-                            tempBffr3[2] = 0x00;
-                            if (isHexNum( (char *)tempBffr3 ) == 0)
-                              strcpy( (char *)tempBffr2, "TIQ SYNTAX ERROR: Address not HEX Value.\r\n");
-                            else
-                            {
-                              // Legal Address. Save it as value
-                              Address = hatoi( (char *)tempBffr3 );
-                              // 3. Now get the number of bytes Received of data from field.
-                              tempBffr3[0] = tempBffr[7];
-                              tempBffr3[1] = tempBffr[8];
-                              tempBffr3[2] = 0x00;
-                              if (isHexNum( (char *)tempBffr3 ) == 0)
-                                strcpy( (char *)tempBffr2, "TIQ SYNTAX ERROR: Number of Bytes not HEX Value.\r\n");
-                              else
-                              {
-                                  // Legal NUMBER BYTES. Save it as value
-                                  num_bytes_received = hatoi( (char *)tempBffr3 );
-                                  // 4. Test num_bytes. If Zero, We are done
-                                  sprintf( (char *)tempBffr2, "TIR: GOOD CMD: %x.\r\n", Address);
-                                  // 7. If Status was good, Time to get response.
-                                  Status =  RoadBrd_I2C_Master_Receive((uint16_t)Address, i2cData, (uint16_t)num_bytes_received, I2C_TIMEOUT);
-                                  // 7a. Wait for Command to complete(100ms).
-                                  if (Status == HAL_OK)
-                                  {
-                                    Status = RoadBrd_WaitForState( 20 );
-                                  }
-                                  else
-                                    break;
-                                  // 8. IfGood report, Need to Output Data.
-                                  if (Status == HAL_OK)
-                                  {
-                                    // Send string to UART..
-#ifdef NUCLEO
-                                    Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                                    Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-                                    if (Status != HAL_OK)
-                                      return Status;
-                                    // NOW, Build Data String..
-                                    sprintf( (char *)tempBffr2, "     DATA: " );
-                                    for(x=0; x<num_bytes_received; x++)
-                                    {
-                                      sprintf( (char *)tempBffr3, "%x.", i2cData[x]);
-                                      strcat( (char *)tempBffr2, (char *)tempBffr3 );
-                                    }
-                                    strcat( (char *)tempBffr2, "\r\n" );
                                 }
                               } //EndElse (isHexNum( (char *)tempBffr3 ) == 0)...NUMBER BYTES
                               
@@ -937,10 +512,10 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                       
                           break;
                         default:
-                          strcpy( (char *)tempBffr2, "ERROR: Not a legal command.\r\n");
+                          strcpy( (char *)tempBffr2, "TI CMD: ERROR! Not a legal command.\r\n");
                           break;
                       } //EndSwitch ( tempBffr[2] )
-                    } //EndElse (Size < 9) */
+                    } //EndElse (Size < 9)
                     break;
 //++++++++++++++++++++++++++++++++++++++++++  Calibration Commands.
                   case 'C':
@@ -1609,13 +1184,13 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
             
 
             // Test last I2C Status to determine next msg.
-/*            switch( Status )
+            switch( Status )
             {
               case HAL_OK:
                 break;
               case HAL_ERROR:
                 // Determine what kind of error.
-                Err_code = RoadBrd_I2C_GetError();
+/*                Err_code = RoadBrd_I2C_GetError();
                 switch( Err_code )
                 {
                   case HAL_I2C_ERROR_BERR:
@@ -1636,30 +1211,31 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                   case HAL_I2C_ERROR_TIMEOUT:
                     strcpy( (char *)tempBffr2, "I2C ERROR: TIMEOUT: Timeout Error reported.\r\n");
                     break;
-                  default:
+                  default: 
                     strcpy( (char *)tempBffr2, "I2C ERROR: Unknown Error reported.\r\n");
                     break;
                  
                 }
                 // Re-Initialize I2C....It has been corrupted.
-                MX_I2C1_Reset();
+                MX_I2C1_Reset(); */
+                strcpy( (char *)tempBffr2, "Sensor ERROR: Sensor Read FAILED.\r\n");
                 break;
               case HAL_BUSY:
-                strcpy( (char *)tempBffr2, "I2C BUSY: I2C reported BUSY error.\r\n");
+                strcpy( (char *)tempBffr2, "Sensor ERROR: Sensor Read BUSY error.\r\n");
                 // Re-Initialize I2C....It has been corrupted.
-                MX_I2C1_Reset();
+//                MX_I2C1_Reset();
                 break;
               case HAL_TIMEOUT:
-                strcpy( (char *)tempBffr2, "I2C TIMEOUT: I2C reported TIMEOUT.\r\n");
+                strcpy( (char *)tempBffr2, "Sensor ERROR: Sensor Read TIMEOUT.\r\n");
                 // Re-Initialize I2C....It has been corrupted.
-                MX_I2C1_Reset();
+//                MX_I2C1_Reset();
                 break;
               default:  
-                strcpy( (char *)tempBffr2, "I2C ERROR: I2C reported unnown error.\r\n");
+                strcpy( (char *)tempBffr2, "Sensor ERROR: Sensor Read unnown error.\r\n");
                 // Re-Initialize I2C....It has been corrupted.
-                MX_I2C1_Reset();
+//                MX_I2C1_Reset();
                 break;
-            } */
+            } 
             // Send string to UART..
             Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
             if (Status != HAL_OK)
@@ -1729,6 +1305,65 @@ int hatoi( char *ptr )
 bool Tst_Bypass( void)
 {
   return Bypass;
+}
+
+/* Read the IMU sensor data
+ * - Accelerometer data is in 1/1000 g
+ * - Gyro data is in 1/10 dps
+ * - Magnetometer data is in mGauss
+ * All scaling done according to typical sensitivity values in datasheet */
+
+HAL_StatusTypeDef ReadIMUSensorsLocal(void)
+{
+  int i;
+  union u3DVector vector;
+  
+  uint8_t id = 0;
+  LSM6DS3_Read_XG_ID(&id);
+  
+  /* Read the accelerometer data */
+  if (LSM6DS3_X_GetAxesRaw(vector.indexed) == HAL_OK)
+  {
+    /* Scale the values so they are in 1/1000 g when we run the sensor
+     * at 4 g full scale (0.122 mg/LSB) */
+    for (i=0; i<3; i++)
+    {
+      imu.accel.indexed[i] = (int16_t)
+                        (((int32_t)(vector.indexed[i]) * 4000) / 32786);
+    }
+  }
+  else
+    return HAL_ERROR;
+  
+  /* Read the gyro data */
+  if (LSM6DS3_G_GetAxesRaw(vector.indexed) == HAL_OK)
+  {
+    /* Scale the values so they are in 1/10 dps when we run the sensor
+     * at 500 dps full scale (17.5 mdps/LSB) */
+    for (i=0; i<3; i++)
+    {
+      imu.gyro.indexed[i] = (int16_t)
+                        (((int32_t)(vector.indexed[i]) * 5000) / 28571);
+    }
+  }
+  else
+    return HAL_ERROR;
+  
+  /* Read the magnetometer data */
+  if (LIS3MDL_M_GetAxesRaw(vector.indexed) == HAL_OK)
+  {
+    /* Scale the values so they are in mgauss when we run the sensor
+     * at 4 gauss full scale (6842 LSB/gauss) */
+    for (i=0; i<3; i++)
+    {
+      imu.mag.indexed[i] = (int16_t)
+                        (((int32_t)(vector.indexed[i]) * 4000) / (6842 * 4));
+    }
+  }
+  else
+    return HAL_ERROR;
+  
+  return HAL_OK;
 }
 
 /*void sleep(void) {

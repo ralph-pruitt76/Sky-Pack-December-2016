@@ -43,6 +43,11 @@
 //#include "stm32l1xx_nucleo.h"
 //#include "i2c.h"
 #include <string.h>
+#include "lsm6ds3.h"
+#include "lis3mdl.h"
+#include "lps25hb.h"
+#include "pct2075.h"
+#include "opt3001.h"
 //#include "usart.h"
 //#include "gpio.h"
 //#include "barometer.h"
