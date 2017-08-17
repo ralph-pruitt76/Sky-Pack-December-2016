@@ -64,6 +64,7 @@ typedef enum
   ERROR_BGM_OVERFLOW    = 0x000E,               // BGM111 processing code has detected Serial Stream Overflow.
   ERROR_TXBGMBUF_FULL   = 0x000F,               // BGM111 processing code has detected a Transmit Buffer Full error on traffic to BGM111.
   ERROR_FRAME_INIT      = 0x0010,               // Could not Initialize Flash Frame.
+  ERROR_CAL_INIT        = 0x0011,               // Could not Initialize Calibration Flash Structure.
 
   ERROR_END             = 0xffff,       	// End Of Error Code List
 }ErrorCodes;

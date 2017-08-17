@@ -10,6 +10,7 @@
 #include "ErrCodes.h"
 #include "wwdg.h"
 #include "parser.h"
+#include "Calibration.h"
 
 /* Program entry point */
 
@@ -70,6 +71,28 @@ void main()
       Set_DriverStates( FRAME_TASK, DRIVER_ON );
     }
   } // EndElse (SkyBrd_WWDG_VerifyFrame())
+  //*******2. Initializ Calibration Flash Structure
+  // 2a. Is Calibration Flash Frame Initialized?
+  if (SkyPack_CAL_VerifyFrame())
+  {
+    //Yes....Set CAL_TASK Bit in Driver State Variable.
+    Set_DriverStates( CAL_TASK, DRIVER_ON );
+  } // EndIf (RoadBrd_WWDG_VerifyFrame())
+  else
+  {
+    //No....2b. Attempt to Initialize Structure Flash Structure.
+    if (SkyPack_CAL_InitializeFrmFlash() != HAL_OK)
+    {
+      //FAILED....Indicate Error Code and Fail Driver State.
+      SkPck_ErrCdLogErrCd( ERROR_CAL_INIT, MODULE_main );
+      Set_DriverStates( CAL_TASK, DRIVER_OFF );
+    }
+    else
+    {
+      //SUCCESS....Set FRAME_TASK Bit in Driver State Variable.
+      Set_DriverStates( CAL_TASK, DRIVER_ON );
+    }
+  } // EndElse (RoadBrd_WWDG_VerifyFrame())
 #endif
 
   // Test I2C Status and Task init I2C if Active driver.

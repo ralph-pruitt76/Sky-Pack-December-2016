@@ -7962,6 +7962,9 @@
       <name>$PROJ_DIR$\Source\bgm111.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\Source\Calibration.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\Source\ErrCodes.c</name>
     </file>
     <file>
