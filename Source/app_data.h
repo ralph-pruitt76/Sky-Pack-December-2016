@@ -90,5 +90,8 @@ void SendApp_String( uint8_t *pData );
 void ClrDataStructure(void);
 void ChangeSampleTimer(void);
 void ClrAnalyticsRepeat( void );
+bool TstDataReady( void );
+void ClrDataReady( void );
+void Clr_CMD_Md_Cnt( void );
 
 #endif

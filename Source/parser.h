@@ -67,9 +67,13 @@
 /* Defines */
 #define I2C_TIMEOUT     500            // Set as 500msec
 #define SCALE_DELAY     10            // Scale Delay.
+#define BUFFER_SIZE     40             // Maximum Buffer Size
 
 /* Prototypes */
-HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr);
+HAL_StatusTypeDef SkyBrd_ParserInit( void );
+HAL_StatusTypeDef SkyBrd_ParserTsk(char *tempBffr);
+HAL_StatusTypeDef SkyBrd_ProcessParserTsk( void );
+HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag);
 bool Tst_Bypass( void);
 int isHexNum(char *ptr);
 int hatoi( char *ptr );

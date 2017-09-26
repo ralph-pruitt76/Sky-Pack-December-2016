@@ -97,6 +97,9 @@ ErrorElmntPtr  SkPck_ErrCdGetNxtErrCd( void );
 HAL_StatusTypeDef SkPck_ErrCdLogErrCd( ErrorCodes ErrorCd, ModuleCodes DeviceCd );
 ErrorCodes Get_ErrorCode( int code );
 
+void HardFault_Handler(void);
+void MemManage_Handler(void);
+void UsageFault_Handler(void);
 #ifdef __cplusplus
 }
 #endif

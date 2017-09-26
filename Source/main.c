@@ -100,7 +100,12 @@ void main()
   {
     InitSensors();
   }
-
+  
+  // Initialize key app vars.
+  SkyBrd_ParserInit();                         // This initializes the Parse Tasking Structure.
+  SkyBrd_WWDG_InitializeDateString();          // Initialize Date Tag From Server as NULL.
+  SkyBrd_WWDG_InitializeTickString();          // Initialize Tick Tag From as NULL.
+  
   // Display Banner
   strcpy( (char *)tempBffr2, "*********************  WEATHERCLOUD *********************\r\n\r\n");
   Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
@@ -115,12 +120,20 @@ void main()
   if (Status != HAL_OK)
     SkyPack_Reset( FATAL_ERROR );;
 #ifdef STM32L151CBT6
-    sprintf( (char *)tempBffr2, "Sensor Sample Rate: %3.1f Seconds.\r\n", ((float)SkyPack_GetSampleTime()/10));
+    sprintf( (char *)tempBffr2, "Sensor Sample Rate: %3.1f Seconds.\r\n", ((float)SkyBrd_GetSampleTime()/10));
+    Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+    if (Status != HAL_OK)
+      SkyPack_Reset( FATAL_ERROR );
+    sprintf( (char *)tempBffr2, "TACK Limit: %d.\r\n", SkyBrd_Get_TackLimit() );
+    Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+    if (Status != HAL_OK)
+      SkyPack_Reset( FATAL_ERROR );
+    sprintf( (char *)tempBffr2, "Boot Delay: %d Seconds.\r\n", SkyBrd_Get_BootDelay() );
     Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
     if (Status != HAL_OK)
       SkyPack_Reset( FATAL_ERROR );
     // Now Display the Units Enabled State.
-    if (SkyPack_Get_UnitsFlag())
+    if (SkyBrd_Get_UnitsFlag())
     {
       sprintf( (char *)tempBffr2, "Units XML State: ENABLED\r\n\r\n> ");
     }
@@ -135,6 +148,26 @@ void main()
   
   BGM111_Init();
 
+#ifdef BUG_ENABLE
+          SCB->CCR |= 0x10;
+          int a = 10;
+          int b = 0;
+          int c;
+          c = a/b;
+          sprintf( (char *)tempBffr2, "Bug Value Dump: %d\r\n\r\n> ",c);
+  #ifdef REV_L
+          Status = RoadBrd_UART_Transmit_IT(NUCLEO_USART, (uint8_t *)tempBffr2);
+          // Wait for msg to be completed.
+          while (RoadBrd_Uart_Status(NUCLEO_USART) != SET)
+          {
+          }
+          // Clear State for Next Transfer.
+          clrUsartState( NUCLEO_USART );
+  #else
+          Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);
+  #endif
+#endif          
+
   /* Endless main loop */
   for (;;)
   {
@@ -146,6 +179,10 @@ void main()
         (BGM111_DataConnected()) &&
         (BGM111_SyncModeTestNoInc()) )
     {
+
+      // Process any Outstanding Parse Tasks.
+      SkyBrd_ProcessParserTsk();
+      
       // Service Watchdog
 //**CHANGE**
 //      RoadBrd_WWDG_Refresh();     // Refresh WatchDog
@@ -161,7 +198,7 @@ void main()
       sprintf( (char *)tempBffr2, "CMD Received<%s>\r\n\r\n", mntrCmd);
       SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
       // We have a good Tasking String. Time to determine action.
-      Status = SkyBrd_ParseString((char *)mntrCmd);
+      Status = SkyBrd_ParseString((char *)mntrCmd, false);
       if (Status != HAL_OK)
         SkyPack_Reset( FATAL_ERROR );
       //Mntr_Clr();

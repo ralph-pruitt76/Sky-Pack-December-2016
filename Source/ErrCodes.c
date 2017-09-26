@@ -231,5 +231,46 @@ HAL_StatusTypeDef SkPck_ErrCdLogErrCd( ErrorCodes ErrorCd, ModuleCodes DeviceCd 
   return Status;
 }
 
+//*****************************************************************************************************
+//*
+//* Exception Processing Code Here
+//*
+//*****************************************************************************************************
+
+/**
+  * @brief  Hard Fault Exception Handler
+  * @param  none
+  * @retval none
+  */
+void HardFault_Handler(void)
+{ 
+  SystemInit();
+  SkPck_ErrCdLogErrCd( ERROR_BGM_OVERFLOW, MODULE_bgm111 );
+  SkyPack_Reset( ERROR_NULL );
+}
+
+/**
+  * @brief  Hard Fault Exception Handler
+  * @param  none
+  * @retval none
+  */
+void MemManage_Handler(void)
+{ 
+  SystemInit();
+  SkPck_ErrCdLogErrCd( ERROR_BGM_OVERFLOW, MODULE_bgm111 );
+  SkyPack_Reset( ERROR_NULL );
+}
+
+/**
+  * @brief  Useage Fault Exception Handler
+  * @param  none
+  * @retval none
+  */
+void UsageFault_Handler(void)
+{ 
+  SystemInit();
+  SkPck_ErrCdLogErrCd( ERROR_BGM_OVERFLOW, MODULE_bgm111 );
+  SkyPack_Reset( ERROR_NULL );
+}
 
 /************************ (C) COPYRIGHT WeatherCloud *****END OF FILE****/

@@ -7,6 +7,8 @@
 #include "app_data.h"
 #include "usart.h"
 #include "ErrCodes.h"
+#include "wwdg.h"
+#include "Parser.h"
 
 
 /* BGLib instantiation */
@@ -54,6 +56,7 @@ struct
   bool booted;
   bool connection;
   bool data_Connection;
+  bool CMD_Mode;
   uint8_t TackArmed;
   uint8_t TackCnt;
   uint8_t SyncFlag;
@@ -129,6 +132,7 @@ void BGM111_LowLevel_Init(void)
   ble.booted =  false;
   ble.connection = false;
   ble.data_Connection = false;
+  ble.CMD_Mode = false;
   ble.TackArmed = TACK_OFF;
   ble.TackCnt = 0;
   ble.SyncFlag = SYNC_PROC;
@@ -395,6 +399,36 @@ bool BGM111_DataConnected(void)
 }
 
 /**
+  * @brief  Check whether the BLE module is in CMD Mode.
+  * @retval bool:         true(1):        CMD Mode is Active.
+  *                       false(0):       CMD Mode is  not Active.
+  */
+bool BGM111_CMD_Mode(void)
+{
+  return ble.CMD_Mode;
+}
+
+/**
+  * @brief  Set the BLE module is DATA connected.
+  * @param bool:         true(1):        DATA Connection is Active.
+  *                      false(0):       NO DATA Connection.
+  */
+void BGM111_SetDataConnected(bool NewMode)
+{
+  ble.data_Connection = NewMode;
+}
+
+/**
+  * @brief  Set new BLE CMD Mode.
+  * @param bool:         true(1):        CMD Mode is Active.
+  *                      false(0):       CMD Mode is  not Active.
+  */
+void BGM111_SetCMD_Mode(bool NewMode)
+{
+  ble.CMD_Mode = NewMode;
+}
+
+/**
   * @brief  Check whether the BLE module is in Sync Mode and Waiting for ACK.
   * @retval bool:         true(1):        Sync Ready for Processing next Frame.
   *                       false(0):       Sync needs to wait.
@@ -402,37 +436,47 @@ bool BGM111_DataConnected(void)
 bool BGM111_SyncModeTest(void)
 {
   uint8_t tempBffr2[20];
-
+  bool Status = false;
   // Is Sync Mode armed? Yes.. Then Need to test SyncFlag
   if (ble.TackArmed == TACK_SYNC)
   {
     // If SyncFlag is SYNC_PROC, then allow Frame send.
     if (ble.SyncFlag == SYNC_PROC)
-      return true;
+    {
+      Status = true;
+    }
     // NO, then Incrment count, We are one step closer to Reset Code.
     else
     {
-      ble.TackCnt++;
-      sprintf( (char *)tempBffr2, "<TACK Strike:%d>", ble.TackCnt);
-      SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
-      
-      if (ble.TackCnt > TACK_LIMIT)
+      // Test to see if we have had a timing tick yet...
+      if ( TstDataReady() )
+      if ( true )
       {
-        // Time to process error and reset code....NO Choice.
-        SkyPack_MNTR_UART_Transmit( (uint8_t *)"<BGMSYNC_CNCTCLOSE>" );
-        SkPck_ErrCdLogErrCd( ERROR_BGM_SYNCCNCT, MODULE_bgm111 );
-        Clr_HrtBeat_Cnt();
-        SkyPack_Reset( ERROR_BGM_SYNCCNCT );
-        //RdBrd_BlinkErrCd( ERROR_BGM_SYNCCNCT );
-        //RoadBrd_Delay( 1000 );
-        //HAL_NVIC_SystemReset();
-      } // EndIf (ble.TackCnt >TACK_LIMIT)
-      return false;
+        // Clear Flag for next Tick Event.
+        ClrDataReady();
+        ble.TackCnt++;
+        sprintf( (char *)tempBffr2, "<TACK Strike:%d/%d>", ble.TackCnt, SkyBrd_Get_TackLimit() );
+        SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+        BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), tempBffr2);        
+        if (ble.TackCnt > SkyBrd_Get_TackLimit())
+        {
+          // Time to process error and reset code....NO Choice.
+          SkyPack_MNTR_UART_Transmit( (uint8_t *)"<BGMSYNC_CNCTCLOSE>" );
+          SkPck_ErrCdLogErrCd( ERROR_BGM_SYNCCNCT, MODULE_bgm111 );
+          Clr_HrtBeat_Cnt();
+          SkyPack_Reset( ERROR_BGM_SYNCCNCT );
+          //RdBrd_BlinkErrCd( ERROR_BGM_SYNCCNCT );
+          //RoadBrd_Delay( 1000 );
+          //HAL_NVIC_SystemReset();
+        } // EndIf (ble.TackCnt >TACK_LIMIT)
+      } // EndIf ( TstDataReady() )
+      Status = false;
     } // EndElse (ble.SyncFlag == SYNC_PROC)
   } // EndIf (ble.TackArmed == TACK_SYNC)
   // No....Then we can continue process. Return true.
   else
-    return true;
+    Status = true;
+  return Status;
 }
 
 /**
@@ -648,8 +692,17 @@ void BGM111_Transmit(uint32_t len, uint8_t *data)
 HAL_StatusTypeDef SkyBrd_ProcessBGMChar(uint8_t c)
 {
 //  static uint8_t header_cnt, payload_cnt, payload_len;
+#define TEMP_BUFF_LENGTH        60
   HAL_StatusTypeDef Status;
-  static uint8_t tempBffr2[40];
+  static uint8_t tempBffr2[TEMP_BUFF_LENGTH];
+  char* tempPstr;
+  char tempstr[60];
+  int x;
+#ifndef XML_SHRT  
+  char tempstr2[60];
+#endif
+//  int x;
+
   uint8_t tempBffr3[60];
   static uint8_t in_ptr = 0;
   
@@ -658,7 +711,8 @@ HAL_StatusTypeDef SkyBrd_ProcessBGMChar(uint8_t c)
   // First pull new character into buffer.
   tempBffr2[in_ptr++] = c;
   // Now, Did we get a termination character?
-  if( c == 0x0a )
+  if( (c == 0x0a)  ||
+      (c == '?') )
   {
     // Reset Ptr.
     in_ptr = 0;
@@ -674,6 +728,9 @@ HAL_StatusTypeDef SkyBrd_ProcessBGMChar(uint8_t c)
     {
       // Yes....Set Boot Flag.
       ble.booted = true;
+       // If we are booted....Then lets arm TACK Test Code.
+      ble.data_Connection = false;
+      ble.CMD_Mode = false;
       Status = SkyPack_MNTR_UART_Transmit((uint8_t *)"<ble.booted> ");
 
     }
@@ -693,8 +750,10 @@ HAL_StatusTypeDef SkyBrd_ProcessBGMChar(uint8_t c)
       // Yes....Clear Flags.
       ble.connection = false;
       ble.data_Connection = false;
+      ble.CMD_Mode = false;
       ble.TackArmed = TACK_ARMED;
       ble.TackCnt = 0;
+      Clr_CMD_Md_Cnt();
       ClrDataStructure();                           // Clear Backup data structure.
       ClrAnalyticsRepeat();                          // Clear Frame Repeat Count.
       Status = SkyPack_MNTR_UART_Transmit((uint8_t *)"<DISCONNECTED> ");
@@ -703,16 +762,73 @@ HAL_StatusTypeDef SkyBrd_ProcessBGMChar(uint8_t c)
     else if (strncmp((char *)tempBffr2,"DATA",4) == 0)
     {
       // Yes....Set Boot Flag.
-      ble.data_Connection = true;
+      // 1. Send String to Server to indicate new CMD Mode.
+      //sprintf( (char *)tempBffr2, "<STATUS>CMD</STATUS>" );
+      if (SkyBrd_Get_UnitsFlag())
+      {
+        sprintf( (char *)tempBffr2, "<STATUS>CMD|%3.1f|%d|%d|ENABLED</STATUS>",
+                ((float)SkyBrd_Get_SnsrTickCnt()/10),
+                SkyBrd_Get_TackLimit(),
+                SkyBrd_Get_BootDelay());
+      }
+      
+      else
+      {
+        sprintf( (char *)tempBffr2, "<STATUS>CMD|%3.1f|%d|%d|DISABLED</STATUS>",
+                ((float)SkyBrd_Get_SnsrTickCnt()/10),
+                SkyBrd_Get_TackLimit(),
+                SkyBrd_Get_BootDelay());
+      }
+      Status = SkyPack_MNTR_UART_Transmit((uint8_t *) tempBffr2);
+      if (Status != HAL_OK)
+        return Status;
+      BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), tempBffr2);
+      
+      // 2. Set the Timer to the RD_Sound at 1 Second Increments.
+      SkyBrd_Set_TmpSnsrTickCnt( CMD_TIME );                  // One Second Ticks.
+      
+      // 3. Set CMD_Mode Active.
+      BGM111_SetCMD_Mode( true );
+      
+      // Final Status.
+      //ble.data_Connection = true;
       Status = SkyPack_MNTR_UART_Transmit((uint8_t *)"<ble.data_Connection> ");
     }
     // TACK String?
-    else if (strncmp((char *)tempBffr2,"<TACK",5) == 0)
+    else if (strncmp((char *)tempBffr2,"<TACK>",6) == 0)
     {
-      if (ble.TackArmed == TACK_ARMED2)
+      // CMD_Mode active?
+      if ( BGM111_CMD_Mode() )
+      {
+        // Send String to Server.
+        sprintf( (char *)tempBffr3, "<STATUS>DATA_SYNC</STATUS>" );
+        Status = SkyPack_MNTR_UART_Transmit((uint8_t *) tempBffr3);
+        if (Status != HAL_OK)
+          return Status;
+        BGM111_Transmit((uint32_t)(strlen((char *)tempBffr3)), tempBffr3);
+        // Clear CMD_Mode.
+        BGM111_SetCMD_Mode( false );
+        // Set Data_Connection Mode.
+        BGM111_SetDataConnected( true );
+        // Change RD_Sound Timer to correct value for Data Mode.
+        // First Reload FLASH Frames
+        SkyBrd_WWDG_VerifyFrame();
+        // NOW...Reload Active Timer.
+        SkyBrd_Set_TmpSnsrTickCnt( SkyBrd_Get_SnsrTickCnt() );
+        // Now Set Correct SYNC Mode.
+        ble.TackArmed = TACK_SYNC;
+        ble.TackCnt = 0;
+        Status = SkyPack_MNTR_UART_Transmit((uint8_t *)"<ble.TackArmed=TACK_SYNC>");
+      }
+      else if (ble.TackArmed == TACK_ARMED2)
       {
         ble.TackArmed = TACK_SYNC;
         ble.TackCnt = 0;
+        sprintf( (char *)tempBffr3, "<STATUS>DATA_SYNC</STATUS>" );
+        Status = SkyPack_MNTR_UART_Transmit((uint8_t *) tempBffr3);
+        if (Status != HAL_OK)
+          return Status;
+        BGM111_Transmit((uint32_t)(strlen((char *)tempBffr3)), tempBffr3);
         Status = SkyPack_MNTR_UART_Transmit((uint8_t *)"<ble.TackArmed=TACK_SYNC>");
       }
       else if (ble.TackArmed == TACK_SYNC)
@@ -722,9 +838,126 @@ HAL_StatusTypeDef SkyBrd_ProcessBGMChar(uint8_t c)
        // Set Sync Flag for Frame.
         BGM111_SetSyncFlg( SYNC_PROC );
       }
-    }
-    // NOW TEST FOR PARAMS!!!
-
+      // OK...Now we need to process what is in the TACK Section.
+#ifdef XML_SHRT      
+      //********************************************************************************
+      //*
+      //*  Abbreviate XML Code Processing here for Platinum Initial Release
+      //*
+      //********************************************************************************
+      // A. Strip off Opening <TACK>.
+      tempPstr = (char *)&tempBffr2[6];
+      strcpy(tempstr, tempPstr);
+      //************************ SEQUENCE OF TEST TO TYPE OF OPERATION
+      // B. Time to Test String
+      // Is this a <CMD>/Monitor Command
+      tempPstr = strstr( tempstr, "</TACK>" );
+      if (tempPstr  != NULL)
+      {
+        // Now NULL Out where Tag is at.
+        *tempPstr = NULL;
+        // Is this a Monitor Command?
+        if (strlen(tempstr) > 0)
+        {
+          // Finally, Send string to Parser.
+          Status = SkyBrd_ParserTsk(tempstr);
+          if (Status == HAL_BUSY)
+          {
+            sprintf( (char *)tempBffr3, "<STATUS>CMD_BUSY</STATUS>" );
+            Status = SkyPack_MNTR_UART_Transmit((uint8_t *) tempBffr3);
+            BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), tempBffr2);
+          }
+          else if (Status != HAL_OK)
+          {
+            sprintf( (char *)tempBffr3, "<STATUS>CMD_ERROR</STATUS>" );
+            Status = SkyPack_MNTR_UART_Transmit((uint8_t *) tempBffr3);
+            BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), tempBffr2);
+          }
+        }
+      }
+      // Generate an ACK Report.
+      sprintf( (char *)tempBffr2, "<STATUS>ST_ACK:%s</STATUS>", SkyBrd_WWDG_GetTickString() );
+      Status = SkyPack_MNTR_UART_Transmit((uint8_t *) tempBffr2);
+      if (Status != HAL_OK)
+        return Status;
+      BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), tempBffr2);
+      //********************************************************************************
+      //*  END OF CUSTOM SECTION...Abbreviate XML Code Processing here for Platinum Initial Release
+      //********************************************************************************
+#else      
+      //********************************************************************************
+      //*
+      //*  Normal XML Code Processing here for Platinum Release
+      //*
+      //********************************************************************************
+      // A. Strip off Opening <TACK>.
+      tempPstr = (char *)&tempBffr2[6];
+      strcpy(tempstr, tempPstr);
+      // A1. Find if we have a <DATE> Tag.
+      tempPstr = strstr( tempstr, "<DATE>" );
+      if (tempPstr != NULL)
+      {
+        // Found DATE TAG....Set Focus to DATE Tag.
+        strcpy(tempstr, tempPstr);
+        // Now Strip out DATE Tag and Get Date.
+        tempPstr = (char *)&tempstr[6];
+        strcpy(tempstr2, tempPstr);
+        strcpy(tempstr, tempPstr);
+        // Find </DATE>
+        tempPstr = strstr( tempstr2, "</DATE>" );
+        if (tempPstr != NULL)
+        {
+          // Found Second String.....NULL It so that we can get Date
+          //x = (int)tempPstr;
+          //tempstr[x] = NULL;
+          *tempPstr = NULL;
+          //Now save Date String.
+          SkyBrd_WWDG_SetDateString(tempstr2);
+        }
+        // Let's Advance past this date string.
+        tempPstr = strstr( tempstr, "</DATE>" );
+        strcpy(tempstr, tempPstr);
+        // Now Strip out /DATE Tag and Get Date.
+        tempPstr = (char *)&tempstr[7];
+        strcpy(tempstr, tempPstr);
+      } 
+      //************************ SEQUENCE OF TEST TO TYPE OF OPERATION
+      // B. Time to Test String
+      // Is this a <CMD>/Monitor Command
+      tempPstr = strstr( tempstr, "<CMD>" );
+      if (tempPstr  != NULL)
+      {
+        // Yes This is a Monitor CMD... Parse out Key CMD and pass to parser.
+        strcpy((char *)tempBffr2, tempPstr);
+        tempPstr = (char *)&tempBffr2[5];
+        strcpy(tempstr, tempPstr);
+        // Finally, Send string to Parser.
+        Status = SkyBrd_ParserTsk(tempstr);
+        if (Status == HAL_BUSY)
+        {
+          sprintf( (char *)tempBffr3, "<STATUS>CMD_BUSY</STATUS>" );
+          Status = SkyPack_MNTR_UART_Transmit((uint8_t *) tempBffr3);
+        }
+        else if (Status != HAL_OK)
+        {
+          sprintf( (char *)tempBffr3, "<STATUS>CMD_ERROR</STATUS>" );
+          Status = SkyPack_MNTR_UART_Transmit((uint8_t *) tempBffr3);
+        }
+      }
+      else
+      {
+        // Generate an ACK Report.
+        sprintf( (char *)tempBffr2, "<STATUS>ST_ACK:%s</STATUS>", SkyBrd_WWDG_GetDateString() );
+        Status = SkyPack_MNTR_UART_Transmit((uint8_t *) tempBffr2);
+        if (Status != HAL_OK)
+          return Status;
+        BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), tempBffr2);
+      }
+      //********************************************************************************
+      //*  END OF CUSTOM SECTION...Normal XML Code Processing here for Platinum Release
+      //********************************************************************************
+#endif      
+    } // EndIf (strncmp((char *)tempBffr2,"<TACK>",6) == 0)
     // NOW TEST ERROR CONDITIONS!!!
     // OVERFLOW?
     else if (strncmp((char *)tempBffr2,"OVERFLOW",8) == 0)
@@ -738,7 +971,12 @@ HAL_StatusTypeDef SkyBrd_ProcessBGMChar(uint8_t c)
     {
       Status = SkyPack_MNTR_UART_Transmit((uint8_t *)"<UNKNOWN STATUS> ");
     }
-  }
+    // Finally Clear the Buffer. We have completed the parsing of this event.
+    for (x=0; x<TEMP_BUFF_LENGTH; x++)
+    {
+      tempBffr2[x]= NULL;
+    }
+  } // EndIf ( (c == 0x0a)  || (c == '?') )
   //tempBffr2[0] = c;
   //tempBffr2[1] = 0x00;
   //Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);

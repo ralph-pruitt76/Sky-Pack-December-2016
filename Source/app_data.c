@@ -67,6 +67,7 @@ struct
   bool  HrtBeat_Flg;
   uint16_t HrtBeat_Cnt;
   uint16_t FrmRpt_Cnt;
+  uint8_t CMD_Md_Cnt;
 } static analytics;
 
 /* App data measurment structure */
@@ -303,7 +304,7 @@ void InitSampleTimer(void)
   /* BRONZE.2: Configure to generate an interrupt every 10000ms */
   TIM_TimeBaseInitStructure.TIM_Prescaler = 32 * 1000;
 #ifdef STM32L151CBT6
-  TIM_TimeBaseInitStructure.TIM_Period = SkyPack_GetSampleTime() * 100;
+  TIM_TimeBaseInitStructure.TIM_Period = SkyBrd_GetSampleTime() * 100;
 #else
   TIM_TimeBaseInitStructure.TIM_Period = 10000;
 #endif
@@ -335,7 +336,7 @@ void ChangeSampleTimer(void)
   /* BRONZE.2: Configure to generate an interrupt every 10000ms */
   TIM_TimeBaseInitStructure.TIM_Prescaler = 32 * 1000;
 #ifdef STM32L151CBT6
-  TIM_TimeBaseInitStructure.TIM_Period = SkyPack_GetSampleTime() * 100;
+  TIM_TimeBaseInitStructure.TIM_Period = SkyBrd_GetSampleTime() * 100;
 #else
   TIM_TimeBaseInitStructure.TIM_Period = 10000;
 #endif
@@ -379,6 +380,7 @@ void InitSensors(void)
   analytics.HrtBeat_Flg = false;                // Set flasg to clear before using it.
   analytics.HrtBeat_Cnt = 0;                    // Clear count before using it.
   analytics.FrmRpt_Cnt = 0;                     // Clear Frame Repeat Count.
+  analytics.CMD_Md_Cnt = 0;                     // Clear CMD_Md_Cnt.
   
   // Preset some data to force a sample.
   data.imu.accel.named.x = 0xffff;
@@ -435,6 +437,28 @@ void InitSensors(void)
   InitSampleTimer();
 }
 
+/**
+  * @brief  Clear the reading_scheduled flag to enable Sensor processing.
+  * @param  None
+  * @retval None
+  */
+void ClrDataReady( void )
+{
+  /* Schedule a sensor reading */
+  data.reading_scheduled = false;
+}
+
+/**
+  * @brief  Return the state of the Data Ready Flag..
+  * @param  None
+  * @retval bool data.reading_scheduled
+  */
+bool TstDataReady( void )
+{
+  /* Schedule a sensor reading */
+  return data.reading_scheduled;
+}
+
 /* Sample timer interrupt handler */
 
 void SAMPLE_TIM_IRQHandler(void)
@@ -451,16 +475,53 @@ void SAMPLE_TIM_IRQHandler(void)
 
 void ProcessSensorState(void)
 {
+  char tempstr[30];
+  uint8_t tempBffr2[80];
   static int TimeTagCnt = 0;
   HAL_StatusTypeDef Status;
   char characteristic[40];
 //  uint8_t tempStr[13];
-  uint8_t tempBffr2[40];
   uint8_t tempbffr[30];
   static int nullCnt = 0;
  
+  // Is CMD_Mode active?
+  if ((BGM111_Ready()) &&
+      (BGM111_Connected()) &&
+      (BGM111_CMD_Mode()) )
+  {
+    // 1. Increment CMD_Mode Count
+    analytics.CMD_Md_Cnt++;
+    sprintf( (char *)tempBffr2, "<<%d", analytics.CMD_Md_Cnt );
+    SkyPack_MNTR_UART_Transmit( (uint8_t *) tempBffr2);
+    
+    // Test Cnt against Limit.
+    if ( analytics.CMD_Md_Cnt >= SkyBrd_Get_BootDelay())
+    {
+      SkyPack_MNTR_UART_Transmit( (uint8_t *)">>\r\n");
+      // Clear Count for Next Event.
+      analytics.CMD_Md_Cnt = 0;
+      // Send String to Server to indicate new CMD Mode.
+      sprintf( (char *)tempBffr2, "<STATUS>DATA_ASYNC</STATUS>" );
+      SkyPack_MNTR_UART_Transmit( (uint8_t *) tempBffr2);
+      BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), tempBffr2);
+      // Clear CMD_Mode.
+      BGM111_SetCMD_Mode( false );
+      // Set Data_Connection Mode.
+      BGM111_SetDataConnected( true );
+      // Change RD_Sound Timer to correct value for Data Mode.
+      // First Reload FLASH Frames
+      SkyBrd_WWDG_VerifyFrame();
+      // NOW...Reload Active Timer.
+      SkyBrd_Set_TmpSnsrTickCnt( SkyBrd_Get_SnsrTickCnt() );
+    } // EndIf ( CMD_Md_Cnt >= CMD_MODE_LMT)
+  } // EndIf ((BGM111_Ready()) && (BGM111_Connected()) && (BGM111_CMD_Mode()) )
+
   /* Is a reading scheduled? */
-  if (data.reading_scheduled)
+  if ( (data.reading_scheduled) &&
+      (BGM111_Ready()) &&
+        (BGM111_Connected()) &&
+          (BGM111_DataConnected()) &&
+            (BGM111_SyncModeTestNoInc()) )
   {
     // Send Start of new Frame Tag...
     SkyPack_MNTR_UART_Transmit( (uint8_t *)"<FRM>" );
@@ -473,8 +534,12 @@ void ProcessSensorState(void)
     {
       // Clear Count.
       TimeTagCnt = 0;
-      //sprintf( (char *)tempBffr2, "<TICK>SP/%08x/%04x/%04x</TICK>", HeartCnt, HeartBeat_Cnt, connection_cnt);
-      sprintf( (char *)tempBffr2, "<TICK>SP/%08x</TICK>", HeartCnt);
+      //sprintf( (char *)tempBffr2, "<TICK>SP/%08x</TICK>", HeartCnt);
+      // Build Tick String
+      sprintf( tempstr, "%08x", HeartCnt);
+      // Save Tick String....
+      SkyBrd_WWDG_SetTickString( tempstr );
+      sprintf( (char *)tempBffr2, "<TICK>SP/%s</TICK>", tempstr);
       SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
       BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), tempBffr2);
       SendApp_String( (uint8_t *)tempBffr2 );
@@ -490,6 +555,9 @@ void ProcessSensorState(void)
       {
         BGM111_SetTackState(TACK_ASYNC);
         SkyPack_MNTR_UART_Transmit( (uint8_t *)"<ble.TackArmed = TACK_ASYNC>");
+        sprintf( (char *)tempBffr2, "<STATUS>DATA_ASYNC</STATUS>" );
+        SkyPack_MNTR_UART_Transmit( (uint8_t *) tempBffr2);
+        BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), tempBffr2);
       }
     }
     // Test Connection. Have we timed out??
@@ -624,7 +692,7 @@ void ProcessSensorState(void)
        // Update Information in data structure
       data.temperature = TmpData.temperature;
 
-      if (SkyPack_Get_UnitsFlag())
+      if (SkyBrd_Get_UnitsFlag())
         sprintf(characteristic, "<UB8B8 Units=%c10C%c>%05d</UB8B8>", '"', '"', data.temperature);
       else
         sprintf(characteristic, "<UB8B8>%05d</UB8B8>", data.temperature);
@@ -640,7 +708,7 @@ void ProcessSensorState(void)
        // Update Information in data structure
       data.pressure = TmpData.pressure;
 
-      if (SkyPack_Get_UnitsFlag())
+      if (SkyBrd_Get_UnitsFlag())
         sprintf(characteristic, "<UBEBE Units=%c10mbr%c>%06d</UBEBE>", '"', '"', data.pressure);
       else
         sprintf(characteristic, "<UBEBE>%06d</UBEBE>", data.pressure);
@@ -656,7 +724,7 @@ void ProcessSensorState(void)
        // Update Information in data structure
       data.irradiance = TmpData.irradiance;
 
-      if (SkyPack_Get_UnitsFlag())
+      if (SkyBrd_Get_UnitsFlag())
         sprintf(characteristic, "<UBBBB Units=%c100lx%c>%08d</UBBBB>", '"', '"', data.irradiance);
       else
         sprintf(characteristic, "<UBBBB>%08d</UBBBB>", data.irradiance);
@@ -672,7 +740,7 @@ void ProcessSensorState(void)
        // Update Information in data structure
       data.cap.event_freq = TmpData.cap.event_freq;
 
-      if (SkyPack_Get_UnitsFlag())
+      if (SkyBrd_Get_UnitsFlag())
         sprintf(characteristic, "<UBCBC Units=%cEvts%c>%05d</UBCBC>", '"', '"', data.cap.event_freq);
       else
         sprintf(characteristic, "<UBCBC>%05d</UBCBC>", data.cap.event_freq);
@@ -690,7 +758,7 @@ void ProcessSensorState(void)
       data.cap.swept_idx = TmpData.cap.swept_idx;
       data.cap.swept_level = TmpData.cap.swept_level;
      
-      if (SkyPack_Get_UnitsFlag())
+      if (SkyBrd_Get_UnitsFlag())
         sprintf(characteristic, "<UBDBD Units=%cSwpF%c>%05d%06d</UBDBD>", '"', '"', data.cap.swept_idx,
                 data.cap.swept_level);
       else
@@ -1062,6 +1130,17 @@ uint16_t Get_DriverStatus( void )
   if ( Get_DriverStates( CAL_TASK ) )
     Status += 0x0020;
   return Status;
+}
+
+
+  /**
+  * @brief  This function clears the CMD_Md_Cnt.
+  * @param  None
+  * @retval None
+  */
+void Clr_CMD_Md_Cnt( void )
+{
+  analytics.CMD_Md_Cnt = 0;                     // Clear CMD_Md_Cnt.
 }
 
   /**

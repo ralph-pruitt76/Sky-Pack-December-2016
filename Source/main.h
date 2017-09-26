@@ -16,9 +16,9 @@
 
 #define BRD_REV         "Rev K.5"               // PCB Revision          
 #define VERSION_NUM     "K.5.3"                 // Monitor Revision
-#define REL_DATE        "Sep 18, 2017"
+#define REL_DATE        "Sep 26, 2017"
 //#define LEGACY_BANNER   "Rev G+ REV C"        // OLD.....Needed to allow Legacy Design to work
-#define LEGACY_BANNER   "K.5.3 09/18/17"        // Needed to allow Legacy Design to work
+#define LEGACY_BANNER   "K.5.3 09/26/17"        // Needed to allow Legacy Design to work
 
 /** 
   * @brief  HAL Status structures definition  

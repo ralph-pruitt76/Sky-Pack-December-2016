@@ -72,6 +72,8 @@
 #ifdef STM32L151CBT6
   #define BASE_FLASH_ADDRESS      0x08018000        // Base Address to place all key Flash Structures.....32L151CBT6 Long..
 #endif
+#define BOOT_WAIT               15      // Default Wait time for Boot Sequence...15 Seconds.
+#define DATE_STRING_LENGTH      30      // Length of Saved Date String.
 
 // Private Structure
 // wwdg Save Frame
@@ -87,6 +89,8 @@ typedef struct wwdg_Frmes
   uint32_t checksum;
   // Key Misc Variables
   uint32_t      SnsrTickCnt;
+  uint32_t      TackLimit;
+  uint32_t      BootDelay;
   bool          Units_flg;
   // Key Frame Tracking Variables
   uint8_t Frame_WrtPtr;
@@ -103,6 +107,12 @@ extern void Error_Handler(void);
 void MX_WWDG_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+HAL_StatusTypeDef SkyBrd_WWDG_InitializeDateString( void );
+char *SkyBrd_WWDG_GetDateString( void );
+HAL_StatusTypeDef SkyBrd_WWDG_SetDateString( char* parmString );
+HAL_StatusTypeDef SkyBrd_WWDG_InitializeTickString( void );
+char *SkyBrd_WWDG_GetTickString( void );
+HAL_StatusTypeDef RoadBrd_WWDG_SetTickString( char* parmString );
 HAL_StatusTypeDef SkyBrd_WWDG_Start( void );
 HAL_StatusTypeDef SkyBrd_WWDG_Refresh( void );
 uint32_t SkyBrd_WWDG_GetRefreshCnt( void );
@@ -114,9 +124,16 @@ bool SkyBrd_WWDG_VerifyFrame( void );
   HAL_StatusTypeDef SkyBrd_WWDG_WriteFlash( wwdg_SaveFrame* Write_Frame );
   HAL_StatusTypeDef SkyBrd_WWDG_ReadFlash( wwdg_SaveFrame* Read_Frame );
   HAL_StatusTypeDef SkyBrd_Set_SnsrTickCnt( uint32_t PassedSnsrTickCnt );
-  uint32_t SkyPack_GetSampleTime( void );
-  HAL_StatusTypeDef SkyPack_Set_UnitsFlag( bool PassedUnitsFlag );
-  bool SkyPack_Get_UnitsFlag( void );
+  HAL_StatusTypeDef SkyBrd_Set_TackLimit( uint32_t PassedTackLimit );
+  uint32_t SkyBrd_GetSampleTime( void );
+  HAL_StatusTypeDef SkyBrd_Set_UnitsFlag( bool PassedUnitsFlag );
+  uint32_t SkyBrd_Get_SnsrTickCnt( void );
+  bool SkyBrd_Get_UnitsFlag( void );
+  uint32_t SkyBrd_Get_TackLimit( void );
+  HAL_StatusTypeDef SkyBrd_Set_BootDelay( uint32_t PassedBootDelay );
+  uint32_t SkyBrd_Get_BootDelay( void );
+  HAL_StatusTypeDef SkyBrd_WWDG_SetTickString( char* parmString );
+  HAL_StatusTypeDef SkyBrd_Set_TmpSnsrTickCnt( uint32_t PassedSnsrTickCnt );
 #endif
 HAL_StatusTypeDef SkyBrd_Set_TickCounts( uint32_t PassedRdSndTickCnt, uint32_t PassedSnsrTickCnt );
 

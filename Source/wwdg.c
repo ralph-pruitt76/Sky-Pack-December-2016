@@ -39,6 +39,7 @@
 #include "Flash.h"
 //#include "tim.h"
 #include "app_data.h"
+#include <string.h>
 
 /* USER CODE BEGIN 0 */
 // Frame Structure Define
@@ -47,6 +48,10 @@
   wwdg_Frames wwdg_HardFrames  @ BASE_FLASH_ADDRESS;
 
 static wwdg_Frames Save_Frames;
+
+static char DateString[DATE_STRING_LENGTH];             // Current Date String.
+static char TickString[DATE_STRING_LENGTH];             // Current Tick String.
+
 #endif
 
 /* USER CODE END 0 */
@@ -55,6 +60,70 @@ static wwdg_Frames Save_Frames;
 
 // wwdg Save Frame
 static wwdg_SaveFrame wwdg_Save;
+
+  /**
+  * @brief  This function initializes the Static Current Date String.
+  * @param  none
+  * @retval HAL_StatusTypeDef:     HAL_OK:       Flash Operation success.
+  */
+HAL_StatusTypeDef SkyBrd_WWDG_InitializeDateString( void )
+{
+  strcpy(DateString, "---NULL---");
+  return HAL_OK;
+}
+
+  /**
+  * @brief  This function initializes the Static Current Date String.
+  * @param  none
+  * @retval char *:     Pointer to Date String.
+  */
+char *SkyBrd_WWDG_GetDateString( void )
+{
+  return &DateString[0];
+}
+
+  /**
+  * @brief  This function initializes the Static Current Date String.
+  * @param  char* parmString: String to be set.
+  * @retval HAL_StatusTypeDef:     HAL_OK:       Flash Operation success.
+  */
+HAL_StatusTypeDef SkyBrd_WWDG_SetDateString( char* parmString )
+{
+  strcpy(DateString, parmString);
+  return HAL_OK;
+}
+
+  /**
+  * @brief  This function initializes the Static Current Date String.
+  * @param  none
+  * @retval HAL_StatusTypeDef:     HAL_OK:       Flash Operation success.
+  */
+HAL_StatusTypeDef SkyBrd_WWDG_InitializeTickString( void )
+{
+  strcpy(TickString, "---NULL---");
+  return HAL_OK;
+}
+
+  /**
+  * @brief  This function initializes the Static Current Date String.
+  * @param  none
+  * @retval char *:     Pointer to Date String.
+  */
+char *SkyBrd_WWDG_GetTickString( void )
+{
+  return &TickString[0];
+}
+
+  /**
+  * @brief  This function initializes the Static Current Date String.
+  * @param  char* parmString: String to be set.
+  * @retval HAL_StatusTypeDef:     HAL_OK:       Flash Operation success.
+  */
+HAL_StatusTypeDef SkyBrd_WWDG_SetTickString( char* parmString )
+{
+  strcpy(TickString, parmString);
+  return HAL_OK;
+}
 
 /* WWDG init function */
 void MX_WWDG_Init(void)
@@ -199,6 +268,8 @@ HAL_StatusTypeDef SkyBrd_WWDG_InitializeFrmFlash( void )
   // Initialize Key Structures of Frame
   Save_Frames.checksum = FRAME_CHKSUM;
   Save_Frames.SnsrTickCnt = PROCESS_SNSR_TIME;
+  Save_Frames.TackLimit = TACK_LIMIT;
+  Save_Frames.BootDelay = BOOT_WAIT;
   Save_Frames.Units_flg = true;
   
   Save_Frames.Frame_RdPtr = 0;
@@ -265,6 +336,15 @@ HAL_StatusTypeDef SkyBrd_Set_SnsrTickCnt( uint32_t PassedSnsrTickCnt )
   return Status;
 }
 
+HAL_StatusTypeDef SkyBrd_Set_TmpSnsrTickCnt( uint32_t PassedSnsrTickCnt )
+{
+  HAL_StatusTypeDef Status;
+  
+  Status = HAL_OK;
+  ChangeSampleTimer();
+  return Status;
+}
+
 /**
   * @brief  Update Units_flg.
   * @param  bool PassedUnitsFlag
@@ -273,7 +353,7 @@ HAL_StatusTypeDef SkyBrd_Set_SnsrTickCnt( uint32_t PassedSnsrTickCnt )
   *                                HAL_BUSY:     Flash is busy.
   *                                HAL_TIMEOUT:  Flash timed out.
   */
-HAL_StatusTypeDef SkyPack_Set_UnitsFlag( bool PassedUnitsFlag )
+HAL_StatusTypeDef SkyBrd_Set_UnitsFlag( bool PassedUnitsFlag )
 {
   HAL_StatusTypeDef Status;
   
@@ -289,12 +369,70 @@ HAL_StatusTypeDef SkyPack_Set_UnitsFlag( bool PassedUnitsFlag )
   return Status;
 }
 
+/**
+  * @brief  Update TackLimit.
+  * @param  uint32_t PassedTackLimit
+  * @retval HAL_StatusTypeDef:     HAL_OK:       Flash Operation success.
+  *                                HAL_ERROR:    Error found in Tasking or data passed.
+  *                                HAL_BUSY:     Flash is busy.
+  *                                HAL_TIMEOUT:  Flash timed out.
+  */
+HAL_StatusTypeDef SkyBrd_Set_TackLimit( uint32_t PassedTackLimit )
+{
+  HAL_StatusTypeDef Status;
+  
+  Status = HAL_OK;
+  Save_Frames.TackLimit = PassedTackLimit;
+  // Write Structure to Flash Memory.
+  //Status = RoadBrd_FlashInitWrite( 0x00, 
+  Status = SkyBrd_FlashWrite( 0x00, 
+                               FLASH_TYPEERASE_PAGES, 
+                               (uint32_t)&wwdg_HardFrames, 
+                               (uint32_t *)&Save_Frames, 
+                               sizeof(Save_Frames));
+  return Status;
+}
+
+/**
+  * @brief  Update BootDelay.
+  * @param  uint32_t PassedBootDelay
+  * @retval HAL_StatusTypeDef:     HAL_OK:       Flash Operation success.
+  *                                HAL_ERROR:    Error found in Tasking or data passed.
+  *                                HAL_BUSY:     Flash is busy.
+  *                                HAL_TIMEOUT:  Flash timed out.
+  */
+HAL_StatusTypeDef SkyBrd_Set_BootDelay( uint32_t PassedBootDelay )
+{
+  HAL_StatusTypeDef Status;
+  
+  Status = HAL_OK;
+  Save_Frames.BootDelay = PassedBootDelay;
+  // Write Structure to Flash Memory.
+  //Status = RoadBrd_FlashInitWrite( 0x00, 
+  Status = SkyBrd_FlashWrite( 0x00, 
+                               FLASH_TYPEERASE_PAGES, 
+                               (uint32_t)&wwdg_HardFrames, 
+                               (uint32_t *)&Save_Frames, 
+                               sizeof(Save_Frames));
+  return Status;
+}
+
+/**
+  * @brief  Retrieve SnsrTickCnt.
+  * @param  None
+  * @retval uint32_t Save_Frames.SnsrTickCnt
+  */
+uint32_t SkyBrd_Get_SnsrTickCnt( void )
+{
+  return Save_Frames.SnsrTickCnt;
+}
+
  /**
   * @brief  Retrieve Units Flag.
   * @param  None
   * @retval bool Save_Frames.Units_flg
   */
-bool SkyPack_Get_UnitsFlag( void )
+bool SkyBrd_Get_UnitsFlag( void )
 {
   return Save_Frames.Units_flg;
 }
@@ -304,12 +442,32 @@ bool SkyPack_Get_UnitsFlag( void )
   * @param  None
   * @retval uint32_t Save_Frames.SnsrTickCnt
   */
-uint32_t SkyPack_GetSampleTime( void )
+uint32_t SkyBrd_GetSampleTime( void )
 {
   return Save_Frames.SnsrTickCnt;
 }
 
-  /**
+/**
+  * @brief  Retrieve TackLimit.
+  * @param  None
+  * @retval uint32_t Save_Frames.TackLimit
+  */
+uint32_t SkyBrd_Get_TackLimit( void )
+{
+  return Save_Frames.TackLimit;
+}
+
+/**
+  * @brief  Retrieve BootDelay.
+  * @param  None
+  * @retval uint32_t Save_Frames.BootDelay
+  */
+uint32_t SkyBrd_Get_BootDelay( void )
+{
+  return Save_Frames.BootDelay;
+}
+
+/**
   * @brief  This function Reads the key frame Information from Flash..
   * @param  none
   * @retval HAL_StatusTypeDef:     HAL_OK:       Flash Operation success.

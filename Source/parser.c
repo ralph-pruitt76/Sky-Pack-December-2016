@@ -43,9 +43,86 @@
 #include "misc_sense.h"
 //#include "Calibration.h"
 
+// Enums
+typedef enum 
+{
+  NOT_INIT = 0,
+  AVAILABLE = 1,
+  BUSY = 2
+} ParseTskFlg;
+
 HAL_StatusTypeDef ReadIMUSensorsLocal(void);
 
 static bool Bypass = false;
+
+// Parser Structure for tasks.
+struct
+{
+  char          tempBuffer[BUFFER_SIZE];
+  ParseTskFlg   ParseFlg;
+} static ParseString;
+
+/* Parser functions */
+
+/**
+  * @brief  This routine initializes the Parse Task Structure.
+  * @param  *tempBffr: String to be parsed.
+  * @retval HAL_StatusTypeDef:     HAL_OK:       Tasking of block of data to UART success.
+  */
+HAL_StatusTypeDef SkyBrd_ParserInit( void )
+{
+  ParseString.ParseFlg = AVAILABLE;
+  return HAL_OK;
+}
+
+/**
+  * @brief  This routine handles the operation of setting up a Parse Event.
+  * @param  *tempBffr: String to be parsed.
+  * @retval HAL_StatusTypeDef:     HAL_OK:       Tasking of block of data to UART success.
+  *                                HAL_ERROR:    Error found in Tasking or data passed.
+  *                                HAL_BUSY:     UART is busy.
+  *                                HAL_TIMEOUT:  UART timed out.
+  */
+HAL_StatusTypeDef SkyBrd_ParserTsk(char *tempBffr)
+{
+  // Test ParseFlg.
+  if (ParseString.ParseFlg == BUSY)
+    return HAL_BUSY;
+  else if (ParseString.ParseFlg == NOT_INIT)
+    return HAL_ERROR;
+  // Next Lets make sure passed string is not too big.
+//  if (strlen((char *)tempBffr) >= BUFFER_SIZE)
+  if (strlen(tempBffr) >= BUFFER_SIZE)
+    return HAL_ERROR;
+  // Copy String into Structure and set as busy.
+//  strcpy( (char *)ParseString.tempBuffer, (char *)tempBffr);
+  strcpy( ParseString.tempBuffer, tempBffr);
+  ParseString.ParseFlg = BUSY;
+  return HAL_OK;
+}
+
+/**
+  * @brief  This routine handles the operation of processing a Parse Event.
+  * @param  *tempBffr: String to be parsed.
+  * @retval HAL_StatusTypeDef:     HAL_OK:       Tasking of block of data to UART success.
+  *                                HAL_ERROR:    Error found in Tasking or data passed.
+  *                                HAL_BUSY:     UART is busy.
+  *                                HAL_TIMEOUT:  UART timed out.
+  */
+HAL_StatusTypeDef SkyBrd_ProcessParserTsk( void )
+{
+  HAL_StatusTypeDef Status;
+
+  // Test ParseFlg and process.
+  if (ParseString.ParseFlg == BUSY)
+  {
+    Status = SkyBrd_ParseString(ParseString.tempBuffer, true);
+    ParseString.ParseFlg = AVAILABLE;
+    return Status;
+  }
+  else
+    return HAL_OK;
+}
 
 union u3DVector
 {
@@ -78,12 +155,15 @@ struct {
 /**
   * @brief  This routine parses the passed string and performs the passed operation
   * @param  *tempBffr: String to be parsed.
+  * @param  bool BLE_Flag: Flag to indicate a BLE Task.
+  *                      true(1): BLE Task of Monitor Event.
+  *                      true(0): Normal Monitor Event.
   * @retval HAL_StatusTypeDef:     HAL_OK:       Tasking of block of data to UART success.
   *                                HAL_ERROR:    Error found in Tasking or data passed.
   *                                HAL_BUSY:     UART is busy.
   *                                HAL_TIMEOUT:  UART timed out.
   */
-HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
+HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
 {
 #define RECEIVE_SZ      30
   uint16_t DriverStatus;
@@ -156,6 +236,13 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
               Status = ReadIMUSensorsLocal();
               if (Status == HAL_OK)
               {
+                // Is this a BLE Operation?
+                if ( BLE_Flag )
+                {
+                  // Yes...Build and Send BLE Response NOW.
+                  strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                  BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                }
                 // Send string to UART..
                 strcpy( (char *)tempBffr2, "Dump Accelerometer Data...\r\n");
                 Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
@@ -181,6 +268,13 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
               Status = ReadIMUSensorsLocal();
               if (Status == HAL_OK)
               {
+                // Is this a BLE Operation?
+                if ( BLE_Flag )
+                {
+                  // Yes...Build and Send BLE Response NOW.
+                  strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                  BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                }
                 // Send string to UART..
                 strcpy( (char *)tempBffr2, "Dump Gyro Data...\r\n");
                 Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
@@ -206,6 +300,13 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
               Status = ReadIMUSensorsLocal();
               if (Status == HAL_OK)
               {
+                // Is this a BLE Operation?
+                if ( BLE_Flag )
+                {
+                  // Yes...Build and Send BLE Response NOW.
+                  strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                  BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                }
                 // Send string to UART..
                 strcpy( (char *)tempBffr2, "Dump Magnetometer Data...\r\n");
                 Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
@@ -230,6 +331,13 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                Status = LPS25HB_GetPressure(&value);
               if (Status == HAL_OK)
               {
+                // Is this a BLE Operation?
+                if ( BLE_Flag )
+                {
+                  // Yes...Build and Send BLE Response NOW.
+                  strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                  BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                }
                 // Send string to UART..
                 strcpy( (char *)tempBffr2, "Pressure Sensor...\r\n");
                 Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
@@ -247,6 +355,13 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
               Status = LPS25HB_GetTemperature(&value);
               if (Status == HAL_OK)
               {
+                // Is this a BLE Operation?
+                if ( BLE_Flag )
+                {
+                  // Yes...Build and Send BLE Response NOW.
+                  strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                  BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                }
                 // Send string to UART..
                 strcpy( (char *)tempBffr2, "Temperature Sensor...\r\n");
                 Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
@@ -262,6 +377,13 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
             case 'H':
               // Read Irradiance Light Sensor. 
               irradiance = OPT3001_GetData();
+                // Is this a BLE Operation?
+                if ( BLE_Flag )
+                {
+                  // Yes...Build and Send BLE Response NOW.
+                  strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                  BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                }
               // Send string to UART..
               strcpy( (char *)tempBffr2, "Irradiance Light Sensor...\r\n");
               Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
@@ -274,6 +396,13 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
             case 'C':
               // Read Cap Sense Event Frequency. 
               cap.event_freq = GetCapSenseEventFreq();
+              // Is this a BLE Operation?
+              if ( BLE_Flag )
+              {
+                // Yes...Build and Send BLE Response NOW.
+                strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+              }
               // Send string to UART..
               strcpy( (char *)tempBffr2, "Cap Sense Event Frequency...\r\n");
               Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
@@ -287,6 +416,13 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
               // Read Swept Frequency. 
               cap.swept_idx = GetSweptFreqHighIdx();
               cap.swept_level = GetSweptFreqHighLevel();
+              // Is this a BLE Operation?
+              if ( BLE_Flag )
+              {
+                // Yes...Build and Send BLE Response NOW.
+                strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+              }
               // Send string to UART..
               strcpy( (char *)tempBffr2, "Swept Frequency...\r\n");
               Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
@@ -321,7 +457,17 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                     // I2C Commands.
                     // Test Size to make sure we have enough Characters for this operation
                     if (Size < 9)
-                    strcpy( (char *)tempBffr2, "TI SYNTAX ERROR: Not correct format.\r\n");
+                    {
+                      // Is this a BLE Operation?
+                      if ( BLE_Flag )
+                      {
+                        // Yes...Build and Send BLE Response NOW.
+                        strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                        BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                      }
+                      
+                      strcpy( (char *)tempBffr2, "TI SYNTAX ERROR: Not correct format.\r\n");
+                    }
                     else
                     {
                       switch( tempBffr[2] )
@@ -333,10 +479,26 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                           if( (tempBffr[3]!=':') ||
                               (tempBffr[6]!='.') )
                           {
+                            // Is this a BLE Operation?
+                            if ( BLE_Flag )
+                            {
+                              // Yes...Build and Send BLE Response NOW.
+                              strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                              BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                            }
+                           
                             strcpy( (char *)tempBffr2, "TIS SYNTAX ERROR: Not correct format.\r\n");
                           }
                           else
                           {
+                            // Is this a BLE Operation?
+                            if ( BLE_Flag )
+                            {
+                              // Yes...Build and Send BLE Response NOW.
+                              strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                              BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                            }
+                            
                             // 2. Grab Address and validate a legal number
                             tempBffr3[0] = tempBffr[4];
                             tempBffr3[1] = tempBffr[5];
@@ -412,10 +574,26 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                               (tempBffr[6]!='.') ||
                               (tempBffr[9]!='.')  )
                           {
+                            // Is this a BLE Operation?
+                            if ( BLE_Flag )
+                            {
+                              // Yes...Build and Send BLE Response NOW.
+                              strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                              BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                            }
+                            
                             strcpy( (char *)tempBffr2, "TIR SYNTAX ERROR: Not correct format.\r\n");
                           }
                           else
                           {
+                            // Is this a BLE Operation?
+                            if ( BLE_Flag )
+                            {
+                              // Yes...Build and Send BLE Response NOW.
+                              strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                              BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                            }
+                            
                             // 2. Grab Address and validate a legal number
                             tempBffr3[0] = tempBffr[4];
                             tempBffr3[1] = tempBffr[5];
@@ -536,6 +714,14 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                       else
                         Status = HAL_ERROR;
                       
+                      // Is this a BLE Operation?
+                      if ( BLE_Flag )
+                      {
+                        // Yes...Build and Send BLE Response NOW.
+                        strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                        BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                      }
+                      
                       if (Status == HAL_OK)
                       {
                         // OK Next Sensor.
@@ -606,10 +792,26 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                         // Step 1. Validate format.
                         if(tempBffr[3]!=':')
                         {
+                          // Is this a BLE Operation?
+                          if ( BLE_Flag )
+                          {
+                            // Yes...Build and Send BLE Response NOW.
+                            strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                            BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                          }
+                          
                           strcpy( (char *)tempBffr2, "TCS SYNTAX ERROR: Not correct format.\r\n");
                         } // Endif (tempBffr[3]!=':')
                         else
                         {
+                          // Is this a BLE Operation?
+                          if ( BLE_Flag )
+                          {
+                            // Yes...Build and Send BLE Response NOW.
+                            strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                            BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                          }
+                          
                           // 2. Verify if remaining string is digits
                           if (Size <= 4)
                           {
@@ -819,6 +1021,14 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                         //------------------ TCR Command: Calibration Read Command
                       case 'R':
                         // Build Read Calibration Dump Part I....
+                        // Is this a BLE Operation?
+                        if ( BLE_Flag )
+                        {
+                          // Yes...Build and Send BLE Response NOW.
+                          strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                          BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                        }
+                        
                         // Send string to UART..
                         sprintf( (char *)tempBffr2, "CALIBRATION DATA\r\nDate: %s\r\n",  RoadBrd_CAL_GetTimeString());
 #ifdef NUCLEO
@@ -993,10 +1203,26 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                         // Step 1. Validate format.
                         if(tempBffr[3]!=':')
                         {
+                          // Is this a BLE Operation?
+                          if ( BLE_Flag )
+                          {
+                            // Yes...Build and Send BLE Response NOW.
+                            strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                            BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                          }
+                          
                           strcpy( (char *)tempBffr2, "TCT SYNTAX ERROR: Not correct format.\r\n");
                         } // Endif (tempBffr[3]!=':')
                         else
                         {
+                          // Is this a BLE Operation?
+                          if ( BLE_Flag )
+                          {
+                            // Yes...Build and Send BLE Response NOW.
+                            strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                            BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                          }
+                          
                           // 2. Verify if remaining string is digits
                           if (Size <= 4)
                           {
@@ -1018,6 +1244,14 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                         //------------------ TCI Command: Calibration Initialize Cal Table(Reset)
                       case 'I':
                         Status = RoadBrd_CAL_InitializeFrmFlash();
+                        // Is this a BLE Operation?
+                        if ( BLE_Flag )
+                        {
+                          // Yes...Build and Send BLE Response NOW.
+                          strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                          BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                        }
+                        
                         if (Status != HAL_OK)
                           return Status;
                         sprintf( (char *)tempBffr2, "\r\n     COMPLETE.\r\n" ); 
@@ -1029,14 +1263,31 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                   case 'D':
                     // Read Driver Status
                     DriverStatus = Get_DriverStatus();
+                    // Is this a BLE Operation?
+                    if ( BLE_Flag )
+                    {
+                      // Yes...Build and Send BLE Response NOW.
+                      sprintf( (char *)tempBffr2, "<STATUS>ST_DRIVER:%04x</STATUS>", DriverStatus );
+                      BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                    }
+                    
                     sprintf( (char *)tempBffr2, "Driver Status: %04x\r\n", DriverStatus );
                     break;
 //++++++++++++++++++++++++++++++++++++++++++  RESET Micro.
                   case 'R':
-                    // Read Driver Status
+                    // RESET
+                    // Is this a BLE Operation?
+                    if ( BLE_Flag )
+                    {
+                      // Yes...Build and Send BLE Response NOW.
+                      strcpy( (char *)tempBffr2, "<STATUS>ST_RESET_ACK</STATUS>");
+                      BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                      delay_100msec(1);;           // Wait 100ms
+                    }
                     strcpy( (char *)tempBffr2, "TR CMD: Reset Micro NOT IMPLEMENTED\r\n");
-/*                    HAL_NVIC_SystemReset();
-                    sprintf( (char *)tempBffr2, "RESET CALLED BUT NO RESPONSE!!\r\n" );*/
+                    //HAL_NVIC_SystemReset();
+                    SkyPack_Reset( ERROR_NULL );
+                    sprintf( (char *)tempBffr2, "RESET CALLED BUT NO RESPONSE!!\r\n" );
                     break;
 //++++++++++++++++++++++++++++++++++++++++++  Key Flash Variable Commands.
                   case 'K':
@@ -1044,7 +1295,16 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                     // Test Size to make sure we have enough Characters for this operation
                     Status = HAL_OK;
                     if (Size < 4)
+                    {
+                      // Is this a BLE Operation?
+                      if ( BLE_Flag )
+                      {
+                        // Yes...Build and Send BLE Response NOW.
+                        strcpy( (char *)tempBffr2, "<STATUS>CMD_TK_SYNTAX</STATUS>");
+                        BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                      }
                       strcpy( (char *)tempBffr2, "TK SYNTAX ERROR: Not correct format.\r\n");
+                    }
                     else
                     {
                       switch( tempBffr[2] )
@@ -1060,6 +1320,13 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                               // Step 1. Validate format.
                               if(tempBffr[4]!=':')
                               {
+                                // Is this a BLE Operation?
+                                if ( BLE_Flag )
+                                {
+                                  // Yes...Build and Send BLE Response NOW.
+                                  strcpy( (char *)tempBffr2, "<STATUS>CMD_TKSS_SYNTAX</STATUS>");
+                                  BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                }
                                 strcpy( (char *)tempBffr2, "TKSS SYNTAX ERROR: Not correct format.\r\n");
                               } // Endif (tempBffr[4]!=':')
                               else
@@ -1078,6 +1345,13 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                                   flag = 0;
                                 if (flag == 0)
                                 {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>CMD_TKSS_BADPARAM</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
                                   strcpy( (char *)tempBffr2, "TKSS SYNTAX ERROR: Bad Parameter.\r\n");
                                 }
                                 else
@@ -1089,6 +1363,13 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                                   if((new_value > 9999) ||
                                      (new_value < 0))
                                   {
+                                    // Is this a BLE Operation?
+                                    if ( BLE_Flag )
+                                    {
+                                      // Yes...Build and Send BLE Response NOW.
+                                      strcpy( (char *)tempBffr2, "<STATUS>CMD_TKSS_BADPARAM</STATUS>");
+                                      BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                    }
                                     strcpy( (char *)tempBffr2, "TKSS SYNTAX ERROR: Bad Parameter.\r\n");
                                   }
                                   else
@@ -1096,10 +1377,166 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                                     // Time to set new Road Sound Sample Rate.
 #ifdef STM32L151CBT6
                                     SkyBrd_Set_SnsrTickCnt( new_value );
+                                    // Is this a BLE Operation?
+                                    if ( BLE_Flag )
+                                    {
+                                      // Yes...Build and Send BLE Response NOW.
+                                      strcpy( (char *)tempBffr2, "<STATUS>ST_TKSS_ACK</STATUS>");
+                                      BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                    }
 #endif
                                     // NOW, Build Data String..
                                     sprintf( (char *)tempBffr2, "COMPLETE" );
                                   } // EndElse ((new_value > 9999) || (new_value < 0))
+                                } // EndElse (flag == 0)
+                              } // EndElse (tempBffr[4]!=':')
+                              break;
+//------------------
+                            case 'T':
+                              //Key Flash Variable Set TACK Limit(Multiple of Road Sound Throttles).
+                              // Step 1. Validate format.
+                              if(tempBffr[4]!=':')
+                              {
+                                // Is this a BLE Operation?
+                                if ( BLE_Flag )
+                                {
+                                  // Yes...Build and Send BLE Response NOW.
+                                  strcpy( (char *)tempBffr2, "<STATUS>CMD_TKST_SYNTAX</STATUS>");
+                                  BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                }
+                                strcpy( (char *)tempBffr2, "TKST SYNTAX ERROR: Not correct format.\r\n");
+                              } // Endif (tempBffr[4]!=':')
+                              else
+                              {
+                                // 2. Verify if remaining string is digits
+                                if (Size > 5)
+                                {
+                                  flag = 1;
+                                  for (x=5; x< Size; x++)
+                                  {
+                                    if (isdigit(tempBffr[x]) == 0)
+                                      flag = 0;
+                                  }
+                                } // EndIf (Size > 5)
+                                else
+                                  flag = 0;
+                                if (flag == 0)
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>CMD_TKST_BADPARAM</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
+                                  strcpy( (char *)tempBffr2, "TKST SYNTAX ERROR: Bad Parameter.\r\n");
+                                }
+                                else
+                                {
+                                  // 3. Grab remaining string and convert to integer.
+                                  tempPstr = &tempBffr[5];
+                                  strcpy(tempstr, tempPstr);
+                                  new_value = atoi( tempstr );
+                                  if((new_value > 9999) ||
+                                     (new_value < 0))
+                                  {
+                                    // Is this a BLE Operation?
+                                    if ( BLE_Flag )
+                                    {
+                                      // Yes...Build and Send BLE Response NOW.
+                                      strcpy( (char *)tempBffr2, "<STATUS>CMD_TKST_BADPARAM</STATUS>");
+                                      BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                    }
+                                    strcpy( (char *)tempBffr2, "TKSS SYNTAX ERROR: Bad Parameter.\r\n");
+                                  }
+                                  else
+                                  {
+                                    // Time to set new TACK Limit.
+                                    SkyBrd_Set_TackLimit( new_value );
+                                    // Is this a BLE Operation?
+                                    if ( BLE_Flag )
+                                    {
+                                      // Yes...Build and Send BLE Response NOW.
+                                      strcpy( (char *)tempBffr2, "<STATUS>ST_TKST_ACK</STATUS>");
+                                      BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                    }
+                                    // NOW, Build Data String..
+                                    sprintf( (char *)tempBffr2, "COMPLETE" );
+                                  } // EndElse ((new_value > 9999) || (new_value < 0))
+                                } // EndElse (flag == 0)
+                              } // EndElse (tempBffr[4]!=':')
+                              break;
+                            case 'B':
+                              //Key Flash Variable Set Boot Delay(Seconds).
+                              // Step 1. Validate format.
+                              if(tempBffr[4]!=':')
+                              {
+                                // Is this a BLE Operation?
+                                if ( BLE_Flag )
+                                {
+                                  // Yes...Build and Send BLE Response NOW.
+                                  strcpy( (char *)tempBffr2, "<STATUS>CMD_TKSB_SYNTAX</STATUS>");
+                                  BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                }
+                                strcpy( (char *)tempBffr2, "TKSB SYNTAX ERROR: Not correct format.\r\n");
+                              } // Endif (tempBffr[4]!=':')
+                              else
+                              {
+                                // 2. Verify if remaining string is digits
+                                if (Size > 5)
+                                {
+                                  flag = 1;
+                                  for (x=5; x< Size; x++)
+                                  {
+                                    if (isdigit(tempBffr[x]) == 0)
+                                      flag = 0;
+                                  }
+                                } // EndIf (Size > 5)
+                                else
+                                  flag = 0;
+                                if (flag == 0)
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>CMD_TKSB_BADPARAM</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
+                                  strcpy( (char *)tempBffr2, "TKSB SYNTAX ERROR: Bad Parameter.\r\n");
+                                }
+                                else
+                                {
+                                  // 3. Grab remaining string and convert to integer.
+                                  tempPstr = &tempBffr[5];
+                                  strcpy(tempstr, tempPstr);
+                                  new_value = atoi( tempstr );
+                                  if((new_value > 999) ||
+                                     (new_value < 0))
+                                  {
+                                    // Is this a BLE Operation?
+                                    if ( BLE_Flag )
+                                    {
+                                      // Yes...Build and Send BLE Response NOW.
+                                      strcpy( (char *)tempBffr2, "<STATUS>CMD_TKSB_BADPARAM</STATUS>");
+                                      BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                    }
+                                    strcpy( (char *)tempBffr2, "TKSB SYNTAX ERROR: Bad Parameter.\r\n");
+                                  }
+                                  else
+                                  {
+                                    // Time to set new Boot Delay.
+                                    SkyBrd_Set_BootDelay( new_value );
+                                    // Is this a BLE Operation?
+                                    if ( BLE_Flag )
+                                    {
+                                      // Yes...Build and Send BLE Response NOW.
+                                      strcpy( (char *)tempBffr2, "<STATUS>ST_TKSB_ACK</STATUS>");
+                                      BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                    }
+                                    // NOW, Build Data String..
+                                    sprintf( (char *)tempBffr2, "COMPLETE" );
+                                  } // EndElse ((new_value > 999) || (new_value < 0))
                                 } // EndElse (flag == 0)
                               } // EndElse (tempBffr[4]!=':')
                               break;
@@ -1111,25 +1548,70 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
 //------------------
                         case 'R':
                           //Key Flash Variable Read Command
-                          //Key Flash Variable Set Command.
                           switch( tempBffr[3] )
                           {
 //------------------
                             case 'S':
                               //Key Flash Variable Read Sensor Sample Rate Command.
 #ifdef STM32L151CBT6
-                              sprintf( (char *)tempBffr2, "Sensor Sample Rate: %3.1f Seconds.\r\n\r\n> ", ((float)SkyPack_GetSampleTime()/10));
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "<STATUS>ST_TKRS:%3.1f</STATUS>", ((float)SkyBrd_GetSampleTime()/10));
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              sprintf( (char *)tempBffr2, "Sensor Sample Rate: %3.1f Seconds.\r\n\r\n> ", ((float)SkyBrd_GetSampleTime()/10));
 #else
                               sprintf( (char *)tempBffr2, "Sensor Sample Rate: (NOT SUPPORTED) Seconds.\r\n\r\n> " );
 #endif
                               break;
+//------------------
+                            case 'T':
+                              //Key Flash Variable Read TACK Limit(Multiple of Road Sound Throttles).
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "<STATUS>ST_TKRT:%d</STATUS>", SkyBrd_Get_TackLimit());
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+//                              sprintf( (char *)tempBffr2, "TACK Limit: %d.\r\n\r\n> ", SkyBrd_Get_TackLimit());
+                              sprintf( (char *)tempBffr2, "TACK Limit: TBD.\r\n\r\n> " );
+                              break;
+//------------------
+                            case 'B':
+                              //Key Flash Variable Read Boot Delay.(Seconds).
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "<STATUS>ST_TKRB:%d</STATUS>", SkyBrd_Get_BootDelay());
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+//                              sprintf( (char *)tempBffr2, "Boot Delay: %d Seconds.\r\n\r\n> ", SkyBrd_Get_BootDelay());
+//                              sprintf( (char *)tempBffr2, "Boot Delay: TBD Seconds.\r\n\r\n> " );
+                              break;
                             default:
-                              strcpy( (char *)tempBffr2, "TKS ERROR: Not a legal command.\r\n");
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                strcpy( (char *)tempBffr2, "<STATUS>CMD_TKR_SYNTAX</STATUS>");
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              strcpy( (char *)tempBffr2, "TKR ERROR: Not a legal command.\r\n");
                               break;
                           } // EndSwitch ( tempBffr[3] )
                           break;
                         default:
-                          strcpy( (char *)tempBffr2, "ERROR: Not a legal command.\r\n");
+                          // Is this a BLE Operation?
+                          if ( BLE_Flag )
+                          {
+                            // Yes...Build and Send BLE Response NOW.
+                            strcpy( (char *)tempBffr2, "<STATUS>CMD_TK_SYNTAX</STATUS>");
+                            BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                          }                          strcpy( (char *)tempBffr2, "ERROR: Not a legal command.\r\n");
                           break;
                       } //EndSwitch ( tempBffr[2] )
                     } //EndElse (Size < 3)
@@ -1140,7 +1622,16 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                     // Test Size to make sure we have enough Characters for this operation
                     Status = HAL_OK;
                     if (Size < 3)
+                    {
+                      // Is this a BLE Operation?
+                      if ( BLE_Flag )
+                      {
+                        // Yes...Build and Send BLE Response NOW.
+                        strcpy( (char *)tempBffr2, "<STATUS>CMD_TU_SYNTAX</STATUS>");
+                        BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                      }
                       strcpy( (char *)tempBffr2, "TU SYNTAX ERROR: Not correct format.\r\n");
+                    }
                     else
                     {
                       switch( tempBffr[2] )
@@ -1150,7 +1641,14 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                           //Units Enable Command.
                           sprintf( (char *)tempBffr2, "Units XML State CHANGED: ENABLED\r\n\r\n> ");
 #ifdef STM32L151CBT6
-                           Status = SkyPack_Set_UnitsFlag( true );
+                          // Is this a BLE Operation?
+                          if ( BLE_Flag )
+                          {
+                            // Yes...Build and Send BLE Response NOW.
+                            strcpy( (char *)tempBffr2, "<STATUS>ST_TUE_ACK</STATUS>");
+                            BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                          }
+                          Status = SkyBrd_Set_UnitsFlag( true );
 #endif
                           break;
 //------------------
@@ -1158,10 +1656,24 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                           //Units Disable Command
                           sprintf( (char *)tempBffr2, "Units XML State CHANGED: DISABLED\r\n\r\n> ");
 #ifdef STM32L151CBT6
-                           Status = SkyPack_Set_UnitsFlag( false );
+                          // Is this a BLE Operation?
+                          if ( BLE_Flag )
+                          {
+                            // Yes...Build and Send BLE Response NOW.
+                            strcpy( (char *)tempBffr2, "<STATUS>ST_TUD_ACK</STATUS>");
+                            BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                          }
+                          Status = SkyBrd_Set_UnitsFlag( false );
 #endif
                           break;
                         default:
+                          // Is this a BLE Operation?
+                          if ( BLE_Flag )
+                          {
+                            // Yes...Build and Send BLE Response NOW.
+                            strcpy( (char *)tempBffr2, "<STATUS>CMD_TU_SYNTAX</STATUS>");
+                            BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                          }
                           strcpy( (char *)tempBffr2, "TU SYNTAX ERROR: Not a legal command.\r\n");
                           break;
                       } //EndSwitch ( tempBffr[2] )
@@ -1169,6 +1681,14 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
                     break;
  //++++++++++++++++++++++++++++++++++++++++++  Unknown Command.
                   default:
+                    // Is this a BLE Operation?
+                    if ( BLE_Flag )
+                    {
+                      // Yes...Build and Send BLE Response NOW.
+                      strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                      BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                    }
+                    
                     // ERROR if we get here.. 
                     strcpy( (char *)tempBffr2, "ERROR: Not a legal command.\r\n");
                     break;
@@ -1177,6 +1697,14 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr)
               } //EndElse (Size <= 1)
               break;
             default:
+              // Is this a BLE Operation?
+              if ( BLE_Flag )
+              {
+                // Yes...Build and Send BLE Response NOW.
+                strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+              }
+              
               // ERROR if we get here.. 
               strcpy( (char *)tempBffr2, "ERROR: Not a legal command.\r\n");
               break;
