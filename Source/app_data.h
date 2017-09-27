@@ -33,7 +33,7 @@ typedef enum
 #define PROCESS_SNSR_TIME       100      // Process all sensors every Second(100 * 100ms tick)...10.0 Seconds
 
 #define FRM_REPEAT_CNT          5       // Repeat the full set of data at least this many times.
-#define TICK_LIMIT              3       // Number Frames per Tick Event.
+#define TICK_LIMIT              1       // Number Frames per Tick Event.
 
 #ifdef LONG_DELAY
   #define CONNECTION_CNT          4500     // 15 Minutes.

@@ -525,7 +525,7 @@ void ProcessSensorState(void)
       (BGM111_Ready()) &&
         (BGM111_Connected()) &&
           (BGM111_DataConnected()) &&
-            (BGM111_SyncModeTestNoInc()) )
+            (BGM111_SyncModeTest()) )
   {
     // Send Start of new Frame Tag...
     SkyPack_MNTR_UART_Transmit( (uint8_t *)"<FRM>" );
@@ -617,7 +617,7 @@ void ProcessSensorState(void)
     {
       // We have null data from irradiance...Inc nullCnt.
       nullCnt++;
-      sprintf(( char *)tempbffr, "<<<I2C=NULL:Strike %01d>>>\r\n", nullCnt);
+      sprintf(( char *)tempbffr, "<<<I2C=NULL:NullStrike %01d>>>\r\n", nullCnt);
       SkyPack_MNTR_UART_Transmit( (uint8_t *)tempbffr );
       if (nullCnt >= NULL_MAX)
       {

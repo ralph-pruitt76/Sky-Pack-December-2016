@@ -58,7 +58,7 @@ struct
   bool data_Connection;
   bool CMD_Mode;
   uint8_t TackArmed;
-  uint8_t TackCnt;
+  uint16_t TackCnt;
   uint8_t SyncFlag;
   struct gecko_cmd_packet *evt;
 } static ble;
@@ -435,7 +435,7 @@ void BGM111_SetCMD_Mode(bool NewMode)
   */
 bool BGM111_SyncModeTest(void)
 {
-  uint8_t tempBffr2[20];
+  uint8_t tempBffr2[40];
   bool Status = false;
   // Is Sync Mode armed? Yes.. Then Need to test SyncFlag
   if (ble.TackArmed == TACK_SYNC)
