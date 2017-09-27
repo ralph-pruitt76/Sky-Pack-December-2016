@@ -1576,8 +1576,7 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                                 sprintf( (char *)tempBffr2, "<STATUS>ST_TKRT:%d</STATUS>", SkyBrd_Get_TackLimit());
                                 BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
                               }
-//                              sprintf( (char *)tempBffr2, "TACK Limit: %d.\r\n\r\n> ", SkyBrd_Get_TackLimit());
-                              sprintf( (char *)tempBffr2, "TACK Limit: TBD.\r\n\r\n> " );
+                              sprintf( (char *)tempBffr2, "TACK Limit: %d.\r\n\r\n> ", SkyBrd_Get_TackLimit());
                               break;
 //------------------
                             case 'B':
@@ -1589,8 +1588,7 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                                 sprintf( (char *)tempBffr2, "<STATUS>ST_TKRB:%d</STATUS>", SkyBrd_Get_BootDelay());
                                 BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
                               }
-//                              sprintf( (char *)tempBffr2, "Boot Delay: %d Seconds.\r\n\r\n> ", SkyBrd_Get_BootDelay());
-//                              sprintf( (char *)tempBffr2, "Boot Delay: TBD Seconds.\r\n\r\n> " );
+                              sprintf( (char *)tempBffr2, "Boot Delay: %d Seconds.\r\n\r\n> ", SkyBrd_Get_BootDelay());
                               break;
                             default:
                               // Is this a BLE Operation?

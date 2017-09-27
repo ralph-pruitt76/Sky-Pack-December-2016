@@ -485,7 +485,8 @@ void ProcessSensorState(void)
   static int nullCnt = 0;
  
   // Is CMD_Mode active?
-  if ((BGM111_Ready()) &&
+  if ( (data.reading_scheduled) &&
+      (BGM111_Ready()) &&
       (BGM111_Connected()) &&
       (BGM111_CMD_Mode()) )
   {
@@ -514,6 +515,9 @@ void ProcessSensorState(void)
       // NOW...Reload Active Timer.
       SkyBrd_Set_TmpSnsrTickCnt( SkyBrd_Get_SnsrTickCnt() );
     } // EndIf ( CMD_Md_Cnt >= CMD_MODE_LMT)
+
+    /* Clear the scheduling flag */
+    data.reading_scheduled = false;
   } // EndIf ((BGM111_Ready()) && (BGM111_Connected()) && (BGM111_CMD_Mode()) )
 
   /* Is a reading scheduled? */

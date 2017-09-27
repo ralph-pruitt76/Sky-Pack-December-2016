@@ -270,7 +270,7 @@ HAL_StatusTypeDef SkyBrd_WWDG_InitializeFrmFlash( void )
   Save_Frames.SnsrTickCnt = PROCESS_SNSR_TIME;
   Save_Frames.TackLimit = TACK_LIMIT;
   Save_Frames.BootDelay = BOOT_WAIT;
-  Save_Frames.Units_flg = true;
+  Save_Frames.Units_flg = false;
   
   Save_Frames.Frame_RdPtr = 0;
   Save_Frames.Frame_WrtPtr = 0;

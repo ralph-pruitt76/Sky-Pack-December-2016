@@ -174,10 +174,12 @@ void main()
     /* Process BLE input */
     BGM111_ProcessInput();
     /* Process the sensor state machine if the BLE module is ready */
+//    if ((BGM111_Ready()) &&
+//        (BGM111_Connected()) &&
+//        (BGM111_DataConnected()) &&
+//        (BGM111_SyncModeTestNoInc()) )
     if ((BGM111_Ready()) &&
-        (BGM111_Connected()) &&
-        (BGM111_DataConnected()) &&
-        (BGM111_SyncModeTestNoInc()) )
+        (BGM111_Connected()) )
     {
 
       // Process any Outstanding Parse Tasks.
