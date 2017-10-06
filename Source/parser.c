@@ -1677,7 +1677,50 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                       } //EndSwitch ( tempBffr[2] )
                     } //EndElse (Size < 3)
                     break;
- //++++++++++++++++++++++++++++++++++++++++++  Unknown Command.
+ //++++++++++++++++++++++++++++++++++++++++++  Reset Flash Frame Variables(Factory).
+                  case 'F':
+                    // Reset Flash Frame Variables.
+                    SkyBrd_WWDG_InitializeFrmFlash();
+                    // Is this a BLE Operation?
+                    if ( BLE_Flag )
+                    {
+                      // Yes...Build and Send BLE Response NOW.
+                      sprintf( (char *)tempBffr2, "<STATUS>TF_ACK</STATUS>" );
+                      BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                    }
+                    
+                    sprintf( (char *)tempBffr2, "Flash Frame Variables Reset to Factory Values.\r\n" );
+                    break;
+//++++++++++++++++++++++++++++++++++++++++++  Lock Code to allow stable Program of BLE Module.
+                  case 'L':
+                    // Read Driver Status
+                    DriverStatus = Get_DriverStatus();
+                    // Is this a BLE Operation?
+                    if ( BLE_Flag )
+                    {
+                      // Yes...Build and Send BLE Response NOW.
+                      sprintf( (char *)tempBffr2, "<STATUS>TL_ERROR</STATUS>" );
+                      BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                    }
+                    else
+                    {
+                      sprintf( (char *)tempBffr2, "Code Locked for Programming!\r\n\r\n" );
+                      Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+                      if (Status != HAL_OK)
+                        return Status;
+                      sprintf( (char *)tempBffr2, "   HARD RESET NEEDED TO EXIT MODE\r\n" );
+                      Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+                      if (Status != HAL_OK)
+                        return Status;
+                      // Start Hard Loop
+                      for (;;)
+                      {
+                      }
+                    }
+                    
+                    sprintf( (char *)tempBffr2, "Driver Status: %04x\r\n", DriverStatus );
+                    break;
+//++++++++++++++++++++++++++++++++++++++++++  Unknown Command.
                   default:
                     // Is this a BLE Operation?
                     if ( BLE_Flag )
