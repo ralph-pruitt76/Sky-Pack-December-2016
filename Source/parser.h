@@ -77,6 +77,7 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag);
 bool Tst_Bypass( void);
 int isHexNum(char *ptr);
 int hatoi( char *ptr );
+char *CleanString( char *mntrCmd );
 //void sleep(void);
 //void deepsleep(void);
 

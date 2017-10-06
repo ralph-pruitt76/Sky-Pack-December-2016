@@ -160,7 +160,7 @@ void getMntrCmd(uint8_t *data)
     }
   }
   // Increment to next key beyond Termination character
-  if (Mntr.rx_buf[Mntr.rx_rd] == 0x0d)
+  if((Mntr.rx_buf[Mntr.rx_rd] == 0x0a) || (Mntr.rx_buf[Mntr.rx_rd] == 0x0d) )
   {
     /* Disable interrupt */
     NVIC_DisableIRQ(MNTR_UART_IRQn);

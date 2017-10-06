@@ -18,7 +18,7 @@ void main()
 {
   HAL_StatusTypeDef Status;
   uint8_t tempBffr2[80];
-  uint8_t mntrCmd[10];
+  uint8_t mntrCmd[30];
 
   /* Initialize all hardware */
   Sys_Ctrl_Init();
@@ -199,8 +199,11 @@ void main()
       getMntrCmd( mntrCmd );
       sprintf( (char *)tempBffr2, "CMD Received<%s>\r\n\r\n", mntrCmd);
       SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+      // Clean String from Backspaces.
+      
+      mntrCmd[29] = 0x00;
       // We have a good Tasking String. Time to determine action.
-      Status = SkyBrd_ParseString((char *)mntrCmd, false);
+      Status = SkyBrd_ParseString((char *)CleanString( (char *)mntrCmd ), false);
       if (Status != HAL_OK)
         SkyPack_Reset( FATAL_ERROR );
       //Mntr_Clr();

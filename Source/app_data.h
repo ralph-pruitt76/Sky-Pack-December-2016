@@ -93,5 +93,8 @@ void ClrAnalyticsRepeat( void );
 bool TstDataReady( void );
 void ClrDataReady( void );
 void Clr_CMD_Md_Cnt( void );
+void Update_TimeCnt( void );
+uint32_t Read_TimeCnt( void );
+char *getTickString( void );
 
 #endif

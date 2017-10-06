@@ -16,6 +16,7 @@
 #include "ErrCodes.h"
 #include "miscRoutines.h"
 #include "wwdg.h"
+#include <math.h>
 
 /* Characteristic handles */
 /*
@@ -64,10 +65,11 @@ struct
 // Analytics Structure
 struct
 {
-  bool  HrtBeat_Flg;
+  uint32_t TimeCnt;
   uint16_t HrtBeat_Cnt;
   uint16_t FrmRpt_Cnt;
   uint8_t CMD_Md_Cnt;
+  bool  HrtBeat_Flg;
 } static analytics;
 
 /* App data measurment structure */
@@ -378,6 +380,7 @@ void InitSensors(void)
   data.Legacy_OneTime = true;                   // Clear Legacy One time flag so that we can set key characteristics...once.
   ClrDataStructure();                           // Clear Backup data structure.
   analytics.HrtBeat_Flg = false;                // Set flasg to clear before using it.
+  analytics.TimeCnt = 0;                        // Initialize Baseline TimeCnt to 0.
   analytics.HrtBeat_Cnt = 0;                    // Clear count before using it.
   analytics.FrmRpt_Cnt = 0;                     // Clear Frame Repeat Count.
   analytics.CMD_Md_Cnt = 0;                     // Clear CMD_Md_Cnt.
@@ -467,7 +470,8 @@ void SAMPLE_TIM_IRQHandler(void)
   TIM_ClearITPendingBit(SAMPLE_TIM, TIM_IT_Update);
   /* Schedule a sensor reading */
   data.reading_scheduled = true;
-  // This tick occurs every 200msec.
+  // Update Timer based on Throttle
+  Update_TimeCnt();
   // Turn off the Blue LED NOW.
 }
 
@@ -540,7 +544,7 @@ void ProcessSensorState(void)
       TimeTagCnt = 0;
       //sprintf( (char *)tempBffr2, "<TICK>SP/%08x</TICK>", HeartCnt);
       // Build Tick String
-      sprintf( tempstr, "%08x", HeartCnt);
+      sprintf( tempstr, "%s", getTickString());
       // Save Tick String....
       SkyBrd_WWDG_SetTickString( tempstr );
       sprintf( (char *)tempBffr2, "<TICK>SP/%s</TICK>", tempstr);
@@ -1155,4 +1159,51 @@ void Clr_CMD_Md_Cnt( void )
 void ClrAnalyticsRepeat( void )
 {
       analytics.FrmRpt_Cnt = 0;                     // Clear Frame Repeat Count.
+}
+
+  /**
+  * @brief  This function Updates the TimeCnt Variable based on the current Throttle settings..
+  * @param  None
+  * @retval None
+  */
+void Update_TimeCnt( void )
+{
+  analytics.TimeCnt += (SkyBrd_GetSampleTime() * 100);  // Update TimeCnt.
+}
+
+
+  /**
+  * @brief  This function reads the TimeCnt Variable.
+  * @param  None
+  * @retval uint32_t Returns the current value of TimeCnt.
+  */
+uint32_t Read_TimeCnt( void )
+{
+  return analytics.TimeCnt;
+}
+
+  /**
+  * @brief  This function returns a formatted System String.
+  * @param  None
+  * @retval char *: Pointer to System Time String.
+  */
+char *getTickString( void )
+{
+  static char tempstr[15];
+  int   hours, minutes, seconds, milliseconds;
+  uint32_t TickCnt;
+  
+  TickCnt = Read_TimeCnt();
+  
+  seconds = (int)floor((float)TickCnt/1000);
+  milliseconds = TickCnt % 1000;
+  
+  minutes = (int)floor((float)seconds/60);
+  seconds = seconds % 60;
+  
+  hours = (int)floor((float)minutes/60);
+  minutes = minutes % 60;
+  
+  sprintf( tempstr, "%02d:%02d:%02d.%03d", hours, minutes, seconds, milliseconds);
+  return tempstr;
 }

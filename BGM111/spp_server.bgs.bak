@@ -43,7 +43,7 @@ dim res
 dim n
 dim temp
 
-dim tx_fifo(1BOB)
+dim tx_fifo(256)
 dim tx_wr # write index
 dim tx_rd # read index
 dim tx_num # number of bytes in buffer
@@ -157,6 +157,8 @@ event gatt_server_characteristic_status(connection,characteristic,status_flags,c
     if (characteristic = xgatt_spp_data &&  status_flags = gatt_server_client_config && client_config_flags = gatt_notification) then
         # notifications enabled -> transparent data mode
         call endpoint_send(uart_ep, 6, "DATA\r\n")
+	# Set Mode Not discoverable/Undirected connectable
+	call le_gap_set_mode(0,2)
     end if 
 
 end 

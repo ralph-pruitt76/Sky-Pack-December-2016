@@ -340,6 +340,7 @@ HAL_StatusTypeDef SkyBrd_Set_TmpSnsrTickCnt( uint32_t PassedSnsrTickCnt )
 {
   HAL_StatusTypeDef Status;
   
+  Save_Frames.SnsrTickCnt = PassedSnsrTickCnt;
   Status = HAL_OK;
   ChangeSampleTimer();
   return Status;

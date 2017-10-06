@@ -69,6 +69,40 @@ struct
   * @param  *tempBffr: String to be parsed.
   * @retval HAL_StatusTypeDef:     HAL_OK:       Tasking of block of data to UART success.
   */
+char *CleanString( char *mntrCmd )
+{
+  static char tempString[30];
+  char *tempPtr;
+  int StringCnt = 0;
+  tempPtr = &tempString[0];
+  
+  while( *mntrCmd != 0x00 )
+  {
+    if (*mntrCmd == 0x08)
+    {
+      if (StringCnt > 0)
+      {
+        tempPtr--;
+        StringCnt--;
+      }
+    }
+    else
+    {
+      *tempPtr++ = *mntrCmd;
+      StringCnt++;
+    }
+    *mntrCmd++;
+  }
+  *tempPtr++ = 0x00;
+  return tempString;
+}
+
+
+/**
+  * @brief  This routine initializes the Parse Task Structure.
+  * @param  *tempBffr: String to be parsed.
+  * @retval HAL_StatusTypeDef:     HAL_OK:       Tasking of block of data to UART success.
+  */
 HAL_StatusTypeDef SkyBrd_ParserInit( void )
 {
   ParseString.ParseFlg = AVAILABLE;
