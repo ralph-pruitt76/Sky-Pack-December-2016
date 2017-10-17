@@ -158,7 +158,7 @@ event gatt_server_characteristic_status(connection,characteristic,status_flags,c
         # notifications enabled -> transparent data mode
         call endpoint_send(uart_ep, 6, "DATA\r\n")
 	# Set Mode Not discoverable/Undirected connectable
-	call le_gap_set_mode(0,2)
+#	call le_gap_set_mode(0,2)
     end if 
 
 end 

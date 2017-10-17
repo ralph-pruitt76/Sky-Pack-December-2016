@@ -1,4 +1,4 @@
-314
+318
 0:0	ENDPOINT_FLAG_ACTIVE
 0:0	ENDPOINT_FLAG_BGAPI
 0:0	ENDPOINT_FLAG_CLOSING
@@ -149,6 +149,8 @@
 0:0	le_gap_scannable_non_connectable
 0:0	le_gap_undirected_connectable
 0:0	le_gap_user_data
+0:0	ota_control
+0:0	ota_data
 0:0	sm_bonding_key_addr_public
 0:0	sm_bonding_key_addr_static
 0:0	sm_bonding_key_csrk
@@ -171,18 +173,19 @@
 0:0	led0_pin_mask
 0:0	led1_bank
 0:0	led1_pin_mask
-0:4	ticker
-4:6	string
-10:4	strlen
-14:4	connected
-18:4	conn_handle
-22:4	res
-26:4	n
-30:4	temp
-34:256	tx_fifo
-290:4	tx_wr
-294:4	tx_rd
-298:4	tx_num
-302:4	max_len
-306:4	tx_size
-310:4	unrecoverable_error
+0:4	boot_into_dfu
+4:4	ticker
+8:6	string
+14:4	strlen
+18:4	connected
+22:4	conn_handle
+26:4	res
+30:4	n
+34:4	temp
+38:256	tx_fifo
+294:4	tx_wr
+298:4	tx_rd
+302:4	tx_num
+306:4	max_len
+310:4	tx_size
+314:4	unrecoverable_error
