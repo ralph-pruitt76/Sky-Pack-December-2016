@@ -182,7 +182,7 @@ event gatt_server_characteristic_status(connection,characteristic,status_flags,c
 
     if (characteristic = xgatt_spp_data &&  status_flags = gatt_server_client_config && client_config_flags = gatt_notification) then
         # notifications enabled -> transparent data mode
-        call endpoint_send(uart_ep, 6, "DATA\r\n")
+        call endpoint_send(uart_ep, 8, "DATA 2\r\n")
 	# Set Mode Not discoverable/Undirected connectable(Comment out Next Line to allow Discoverable)
 	#call le_gap_set_mode(0,2)
 

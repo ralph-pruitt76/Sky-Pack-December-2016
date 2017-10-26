@@ -30,6 +30,7 @@ const led1_bank      = 5
 const led1_pin_mask  = $80
 
 # Variables:
+dim boot_into_dfu
 dim ticker
 
 dim string(6)
@@ -137,8 +138,13 @@ event le_connection_closed(reason, connection)
     connected = 0
     conn_handle = -1
 
-    # Start Bluetooth LE advertisements and enable connections
-    call le_gap_set_mode(2,2)
+    if boot_into_dfu = 0 then
+        # Start Bluetooth LE advertisements and enable connections
+        call le_gap_set_mode(2,2)
+    else
+        # DFU boot has been requested 
+        call system_reset(1)
+    end if 
     
 end
 
@@ -150,6 +156,26 @@ event le_connection_parameters(connection,interval,latency,timeout,security_mode
     
 end 
 
+# Events related to OTA upgrading
+#-----------------------------------------------------------------------------
+
+# This event indicates that a remote GATT client is attempting to write a value of 
+# an attribute of type "user" into the local GATT database
+event gatt_server_user_write_request(connection, characteristic, att_opcode, offset, value_len, value_data)
+
+	# Check if the user-type OTA Control Characteristic was written. 
+    if characteristic = ota_control then
+        boot_into_dfu = 1
+        call endpoint_close(connection)
+		# After the connection is closed, the "le_connection_closed" event is raised 
+        call endpoint_send(uart_ep, 26, "booting into OTA mode...\r\n")
+    
+        # we will enter DFU mode when the connection_closed event is raised
+        
+    end if 
+        
+end 
+
 # This event indicates either that a local Client Characteristic Configuration descriptor has 
 # been changed by the remote GATT client
 event gatt_server_characteristic_status(connection,characteristic,status_flags,client_config_flags)
@@ -157,8 +183,9 @@ event gatt_server_characteristic_status(connection,characteristic,status_flags,c
     if (characteristic = xgatt_spp_data &&  status_flags = gatt_server_client_config && client_config_flags = gatt_notification) then
         # notifications enabled -> transparent data mode
         call endpoint_send(uart_ep, 6, "DATA\r\n")
-	# Set Mode Not discoverable/Undirected connectable
-#	call le_gap_set_mode(0,2)
+	# Set Mode Not discoverable/Undirected connectable(Comment out Next Line to allow Discoverable)
+	call le_gap_set_mode(0,2)
+
     end if 
 
 end 

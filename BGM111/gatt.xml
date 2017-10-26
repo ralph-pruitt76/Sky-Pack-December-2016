@@ -46,19 +46,6 @@
 
 	</service>
 	
-	<!-- Our custom accelerometer service is declared here -->	 
-	<!-- UUID values generated with https://www.guidgenerator.com/ --> 
-	<service uuid="0bd51666-e7cb-469b-8e4d-2742f1ba77cc" advertise="true">
-        <description>SPP Service</description>
-        
-		<characteristic uuid="e7add780-b042-4876-aae1-112855353cc1" id="xgatt_spp_data">
-            <description>SPP Data</description>
-            <properties write="true" notify="true" />
-			<value variable_length="true" length="20" type="hex"></value>
-		</characteristic>
-		
-    </service>
-	
 	<!-- The OTA service definition -->
 	<!-- http://community.silabs.com/t5/Bluetooth-Wi-Fi-Knowledge-Base/BGScript-OTA-example-for-BGM111/ta-p/170665 -->
 	<service uuid="1d14d6ee-fd63-4fa1-bfa4-8f47b42119f0">
@@ -72,5 +59,18 @@
 				<value length="20" />
 			</characteristic>
 	</service>
+	
+	<!-- Our custom accelerometer service is declared here -->	 
+	<!-- UUID values generated with https://www.guidgenerator.com/ --> 
+	<service uuid="0bd51666-e7cb-469b-8e4d-2742f1ba77cc" advertise="true">
+        <description>SPP Service</description>
+        
+		<characteristic uuid="e7add780-b042-4876-aae1-112855353cc1" id="xgatt_spp_data">
+            <description>SPP Data</description>
+            <properties write="true" notify="true" />
+			<value variable_length="true" length="20" type="hex"></value>
+		</characteristic>
+		
+    </service>
 	
 </gatt>
