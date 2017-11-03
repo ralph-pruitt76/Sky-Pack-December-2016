@@ -41,6 +41,7 @@
 #include <stdio.h>
 #include "wwdg.h"
 #include "misc_sense.h"
+#include "Calibration.h"
 //#include "Calibration.h"
 
 // Enums
@@ -224,8 +225,8 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
     //RGBIdent IDMeasure;
     //RGBStatus RGBSMeasure;
     //RGBLight RGBValues;
-//    char uuid[10];
-//    float Scale, Offset;
+    char uuid[10];
+    float Scale, Offset;
 //    PRStatus PRMeasure;
     //PRPressure PRPMeasure, PRPMeasureScaled;
     //BinString RSFFTBins;
@@ -282,15 +283,15 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                 Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
                 if (Status != HAL_OK)
                   return Status;
-                sprintf( (char *)tempBffr2, "     X DATA: %05d (0.001g)\r\n", imu.accel.named.x );
+                sprintf( (char *)tempBffr2, "     X DATA: %05d/%05.2f (0.001g)\r\n", imu.accel.named.x, SkyPack_CAL_ScaleValue( CAL_IMU_X, imu.accel.named.x) );
                 Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
                 if (Status != HAL_OK)
                   return Status;
-                sprintf( (char *)tempBffr2, "     Y DATA: %05d (0.001g)\r\n", imu.accel.named.y );
+                sprintf( (char *)tempBffr2, "     Y DATA: %05d/%05.2f (0.001g)\r\n", imu.accel.named.y, SkyPack_CAL_ScaleValue( CAL_IMU_Y, imu.accel.named.y) );
                 Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
                 if (Status != HAL_OK)
                   return Status;
-                sprintf( (char *)tempBffr2, "     Z DATA: %05d (0.001g)\r\n", imu.accel.named.z );
+                sprintf( (char *)tempBffr2, "     Z DATA: %05d/%05.2f (0.001g)\r\n", imu.accel.named.z, SkyPack_CAL_ScaleValue( CAL_IMU_Z, imu.accel.named.z) );
               }
               else
                 break;
@@ -314,15 +315,15 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                 Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
                 if (Status != HAL_OK)
                   return Status;
-                sprintf( (char *)tempBffr2, "     X DATA: %05d (0.1dps)\r\n", imu.gyro.named.x );
+                sprintf( (char *)tempBffr2, "     X DATA: %05d/%05.1f (0.1dps)\r\n", imu.gyro.named.x, SkyPack_CAL_ScaleValue( CAL_GYRO_X, imu.gyro.named.x) );
                 Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
                 if (Status != HAL_OK)
                   return Status;
-                sprintf( (char *)tempBffr2, "     Y DATA: %05d (0.1dps)\r\n", imu.gyro.named.y );
+                sprintf( (char *)tempBffr2, "     Y DATA: %05d/%05.1f (0.1dps)\r\n", imu.gyro.named.y, SkyPack_CAL_ScaleValue( CAL_GYRO_Y, imu.gyro.named.y) );
                 Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
                 if (Status != HAL_OK)
                   return Status;
-                sprintf( (char *)tempBffr2, "     Z DATA: %05d (0.1dps)\r\n", imu.gyro.named.z );
+                sprintf( (char *)tempBffr2, "     Z DATA: %05d/%05.1f (0.1dps)\r\n", imu.gyro.named.z, SkyPack_CAL_ScaleValue( CAL_GYRO_Z, imu.gyro.named.z) );
               }
               else
                 break;
@@ -346,15 +347,15 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                 Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
                 if (Status != HAL_OK)
                   return Status;
-                sprintf( (char *)tempBffr2, "     X DATA: %05d (mgauss)\r\n", imu.mag.named.x );
+                sprintf( (char *)tempBffr2, "     X DATA: %05d/%05.3f (mgauss)\r\n", imu.mag.named.x, SkyPack_CAL_ScaleValue( CAL_MAG_X, imu.mag.named.x) );
                 Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
                 if (Status != HAL_OK)
                   return Status;
-                sprintf( (char *)tempBffr2, "     Y DATA: %05d (mgauss)\r\n", imu.mag.named.y );
+                sprintf( (char *)tempBffr2, "     Y DATA: %05d/%05.3f (mgauss)\r\n", imu.mag.named.y, SkyPack_CAL_ScaleValue( CAL_MAG_Y, imu.mag.named.y) );
                 Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
                 if (Status != HAL_OK)
                   return Status;
-                sprintf( (char *)tempBffr2, "     Z DATA: %05d (mgauss)\r\n", imu.mag.named.z );
+                sprintf( (char *)tempBffr2, "     Z DATA: %05d/%05.3f (mgauss)\r\n", imu.mag.named.z, SkyPack_CAL_ScaleValue( CAL_MAG_Z, imu.mag.named.z) );
               }
               else
                 break;
@@ -378,7 +379,7 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                 if (Status != HAL_OK)
                   return Status;
                 // Now Display.
-                sprintf( (char *)tempBffr2, "     Pressure: %5.1fmbar\r\n", value);
+                sprintf( (char *)tempBffr2, "     Pressure: %5.3f/%5.3fmbar\r\n", value, SkyPack_CAL_ScaleValue( CAL_PRESSURE, value));
               }
               else
                 break;
@@ -402,7 +403,7 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                 if (Status != HAL_OK)
                   return Status;
                 // Now calculate Celcius and Farenheit Temp.
-                sprintf( (char *)tempBffr2, "     Temperature: %3.1fC\r\n", value);
+                sprintf( (char *)tempBffr2, "     Temperature: %3.1fC/%3.1fC\r\n", value, SkyPack_CAL_ScaleValue( CAL_TEMPC, value));
               }
               else
                 break;
@@ -423,8 +424,8 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
               Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
               if (Status != HAL_OK)
                 return Status;
-              // Now calculate Celcius and Farenheit Temp.
-              sprintf( (char *)tempBffr2, "     Irradiance: %d(100lx)\r\n", irradiance);
+              // Now calculate.
+              sprintf( (char *)tempBffr2, "     Irradiance: %08d/%08.1f(100lx)\r\n", irradiance, SkyPack_CAL_ScaleValue( CAL_IRRADIANCE, irradiance));
               break;    
 //**************************************************************************************************
             case 'C':
@@ -442,8 +443,8 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
               Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
               if (Status != HAL_OK)
                 return Status;
-              // Now calculate Celcius and Farenheit Temp.
-              sprintf( (char *)tempBffr2, "     Frequency: %d(Hz/100)\r\n", cap.event_freq);
+              // Now calculate.
+              sprintf( (char *)tempBffr2, "     Frequency: %03.2f/%03.2f(Hz/100)\r\n", (float)(cap.event_freq/100), (float)(SkyPack_CAL_ScaleValue( CAL_CAP_SENSE, cap.event_freq)));
               break;
 //**************************************************************************************************
             case 'D':
@@ -467,12 +468,12 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
               Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
               if (Status != HAL_OK)
                 return Status;
-              sprintf( (char *)tempBffr2, "          highest output level: %d\r\n", cap.swept_idx);
+              sprintf( (char *)tempBffr2, "          highest output level: %d/%f\r\n", cap.swept_idx, SkyPack_CAL_ScaleValue( CAL_SWPT_FREQ, cap.swept_idx));
               Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
               if (Status != HAL_OK)
                 return Status;
 
-              sprintf( (char *)tempBffr2, "     Swept Frequency Sensor highest level: %dHz\r\n", cap.swept_level);
+              sprintf( (char *)tempBffr2, "     Swept Frequency Sensor highest level: %d/%fHz\r\n", cap.swept_level, SkyPack_CAL_ScaleValue( CAL_SWPT_LEVL, cap.swept_level));
  
               break;
 //**************************************************************************************************
@@ -733,21 +734,9 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                   case 'C':
                     Status = HAL_OK;
                     strcpy( (char *)tempBffr2, "TC CMD: Calibration CMDS NOT IMPLEMENTED\r\n");
-/*                    if (Size == 2)
+                    if (Size == 2)
                     {
                       //------------------ TC Command: Dump Calibration Settings.      
-                      // Read Cool Eye/Grid Eye Values.....
-                      if ( Get_DriverStates( GRIDEYE_MNTR_TASK ))
-                      {
-                        Status = RoadBrd_GridEye_ReadValues( &GridMeasure );
-                      }
-                      else if ( Get_DriverStates( COOLEYE_MNTR_TASK ))
-                      {
-                        Status = RoadBrd_CoolEye_ReadValues( &GridMeasure );
-                      }
-                      else
-                        Status = HAL_ERROR;
-                      
                       // Is this a BLE Operation?
                       if ( BLE_Flag )
                       {
@@ -755,67 +744,7 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                         strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
                         BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
                       }
-                      
-                      if (Status == HAL_OK)
-                      {
-                        // OK Next Sensor.
-                        // Read Temperature sensor and return results....Temperature Sensor U10(PCT2075GVJ).  Addr: 0x94
-                        Status = RoadBrd_ReadTemp( &TMeasure );
-                        if (Status == HAL_OK)
-                        {
-                          // OK Next Sensor.
-                          // Read Humidity Sensor sensor and return Humidity results....
-                          Status = RoadBrd_Humidity_ReadHumidity( &HMeasure );
-                          if (Status == HAL_OK)
-                          {
-                            // OK Next Sensor.
-                            //Status = RoadBrd_Barometer_Status( &PRMeasure );
-                            Status = RoadBrd_Baro_ReadPressure( &PRPMeasure );
-                            if (Status == HAL_OK)
-                            {
-                              //sprintf( (char *)tempBffr2, "Driver Status: %04x\r\n", DriverStatus );
-                              sprintf( (char *)tempBffr2, "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s\r\n", (char *)GridMeasure.GridEye1.TempC,
-                                      (char *)GridMeasure.GridEye2.TempC,
-                                      (char *)GridMeasure.GridEye3.TempC,
-                                      (char *)GridMeasure.GridEye4.TempC,
-                                      (char *)GridMeasure.GridEye5.TempC,
-                                      (char *)GridMeasure.GridEye6.TempC,
-                                      (char *)GridMeasure.GridEye7.TempC,
-                                      (char *)GridMeasure.GridEye8.TempC,
-                                      (char *)GridMeasure.Thermistor.TempC,
-                                      (char *)TMeasure.TempC,
-                                      (char *)HMeasure.Humidity,
-                                      (char *)PRPMeasure.Pressure);
-                              // Send string to UART..
-#ifdef NUCLEO
-                              Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                              Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
-                              if (Status != HAL_OK)
-                                return Status;
-                              // NOW, Build Data String..
-                              sprintf( (char *)tempBffr2, "COMPLETE" );
-                            } // Endif (Status == HAL_OK) RoadBrd_Baro_ReadPressure
-                            else
-                            {
-                              sprintf( (char *)tempBffr2, "Pressure TASKING ERROR!" );
-                            } // EndElse (Status == HAL_OK) RoadBrd_Baro_ReadPressure
-                          } // Endif (Status == HAL_OK) RoadBrd_Humidity_ReadHumidity
-                          else
-                          {
-                            sprintf( (char *)tempBffr2, "Humidity TASKING ERROR!" );
-                          } // EndElse (Status == HAL_OK) RoadBrd_Humidity_ReadHumidity
-                        } // Endif (Status == HAL_OK) RoadBrd_ReadTemp
-                        else
-                        {
-                          sprintf( (char *)tempBffr2, "AMBIENT TEMPERATURE TASKING ERROR!" );
-                        } // EndElse (Status == HAL_OK) RoadBrd_ReadTemp
-                      } // Endif (Status == HAL_OK) RoadBrd_CoolEye_ReadValues
-                      else
-                      {
-                        sprintf( (char *)tempBffr2, "GRID EYE/COOL EYE TASKING ERROR!" );
-                      } // EndElse (Status == HAL_OK) RoadBrd_CoolEye_ReadValues
+                      sprintf( (char *)tempBffr2, "TC CMD: No TC ONLY CMD for Sky Pack.\r\n" );
                     }
                     else
                     {
@@ -830,7 +759,7 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                           if ( BLE_Flag )
                           {
                             // Yes...Build and Send BLE Response NOW.
-                            strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                            strcpy( (char *)tempBffr2, "<STATUS>CMD_TCS_SYNTAX</STATUS>");
                             BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
                           }
                           
@@ -838,17 +767,16 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                         } // Endif (tempBffr[3]!=':')
                         else
                         {
-                          // Is this a BLE Operation?
-                          if ( BLE_Flag )
-                          {
-                            // Yes...Build and Send BLE Response NOW.
-                            strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
-                            BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
-                          }
-                          
                           // 2. Verify if remaining string is digits
                           if (Size <= 4)
                           {
+                            // Is this a BLE Operation?
+                            if ( BLE_Flag )
+                            {
+                              // Yes...Build and Send BLE Response NOW.
+                              strcpy( (char *)tempBffr2, "<STATUS>CMD_TCS_BADPARAM</STATUS>");
+                              BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                            }
                             strcpy( (char *)tempBffr2, "TCS SYNTAX ERROR: Bad Parameter.\r\n");
                           } // EndIf (Size > 4)
                           else
@@ -863,190 +791,434 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                             {
                               sprintf( (char *)tempBffr2, "Parms: %s, %f, %f.\r\n", uuid, Scale, Offset );
                               // OK, We have 3 good parameters... NOW Need to determine if UUID is good.
-                              if (strncmp((char *)uuid,"0002",4) == 0) // Shnt_Vltg
+                              // Test for 	IMU..Acceleration X...Scale and Offset...B6B6X
+                              if (strncmp((char *)uuid,"B6B6X",5) == 0)
                               {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_SHNT_VLTG, Offset, Scale);
+                                Status = SkyPack_CAL_Set_CalItem( CAL_IMU_X, Offset, Scale);
                                 if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "Shnt_Vltg Set COMPLETE.\r\n" );
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_ACCL_X</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
+                                  sprintf( (char *)tempBffr2, "IMU..Acceleration X Set COMPLETE.\r\n" );
+                                }
                                 else
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_ACCL_X_ERR</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
                                   sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
+                                }
                               }
-                              else if (strncmp((char *)uuid,"0004",4) == 0) // Current
+                              // Test for	IMU..Acceleration Y...Scale and Offset...B6B6Y
+                              else if (strncmp((char *)uuid,"B6B6Y",5) == 0)
                               {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_CURRENT, Offset, Scale);
+                                Status = SkyPack_CAL_Set_CalItem( CAL_IMU_Y, Offset, Scale);
                                 if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "Current Set COMPLETE." );
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_ACCL_Y</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
+                                  sprintf( (char *)tempBffr2, "IMU..Acceleration Y Set COMPLETE.\r\n" );
+                                }
                                 else
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_ACCL_Y_ERR</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
                                   sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
+                                }
                               }
-                              else if (strncmp((char *)uuid,"0006",4) == 0) // Power
+                              // Test for	IMU..Acceleration Z...Scale and Offset...B6B6Z
+                              else if (strncmp((char *)uuid,"B6B6Z",5) == 0)
                               {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_POWER, Offset, Scale);
+                                Status = SkyPack_CAL_Set_CalItem( CAL_IMU_Z, Offset, Scale);
                                 if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "Power Set COMPLETE." );
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_ACCL_Z</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
+                                  sprintf( (char *)tempBffr2, "IMU..Acceleration Z Set COMPLETE.\r\n" );
+                                }
                                 else
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_ACCL_Z_ERR</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
                                   sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
+                                }
                               }
-                              else if (strncmp((char *)uuid,"0008",4) == 0) // Voltage
+                              // Test for	IMU..Gyro X...Scale and Offset...B9B9X
+                              else if (strncmp((char *)uuid,"B9B9X",5) == 0)
                               {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_VOLTAGE, Offset, Scale);
+                                Status = SkyPack_CAL_Set_CalItem( CAL_GYRO_X, Offset, Scale);
                                 if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "Voltage Set COMPLETE." );
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_GYRO_X</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
+                                  sprintf( (char *)tempBffr2, "IMU..Gyro X Set COMPLETE.\r\n" );
+                                }
                                 else
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_GYRO_X_ERR</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
                                   sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
+                                }
                               }
-                              else if (strncmp((char *)uuid,"000A",4) == 0) // TempC
+                              // Test for	IMU..Gyro Y...Scale and Offset...B9B9Y
+                              else if (strncmp((char *)uuid,"B9B9Y",5) == 0)
                               {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_TEMPC, Offset, Scale);
+                                Status = SkyPack_CAL_Set_CalItem( CAL_GYRO_Y, Offset, Scale);
                                 if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "TempC Set COMPLETE." );
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_GYRO_Y</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
+                                  sprintf( (char *)tempBffr2, "IMU..Gyro Y Set COMPLETE.\r\n" );
+                                }
                                 else
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_GYRO_Y_ERR</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
                                   sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
+                                }
                               }
-                              else if (strncmp((char *)uuid,"000B",4) == 0) // TempF
+                              // Test for	IMU..Gyro Z...Scale and Offset...B9B9Z
+                              else if (strncmp((char *)uuid,"B9B9Z",5) == 0)
                               {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_TEMPF, Offset, Scale);
+                                Status = SkyPack_CAL_Set_CalItem( CAL_GYRO_Z, Offset, Scale);
                                 if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "TempF Set COMPLETE." );
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_GYRO_Z</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
+                                  sprintf( (char *)tempBffr2, "IMU..Gyro Z Set COMPLETE.\r\n" );
+                                }
                                 else
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_GYRO_Z_ERR</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
                                   sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
+                                }
                               }
-                              else if (strncmp((char *)uuid,"0011",4) == 0) // Pressure
+                              // Test for	IMU..Magnatometer X...Scale and Offset...B7B7X
+                              else if (strncmp((char *)uuid,"B7B7X",5) == 0)
                               {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_PRESSURE, Offset, Scale);
+                                Status = SkyPack_CAL_Set_CalItem( CAL_MAG_X, Offset, Scale);
                                 if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "Pressure Set COMPLETE." );
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_MAG_X</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
+                                  sprintf( (char *)tempBffr2, "IMU..Magnatometer X Set COMPLETE.\r\n" );
+                                }
                                 else
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_MAG_X_ERR</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
                                   sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
+                                }
                               }
-                              else if (strncmp((char *)uuid,"0030",4) == 0) // Humidity
+                              // Test for	IMU..Magnatometer Y...Scale and Offset...B7B7Y
+                              else if (strncmp((char *)uuid,"B7B7Y",5) == 0)
                               {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_HUMIDITY, Offset, Scale);
+                                Status = SkyPack_CAL_Set_CalItem( CAL_MAG_Y, Offset, Scale);
                                 if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "Humidity Set COMPLETE." );
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_MAG_Y</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
+                                  sprintf( (char *)tempBffr2, "IMU..Magnatometer Y Set COMPLETE.\r\n" );
+                                }
                                 else
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_MAG_Y_ERR</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
                                   sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
+                                }
                               }
-                              else if (strncmp((char *)uuid,"0032",4) == 0) // Hum_TempC
+                              // Test for	IMU..Magnatometer Z...Scale and Offset...B7B7Z
+                              else if (strncmp((char *)uuid,"B7B7Z",5) == 0)
                               {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_HUM_TEMPC, Offset, Scale);
+                                Status = SkyPack_CAL_Set_CalItem( CAL_MAG_Z, Offset, Scale);
                                 if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "Hum_TempC Set COMPLETE." );
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_MAG_Z</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
+                                  sprintf( (char *)tempBffr2, "IMU..Magnatometer Z Set COMPLETE.\r\n" );
+                                }
                                 else
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_IMU_MAG_Z_ERR</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
                                   sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
+                                }
                               }
-                              else if (strncmp((char *)uuid,"0033",4) == 0) // Hum_TempF
+                              // Test for	Temperature...Scale and Offset...B8B8
+                              else if (strncmp((char *)uuid,"B8B8",4) == 0)
                               {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_HUM_TEMPF, Offset, Scale);
+                                Status = SkyPack_CAL_Set_CalItem( CAL_TEMPC, Offset, Scale);
                                 if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "Hum_TempF Set COMPLETE." );
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_CAL_TEMPC</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
+                                  sprintf( (char *)tempBffr2, "Temperature Set COMPLETE.\r\n" );
+                                }
                                 else
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_CAL_TEMPC_ERR</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
                                   sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
+                                }
                               }
-                              else if (strncmp((char *)uuid,"000D",4) == 0) // RGB_Red
+                              // Test for	Pressure...Scale and Offset...BEBE
+                              else if (strncmp((char *)uuid,"BEBE",4) == 0)
                               {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_RGB_RED, Offset, Scale);
+                                Status = SkyPack_CAL_Set_CalItem( CAL_PRESSURE, Offset, Scale);
                                 if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "RGB_Red Set COMPLETE." );
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_CAL_PRESSURE</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
+                                  sprintf( (char *)tempBffr2, "Pressure Set COMPLETE.\r\n" );
+                                }
                                 else
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_CAL_PRESSURE_ERR</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
                                   sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
+                                }
                               }
-                              else if (strncmp((char *)uuid,"000E",4) == 0) // RGB_Green
+                              // Test for	Irradiance...Scale and Offset...BBBB
+                              else if (strncmp((char *)uuid,"BBBB",4) == 0)
                               {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_RGB_GREEN, Offset, Scale);
+                                Status = SkyPack_CAL_Set_CalItem( CAL_IRRADIANCE, Offset, Scale);
                                 if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "RGB_Green Set COMPLETE." );
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_CAL_IRRADIANCE</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
+                                  sprintf( (char *)tempBffr2, "Irradiance Set COMPLETE.\r\n" );
+                                }
                                 else
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_CAL_IRRADIANCE_ERR</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
                                   sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
+                                }
                               }
-                              else if (strncmp((char *)uuid,"000F",4) == 0) // RGB_Blue
+                              // Test for	cap sense event frequency...Scale and Offset...BCBC
+                              else if (strncmp((char *)uuid,"BCBC",4) == 0)
                               {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_RGB_BLUE, Offset, Scale);
+                                Status = SkyPack_CAL_Set_CalItem( CAL_CAP_SENSE, Offset, Scale);
                                 if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "RGB_Blue Set COMPLETE." );
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_CAL_CAP_SENSE</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
+                                  sprintf( (char *)tempBffr2, "Cap Sense Event Frequency Set COMPLETE.\r\n" );
+                                }
                                 else
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_CAL_CAP_SENSE_ERR</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
                                   sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
+                                }
                               }
-                              else if (strncmp((char *)uuid,"0017",4) == 0) // Therm_C
+                              // Test for	swept frequency event index...Scale and Offset...BDBDI
+                              else if (strncmp((char *)uuid,"BDBDI",5) == 0)
                               {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_THERM_C, Offset, Scale);
+                                Status = SkyPack_CAL_Set_CalItem( CAL_SWPT_FREQ, Offset, Scale);
                                 if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "Therm_C Set COMPLETE." );
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_CAL_SWPT_FREQ_X</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
+                                  sprintf( (char *)tempBffr2, "Swept Frequency Event Index Set COMPLETE.\r\n" );
+                                }
                                 else
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_CAL_SWPT_FREQ_ERR</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
                                   sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
+                                }
                               }
-                              else if (strncmp((char *)uuid,"0019",4) == 0) // RoadT_1C
+                              // Test for	swept frequency event level...Scale and Offset...BDBDL
+                              else if (strncmp((char *)uuid,"BDBDL",5) == 0)
                               {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_ROADT_1C, Offset, Scale);
+                                Status = SkyPack_CAL_Set_CalItem( CAL_SWPT_LEVL, Offset, Scale);
                                 if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "RoadT_1C Set COMPLETE." );
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_CAL_SWPT_LEVL_X</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
+                                  sprintf( (char *)tempBffr2, "Swept Frequency Event Level Set COMPLETE.\r\n" );
+                                }
                                 else
+                                {
+                                  // Is this a BLE Operation?
+                                  if ( BLE_Flag )
+                                  {
+                                    // Yes...Build and Send BLE Response NOW.
+                                    strcpy( (char *)tempBffr2, "<STATUS>ST_CAL_SWPT_LEVL_ERR</STATUS>");
+                                    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                  }
                                   sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
-                              }
-                              else if (strncmp((char *)uuid,"001B",4) == 0) // RoadT_2C
-                              {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_ROADT_2C, Offset, Scale);
-                                if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "RoadT_2C Set COMPLETE." );
-                                else
-                                  sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
-                              }
-                              else if (strncmp((char *)uuid,"001D",4) == 0) // RoadT_3C
-                              {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_ROADT_3C, Offset, Scale);
-                                if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "RoadT_3C Set COMPLETE." );
-                                else
-                                  sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
-                              }
-                              else if (strncmp((char *)uuid,"001F",4) == 0) // RoadT_4C
-                              {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_ROADT_4C, Offset, Scale);
-                                if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "RoadT_4C Set COMPLETE." );
-                                else
-                                  sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
-                              }
-                              else if (strncmp((char *)uuid,"0021",4) == 0) // RoadT_5C
-                              {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_ROADT_5C, Offset, Scale);
-                                if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "RoadT_5C Set COMPLETE." );
-                                else
-                                  sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
-                              }
-                              else if (strncmp((char *)uuid,"0023",4) == 0) // RoadT_6C
-                              {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_ROADT_6C, Offset, Scale);
-                                if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "RoadT_6C Set COMPLETE." );
-                                else
-                                  sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
-                              }
-                              else if (strncmp((char *)uuid,"0025",4) == 0) // RoadT_7C
-                              {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_ROADT_7C, Offset, Scale);
-                                if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "RoadT_7C Set COMPLETE." );
-                                else
-                                  sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
-                              }
-                              else if (strncmp((char *)uuid,"0027",4) == 0) // RoadT_8C
-                              {
-                                Status = RoadBrd_CAL_Set_CalItem( CAL_ROADT_8C, Offset, Scale);
-                                if (Status == HAL_OK)
-                                  sprintf( (char *)tempBffr2, "RoadT_8C Set COMPLETE." );
-                                else
-                                  sprintf( (char *)tempBffr2, "TCS SET ERROR: FAILED.\r\n" );
+                                }
                               }
                               else
                               {
+                                // Is this a BLE Operation?
+                                if ( BLE_Flag )
+                                {
+                                  // Yes...Build and Send BLE Response NOW.
+                                  strcpy( (char *)tempBffr2, "<STATUS>CMD_TCS_BADUUID</STATUS>");
+                                  BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                                }
                                 sprintf( (char *)tempBffr2, "TCS SYNTAX ERROR: Bad UUID.\r\n" );
                               }
                               Status = HAL_OK;
                             }
                             else
                             {
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                strcpy( (char *)tempBffr2, "<STATUS>CMD_TCS_BADPARAM</STATUS>");
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              
                               strcpy( (char *)tempBffr2, "TCS SYNTAX ERROR: Wrong Number of Parameters.\r\n");
                             }
                           } // EndElse (flag == 0)
@@ -1064,22 +1236,14 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                         }
                         
                         // Send string to UART..
-                        sprintf( (char *)tempBffr2, "CALIBRATION DATA\r\nDate: %s\r\n",  RoadBrd_CAL_GetTimeString());
-#ifdef NUCLEO
-                        Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                        Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
+                        sprintf( (char *)tempBffr2, "CALIBRATION DATA\r\nDate: %s\r\n",  SkyPack_CAL_GetTimeString());
+                        Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
                         if (Status != HAL_OK)
                             return Status;
                         // Build Read Calibration Dump Part II....
                         // Send string to UART..
                         sprintf( (char *)tempBffr2, "Name		        UUID		Slope		Offset\r\n" );
-#ifdef NUCLEO
-                        Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                        Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
+                        Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
                         if (Status != HAL_OK)
                             return Status;
                         // NOW, Build Data String..
@@ -1088,145 +1252,249 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                           // Build String
                           switch(x)
                           {
-                            case CAL_SHNT_VLTG: //CAL_SHNT_VLTG Values
-                              sprintf( (char *)tempBffr2, "%s	0002		%1.4f		%2.3f\r\n", 
+                            case CAL_IMU_X: //CAL_IMU_X / Accelerometer Characteristic X Parameter String
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "%s:B6B6X//%1.4f//%2.3f//", 
+                                        (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              sprintf( (char *)tempBffr2, "%s	B6B6X		%1.4f		%2.3f\r\n", 
                                       (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                      SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                      SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
                               break;
-                            case CAL_CURRENT: //CAL_CURRENT Values
-                              sprintf( (char *)tempBffr2, "%s	        0004		%1.4f		%2.3f\r\n", 
+                            case CAL_IMU_Y: //CAL_IMU_Y / Accelerometer Characteristic Y Parameter String
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "%s:B6B6Y//%1.4f//%2.3f//", 
+                                        (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              sprintf( (char *)tempBffr2, "%s	B6B6Y		%1.4f		%2.3f\r\n", 
                                       (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                      SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                      SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
                               break;
-                            case CAL_POWER: //CAL_POWER Values
-                              sprintf( (char *)tempBffr2, "%s	0006		%1.4f		%2.3f\r\n", 
+                            case CAL_IMU_Z: //CAL_IMU_Z / Accelerometer Characteristic Z Parameter String
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "%s:B6B6Z//%1.4f//%2.3f//", 
+                                        (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              sprintf( (char *)tempBffr2, "%s	B6B6Z		%1.4f		%2.3f\r\n", 
                                       (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                      SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                      SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
                               break;
-                            case CAL_VOLTAGE: //CAL_VOLTAGE Values
-                              sprintf( (char *)tempBffr2, "%s	        0008		%1.4f		%2.3f\r\n", 
+                            case CAL_GYRO_X: //CAL_GYRO_X / Gyro Characteristic X Parameter String
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "%s:B9B9X//%1.4f//%2.3f//", 
+                                        (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              sprintf( (char *)tempBffr2, "%s	B9B9X		%1.4f		%2.3f\r\n", 
                                       (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                      SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                      SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
                               break;
-                            case CAL_TEMPC: //CAL_TEMPC Values
-                              sprintf( (char *)tempBffr2, "%s	000A		%1.4f		%2.3f\r\n", 
+                            case CAL_GYRO_Y: //CAL_GYRO_Y / Gyro Characteristic Y Parameter String
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "%s:B9B9Y//%1.4f//%2.3f//", 
+                                        (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              sprintf( (char *)tempBffr2, "%s	B9B9Y		%1.4f		%2.3f\r\n", 
                                       (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                      SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                      SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
                               break;
-                            case CAL_TEMPF: //CAL_TEMPF Values
-                              sprintf( (char *)tempBffr2, "%s	000B		%1.4f		%2.3f\r\n", 
+                            case CAL_GYRO_Z: //CAL_GYRO_Z / Gyro Characteristic Z Parameter String
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "%s:B9B9Z//%1.4f//%2.3f//", 
+                                        (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              sprintf( (char *)tempBffr2, "%s	B9B9Z		%1.4f		%2.3f\r\n", 
                                       (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                      SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                      SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
                               break;
-                            case CAL_PRESSURE: //CAL_PRESSURE Values
-                              sprintf( (char *)tempBffr2, "%s	0011		%1.4f		%2.3f\r\n", 
+                            case CAL_MAG_X: //CAL_MAG_X / Magnetometer Characteristic X Parameter String
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "%s:B7B7X//%1.4f//%2.3f//", 
+                                        (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              sprintf( (char *)tempBffr2, "%s	B7B7X		%1.4f		%2.3f\r\n", 
                                       (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                      SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                      SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
                               break;
-                            case CAL_HUMIDITY: //CAL_HUMIDITY Values
-                              sprintf( (char *)tempBffr2, "%s	0030		%1.4f		%2.3f\r\n", 
+                            case CAL_MAG_Y: //CAL_MAG_Y / Magnetometer Characteristic Y Parameter String
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "%s:B7B7Y//%1.4f//%2.3f//", 
+                                        (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              sprintf( (char *)tempBffr2, "%s	B7B7Y		%1.4f		%2.3f\r\n", 
                                       (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                      SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                      SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
                               break;
-                            case CAL_HUM_TEMPC: //CAL_HUM_TEMPC Values
-                              sprintf( (char *)tempBffr2, "%s	0032		%1.4f		%2.3f\r\n", 
+                            case CAL_MAG_Z: //CAL_MAG_Z / Magnetometer Characteristic Z Parameter String
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "%s:B7B7Z//%1.4f//%2.3f//", 
+                                        (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              sprintf( (char *)tempBffr2, "%s	B7B7Z		%1.4f		%2.3f\r\n", 
                                       (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                      SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                      SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
                               break;
-                            case CAL_HUM_TEMPF: //CAL_HUM_TEMPF Values
-                              sprintf( (char *)tempBffr2, "%s	0033		%1.4f		%2.3f\r\n", 
+                            case CAL_TEMPC: //CAL_TEMPC/ Calibration Temperature C String
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "%s:B8B8//%1.4f//%2.3f//", 
+                                        (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              sprintf( (char *)tempBffr2, "%s	B8B8		%1.4f		%2.3f\r\n", 
                                       (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                      SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                      SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
                               break;
-                            case CAL_RGB_RED: //CAL_RGB_RED Values
-                              sprintf( (char *)tempBffr2, "%s	        000D		%1.4f		%2.3f\r\n", 
+                            case CAL_PRESSURE: //CAL_PRESSURE/ Calibration Pressure String
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "%s:BEBE//%1.4f//%2.3f//", 
+                                        (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              sprintf( (char *)tempBffr2, "%s	BEBE		%1.4f		%2.3f\r\n", 
                                       (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                      SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                      SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
                               break;
-                            case CAL_RGB_GREEN: //CAL_RGB_GREEN Values
-                              sprintf( (char *)tempBffr2, "%s	000E		%1.4f		%2.3f\r\n", 
+                            case CAL_IRRADIANCE: //CAL_IRRADIANCE / Calibration irradiance String
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "%s:BBBB//%1.4f//%2.3f//", 
+                                        (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              sprintf( (char *)tempBffr2, "%s	BBBB		%1.4f		%2.3f\r\n", 
                                       (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                      SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                      SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
                               break;
-                            case CAL_RGB_BLUE: //CAL_RGB_BLUE Values
-                              sprintf( (char *)tempBffr2, "%s	000F		%1.4f		%2.3f\r\n", 
+                            case CAL_CAP_SENSE: //CAL_CAP_SENSE / Calibration Cap Sense Event Frequency String
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "%s:BCBC//%1.4f//%2.3f//", 
+                                        (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              sprintf( (char *)tempBffr2, "%s	BCBC		%1.4f		%2.3f\r\n", 
                                       (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                      SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                      SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
                               break;
-                            case CAL_THERM_C: //CAL_THERM_C Values
-                              sprintf( (char *)tempBffr2, "%s	        0017		%1.4f		%2.3f\r\n", 
+                            case CAL_SWPT_FREQ: //CAL_SWPT_FREQ / Calibration Swept Frequency String
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "%s:BDBDI//%1.4f//%2.3f//", 
+                                        (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              sprintf( (char *)tempBffr2, "%s	BDBDI		%1.4f		%2.3f\r\n", 
                                       (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                      SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                      SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
                               break;
-                            case CAL_ROADT_1C: //CAL_ROADT_1C Values
-                              sprintf( (char *)tempBffr2, "%s	0019		%1.4f		%2.3f\r\n", 
+                            case CAL_SWPT_LEVL: //CAL_SWPT_LEVL / Calibration Swept Frequency Level String
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                sprintf( (char *)tempBffr2, "%s:BDBDL//%1.4f//%2.3f//", 
+                                        (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                        SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                              sprintf( (char *)tempBffr2, "%s	BDBDL		%1.4f		%2.3f\r\n", 
                                       (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
-                              break;
-                            case CAL_ROADT_2C: //CAL_ROADT_2C Values
-                              sprintf( (char *)tempBffr2, "%s	001B		%1.4f		%2.3f\r\n", 
-                                      (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
-                              break;
-                            case CAL_ROADT_3C: //CAL_ROADT_3C Values
-                              sprintf( (char *)tempBffr2, "%s	001D		%1.4f		%2.3f\r\n", 
-                                      (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
-                              break;
-                            case CAL_ROADT_4C: //CAL_ROADT_4C Values
-                              sprintf( (char *)tempBffr2, "%s	001F		%1.4f		%2.3f\r\n", 
-                                      (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
-                              break;
-                            case CAL_ROADT_5C: //CAL_ROADT_5C Values
-                              sprintf( (char *)tempBffr2, "%s	0021		%1.4f		%2.3f\r\n", 
-                                      (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
-                              break;
-                            case CAL_ROADT_6C: //CAL_ROADT_6C Values
-                              sprintf( (char *)tempBffr2, "%s	0023		%1.4f		%2.3f\r\n", 
-                                      (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
-                              break;
-                            case CAL_ROADT_7C: //CAL_ROADT_7C Values
-                              sprintf( (char *)tempBffr2, "%s	0025		%1.4f		%2.3f\r\n", 
-                                      (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
-                              break;
-                            case CAL_ROADT_8C: //CAL_ROADT_8C Values
-                              sprintf( (char *)tempBffr2, "%s	0027		%1.4f		%2.3f\r\n", 
-                                      (char *)RdBrd_CAL_GetStr( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetSlope( (Cal_Characteristic)x ),
-                                      RoadBrd_CAL_GetOffset( (Cal_Characteristic)x ) );
+                                      SkyPack_CAL_GetSlope( (Cal_Characteristic)x ),
+                                      SkyPack_CAL_GetOffset( (Cal_Characteristic)x ) );
                               break;
                           } // EndSwitch(x)
                           // Now Print String.
-#ifdef NUCLEO
-                          Status = RoadBrd_UART_Transmit(NUCLEO_USART, (uint8_t *)tempBffr2);                   
-#else
-                          Status = RoadBrd_UART_Transmit(MONITOR_UART, (uint8_t *)tempBffr2);                   
-#endif
+                          Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
                           if (Status != HAL_OK)
                             return Status;
                         } // EndFor(x=0; x<CAL_LAST_VALUE; x++)
@@ -1241,7 +1509,7 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                           if ( BLE_Flag )
                           {
                             // Yes...Build and Send BLE Response NOW.
-                            strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                            strcpy( (char *)tempBffr2, "<STATUS>CMD_TCT_SYNTAX</STATUS>");
                             BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
                           }
                           
@@ -1249,17 +1517,16 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                         } // Endif (tempBffr[3]!=':')
                         else
                         {
-                          // Is this a BLE Operation?
-                          if ( BLE_Flag )
-                          {
-                            // Yes...Build and Send BLE Response NOW.
-                            strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
-                            BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
-                          }
-                          
                           // 2. Verify if remaining string is digits
                           if (Size <= 4)
                           {
+                            // Is this a BLE Operation?
+                            if ( BLE_Flag )
+                            {
+                              // Yes...Build and Send BLE Response NOW.
+                              strcpy( (char *)tempBffr2, "<STATUS>CMD_TCT_BADPARAM</STATUS>");
+                              BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                            }
                             strcpy( (char *)tempBffr2, "TCT SYNTAX ERROR: Bad Parameter.\r\n");
                           } // EndIf (Size > 4)
                           else
@@ -1268,30 +1535,60 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                             tempPstr = &tempBffr[4];
                             strcpy(tempstr, tempPstr);
                             // NOW...Save it.
-                            Status = RoadBrd_CAL_Set_TimeString( (uint8_t *)tempPstr );
+                            Status = SkyPack_CAL_Set_TimeString( (uint8_t *)tempPstr );
                             if (Status != HAL_OK)
+                            {
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                strcpy( (char *)tempBffr2, "<STATUS>CMD_TCT_ERR</STATUS>");
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
                               return Status;
+                            }
+                            else
+                            {
+                              // Is this a BLE Operation?
+                              if ( BLE_Flag )
+                              {
+                                // Yes...Build and Send BLE Response NOW.
+                                strcpy( (char *)tempBffr2, "<STATUS>ST_TCT_ACK</STATUS>");
+                                BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                              }
+                            }
                             sprintf( (char *)tempBffr2, "\r\n     COMPLETE.\r\n" );
                           } // EndElse (Size > 4)
                         } // EndElse (tempBffr[3]!=':')
                         break;
                         //------------------ TCI Command: Calibration Initialize Cal Table(Reset)
                       case 'I':
-                        Status = RoadBrd_CAL_InitializeFrmFlash();
-                        // Is this a BLE Operation?
-                        if ( BLE_Flag )
-                        {
-                          // Yes...Build and Send BLE Response NOW.
-                          strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
-                          BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
-                        }
-                        
+                        Status = SkyPack_CAL_InitializeFrmFlash();
                         if (Status != HAL_OK)
+                        {
+                          // Is this a BLE Operation?
+                          if ( BLE_Flag )
+                          {
+                            // Yes...Build and Send BLE Response NOW.
+                            strcpy( (char *)tempBffr2, "<STATUS>CMD_TCI_ERR</STATUS>");
+                            BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                          }
                           return Status;
-                        sprintf( (char *)tempBffr2, "\r\n     COMPLETE.\r\n" ); 
+                        }
+                        else
+                        {
+                          // Is this a BLE Operation?
+                          if ( BLE_Flag )
+                          {
+                            // Yes...Build and Send BLE Response NOW.
+                            strcpy( (char *)tempBffr2, "<STATUS>ST_TCI_ACK</STATUS>");
+                            BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
+                          }
+                        }
+                        sprintf( (char *)tempBffr2, "\r\n     COMPLETE.\r\n" );
                         break;
                       } //EndSwitch
-                    } //EndElse (Size == 2)*/
+                    } //EndElse (Size == 2)
                     break;
 //++++++++++++++++++++++++++++++++++++++++++  Dump Driver State.
                   case 'D':

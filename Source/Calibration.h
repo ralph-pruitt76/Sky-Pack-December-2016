@@ -63,7 +63,8 @@ typedef enum Cal_Char
   CAL_IRRADIANCE  = 11,
   CAL_CAP_SENSE   = 12,
   CAL_SWPT_FREQ   = 13,
-  CAL_LAST_VALUE  = 14,
+  CAL_SWPT_LEVL   = 14,
+  CAL_LAST_VALUE  = 15,
 } Cal_Characteristic;
 
 /* Defines */

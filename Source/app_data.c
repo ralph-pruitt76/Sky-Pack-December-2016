@@ -15,6 +15,7 @@
 #include "sys_ctrl.h"
 #include "ErrCodes.h"
 #include "miscRoutines.h"
+#include "Calibration.h"
 #include "wwdg.h"
 #include <math.h>
 
@@ -650,8 +651,10 @@ void ProcessSensorState(void)
       data.imu.accel.named.y = TmpData.imu.accel.named.y;
       data.imu.accel.named.y = TmpData.imu.accel.named.z;
      
-      sprintf(characteristic, "<UB6B6>%05d%05d%05d</UB6B6>", data.imu.accel.named.x,
-              data.imu.accel.named.y, data.imu.accel.named.z);
+      sprintf(characteristic, "<UB6B6>%04.2f/%04.2f/%04.2f</UB6B6>", 
+              SkyPack_CAL_ScaleValue( CAL_IMU_X, data.imu.accel.named.x ),
+              SkyPack_CAL_ScaleValue( CAL_IMU_Y, data.imu.accel.named.y ), 
+              SkyPack_CAL_ScaleValue( CAL_IMU_Z, data.imu.accel.named.z ));
       /* Send the accelerometer data to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -668,8 +671,10 @@ void ProcessSensorState(void)
       data.imu.gyro.named.y = TmpData.imu.gyro.named.y;
       data.imu.gyro.named.z = TmpData.imu.gyro.named.z;
      
-      sprintf(characteristic, "<UB9B9>%05d%05d%05d</UB9B9>", data.imu.gyro.named.x,
-              data.imu.gyro.named.y, data.imu.gyro.named.z);
+      sprintf(characteristic, "<UB9B9>%05.1f/%05.1f/%05.1f</UB9B9>", 
+              SkyPack_CAL_ScaleValue( CAL_GYRO_X, data.imu.gyro.named.x ),
+              SkyPack_CAL_ScaleValue( CAL_GYRO_Y, data.imu.gyro.named.y ), 
+              SkyPack_CAL_ScaleValue( CAL_GYRO_Z, data.imu.gyro.named.z ));
       /* Send the gyro data to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -686,8 +691,10 @@ void ProcessSensorState(void)
       data.imu.mag.named.y = TmpData.imu.mag.named.y;
       data.imu.mag.named.z = TmpData.imu.mag.named.z;
      
-      sprintf(characteristic, "<UB7B7>%05d%05d%05d</UB7B7>", data.imu.mag.named.x,
-              data.imu.mag.named.y, data.imu.mag.named.z);
+      sprintf(characteristic, "<UB7B7>%03.3f/%03.3f/%03.3f</UB7B7>", 
+              SkyPack_CAL_ScaleValue( CAL_MAG_X, data.imu.mag.named.x ),
+              SkyPack_CAL_ScaleValue( CAL_MAG_Y, data.imu.mag.named.y ), 
+              SkyPack_CAL_ScaleValue( CAL_MAG_Z, data.imu.mag.named.z ));
       /* Send the magnetometer data to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -701,9 +708,9 @@ void ProcessSensorState(void)
       data.temperature = TmpData.temperature;
 
       if (SkyBrd_Get_UnitsFlag())
-        sprintf(characteristic, "<UB8B8 Units=%c10C%c>%05d</UB8B8>", '"', '"', data.temperature);
+        sprintf(characteristic, "<UB8B8 Units=%c10C%c>%04.1f</UB8B8>", '"', '"', (SkyPack_CAL_ScaleValue( CAL_TEMPC, data.temperature )/10) );
       else
-        sprintf(characteristic, "<UB8B8>%05d</UB8B8>", data.temperature);
+        sprintf(characteristic, "<UB8B8>%05.1f</UB8B8>", (SkyPack_CAL_ScaleValue( CAL_TEMPC, data.temperature )/10) );
       /* Send the temperature to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -717,9 +724,9 @@ void ProcessSensorState(void)
       data.pressure = TmpData.pressure;
 
       if (SkyBrd_Get_UnitsFlag())
-        sprintf(characteristic, "<UBEBE Units=%c10mbr%c>%06d</UBEBE>", '"', '"', data.pressure);
+        sprintf(characteristic, "<UBEBE Units=%c10mbr%c>%06.3f</UBEBE>", '"', '"', SkyPack_CAL_ScaleValue( CAL_PRESSURE, data.pressure ));
       else
-        sprintf(characteristic, "<UBEBE>%06d</UBEBE>", data.pressure);
+        sprintf(characteristic, "<UBEBE>%06.3f</UBEBE>", SkyPack_CAL_ScaleValue( CAL_PRESSURE, data.pressure ));
       /* Send the pressure to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -733,9 +740,9 @@ void ProcessSensorState(void)
       data.irradiance = TmpData.irradiance;
 
       if (SkyBrd_Get_UnitsFlag())
-        sprintf(characteristic, "<UBBBB Units=%c100lx%c>%08d</UBBBB>", '"', '"', data.irradiance);
+        sprintf(characteristic, "<UBBBB Units=%c100lx%c>%08.1f</UBBBB>", '"', '"', SkyPack_CAL_ScaleValue( CAL_IRRADIANCE, data.irradiance ));
       else
-        sprintf(characteristic, "<UBBBB>%08d</UBBBB>", data.irradiance);
+        sprintf(characteristic, "<UBBBB>%08.1f</UBBBB>", SkyPack_CAL_ScaleValue( CAL_IRRADIANCE, data.irradiance ));
       /* Send the irradiance to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -749,9 +756,9 @@ void ProcessSensorState(void)
       data.cap.event_freq = TmpData.cap.event_freq;
 
       if (SkyBrd_Get_UnitsFlag())
-        sprintf(characteristic, "<UBCBC Units=%cEvts%c>%05d</UBCBC>", '"', '"', data.cap.event_freq);
+        sprintf(characteristic, "<UBCBC Units=%cEvts%c>%03.2f</UBCBC>", '"', '"', (SkyPack_CAL_ScaleValue( CAL_CAP_SENSE, data.cap.event_freq )/100));
       else
-        sprintf(characteristic, "<UBCBC>%05d</UBCBC>", data.cap.event_freq);
+        sprintf(characteristic, "<UBCBC>%03.2f</UBCBC>", (SkyPack_CAL_ScaleValue( CAL_CAP_SENSE, data.cap.event_freq )/100));
       /* Send the cap sense event frequency to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -767,11 +774,13 @@ void ProcessSensorState(void)
       data.cap.swept_level = TmpData.cap.swept_level;
      
       if (SkyBrd_Get_UnitsFlag())
-        sprintf(characteristic, "<UBDBD Units=%cSwpF%c>%05d%06d</UBDBD>", '"', '"', data.cap.swept_idx,
-                data.cap.swept_level);
+        sprintf(characteristic, "<UBDBD Units=%cSwpF%c>%06.0f/%06.0f</UBDBD>", '"', '"', 
+                SkyPack_CAL_ScaleValue( CAL_SWPT_FREQ, data.cap.swept_idx ),
+                SkyPack_CAL_ScaleValue( CAL_SWPT_LEVL, data.cap.swept_level ) );
       else
-        sprintf(characteristic, "<UBDBD>%05d%06d</UBDBD>", data.cap.swept_idx,
-                data.cap.swept_level);
+        sprintf(characteristic, "<UBDBD>%06.0f/%06.0f</UBDBD>", 
+                SkyPack_CAL_ScaleValue( CAL_SWPT_FREQ, data.cap.swept_idx ),
+                SkyPack_CAL_ScaleValue( CAL_SWPT_LEVL, data.cap.swept_level ) );
       /* Send the swept frequency to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
