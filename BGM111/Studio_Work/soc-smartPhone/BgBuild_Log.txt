@@ -1,0 +1,12 @@
+// Copyright 2017 Silicon Laboratories, Inc.
+//
+//
+
+Executing: bgbuild.exe (D:\SiliconLabs\SimplicityStudio\v4_2\developer\sdks\gecko_sdk_suite\v1.1\protocol\bluetooth_2.4\bin\bgbuild.exe)
+Standard output
+ALL OK
+
+Error/Warning output
+WARNING: 2a21 length attribute is 2 but actual value length is 1. 2 will be used.
+
+

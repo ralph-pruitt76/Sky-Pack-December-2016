@@ -6,3 +6,7 @@ BLE112/out.hex
 BLE112/variable_memory_usage.txt
 *.dep
 settings/SkyPatch.*
+32L151CBT6 Long/Obj/*.*
+32L151CBT6 NoReboot/Obj/*.*
+Debug Long NoCap/Obj/*.*
+Debug Long/Obj/*.*

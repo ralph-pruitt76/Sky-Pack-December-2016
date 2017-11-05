@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project device="bgm111">
+	
+	<!-- GATT service database -->
+	<gatt in="gatt.xml" />
+	
+	<!-- Local hardware configuration file -->
+    <hardware in="hardware.xml" />
+
+	<!-- BGScript source code -->
+	<scripting>
+		<script in="spp_server.bgs" />
+    </scripting>
+	
+    <bootloader type="ota" />
+	
+	<!-- Firmware output file -->
+    <image out="output.bin" />
+
+	<!-- Firmware output file..OLD -->
+	<!-- <build dfu="ota_proj_1"/> -->
+	<build ebl="ota_proj_1"/>
+</project>

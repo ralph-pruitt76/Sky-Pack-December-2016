@@ -17,5 +17,6 @@
 
 	<!-- NOTE: you may need to adjust the ctune setting based on what module 
 	     revision you have. Check the UG119 configuration guide for more info -->
-	<!--<ctune value="0" />-->
+	<ctune value="0" />
 </hardware>
+

@@ -1,0 +1,322 @@
+#--------------------------------------------------------------------------------------------------
+# (C) Copyright 2016 Silicon Labs, http://www.silabs.com</b>
+#--------------------------------------------------------------------------------------------------
+# This file is licensed under the Silabs License Agreement. See the file
+# "Silabs_License_Agreement.txt" for details. Before using this software for
+# any purpose, you must agree to the terms of that agreement.
+#--------------------------------------------------------------------------------------------------
+#
+# SPP-over-BLE example for BGM111, server implementation
+#
+# This example is targeted for BGM111 development kit (WSTK6101A). To run this example you need two 
+# development kits, one for the SPP client and another for the SPP slave.
+#
+# You must use SDK version 1.0.2-755 or later. This example will not run corretly with earlier SDK 
+# versions. Check the lastest SDK release from:
+# https://www.silabs.com/products/wireless/bluetooth/Pages/bluetooth-smart-software.aspx
+#
+# --- Changelog: ---
+#
+# 2016-04-10    First release
+#--------------------------------------------------------------------------------------------------
+
+# Selected UART endpoint. 2 = UART1, 5 = UART0
+const uart_ep = 2 
+# LED0 is mapped to pin F6
+const led0_bank      = 5
+const led0_pin_mask  = $40
+# LED1 is mapped to pin F7
+const led1_bank      = 5
+const led1_pin_mask  = $80
+
+# Variables:
+dim boot_into_dfu
+dim ticker
+
+dim string(6)
+dim strlen 
+
+dim connected
+dim conn_handle
+
+dim res
+
+dim n
+dim temp
+
+dim tx_fifo(256)
+dim tx_wr # write index
+dim tx_rd # read index
+dim tx_num # number of bytes in buffer
+
+dim max_len
+dim tx_size
+
+dim unrecoverable_error
+
+# print a nibble
+procedure print_nibble(nibble)
+
+    n = nibble
+
+    if n < $a then
+        n = n + $30
+    else
+        n = n + $37
+    end if
+
+    call endpoint_send(uart_ep, 1, n)
+end
+
+# print hex values (range 0..255 -> output 0x00..0xFF)
+procedure print_hex(hex)
+    call print_nibble(hex/16)
+    call print_nibble(hex&$f)
+end
+
+# print 16-bit hex values (range 0..65535 -> output 0x00..0xFFFF)
+procedure print_hex16(hex)
+    
+    temp = (hex >> 8) & $ff
+    call print_nibble(temp/16)
+    call print_nibble(temp&$f)
+    
+    temp = hex & $ff
+    call print_nibble(temp/16)
+    call print_nibble(temp&$f)
+end
+
+# helper function to print integer to UART
+procedure print_int32(int32_value)
+
+    call util_itoa(int32_value)(strlen, string(0:strlen))
+    call endpoint_send(uart_ep, strlen, string(0:strlen))
+
+end 
+
+
+
+# Boot event listener - Generated when the module is powered up or reset
+event system_boot(major, minor, patch, build, bootloader, hw)
+
+    call endpoint_send(uart_ep, 12, "SPP server\r\n")
+    call endpoint_send(uart_ep, 20, "Boot. Build number: ") 
+    call print_int32(build)
+    call endpoint_send(uart_ep, 2, "\r\n")
+    
+    # Set advertisement interval to 100ms, use all three ADV channels
+    call le_gap_set_adv_parameters(160,160,7)
+
+    # Start Bluetooth LE advertisements and enable connections
+    call le_gap_set_mode(2,2)
+            
+    # setup timer with ~10ms interval
+    call hardware_set_soft_timer(328,0,0)
+    
+    # start 100ms timer for LED control
+    call hardware_set_soft_timer(3277,1,0)
+
+end
+
+
+
+
+event le_connection_opened(address, address_type, master, connection, bonding)
+
+    call endpoint_send(uart_ep, 11, "Connected\r\n")
+    connected = 1
+    # make copy of connection handle for later use
+    conn_handle = connection
+
+    call le_connection_set_parameters(connection,6,6,0,10)(res)
+end
+
+# BLE connection disconnected event - Generated when a BLE connection is closed or lost
+event le_connection_closed(reason, connection)
+
+    call endpoint_send(uart_ep, 14, "Disconnected\r\n")
+    connected = 0
+    conn_handle = -1
+
+    if boot_into_dfu = 0 then
+        # Start Bluetooth LE advertisements and enable connections
+        call le_gap_set_mode(2,2)
+    else
+        # DFU boot has been requested 
+        call system_reset(1)
+    end if 
+    
+end
+
+event le_connection_parameters(connection,interval,latency,timeout,security_mode)
+
+    call endpoint_send(uart_ep, 14, "conn.interval ")   
+    call print_int32(interval)
+    call endpoint_send(uart_ep, 2, "\r\n")
+    
+end 
+
+# Events related to OTA upgrading
+#-----------------------------------------------------------------------------
+
+# This event indicates that a remote GATT client is attempting to write a value of 
+# an attribute of type "user" into the local GATT database
+event gatt_server_user_write_request(connection, characteristic, att_opcode, offset, value_len, value_data)
+
+	# Check if the user-type OTA Control Characteristic was written. 
+    if characteristic = ota_control then
+        boot_into_dfu = 1
+        call endpoint_close(connection)
+		# After the connection is closed, the "le_connection_closed" event is raised 
+        call endpoint_send(uart_ep, 26, "booting into OTA mode...\r\n")
+    
+        # we will enter DFU mode when the connection_closed event is raised
+        
+    end if 
+        
+end 
+
+# This event indicates either that a local Client Characteristic Configuration descriptor has 
+# been changed by the remote GATT client
+event gatt_server_characteristic_status(connection,characteristic,status_flags,client_config_flags)
+
+    if (characteristic = xgatt_spp_data &&  status_flags = gatt_server_client_config && client_config_flags = gatt_notification) then
+        # notifications enabled -> transparent data mode
+        call endpoint_send(uart_ep, 6, "DATA\r\n")
+	# Set Mode Not discoverable/Undirected connectable
+	call le_gap_set_mode(0,2)
+
+    end if 
+
+end 
+
+# This event indicates incoming data from an endpoint. Used here to implement simple debug
+# command interface with the UART
+event endpoint_data(endpoint,data_len, data_data)
+
+    if endpoint != uart_ep then
+        return
+    end if
+    
+    # copy data to TX FIFO
+    
+    max_len = 256 - tx_wr # max number of bytes that fit in FIFO before wrap around
+    
+    if data_len <= max_len then 
+        memcpy(tx_fifo(tx_wr), data_data(0), data_len)
+        tx_wr = tx_wr + data_len
+    else
+        memcpy(tx_fifo(tx_wr), data_data(0), max_len)
+        temp = data_len - max_len
+        memcpy(tx_fifo(0), data_data(max_len), temp)
+        tx_wr = temp
+    end if
+    
+    tx_num = tx_num + data_len
+
+    if (tx_num > 256) then
+        call endpoint_send(uart_ep, 11, "OVERFLOW!\r\n")
+        unrecoverable_error = 1
+    end if  
+    
+    
+    #call endpoint_send(uart_ep, 9, "data_len ")
+    #call print_int32(data_len)
+    #call endpoint_send(uart_ep, 2, "\r\n")
+end 
+
+
+procedure led_timer()
+    # ticker runs from 0..9 
+    if ticker < 9 then
+        ticker = ticker + 1
+    else
+        ticker = 0
+    end if
+    
+    # -- LED blinking: select pattern depending on connection status ---
+    if connected = 0 then 
+        # no connection -> drive LED using a "heart-beat" pattern: ON when ticker = 0 or 2, otherwise OFF
+        if ticker = 0 || ticker = 2  then
+            call hardware_write_gpio(led0_bank, led0_pin_mask, $00) #led on
+        else
+            call hardware_write_gpio(led0_bank, led0_pin_mask, led0_pin_mask) #led off
+        end if
+    
+    else
+        # connected -> blink fast
+        if (ticker & 1) then                
+            call hardware_write_gpio(led0_bank, led0_pin_mask, $00) #led on
+        else
+            call hardware_write_gpio(led0_bank, led0_pin_mask, led0_pin_mask) #led off
+        end if
+        
+    end if 
+    
+    # LED1: turn ON if some unrecoverable error has occurred.
+    if unrecoverable_error > 0 then
+        call hardware_write_gpio(led1_bank, led1_pin_mask, $00) #led on
+    else
+        call hardware_write_gpio(led1_bank, led1_pin_mask, led1_pin_mask) #led off
+    end if
+end 
+
+
+# Software timer event - generated when software timer runs out
+event hardware_soft_timer(handle)
+    
+    # todo: stop timer if tx_num = 0. start timer when tx_num > 0 (in endpoint_data)
+    
+    if handle = 1 then
+        call led_timer()
+        return
+    end if 
+    
+    while tx_num > 0 
+    
+    # send data from TX buffer
+    if tx_num > 20 then
+        tx_size = 20
+    else
+        tx_size = tx_num
+    end if 
+    
+    if (tx_size = 0) then
+         return
+    end if 
+    
+    max_len = 256 - tx_rd # max number of bytes that can be read from FIFO before wrap around
+    
+    # this could be optimized for speed? now optimizing for simplicity..
+    if max_len < tx_size then
+        tx_size = max_len 
+    end if 
+
+    call gatt_server_send_characteristic_notification($ff, xgatt_spp_data, tx_size, tx_fifo(tx_rd:tx_size))(res)
+    
+    # test only: echo data to console
+    ##call endpoint_send(uart_ep, tx_size, tx_fifo(tx_rd:tx_size))
+    
+    if res = 0 then
+        tx_rd = (tx_rd + tx_size) & $ff
+        tx_num = tx_num - tx_size
+    else
+        return
+    end if 
+    
+    end while
+end
+
+
+
+# This event indicates that the value of an attribute in the local GATT database has been changed by a remote GATT client.
+event gatt_server_attribute_value(connection,attribute,att_opcode,offset,value_len, value_data)
+
+    # writes to SPP data characteristic are copied directly to UART 
+    if attribute = xgatt_spp_data then
+        call endpoint_send(uart_ep, value_len, value_data(0:value_len))
+    end if 
+end 
+
+
+# End of BGScript
