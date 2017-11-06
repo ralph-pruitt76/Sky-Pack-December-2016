@@ -275,7 +275,13 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                 if ( BLE_Flag )
                 {
                   // Yes...Build and Send BLE Response NOW.
-                  strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                  sprintf( (char *)tempBffr2, "<STATUS>X:%05d/%05.2f//Y:%05d/%05.2f//Z:%05d/%05.2f</STATUS>", 
+                          imu.accel.named.x, 
+                          SkyPack_CAL_ScaleValue( CAL_IMU_X, imu.accel.named.x),
+                          imu.accel.named.y, 
+                          SkyPack_CAL_ScaleValue( CAL_IMU_Y, imu.accel.named.y),
+                          imu.accel.named.z, 
+                          SkyPack_CAL_ScaleValue( CAL_IMU_Z, imu.accel.named.z) );
                   BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
                 }
                 // Send string to UART..
@@ -307,7 +313,13 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                 if ( BLE_Flag )
                 {
                   // Yes...Build and Send BLE Response NOW.
-                  strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                  sprintf( (char *)tempBffr2, "<STATUS>X:%05d/%05.1f//Y:%05d/%05.1f//Z:%05d/%05.1f</STATUS>", 
+                          imu.gyro.named.x, 
+                          SkyPack_CAL_ScaleValue( CAL_GYRO_X, imu.gyro.named.x),
+                          imu.gyro.named.y, 
+                          SkyPack_CAL_ScaleValue( CAL_GYRO_Y, imu.gyro.named.y),
+                          imu.gyro.named.z, 
+                          SkyPack_CAL_ScaleValue( CAL_GYRO_Z, imu.gyro.named.z) );
                   BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
                 }
                 // Send string to UART..
@@ -339,7 +351,13 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                 if ( BLE_Flag )
                 {
                   // Yes...Build and Send BLE Response NOW.
-                  strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                  sprintf( (char *)tempBffr2, "<STATUS>X:%05d/%05.3f//Y:%05d/%05.3f//Z:%05d/%05.3f</STATUS>", 
+                          imu.mag.named.x, 
+                          SkyPack_CAL_ScaleValue( CAL_MAG_X, imu.mag.named.x),
+                          imu.mag.named.y, 
+                          SkyPack_CAL_ScaleValue( CAL_MAG_Y, imu.mag.named.y),
+                          imu.mag.named.z, 
+                          SkyPack_CAL_ScaleValue( CAL_MAG_Z, imu.mag.named.z) );
                   BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
                 }
                 // Send string to UART..
@@ -370,7 +388,7 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                 if ( BLE_Flag )
                 {
                   // Yes...Build and Send BLE Response NOW.
-                  strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                  sprintf( (char *)tempBffr2, "<STATUS>PRESSURE: %5.3f/%5.3f</STATUS>", value, SkyPack_CAL_ScaleValue( CAL_PRESSURE, value) );
                   BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
                 }
                 // Send string to UART..
@@ -394,7 +412,9 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                 if ( BLE_Flag )
                 {
                   // Yes...Build and Send BLE Response NOW.
-                  strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                  sprintf( (char *)tempBffr2, "<STATUS>TEMPC:%3.1fC/%3.1fC</STATUS>", 
+                          value, 
+                          SkyPack_CAL_ScaleValue( CAL_TEMPC, value) );
                   BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
                 }
                 // Send string to UART..
@@ -416,6 +436,9 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                 if ( BLE_Flag )
                 {
                   // Yes...Build and Send BLE Response NOW.
+                  sprintf( (char *)tempBffr2, "<STATUS>IRRAD:%08d/%08.1f(100lx)</STATUS>", 
+                          irradiance, 
+                          SkyPack_CAL_ScaleValue( CAL_IRRADIANCE, irradiance) );
                   strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
                   BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
                 }
@@ -435,7 +458,9 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
               if ( BLE_Flag )
               {
                 // Yes...Build and Send BLE Response NOW.
-                strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                sprintf( (char *)tempBffr2, "<STATUS>CAP_SNS:%03.2f/%03.2f(Hz/100)</STATUS>", 
+                        (float)(cap.event_freq/100), 
+                        (float)(SkyPack_CAL_ScaleValue( CAL_CAP_SENSE, cap.event_freq)) );
                 BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
               }
               // Send string to UART..
@@ -455,7 +480,11 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
               if ( BLE_Flag )
               {
                 // Yes...Build and Send BLE Response NOW.
-                strcpy( (char *)tempBffr2, "<STATUS>CMD_NOSUPPORT</STATUS>");
+                sprintf( (char *)tempBffr2, "<STATUS>SW_FREQ:%d/%fIDX//%d/%fLVL</STATUS>", 
+                        cap.swept_idx, 
+                        SkyPack_CAL_ScaleValue( CAL_SWPT_FREQ, cap.swept_idx), 
+                        cap.swept_level, 
+                        SkyPack_CAL_ScaleValue( CAL_SWPT_LEVL, cap.swept_level) );
                 BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
               }
               // Send string to UART..

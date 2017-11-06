@@ -146,7 +146,8 @@ HAL_StatusTypeDef LIS3MDL_Read_M_ID(uint8_t *m_id)
  * @brief  Read raw data from LIS3MDL Magnetic sensor output register
  * @param  pData the pointer where the magnetometer raw data are stored
  * @retval HAL_OK in case of success, an error code otherwise
- */
+ * Returned as units...Degrees per second....11/6/17 RP
+ */ 
 HAL_StatusTypeDef LIS3MDL_M_GetAxesRaw(int16_t *pData)
 {
   uint8_t tempReg[2] = {0, 0};
