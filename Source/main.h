@@ -15,10 +15,10 @@
 /* Definition for USARTx's NVIC */
 
 #define BRD_REV         "Rev K.5"               // PCB Revision          
-#define VERSION_NUM     "K.5.8"                 // Monitor Revision
-#define REL_DATE        "Nov 5, 2017"
+#define VERSION_NUM     "K.5.9"                 // Monitor Revision
+#define REL_DATE        "Nov 6, 2017"
 //#define LEGACY_BANNER   "Rev G+ REV C"        // OLD.....Needed to allow Legacy Design to work
-#define LEGACY_BANNER   "K.5.8 11/5/17"        // Needed to allow Legacy Design to work
+#define LEGACY_BANNER   "K.5.9 11/6/17"        // Needed to allow Legacy Design to work
 
 /** 
   * @brief  HAL Status structures definition  

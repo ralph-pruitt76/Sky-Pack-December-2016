@@ -710,7 +710,7 @@ void ProcessSensorState(void)
       if (SkyBrd_Get_UnitsFlag())
         sprintf(characteristic, "<UB8B8 Units=%c10C%c>%03.1f</UB8B8>", '"', '"', (SkyPack_CAL_ScaleValue( CAL_TEMPC, data.temperature )/10) );
       else
-        sprintf(characteristic, "<UB8B8>%05.1f</UB8B8>", (SkyPack_CAL_ScaleValue( CAL_TEMPC, data.temperature )/10) );
+        sprintf(characteristic, "<UB8B8>%03.1f</UB8B8>", (SkyPack_CAL_ScaleValue( CAL_TEMPC, data.temperature )/10) );
       /* Send the temperature to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -742,7 +742,7 @@ void ProcessSensorState(void)
       if (SkyBrd_Get_UnitsFlag())
         sprintf(characteristic, "<UBBBB Units=%c100lx%c>%06.3f</UBBBB>", '"', '"', SkyPack_CAL_ScaleValue( CAL_IRRADIANCE, ((float)data.irradiance/100) ));
       else
-        sprintf(characteristic, "<UBBBB>%08.1f</UBBBB>", SkyPack_CAL_ScaleValue( CAL_IRRADIANCE, data.irradiance ));
+        sprintf(characteristic, "<UBBBB>%06.3f</UBBBB>", SkyPack_CAL_ScaleValue( CAL_IRRADIANCE, ((float)data.irradiance/100) ));
       /* Send the irradiance to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
