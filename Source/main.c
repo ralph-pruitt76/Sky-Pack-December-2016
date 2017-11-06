@@ -208,6 +208,11 @@ void main()
         SkyPack_Reset( FATAL_ERROR );
       //Mntr_Clr();
     }
+    //Turn off LEDs.
+    SkyPack_gpio_Off(BLUE_LED);
+    //SkyPack_gpio_Off(GREEN_LED);
+    SkyPack_gpio_Off(YELLOW_LED);
+
     /* Sleep when we have nothing to process */
     //PWR_EnterSleepMode(PWR_Regulator_ON, PWR_SLEEPEntry_WFI);
   }

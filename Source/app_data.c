@@ -724,9 +724,9 @@ void ProcessSensorState(void)
       data.pressure = TmpData.pressure;
 
       if (SkyBrd_Get_UnitsFlag())
-        sprintf(characteristic, "<UBEBE Units=%c10mbr%c>%06.3f</UBEBE>", '"', '"', SkyPack_CAL_ScaleValue( CAL_PRESSURE, data.pressure ));
+        sprintf(characteristic, "<UBEBE Units=%c10mbr%c>%6.3f</UBEBE>", '"', '"', SkyPack_CAL_ScaleValue( CAL_PRESSURE, data.pressure ));
       else
-        sprintf(characteristic, "<UBEBE>%06.3f</UBEBE>", SkyPack_CAL_ScaleValue( CAL_PRESSURE, data.pressure ));
+        sprintf(characteristic, "<UBEBE>%6.3f</UBEBE>", SkyPack_CAL_ScaleValue( CAL_PRESSURE, data.pressure ));
       /* Send the pressure to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -740,9 +740,9 @@ void ProcessSensorState(void)
       data.irradiance = TmpData.irradiance;
 
       if (SkyBrd_Get_UnitsFlag())
-        sprintf(characteristic, "<UBBBB Units=%c100lx%c>%06.3f</UBBBB>", '"', '"', SkyPack_CAL_ScaleValue( CAL_IRRADIANCE, ((float)data.irradiance/100) ));
+        sprintf(characteristic, "<UBBBB Units=%c100lx%c>%6.3f</UBBBB>", '"', '"', SkyPack_CAL_ScaleValue( CAL_IRRADIANCE, ((float)data.irradiance/100) ));
       else
-        sprintf(characteristic, "<UBBBB>%06.3f</UBBBB>", SkyPack_CAL_ScaleValue( CAL_IRRADIANCE, ((float)data.irradiance/100) ));
+        sprintf(characteristic, "<UBBBB>%6.3f</UBBBB>", SkyPack_CAL_ScaleValue( CAL_IRRADIANCE, ((float)data.irradiance/100) ));
       /* Send the irradiance to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -756,9 +756,9 @@ void ProcessSensorState(void)
       data.cap.event_freq = TmpData.cap.event_freq;
 
       if (SkyBrd_Get_UnitsFlag())
-        sprintf(characteristic, "<UBCBC Units=%cEvts%c>%03.2f</UBCBC>", '"', '"', (SkyPack_CAL_ScaleValue( CAL_CAP_SENSE, data.cap.event_freq )/100));
+        sprintf(characteristic, "<UBCBC Units=%cEvts%c>%3.2f</UBCBC>", '"', '"', (SkyPack_CAL_ScaleValue( CAL_CAP_SENSE, data.cap.event_freq )/100));
       else
-        sprintf(characteristic, "<UBCBC>%03.2f</UBCBC>", (SkyPack_CAL_ScaleValue( CAL_CAP_SENSE, data.cap.event_freq )/100));
+        sprintf(characteristic, "<UBCBC>%3.2f</UBCBC>", (SkyPack_CAL_ScaleValue( CAL_CAP_SENSE, data.cap.event_freq )/100));
       /* Send the cap sense event frequency to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
