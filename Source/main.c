@@ -30,6 +30,16 @@ void main()
   // Test LEDs
   SkyPack_LEDTest();
   
+  // Kill I2C Channel.
+  I2C_LowLevel_DeInit();
+  
+  // Turn off All Power supplies and wait 1 second to clear any unknown states on Power.
+  SkyPack_gpio_On(gVDD_PWR);            // Turn off VDD(I2C Sensors).
+  delay_100msec(2);                     // Wait 200 msec to settle.
+  SkyPack_gpio_On(gBGM_PWR);            // Turn off V+(BGM Power).
+  
+  delay_100msec(10);                     // Wait 1 Second for Caps to drain.
+
   // Turn on Power Supplies.
   SkyPack_gpio_Off(gVDD_PWR);            // Turn on VDD(I2C Sensors).
   delay_100msec(2);                     // Wait 200 msec to settle.
@@ -99,6 +109,11 @@ void main()
   if ( Get_DriverStates( I2C_STATE ) )
   {
     InitSensors();
+  }
+  else
+  {
+    // OK no I2C but need a minimal functionality.
+    minimal_InitSensors();
   }
   
   // Initialize key app vars.

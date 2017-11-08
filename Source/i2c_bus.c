@@ -30,8 +30,8 @@ HAL_StatusTypeDef SkyPack_TestI2C( void )
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
   GPIO_Init(GPIOB, &GPIO_InitStructure);
 
-  // Wait for Hardware to stabilize....10ms
-  delay_10ms();;
+  // Wait for Hardware to stabilize....100ms
+  delay_100ms();;
   
   // Test I2C Clock
   if ( HAL_GPIO_ReadPin( GPIOB, I2C_SCL_Pin) == GPIO_PIN_RESET )
@@ -429,6 +429,42 @@ HAL_StatusTypeDef I2C_LowLevel_Init(void)
   
   /* LSM303DLHC_I2C Peripheral Enable */
   I2C_Cmd(I2C, ENABLE);
+  
+  return HAL_OK;
+}  
+
+/**
+* @brief  De-Initializes the low level interface used to drive the I2C bus.
+* @param  None
+* @retval HAL_StatusTypeDef:     HAL_OK:       Tasking of block of data to I2C success.
+*/
+HAL_StatusTypeDef I2C_LowLevel_DeInit(void)
+{
+  GPIO_InitTypeDef GPIO_InitStructure;
+
+  /* Apply LSM303DLHC_I2C configuration after enabling it */
+  I2C_DeInit(I2C);
+
+  /* I2C SCK pin configuration */
+  // I2C_SCK_PIN  pin configuration.
+  GPIO_InitStructure.GPIO_Pin = I2C_SCK_PIN;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(I2C_GPIO_PORT, &GPIO_InitStructure);
+
+  /* I2C SDA pin configuration */
+  // I2C_SDA_PIN  pin configuration.
+  GPIO_InitStructure.GPIO_Pin = I2C_SDA_PIN;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(I2C_GPIO_PORT, &GPIO_InitStructure);
+  
+  /* LSM303DLHC_I2C Peripheral Enable */
+  //I2C_Cmd(I2C, ENABLE);
   
   return HAL_OK;
 }  

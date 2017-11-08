@@ -34,6 +34,7 @@ typedef enum
 
 #define FRM_REPEAT_CNT          5       // Repeat the full set of data at least this many times.
 #define TICK_LIMIT              1       // Number Frames per Tick Event.
+#define CANARY_CNT_LIMIT        1000000   // Loop 1,000,000 times through app loop without valid data good.
 
 #ifdef LONG_DELAY
   #define CONNECTION_CNT          4500     // 15 Minutes.
@@ -96,5 +97,6 @@ void Clr_CMD_Md_Cnt( void );
 void Update_TimeCnt( void );
 uint32_t Read_TimeCnt( void );
 char *getTickString( void );
+void minimal_InitSensors(void);
 
 #endif

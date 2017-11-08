@@ -372,6 +372,75 @@ void ClrDataStructure(void)
   data.cap.swept_idx = 0xffff;
 }
 
+/* Minimal Init sensors with no I2C */
+
+void minimal_InitSensors(void)
+{
+//  HAL_StatusTypeDef Status;
+
+  data.Legacy_OneTime = true;                   // Clear Legacy One time flag so that we can set key characteristics...once.
+  ClrDataStructure();                           // Clear Backup data structure.
+  analytics.HrtBeat_Flg = false;                // Set flasg to clear before using it.
+  analytics.TimeCnt = 0;                        // Initialize Baseline TimeCnt to 0.
+  analytics.HrtBeat_Cnt = 0;                    // Clear count before using it.
+  analytics.FrmRpt_Cnt = 0;                     // Clear Frame Repeat Count.
+  analytics.CMD_Md_Cnt = 0;                     // Clear CMD_Md_Cnt.
+  
+  // Preset some data to force a sample.
+  data.imu.accel.named.x = 0xffff;
+  data.imu.gyro.named.x = 0xffff;
+  data.imu.mag.named.x = 0xffff;
+  data.temperature = 0xffff;
+  data.pressure = 0xffff;
+  data.irradiance = 0xffff;
+  data.cap.event_freq = 0xffff;
+  data.cap.swept_idx = 0xffff;
+
+  /* Initialize the I2C peripheral */
+  //I2C_LowLevel_Init();
+  
+  /* Initialize I2C connected sensors for the application */
+  //Status = InitIMUSensors();
+  //if (Status == HAL_OK)
+  //{
+  //  Set_DriverStates( IMU_STATE_TASK, DRIVER_ON );
+  //}
+  //else
+  //{
+  //  SkPck_ErrCdLogErrCd( ERROR_IMU_INIT, MODULE_AppData );
+  //  Set_DriverStates( IMU_STATE_TASK, DRIVER_OFF );
+  //}
+  //Status = InitPressureTempSensor();
+  //if (Status == HAL_OK)
+  //{
+  //  Set_DriverStates( PRESSURE_MNTR_TASK, DRIVER_ON );
+  //}
+  //else
+  //{
+  // SkPck_ErrCdLogErrCd( ERROR_PRESSURE_INIT, MODULE_AppData );
+  //  Set_DriverStates( PRESSURE_MNTR_TASK, DRIVER_OFF );
+  //}
+  //Status = InitIrradianceSensor();
+  //if (Status == HAL_OK)
+  //{
+  //  Set_DriverStates( IRRADIANCE_MNTR_TASK, DRIVER_ON );
+  //}
+  //else
+  //{
+  //  SkPck_ErrCdLogErrCd( ERROR_ILL_INIT, MODULE_AppData );
+  //  Set_DriverStates( IRRADIANCE_MNTR_TASK, DRIVER_OFF );
+  //}
+  
+  /* Initialize misc sensors we run from the micro */
+  // Actually. This enables the Cap Sense Code.
+#ifndef NO_CAP
+  MiscSensors_Init();
+#endif
+  
+  /* Initialize the sample timer */
+  InitSampleTimer();
+}
+
 /* Initialize all sensors */
 
 void InitSensors(void)
@@ -481,6 +550,7 @@ void SAMPLE_TIM_IRQHandler(void)
 void ProcessSensorState(void)
 {
   char tempstr[30];
+  static uint32_t canary_cnt=0;
   uint8_t tempBffr2[80];
   static int TimeTagCnt = 0;
   HAL_StatusTypeDef Status;
@@ -488,7 +558,23 @@ void ProcessSensorState(void)
 //  uint8_t tempStr[13];
   uint8_t tempbffr[30];
   static int nullCnt = 0;
- 
+  // Canary Test of Valid Connection
+  if ( (!(data.reading_scheduled)) &&
+      (BGM111_Ready()) &&
+      (BGM111_Connected()) )
+  {
+    canary_cnt++;
+    if (canary_cnt > CANARY_CNT_LIMIT)
+    {
+      // Process Error and Reset.
+      // We have detected a ERROR_APP_CNRYCNCT error on App Code...Log it!
+      SkPck_ErrCdLogErrCd(  ERROR_APP_CNRYCNCT, MODULE_AppData );
+      SkyPack_Reset( ERROR_APP_CNRYCNCT );
+    }
+  }
+  else
+    canary_cnt = 0;
+  
   // Is CMD_Mode active?
   if ( (data.reading_scheduled) &&
       (BGM111_Ready()) &&
