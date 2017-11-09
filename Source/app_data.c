@@ -991,14 +991,14 @@ void SkyPack_Reset( int code )
   }
   //SetLED(true);
   SkyPack_gpio_On(BLUE_LED);
-  delay_100msec(10);
+  delay_100msec(2);
   //SetLED(false
   SkyPack_gpio_Off(BLUE_LED);
-  delay_100msec(10);
+  delay_100msec(2);
   // Alternate way to reset....Power Down Power Plane.
 #ifndef DISABLE_HARD_REBOOT
   SetUSBPower( USB_POWER_OFF );
-  delay_100msec(100);
+  delay_100msec(10);
 #endif
   
   // Reset Micro and Start Over...
