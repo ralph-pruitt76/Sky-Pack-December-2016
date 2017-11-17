@@ -71,7 +71,13 @@ HAL_StatusTypeDef OPT3001_Init(OPT3001_InitTypeDef *OPT3001_InitStruct)
 
 uint32_t OPT3001_GetData(void)
 {
-  return fromFracExp(OPT3001_ReadReg(OPT3001_RESULT_ADDR));
+  uint16_t Data_Value;
+  // Updates to Catch I2C Errors.
+  Data_Value = OPT3001_ReadReg(OPT3001_RESULT_ADDR);
+  if (Data_Value == 0xffff)
+    return Data_Value;
+  else
+    return fromFracExp(Data_Value);
 }
 
 /* Status functions */

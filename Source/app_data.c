@@ -550,6 +550,7 @@ void SAMPLE_TIM_IRQHandler(void)
 void ProcessSensorState(void)
 {
   char tempstr[30];
+  uint16_t Data_Value;
   static uint32_t canary_cnt=0;
   uint8_t tempBffr2[80];
   static int TimeTagCnt = 0;
@@ -558,6 +559,16 @@ void ProcessSensorState(void)
 //  uint8_t tempStr[13];
   uint8_t tempbffr[30];
   static int nullCnt = 0;
+  // Test Sensor State. Iff all Sensors Down, Time to reboot.
+  if (!( Get_DriverStates( IRRADIANCE_MNTR_TASK )))
+  {
+    // Time to Reboot....I2C Failure!!!.
+    // Time to process error and reset code....NO Choice.
+    SkyPack_MNTR_UART_Transmit( (uint8_t *)"<I2C_FAILURE_IRRADIANCE>" );
+    SkPck_ErrCdLogErrCd( ERROR_I2CBUSY, MODULE_AppData );
+    Clr_HrtBeat_Cnt();
+    SkyPack_Reset( ERROR_I2CBUSY );
+  }
   // Canary Test of Valid Connection
   if ( (!(data.reading_scheduled)) &&
       (BGM111_Ready()) &&
@@ -692,6 +703,14 @@ void ProcessSensorState(void)
     /* Read the irradiance in 1/100 lux */
     if ( Get_DriverStates( IRRADIANCE_MNTR_TASK ))
     {
+      Data_Value = OPT3001_GetData();
+      // Test for error Condition and fail the Channel
+      if (Data_Value == 0xffff)
+      {
+        Data_Value = 0;
+        Set_DriverStates( IRRADIANCE_MNTR_TASK, DRIVER_OFF);
+      }
+        
       TmpData.irradiance = OPT3001_GetData();
     }
     // Build Display String from value.
