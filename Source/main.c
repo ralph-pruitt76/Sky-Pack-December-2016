@@ -37,8 +37,12 @@ void main()
   SkyPack_gpio_On(gVDD_PWR);            // Turn off VDD(I2C Sensors).
   delay_100msec(2);                     // Wait 200 msec to settle.
   SkyPack_gpio_On(gBGM_PWR);            // Turn off V+(BGM Power).
+#ifndef DISABLE_HARD_REBOOT
+  delay_100msec(2);                     // Wait 200 msec to settle.
+  SetUSBPower( USB_POWER_OFF );
+#endif
   
-  delay_100msec(10);                     // Wait 1 Second for Caps to drain.
+  delay_100msec(100);                    // Wait 10 Seconds for Caps to drain.
 
   // Turn on Power Supplies.
   SkyPack_gpio_Off(gVDD_PWR);            // Turn on VDD(I2C Sensors).
@@ -113,7 +117,13 @@ void main()
   else
   {
     // OK no I2C but need a minimal functionality.
-    minimal_InitSensors();
+    //minimal_InitSensors();
+    // If Illuminance has failed....Must Reset.
+    // Time to Reboot....I2C Failure!!!.
+    // Time to process error and reset code....NO Choice.
+    SkyPack_MNTR_UART_Transmit( (uint8_t *)"<I2C_FAILURE_I2CTEST>" );
+    SkPck_ErrCdLogErrCd( ERROR_I2CBUSY, MODULE_main );
+    SkyPack_Reset( ERROR_I2CBUSY );
   }
   
   // Initialize key app vars.

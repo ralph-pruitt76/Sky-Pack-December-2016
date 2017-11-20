@@ -922,6 +922,16 @@ void ProcessSensorState(void)
     BGM111_Transmit((uint32_t)(strlen((char *)"</FRM>")), "</FRM>");
     sprintf( (char *)tempBffr2, " \r\n\r\n");
     SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+      // Test Sensor State. Iff all Sensors Down, Time to reboot.
+    if (!( Get_DriverStates( IRRADIANCE_MNTR_TASK )))
+    {
+      // Time to Reboot....I2C Failure!!!.
+      // Time to process error and reset code....NO Choice.
+      SkyPack_MNTR_UART_Transmit( (uint8_t *)"<I2C_FAILURE_IRRADIANCE>" );
+      SkPck_ErrCdLogErrCd( ERROR_I2CBUSY, MODULE_AppData );
+      Clr_HrtBeat_Cnt();
+      SkyPack_Reset( ERROR_I2CBUSY );
+    }
  } // EndIf (data.reading_scheduled)
 }
 
@@ -1017,7 +1027,7 @@ void SkyPack_Reset( int code )
   // Alternate way to reset....Power Down Power Plane.
 #ifndef DISABLE_HARD_REBOOT
   SetUSBPower( USB_POWER_OFF );
-  delay_100msec(10);
+//  delay_100msec(100);
 #endif
   
   // Reset Micro and Start Over...
