@@ -15,7 +15,7 @@ TraceBufferSize=0x00010000
 TraceStallIfFIFOFull=0x00000000
 TracePortSize=0x00000004
 [DebugChecksum]
-Checksum=-292083760
+Checksum=-151406338
 [CodeCoverage]
 Enabled=_ 0
 [Exceptions]
@@ -107,7 +107,8 @@ Bp2=_ 0 "EMUL_CODE" "{$PROJ_DIR$\Source\app_data.c}.156.11" 0 0 1 "" 0 "" 0
 Bp3=_ 0 "EMUL_CODE" "{$PROJ_DIR$\Source\lsm6ds3.c}.202.3" 0 0 1 "" 0 "" 0
 Bp4=_ 0 "EMUL_CODE" "{$PROJ_DIR$\Source\i2c_bus.c}.275.3" 0 0 1 "" 0 "" 0
 Bp5=_ 0 "EMUL_CODE" "{$PROJ_DIR$\Source\bgm111.c}.458.9" 0 0 1 "" 0 "" 0
-Count=6
+Bp6=_ 0 "EMUL_CODE" "{$PROJ_DIR$\Source\app_data.c}.1034.3" 0 0 1 "" 0 "" 0
+Count=7
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""

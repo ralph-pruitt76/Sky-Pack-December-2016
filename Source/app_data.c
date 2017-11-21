@@ -1027,7 +1027,7 @@ void SkyPack_Reset( int code )
   // Alternate way to reset....Power Down Power Plane.
 #ifndef DISABLE_HARD_REBOOT
   SetUSBPower( USB_POWER_OFF );
-//  delay_100msec(100);
+  delay_100msec(50);
 #endif
   
   // Reset Micro and Start Over...

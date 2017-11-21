@@ -37,10 +37,6 @@ void main()
   SkyPack_gpio_On(gVDD_PWR);            // Turn off VDD(I2C Sensors).
   delay_100msec(2);                     // Wait 200 msec to settle.
   SkyPack_gpio_On(gBGM_PWR);            // Turn off V+(BGM Power).
-#ifndef DISABLE_HARD_REBOOT
-  delay_100msec(2);                     // Wait 200 msec to settle.
-  SetUSBPower( USB_POWER_OFF );
-#endif
   
   delay_100msec(100);                    // Wait 10 Seconds for Caps to drain.
 
