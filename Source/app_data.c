@@ -559,16 +559,6 @@ void ProcessSensorState(void)
 //  uint8_t tempStr[13];
   uint8_t tempbffr[30];
   static int nullCnt = 0;
-  // Test Sensor State. Iff all Sensors Down, Time to reboot.
-  if (!( Get_DriverStates( IRRADIANCE_MNTR_TASK )))
-  {
-    // Time to Reboot....I2C Failure!!!.
-    // Time to process error and reset code....NO Choice.
-    SkyPack_MNTR_UART_Transmit( (uint8_t *)"<I2C_FAILURE_IRRADIANCE>" );
-    SkPck_ErrCdLogErrCd( ERROR_I2CBUSY, MODULE_AppData );
-    Clr_HrtBeat_Cnt();
-    SkyPack_Reset( ERROR_I2CBUSY );
-  }
   // Canary Test of Valid Connection
   if ( (!(data.reading_scheduled)) &&
       (BGM111_Ready()) &&
@@ -709,6 +699,7 @@ void ProcessSensorState(void)
       {
         Data_Value = 0;
         Set_DriverStates( IRRADIANCE_MNTR_TASK, DRIVER_OFF);
+        SkPck_ErrCdLogErrCd( ERROR_ILL_ERR, MODULE_AppData );
       }
         
       TmpData.irradiance = OPT3001_GetData();
@@ -733,7 +724,8 @@ void ProcessSensorState(void)
       {
         nullCnt = 0;
         // Oops...Detected a fatal error...RESET!!!
-        SkyPack_Reset( FATAL_I2CDROP );
+        // ****HERE****
+        //SkyPack_Reset( FATAL_I2CDROP ); // New K.5.14 No Need. RP
       }
     }
     
@@ -923,15 +915,6 @@ void ProcessSensorState(void)
     sprintf( (char *)tempBffr2, " \r\n\r\n");
     SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
       // Test Sensor State. Iff all Sensors Down, Time to reboot.
-    if (!( Get_DriverStates( IRRADIANCE_MNTR_TASK )))
-    {
-      // Time to Reboot....I2C Failure!!!.
-      // Time to process error and reset code....NO Choice.
-      SkyPack_MNTR_UART_Transmit( (uint8_t *)"<I2C_FAILURE_IRRADIANCE>" );
-      SkPck_ErrCdLogErrCd( ERROR_I2CBUSY, MODULE_AppData );
-      Clr_HrtBeat_Cnt();
-      SkyPack_Reset( ERROR_I2CBUSY );
-    }
  } // EndIf (data.reading_scheduled)
 }
 
@@ -1204,6 +1187,19 @@ void Set_DriverStates( task_defs Task, bool State )
     break;
   default:
     break;
+  }
+  // Test for I2C Bus Failure by checking status of Sensors. 
+  if ((driver_list.IMUSense == false) &&
+      (driver_list.Irradiance == false) &&
+      (driver_list.Pressure == false) &&
+      (Task != FRAME_TASK) &&
+      (Task != CAL_TASK) &&
+      (Task != I2C_STATE) )
+  {
+    // Fail I2C Channel.
+    driver_list.I2CState = false;
+    // Now report failure.
+    SkPck_ErrCdLogErrCd( ERROR_I2CBUSY, MODULE_AppData );
   }
 }
 

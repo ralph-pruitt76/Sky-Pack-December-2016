@@ -67,6 +67,7 @@ typedef enum
   ERROR_CAL_INIT        = 0x0011,               // Could not Initialize Calibration Flash Structure.
   ERROR_BGM_SYNCCNCT    = 0x0012,               // BGM111 processing code has detected a SYNC Connection Dropped Event.
   ERROR_APP_CNRYCNCT    = 0x0013,               // App Cade has detected a Canary Count Overflow. Timer Int has died.
+  ERROR_ILL_ERR         = 0x0014,               // Illuminance Tasking has failed.
 
   ERROR_END             = 0xffff,       	// End Of Error Code List
 }ErrorCodes;

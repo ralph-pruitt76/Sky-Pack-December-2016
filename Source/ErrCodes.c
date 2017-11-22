@@ -60,7 +60,7 @@ const char * const CodesArray[] = { "       ",                      // CODE 000:
                                     "CALINIT",                      // CODE 017: Could not Initialize Calibration Flash Structure.
                                     "BGMSCNC",                      // CODE 018: BGM111 processing code has detected a SYNC Connection Dropped Event.
                                     "APPCNRY",                      // CODE 019: App Cade has detected a Canary Count Overflow. Timer Int has died.
-                                    "       ",                      // CODE 020: NULL...
+                                    "ILLM_ER",                      // CODE 020: Illuminance Tasking has failed.
                                     "       ",                      // CODE 021: NULL...
                                     "       ",                      // CODE 022: NULL...
                                     "       ",                      // CODE 023: NULL...
@@ -229,10 +229,25 @@ HAL_StatusTypeDef SkPck_ErrCdLogErrCd( ErrorCodes ErrorCd, ModuleCodes DeviceCd 
   errStruct.error_wr = RBNextBufIdx(errStruct.error_wr);
   //strcpy( (char *)tempBffr2, "ERROR: ERROR_I2CBUSY\r\n\r\n");
   //strcpy( (char *)tempBffr2, CodesArray[ErrorCd]);
-  sprintf( (char *)tempBffr2, "%s ERROR: %s\r\n\r\n", ModuleArray[DeviceCd], CodesArray[ErrorCd]);
+  sprintf( (char *)tempBffr2, "%s ERROR: %s\r\n", ModuleArray[DeviceCd], CodesArray[ErrorCd]);
   // Send string to UART..
   Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2);
   
+  // Only Generate BLEHD messages once BLEHD Channel active.
+  if ( BGM111_DataConnected())
+  {
+    // Generate BLEHD Status Message
+    sprintf( (char *)tempBffr2, "<STATUS>%s ERROR: %s</STATUS>",
+            ModuleArray[DeviceCd],
+            CodesArray[ErrorCd]);
+    Status = SkyPack_MNTR_UART_Transmit((uint8_t *) tempBffr2);
+    if (Status != HAL_OK)
+      return Status;
+    Status = SkyPack_MNTR_UART_Transmit((uint8_t *) "\r\n\r\n");
+    if (Status != HAL_OK)
+      return Status;
+    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), tempBffr2);
+  }
   return Status;
 }
 

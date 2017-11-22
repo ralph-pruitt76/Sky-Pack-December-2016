@@ -119,7 +119,7 @@ void main()
     // Time to process error and reset code....NO Choice.
     SkyPack_MNTR_UART_Transmit( (uint8_t *)"<I2C_FAILURE_I2CTEST>" );
     SkPck_ErrCdLogErrCd( ERROR_I2CBUSY, MODULE_main );
-    SkyPack_Reset( ERROR_I2CBUSY );
+    //SkyPack_Reset( ERROR_I2CBUSY );   // New K.5.14 No Need. RP
   }
   
   // Initialize key app vars.
