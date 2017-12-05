@@ -190,6 +190,7 @@
           <state>LONG_DELAY</state>
           <state>STM32L151CBT6</state>
           <state>XML_SHRT</state>
+          <state>DISABLE_HARD_REBOOT</state>
         </option>
         <option>
           <name>CCPreprocFile</name>

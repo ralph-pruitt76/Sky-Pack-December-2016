@@ -701,8 +701,7 @@ void ProcessSensorState(void)
         Set_DriverStates( IRRADIANCE_MNTR_TASK, DRIVER_OFF);
         SkPck_ErrCdLogErrCd( ERROR_ILL_ERR, MODULE_AppData );
       }
-        
-      TmpData.irradiance = OPT3001_GetData();
+      TmpData.irradiance = Data_Value;
     }
     // Build Display String from value.
     //sprintf( (char *)tempBffr2, "<%5dlx>", data.irradiance);

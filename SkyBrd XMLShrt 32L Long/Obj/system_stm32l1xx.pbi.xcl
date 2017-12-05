@@ -30,6 +30,7 @@ C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.4\arm\CMSIS\Include
 -DLONG_DELAY=1
 -DSTM32L151CBT6=1
 -DXML_SHRT=1
+-DDISABLE_HARD_REBOOT=1
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0
