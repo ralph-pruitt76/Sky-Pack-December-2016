@@ -70,6 +70,7 @@ HAL_StatusTypeDef I2C_Write16bitBE(uint8_t DeviceAddr, uint8_t RegAddr, uint16_t
 uint16_t I2C_Read16bitBE(uint8_t DeviceAddr, uint8_t RegAddr);
 
 HAL_StatusTypeDef SkyPack_TestI2C( void );
+HAL_StatusTypeDef SkyPack_I2CRepair( void );
 HAL_StatusTypeDef WAIT_FOR_I2C_EVENT(uint32_t ev);
 HAL_StatusTypeDef I2C_LowLevel_DeInit(void);
 

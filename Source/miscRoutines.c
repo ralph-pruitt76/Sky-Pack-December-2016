@@ -50,7 +50,8 @@ GPIO_TypeDef* SkyPack_LED_PORT[SkyPack_LEDn] = {STATUS_LED_GPIO_PORT,
                                                 BGM_ON_GPIO_PORT,
                                                 RESET_BGM111_GPIO_PORT,
                                                 CHARGE_ON_GPIO_PORT,
-                                                HEAT_ON_GPIO_PORT};
+                                                HEAT_ON_GPIO_PORT,
+                                                GPIOB};
 
 const uint16_t SkyPack_LED_PIN[SkyPack_LEDn] = {STATUS_LED_PIN, 
                                                 BLUE_PIN, 
@@ -60,7 +61,8 @@ const uint16_t SkyPack_LED_PIN[SkyPack_LEDn] = {STATUS_LED_PIN,
                                                 BGM_ON_PIN,
                                                 RESET_BGM111_PIN,
                                                 CHARGE_ON_PIN,
-                                                HEAT_ON_PIN};
+                                                HEAT_ON_PIN,
+                                                I2C_SCL_Pin};
 
     
 /**

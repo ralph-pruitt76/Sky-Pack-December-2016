@@ -52,6 +52,12 @@ void main()
 
   // Test I2C Channel and see if we even have a working I2C.
   SkyPack_TestI2C();
+
+  // Test for I2C Failure then attempt a repair.
+  if ( Get_DriverStates( I2C_STATE ) )
+  {
+    SkyPack_I2CRepair();
+  }
   
   //**
   //**

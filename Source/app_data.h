@@ -80,6 +80,7 @@ void Flicker_Led( void );
 void SkyPack_Reset( int code );
 void Reset_DriverStates( void );
 void Set_DriverStates( task_defs Task, bool State );
+void SetTest_DriverStates( task_defs Task, bool State );
 bool Get_DriverStates( task_defs Task );
 uint16_t Get_DriverStatus( void );
 void Test_Connection( void );

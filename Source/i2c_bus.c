@@ -10,6 +10,75 @@
 #include "stdbool.h"
 
 /**
+  * @brief  Attempts to Clear I2C channel Data Pin by pulsing SDA Line 9 times.
+  * @param None.
+  * @retval HAL_StatusTypeDef:     HAL_OK:       Tasking of block of data to I2C success.
+  *                                HAL_ERROR:    Error found in Tasking or data passed.
+  */
+HAL_StatusTypeDef SkyPack_I2CRepair( void )
+{
+  GPIO_InitTypeDef GPIO_InitStructure;
+  HAL_StatusTypeDef Status;
+  int x;
+  
+  Status = HAL_OK;
+
+  GPIO_InitStructure.GPIO_Pin = I2C_SDA_Pin;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+
+  // Wait for Hardware to stabilize....10ms
+  delay_10ms();
+  
+  GPIO_InitStructure.GPIO_Pin = I2C_SCL_Pin;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOB, &GPIO_InitStructure);
+
+  // Wait for Hardware to stabilize....100ms
+  delay_100ms();;
+  
+  // Now...Pulse SDA Pin 9 Times.
+  for (x=0; x<9; x++)
+  {
+    SkyPack_gpio_Off(gI2C_CLK);  // Set Clock Low.
+    delay_10ms();               // Wait 10ms;
+    SkyPack_gpio_On(gI2C_CLK);   // Set Clock High.
+    delay_10ms();               // Wait 10ms;
+  }
+  
+  // Finally Reset Clock LOW.
+  SkyPack_gpio_Off(gI2C_CLK);  // Set Clock Low.
+  
+  // Wait for Hardware to stabilize....100ms
+  delay_100ms();;
+
+  // Test Data Pin State.
+    if ( HAL_GPIO_ReadPin( GPIOB, I2C_SDA_Pin) == GPIO_PIN_RESET)
+    {
+      Status = HAL_ERROR;
+    }
+    else
+    {
+      // If High, Then we have been succesful. Time to Indicate Repaired and Init I2C BUS.
+      SkPck_ErrCdLogErrCd( REPAIR_I2C, MODULE_i2c );
+      // Enable all I2C Sensors.
+      //Set_DriverStates( I2C_STATE, DRIVER_ON );
+      //Set_DriverStates( IMU_STATE_TASK, DRIVER_ON );
+      //Set_DriverStates( IRRADIANCE_MNTR_TASK, DRIVER_ON );
+      //Set_DriverStates( PRESSURE_MNTR_TASK, DRIVER_ON );
+      // Now Reinit I2C Bus.
+      //I2C_LowLevel_Init();
+      
+      Status = HAL_OK;
+    }
+  return Status;
+}
+
+/**
   * @brief  Tests I2C channel and sets error codes if failed.
   * @param None.
   * @retval HAL_StatusTypeDef:     HAL_OK:       Tasking of block of data to I2C success.

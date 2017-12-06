@@ -673,7 +673,7 @@ void ProcessSensorState(void)
       else
       {
         SkPck_ErrCdLogErrCd( ERROR_IMU_ERR, MODULE_AppData );
-        Set_DriverStates( IMU_STATE_TASK, DRIVER_OFF );
+        SetTest_DriverStates( IMU_STATE_TASK, DRIVER_OFF );
       }
     }
     /* Read the pressure and temperature */
@@ -687,7 +687,7 @@ void ProcessSensorState(void)
       else
       {
         SkPck_ErrCdLogErrCd( ERROR_PRESSURE_ERR, MODULE_AppData );
-        Set_DriverStates( PRESSURE_MNTR_TASK, DRIVER_OFF );
+        SetTest_DriverStates( PRESSURE_MNTR_TASK, DRIVER_OFF );
       }
     }
     /* Read the irradiance in 1/100 lux */
@@ -698,7 +698,7 @@ void ProcessSensorState(void)
       if (Data_Value == 0xffff)
       {
         Data_Value = 0;
-        Set_DriverStates( IRRADIANCE_MNTR_TASK, DRIVER_OFF);
+        SetTest_DriverStates( IRRADIANCE_MNTR_TASK, DRIVER_OFF);
         SkPck_ErrCdLogErrCd( ERROR_ILL_ERR, MODULE_AppData );
       }
       TmpData.irradiance = Data_Value;
@@ -852,9 +852,9 @@ void ProcessSensorState(void)
       data.cap.event_freq = TmpData.cap.event_freq;
 
       if (SkyBrd_Get_UnitsFlag())
-        sprintf(characteristic, "<UBCBC Units=%cEvts%c>%3.2f</UBCBC>", '"', '"', (SkyPack_CAL_ScaleValue( CAL_CAP_SENSE, data.cap.event_freq )/100));
+        sprintf(characteristic, "<UBCBC Units=%cEvts%c>%03.2f</UBCBC>", '"', '"', (SkyPack_CAL_ScaleValue( CAL_CAP_SENSE, data.cap.event_freq )/100));
       else
-        sprintf(characteristic, "<UBCBC>%3.2f</UBCBC>", (SkyPack_CAL_ScaleValue( CAL_CAP_SENSE, data.cap.event_freq )/100));
+        sprintf(characteristic, "<UBCBC>%03.2f</UBCBC>", (SkyPack_CAL_ScaleValue( CAL_CAP_SENSE, data.cap.event_freq )/100));
       /* Send the cap sense event frequency to the BLE module */
       SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
@@ -1187,6 +1187,38 @@ void Set_DriverStates( task_defs Task, bool State )
   default:
     break;
   }
+}
+
+  /**
+  * @brief  This function updates the Driver list based on parameter passed and tests for I2C Failure.
+  * @param  task_defs Task: Driver State to be modified, bool New State for Driver
+  * @retval None
+  */
+void SetTest_DriverStates( task_defs Task, bool State )
+{
+  switch(Task)
+  {
+  case IMU_STATE_TASK:
+    driver_list.IMUSense = State;
+    break;
+  case IRRADIANCE_MNTR_TASK:
+    driver_list.Irradiance = State;
+    break;
+  case PRESSURE_MNTR_TASK:
+    driver_list.Pressure = State;
+    break;
+  case I2C_STATE:
+    driver_list.I2CState = State;
+    break;
+  case FRAME_TASK:
+    driver_list.FrameState = State;
+    break;
+  case CAL_TASK:
+    driver_list.CalibrationState = State;
+    break;
+  default:
+    break;
+  }
   // Test for I2C Bus Failure by checking status of Sensors. 
   if ((driver_list.IMUSense == false) &&
       (driver_list.Irradiance == false) &&
@@ -1199,6 +1231,18 @@ void Set_DriverStates( task_defs Task, bool State )
     driver_list.I2CState = false;
     // Now report failure.
     SkPck_ErrCdLogErrCd( ERROR_I2CBUSY, MODULE_AppData );
+    //OH NO...I2C Failure...Attempt repair before failure.
+    if (SkyPack_I2CRepair() == HAL_OK)
+    {
+      // Enable all I2C Sensors.
+      Set_DriverStates( I2C_STATE, DRIVER_ON );
+      Set_DriverStates( IMU_STATE_TASK, DRIVER_ON );
+      Set_DriverStates( IRRADIANCE_MNTR_TASK, DRIVER_ON );
+      Set_DriverStates( PRESSURE_MNTR_TASK, DRIVER_ON );
+      // Now Reinit I2C Bus.
+      I2C_LowLevel_Init();
+    }
+
   }
 }
 
