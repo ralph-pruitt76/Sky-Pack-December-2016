@@ -655,7 +655,28 @@ void ProcessSensorState(void)
         SkyPack_MNTR_UART_Transmit( (uint8_t *) tempBffr2);
         BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), tempBffr2);
       }
-    }
+      
+      // Test I2C Channel and attempt repair if failed.
+      if ( !(Get_DriverStates( I2C_STATE )) )
+      {
+        if ((SkyPack_I2CRepair()) == HAL_OK)
+        {
+          SkPck_ErrCdLogErrCd( REPAIR_I2C, MODULE_AppData );
+          // Enable all I2C Sensors.
+          Set_DriverStates( I2C_STATE, DRIVER_ON );
+          Set_DriverStates( IMU_STATE_TASK, DRIVER_ON );
+          Set_DriverStates( IRRADIANCE_MNTR_TASK, DRIVER_ON );
+          Set_DriverStates( PRESSURE_MNTR_TASK, DRIVER_ON );
+          // Now Reinit I2C Bus.
+          I2C_LowLevel_Init();
+        } // EndIf ((SkyPack_I2CRepair()) == HAL_OK)
+        else
+        {
+          SkPck_ErrCdLogErrCd( ERROR_I2CBUSY, MODULE_AppData );
+        } // EndElse ((SkyPack_I2CRepair()) == HAL_OK)
+      } // EndIf ( !(Get_DriverStates( I2C_STATE )) )
+      
+    } // EndIf (TimeTagCnt >= TICK_LIMIT)
     // Test Connection. Have we timed out??
     Test_Connection();
     
@@ -1234,6 +1255,7 @@ void SetTest_DriverStates( task_defs Task, bool State )
     //OH NO...I2C Failure...Attempt repair before failure.
     if (SkyPack_I2CRepair() == HAL_OK)
     {
+      SkPck_ErrCdLogErrCd( REPAIR_I2C, MODULE_AppData );
       // Enable all I2C Sensors.
       Set_DriverStates( I2C_STATE, DRIVER_ON );
       Set_DriverStates( IMU_STATE_TASK, DRIVER_ON );

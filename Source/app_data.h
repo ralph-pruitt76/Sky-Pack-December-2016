@@ -30,7 +30,8 @@ typedef enum
 #define SAMPLE_TIM_IRQHandler   TIM6_IRQHandler
 #define NULL_MAX                5        // Maximum number of null readings before reset.
 #define ANALYTICS_MAXCNT        18       // 180 Seconds
-#define PROCESS_SNSR_TIME       100      // Process all sensors every Second(100 * 100ms tick)...10.0 Seconds
+//#define PROCESS_SNSR_TIME       100      // Process all sensors every Second(100 * 100ms tick)...10.0 Seconds
+#define PROCESS_SNSR_TIME       5      // Process all sensors every Second(5 * 100ms tick)...0.5 Seconds
 
 #define FRM_REPEAT_CNT          5       // Repeat the full set of data at least this many times.
 #define TICK_LIMIT              1       // Number Frames per Tick Event.

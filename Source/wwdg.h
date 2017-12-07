@@ -72,7 +72,7 @@
 #ifdef STM32L151CBT6
   #define BASE_FLASH_ADDRESS      0x08018000        // Base Address to place all key Flash Structures.....32L151CBT6 Long..
 #endif
-#define BOOT_WAIT               15      // Default Wait time for Boot Sequence...15 Seconds.
+#define BOOT_WAIT               80      // Default Wait time for Boot Sequence...80 Seconds.
 #define DATE_STRING_LENGTH      30      // Length of Saved Date String.
 
 // Private Structure

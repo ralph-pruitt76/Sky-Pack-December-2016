@@ -50,13 +50,19 @@ void main()
   // Reset all Drivers to Off before starting init process.
   Reset_DriverStates();
 
+  // Flush I2C Channel before testing...
+  SkyPack_I2CRepair();
+  
   // Test I2C Channel and see if we even have a working I2C.
   SkyPack_TestI2C();
 
   // Test for I2C Failure then attempt a repair.
-  if ( Get_DriverStates( I2C_STATE ) )
+  if ( !(Get_DriverStates( I2C_STATE )) )
   {
-    SkyPack_I2CRepair();
+    if ((SkyPack_I2CRepair()) == HAL_OK)
+    {
+      SkPck_ErrCdLogErrCd( REPAIR_I2C, MODULE_main );
+    }
   }
   
   //**
@@ -134,7 +140,7 @@ void main()
   SkyBrd_WWDG_InitializeTickString();          // Initialize Tick Tag From as NULL.
   
   // Display Banner
-  strcpy( (char *)tempBffr2, "*********************  WEATHERCLOUD *********************\r\n\r\n");
+  strcpy( (char *)tempBffr2, "\r\n*********************  WEATHERCLOUD *********************\r\n\r\n");
   Status = SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
   if (Status != HAL_OK)
     SkyPack_Reset( FATAL_ERROR );

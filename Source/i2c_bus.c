@@ -8,6 +8,8 @@
 #include "miscRoutines.h"
 #include "ErrCodes.h"
 #include "stdbool.h"
+#include <string.h>
+#include <stdio.h>
 
 /**
   * @brief  Attempts to Clear I2C channel Data Pin by pulsing SDA Line 9 times.
@@ -19,7 +21,8 @@ HAL_StatusTypeDef SkyPack_I2CRepair( void )
 {
   GPIO_InitTypeDef GPIO_InitStructure;
   HAL_StatusTypeDef Status;
-  int x;
+  int x, loop_cnt;
+  char tempBffr2[8];
   
   Status = HAL_OK;
 
@@ -39,24 +42,30 @@ HAL_StatusTypeDef SkyPack_I2CRepair( void )
   GPIO_Init(GPIOB, &GPIO_InitStructure);
 
   // Wait for Hardware to stabilize....100ms
-  delay_100ms();;
+  delay_100ms();
   
-  // Now...Pulse SDA Pin 9 Times.
-  for (x=0; x<9; x++)
+  for (loop_cnt=0; loop_cnt<I2C_LOOPCNT; loop_cnt++)
   {
+    // Print Loop Count
+    sprintf( (char *)tempBffr2, "**%02d.", loop_cnt);
+    SkyPack_MNTR_UART_Transmit( (uint8_t *)tempBffr2 );
+    
+    // Now...Pulse SDA Pin I2C_CLKRPRCNT Times.
+    for (x=0; x<I2C_CLKRPRCNT; x++)
+    {
+      SkyPack_gpio_Off(gI2C_CLK);  // Set Clock Low.
+      delay_10ms();               // Wait 10ms;
+      SkyPack_gpio_On(gI2C_CLK);   // Set Clock High.
+      delay_10ms();               // Wait 10ms;
+    } // EndFor (x=0; x<I2C_CLKRPRCNT; x++)
+    
+    // Finally Reset Clock LOW.
     SkyPack_gpio_Off(gI2C_CLK);  // Set Clock Low.
-    delay_10ms();               // Wait 10ms;
-    SkyPack_gpio_On(gI2C_CLK);   // Set Clock High.
-    delay_10ms();               // Wait 10ms;
-  }
-  
-  // Finally Reset Clock LOW.
-  SkyPack_gpio_Off(gI2C_CLK);  // Set Clock Low.
-  
-  // Wait for Hardware to stabilize....100ms
-  delay_100ms();;
-
-  // Test Data Pin State.
+    
+    // Wait for Hardware to stabilize....100ms
+    delay_100ms();;
+    
+    // Test Data Pin State.
     if ( HAL_GPIO_ReadPin( GPIOB, I2C_SDA_Pin) == GPIO_PIN_RESET)
     {
       Status = HAL_ERROR;
@@ -64,7 +73,7 @@ HAL_StatusTypeDef SkyPack_I2CRepair( void )
     else
     {
       // If High, Then we have been succesful. Time to Indicate Repaired and Init I2C BUS.
-      SkPck_ErrCdLogErrCd( REPAIR_I2C, MODULE_i2c );
+      //SkPck_ErrCdLogErrCd( REPAIR_I2C, MODULE_i2c );
       // Enable all I2C Sensors.
       //Set_DriverStates( I2C_STATE, DRIVER_ON );
       //Set_DriverStates( IMU_STATE_TASK, DRIVER_ON );
@@ -72,9 +81,10 @@ HAL_StatusTypeDef SkyPack_I2CRepair( void )
       //Set_DriverStates( PRESSURE_MNTR_TASK, DRIVER_ON );
       // Now Reinit I2C Bus.
       //I2C_LowLevel_Init();
-      
-      Status = HAL_OK;
+      return HAL_OK;
     }
+    delay_100ms();
+  } // EndFor (loop_cnt=0; loop_cnt<I2C_LOOPCNT; loop_cnt++)
   return Status;
 }
 

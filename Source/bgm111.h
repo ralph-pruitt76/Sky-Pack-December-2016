@@ -60,7 +60,7 @@ typedef enum
 #define BGM111_RESET_GPIO_CLK            RCC_AHBPeriph_GPIOB
 
 #define TX_TIMEOUT_CNT                   2000           // Loop 2000 Times for Timeout
-#define TACK_LIMIT                       4              // Set limit at 40 seconds before dropping as reset.
+#define TACK_LIMIT                       80             // Set limit at 40 seconds before dropping as reset.
 #define CMD_TIME                         10             // Set as a 1 Second Timer for Report.
 /* Initialize the BGM111 module and BGLib */
 void BGM111_Init(void);

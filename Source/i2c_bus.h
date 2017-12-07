@@ -39,7 +39,8 @@
 #define I2C_SDA_SOURCE          GPIO_PinSource7
 #define I2C_SDA_AF              GPIO_AF_I2C1
 
-
+#define I2C_CLKRPRCNT           20                          // Pulse Count for I2C Chennel.
+#define I2C_LOOPCNT             5                           // Number of attempts to try to fix stuck I2C Channel.
 /* Low level initialization of the I2C bus */
 
 HAL_StatusTypeDef I2C_LowLevel_Init(void);
