@@ -15,7 +15,7 @@ TraceBufferSize=0x00010000
 TraceStallIfFIFOFull=0x00000000
 TracePortSize=0x00000004
 [DebugChecksum]
-Checksum=-681532447
+Checksum=303244099
 [CodeCoverage]
 Enabled=_ 0
 [Exceptions]
@@ -111,7 +111,7 @@ Bp5=_ 0 "EMUL_CODE" "{$PROJ_DIR$\Source\bgm111.c}.458.9" 0 0 1 "" 0 "" 0
 Bp6=_ 0 "EMUL_CODE" "{$PROJ_DIR$\Source\app_data.c}.1040.3" 0 0 1 "" 0 "" 0
 Bp7=_ 0 "EMUL_CODE" "{$PROJ_DIR$\Source\app_data.c}.1016.3" 0 0 1 "" 0 "" 0
 Bp8=_ 0 "EMUL_CODE" "{$PROJ_DIR$\Source\app_data.c}.1255.5" 0 0 1 "" 0 "" 0
-Bp9=_ 0 "EMUL_CODE" "{$PROJ_DIR$\Source\main.c}.44.3" 0 0 1 "" 0 "" 0
+Bp9=_ 1 "EMUL_CODE" "{$PROJ_DIR$\Source\main.c}.121.3" 0 0 1 "" 0 "" 0
 Count=10
 [Log file]
 LoggingEnabled=_ 0

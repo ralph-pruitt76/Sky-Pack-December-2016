@@ -61,7 +61,7 @@ main.o: ../main.c ../boards.h ../ble-configuration.h ../board_features.h \
  d:\siliconlabs\simplicitystudio\v4_2\developer\sdks\gecko_sdk_suite\v1.1\hardware\kit\common\bsp\bsp_bcp.h \
  d:\siliconlabs\simplicitystudio\v4_2\developer\sdks\gecko_sdk_suite\v1.1\platform\radio\rail_lib\chip\efr32\rf\common\cortex\pti.h \
  d:\siliconlabs\simplicitystudio\v4_2\developer\sdks\gecko_sdk_suite\v1.1\platform\emlib\inc\em_gpio.h \
- D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Roadboard\Software\Road-Board-December-2016N8\BGM111\Studio_Work\soc-CRP-RoadPack\inc/InitDevice.h \
+ D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\BGM111\Studio_Work\soc-CRP-RoadPack\inc/InitDevice.h \
  d:\siliconlabs\simplicitystudio\v4_2\developer\sdks\gecko_sdk_suite\v1.1\platform\emlib\inc\em_usart.h \
  d:\siliconlabs\simplicitystudio\v4_2\developer\sdks\gecko_sdk_suite\v1.1\hardware\kit\common\drivers\mx25flash_spi.h \
  d:\siliconlabs\simplicitystudio\v4_2\developer\sdks\gecko_sdk_suite\v1.1\hardware\kit\efr32bg1_brd4302a\config\mx25flash_config.h \
@@ -204,7 +204,7 @@ d:\siliconlabs\simplicitystudio\v4_2\developer\sdks\gecko_sdk_suite\v1.1\platfor
 
 d:\siliconlabs\simplicitystudio\v4_2\developer\sdks\gecko_sdk_suite\v1.1\platform\emlib\inc\em_gpio.h:
 
-D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Roadboard\Software\Road-Board-December-2016N8\BGM111\Studio_Work\soc-CRP-RoadPack\inc/InitDevice.h:
+D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\BGM111\Studio_Work\soc-CRP-RoadPack\inc/InitDevice.h:
 
 d:\siliconlabs\simplicitystudio\v4_2\developer\sdks\gecko_sdk_suite\v1.1\platform\emlib\inc\em_usart.h:
 

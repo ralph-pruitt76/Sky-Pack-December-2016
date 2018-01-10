@@ -6,7 +6,4 @@ Executing: bgbuild.exe (D:\SiliconLabs\SimplicityStudio\v4_2\developer\sdks\geck
 Standard output
 ALL OK
 
-Error/Warning output
-WARNING: 2a00 length attribute is 6 but actual value length is 7. 6 will be used.
-
 

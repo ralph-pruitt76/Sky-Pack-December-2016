@@ -34,11 +34,11 @@ void main()
   I2C_LowLevel_DeInit();
   
   // Turn off All Power supplies and wait 1 second to clear any unknown states on Power.
-  SkyPack_gpio_On(gVDD_PWR);            // Turn off VDD(I2C Sensors).
+//1  SkyPack_gpio_On(gVDD_PWR);            // Turn off VDD(I2C Sensors).
   delay_100msec(2);                     // Wait 200 msec to settle.
-  SkyPack_gpio_On(gBGM_PWR);            // Turn off V+(BGM Power).
+//1  SkyPack_gpio_On(gBGM_PWR);            // Turn off V+(BGM Power).
   
-  delay_100msec(100);                    // Wait 10 Seconds for Caps to drain.
+//1  delay_100msec(100);                    // Wait 10 Seconds for Caps to drain.
 
   // Turn on Power Supplies.
   SkyPack_gpio_Off(gVDD_PWR);            // Turn on VDD(I2C Sensors).

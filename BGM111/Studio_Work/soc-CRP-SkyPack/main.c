@@ -90,6 +90,13 @@ struct
 	uint8 tx_rd;
 } static tx_Buffr;
 
+struct
+{
+	char string[BUFFSIZE];;
+	uint8 tx_wr;
+	uint8 tx_rd;
+} static rx_Buffr;
+
 /* Flag for indicating DFU Reset must be performed */
 uint8_t boot_to_dfu = 0;
 int ticker = 0;
@@ -219,8 +226,12 @@ int main(void)
 	// Initialize Key Buffer Structure.
 	tx_Buffr.tx_wr = 0;
 	tx_Buffr.tx_rd = 0;
+	rx_Buffr.tx_wr = 0;
+	rx_Buffr.tx_rd = 0;
 	for (x=0; x< BUFFSIZE; x++)
 		tx_Buffr.string[x] = 0x00;
+	for (x=0; x< BUFFSIZE; x++)
+		rx_Buffr.string[x] = 0x00;
 
 	USART_Reset(USART1);
 
@@ -325,7 +336,7 @@ int main(void)
 						sprintf( tempBffr2, "DATA N\r\n" );
 						UART_Send( tempBffr2 );
 						// Set Mode Not discoverable/Undirected connectable(Comment out Next Line to allow Discoverable)
-						//gecko_cmd_le_gap_set_mode(le_gap_non_discoverable, le_gap_undirected_connectable);
+						gecko_cmd_le_gap_set_mode(le_gap_non_discoverable, le_gap_undirected_connectable);
 					}
 					break;
 

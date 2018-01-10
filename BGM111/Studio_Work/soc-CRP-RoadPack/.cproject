@@ -307,7 +307,7 @@
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
 		</cconfiguration>
 	</storageModule>
-	<storageModule generalProj.esf.protocolIds="com.silabs.sdk.stack.super:1.1.1._1426710922.com.silabs.stack.ble:2.4.2.0_-211338901" generalProj.esf.protocolNames="ble" moduleId="com.silabs.ss.framework.ide.project.core.cpp" project.generation="2" projectCommon.boardIds="brd4302a:0.0.0" projectCommon.partId="mcu.arm.efr32.bg1.efr32bg1b232f256gm56" projectCommon.sdkId="com.silabs.sdk.stack.super:1.1.0._-1345515331"/>
+	<storageModule generalProj.esf.protocolIds="com.silabs.sdk.stack.super:1.1.1._1426710922.com.silabs.stack.ble:2.4.2.0_-211338901" generalProj.esf.protocolNames="ble" moduleId="com.silabs.ss.framework.ide.project.core.cpp" project.generation="3" projectCommon.boardIds="brd4302a:0.0.0" projectCommon.partId="mcu.arm.efr32.bg1.efr32bg1b232f256gm56" projectCommon.sdkId="com.silabs.sdk.stack.super:1.1.0._-1345515331"/>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="soc-empty-UART.com.silabs.ss.framework.ide.project.core.cdt.cdtMbsProjectType.1096403148" name="SLS CDT Project" projectType="com.silabs.ss.framework.ide.project.core.cdt.cdtMbsProjectType"/>
 	</storageModule>

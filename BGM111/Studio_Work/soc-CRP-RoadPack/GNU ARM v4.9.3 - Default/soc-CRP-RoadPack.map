@@ -774,7 +774,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x15a ./emlib/em_cryotimer.o
  .debug_macro   0x00000000      0x15a ./emlib/em_cryotimer.o
  .debug_line    0x00000000      0x771 ./emlib/em_cryotimer.o
- .debug_str     0x00000000    0xe30c6 ./emlib/em_cryotimer.o
+ .debug_str     0x00000000    0xe30c0 ./emlib/em_cryotimer.o
  .comment       0x00000000       0x71 ./emlib/em_cryotimer.o
  .debug_frame   0x00000000       0x80 ./emlib/em_cryotimer.o
  .ARM.attributes
@@ -1017,7 +1017,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x25 ./emlib/em_i2c.o
  .debug_macro   0x00000000       0xee ./emlib/em_i2c.o
  .debug_line    0x00000000      0x9c0 ./emlib/em_i2c.o
- .debug_str     0x00000000    0xe4352 ./emlib/em_i2c.o
+ .debug_str     0x00000000    0xe434c ./emlib/em_i2c.o
  .comment       0x00000000       0x71 ./emlib/em_i2c.o
  .debug_frame   0x00000000      0x1b0 ./emlib/em_i2c.o
  .ARM.attributes
@@ -1128,7 +1128,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x34 ./emlib/em_msc.o
  .debug_macro   0x00000000       0x10 ./emlib/em_msc.o
  .debug_line    0x00000000      0x91d ./emlib/em_msc.o
- .debug_str     0x00000000    0xe320e ./emlib/em_msc.o
+ .debug_str     0x00000000    0xe3208 ./emlib/em_msc.o
  .comment       0x00000000       0x71 ./emlib/em_msc.o
  .debug_frame   0x00000000      0x198 ./emlib/em_msc.o
  .ARM.attributes
@@ -3256,48 +3256,48 @@ OUTPUT(soc-CRP-RoadPack.axf elf32-littlearm)
  .debug_macro   0x0002515b       0x26 ./src/InitDevice.o
  .debug_macro   0x00025181       0x2b ./src/InitDevice.o
 
-.debug_line     0x00000000     0x7704
+.debug_line     0x00000000     0x76f8
  .debug_line    0x00000000      0x335 ./application_properties.o
  .debug_line    0x00000335      0x2c9 ./gatt_db.o
  .debug_line    0x000005fe      0x8b4 ./gpiointerrupt.o
- .debug_line    0x00000eb2     0x1130 ./main.o
- .debug_line    0x00001fe2      0xbb8 ./uart_echo.o
- .debug_line    0x00002b9a      0x279 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
- .debug_line    0x00002e13     0x1070 ./emlib/em_cmu.o
- .debug_line    0x00003e83      0x956 ./emlib/em_gpio.o
- .debug_line    0x000047d9      0x80b ./emlib/em_rtcc.o
- .debug_line    0x00004fe4      0x776 ./emlib/em_system.o
- .debug_line    0x0000575a      0x9fe ./emlib/em_timer.o
- .debug_line    0x00006158      0xa45 ./emlib/em_usart.o
- .debug_line    0x00006b9d      0xb67 ./src/InitDevice.o
+ .debug_line    0x00000eb2     0x112a ./main.o
+ .debug_line    0x00001fdc      0xbb8 ./uart_echo.o
+ .debug_line    0x00002b94      0x279 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
+ .debug_line    0x00002e0d     0x1070 ./emlib/em_cmu.o
+ .debug_line    0x00003e7d      0x956 ./emlib/em_gpio.o
+ .debug_line    0x000047d3      0x80b ./emlib/em_rtcc.o
+ .debug_line    0x00004fde      0x776 ./emlib/em_system.o
+ .debug_line    0x00005754      0x9fe ./emlib/em_timer.o
+ .debug_line    0x00006152      0xa45 ./emlib/em_usart.o
+ .debug_line    0x00006b97      0xb61 ./src/InitDevice.o
 
-.debug_str      0x00000000   0x101515
- .debug_str     0x00000000     0x3495 ./application_properties.o
-                               0x3618 (size before relaxing)
- .debug_str     0x00003495      0x8ef ./gatt_db.o
-                               0x3b6d (size before relaxing)
- .debug_str     0x00003d84    0xe0d11 ./gpiointerrupt.o
-                              0xe3fce (size before relaxing)
- .debug_str     0x000e4a95    0x15ce3 ./main.o
-                              0xf9887 (size before relaxing)
- .debug_str     0x000fa778      0x13c ./uart_echo.o
-                              0xeb6ee (size before relaxing)
- .debug_str     0x000fa8b4       0xce ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
-                               0x32e7 (size before relaxing)
- .debug_str     0x000fa982     0x15dd ./emlib/em_cmu.o
-                              0xe5898 (size before relaxing)
- .debug_str     0x000fbf5f      0x4b1 ./emlib/em_gpio.o
-                              0xe3a6d (size before relaxing)
- .debug_str     0x000fc410      0x761 ./emlib/em_rtcc.o
-                              0xe33ea (size before relaxing)
- .debug_str     0x000fcb71       0xd6 ./emlib/em_system.o
-                              0xe2ff9 (size before relaxing)
- .debug_str     0x000fcc47      0xa04 ./emlib/em_timer.o
-                              0xe3683 (size before relaxing)
- .debug_str     0x000fd64b      0x9cb ./emlib/em_usart.o
-                              0xe479e (size before relaxing)
- .debug_str     0x000fe016     0x34ff ./src/InitDevice.o
-                              0xec637 (size before relaxing)
+.debug_str      0x00000000   0x10150f
+ .debug_str     0x00000000     0x348f ./application_properties.o
+                               0x3612 (size before relaxing)
+ .debug_str     0x0000348f      0x8ef ./gatt_db.o
+                               0x3b67 (size before relaxing)
+ .debug_str     0x00003d7e    0xe0d11 ./gpiointerrupt.o
+                              0xe3fc8 (size before relaxing)
+ .debug_str     0x000e4a8f    0x15ce3 ./main.o
+                              0xf9881 (size before relaxing)
+ .debug_str     0x000fa772      0x13c ./uart_echo.o
+                              0xeb6e8 (size before relaxing)
+ .debug_str     0x000fa8ae       0xce ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
+                               0x32e1 (size before relaxing)
+ .debug_str     0x000fa97c     0x15dd ./emlib/em_cmu.o
+                              0xe5892 (size before relaxing)
+ .debug_str     0x000fbf59      0x4b1 ./emlib/em_gpio.o
+                              0xe3a67 (size before relaxing)
+ .debug_str     0x000fc40a      0x761 ./emlib/em_rtcc.o
+                              0xe33e4 (size before relaxing)
+ .debug_str     0x000fcb6b       0xd6 ./emlib/em_system.o
+                              0xe2ff3 (size before relaxing)
+ .debug_str     0x000fcc41      0xa04 ./emlib/em_timer.o
+                              0xe367d (size before relaxing)
+ .debug_str     0x000fd645      0x9cb ./emlib/em_usart.o
+                              0xe4798 (size before relaxing)
+ .debug_str     0x000fe010     0x34ff ./src/InitDevice.o
+                              0xec631 (size before relaxing)
 
 .debug_loc      0x00000000     0x3202
  .debug_loc     0x00000000      0x338 ./gpiointerrupt.o

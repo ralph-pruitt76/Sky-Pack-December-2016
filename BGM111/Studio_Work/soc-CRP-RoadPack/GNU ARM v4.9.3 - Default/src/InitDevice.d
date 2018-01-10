@@ -1,5 +1,5 @@
 src/InitDevice.o: ../src/InitDevice.c \
- D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Roadboard\Software\Road-Board-December-2016N8\BGM111\Studio_Work\soc-CRP-RoadPack\inc/InitDevice.h \
+ D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\BGM111\Studio_Work\soc-CRP-RoadPack\inc/InitDevice.h \
  d:\siliconlabs\simplicitystudio\v4_2\developer\sdks\gecko_sdk_suite\v1.1\platform\emlib\inc\em_system.h \
  d:\siliconlabs\simplicitystudio\v4_2\developer\sdks\gecko_sdk_suite\v1.1\platform\device\siliconlabs\efr32bg1b\include\em_device.h \
  d:\siliconlabs\simplicitystudio\v4_2\developer\sdks\gecko_sdk_suite\v1.1\platform\device\siliconlabs\efr32bg1b\include\efr32bg1b232f256gm48.h \
@@ -62,7 +62,7 @@ src/InitDevice.o: ../src/InitDevice.c \
  d:\siliconlabs\simplicitystudio\v4_2\developer\sdks\gecko_sdk_suite\v1.1\platform\emlib\inc\em_timer.h \
  d:\siliconlabs\simplicitystudio\v4_2\developer\sdks\gecko_sdk_suite\v1.1\platform\emlib\inc\em_usart.h
 
-D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Roadboard\Software\Road-Board-December-2016N8\BGM111\Studio_Work\soc-CRP-RoadPack\inc/InitDevice.h:
+D:\GoogleDriveCLT\GoogleDrive\WeatherCloud\Skypack\Software\Sky-Pack-December-2016\BGM111\Studio_Work\soc-CRP-RoadPack\inc/InitDevice.h:
 
 d:\siliconlabs\simplicitystudio\v4_2\developer\sdks\gecko_sdk_suite\v1.1\platform\emlib\inc\em_system.h:
 

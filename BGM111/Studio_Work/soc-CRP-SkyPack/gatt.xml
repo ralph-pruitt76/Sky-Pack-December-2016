@@ -59,7 +59,7 @@
   </service>
   
   <!--SPP Service-->
-  <service advertise="false" id="SPP Service" name="SPP Service" requirement="mandatory" sourceId="org.bluetooth.service.generic_attribute" type="primary" uuid="0bd51666-e7cb-469b-8e4d-2742f1ba77cc">
+  <service advertise="false" id="SK-SPP Service" name="SPP Service" requirement="mandatory" sourceId="org.bluetooth.service.generic_attribute" type="primary" uuid="0bd51666-e7cb-469b-8e4d-2742f1ba77cd">
     <informativeText/>
     
     <!--SPP Data-->
