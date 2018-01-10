@@ -818,6 +818,9 @@ void ProcessSensorState(void)
 //    BGM111_WriteCharacteristic(gattdb_magnetometer,
 //                            strlen(characteristic), (uint8_t *)characteristic);
     }
+
+    // Test Code to generate an event for Testing Tasked Error Msgs...Uncomment to Test..
+    //SkPck_ErrCdLogErrCd( REPAIR_I2C, MODULE_AppData );
     /* Create the temperature characteristic string */
     if(TmpData.temperature != data.temperature)
     {

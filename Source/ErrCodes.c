@@ -35,6 +35,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "usart.h"
 #include "ErrCodes.h"
+#include "parser.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -241,13 +242,15 @@ HAL_StatusTypeDef SkPck_ErrCdLogErrCd( ErrorCodes ErrorCd, ModuleCodes DeviceCd 
     sprintf( (char *)tempBffr2, "<STATUS>%s ERROR: %s</STATUS>",
             ModuleArray[DeviceCd],
             CodesArray[ErrorCd]);
+    // Task String to BGM Task to syncronously send error.
+    SkyBrd_BGMTsk((char *)tempBffr2);
+
     Status = SkyPack_MNTR_UART_Transmit((uint8_t *) tempBffr2);
     if (Status != HAL_OK)
       return Status;
     Status = SkyPack_MNTR_UART_Transmit((uint8_t *) "\r\n\r\n");
     if (Status != HAL_OK)
       return Status;
-    BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), tempBffr2);
   }
   return Status;
 }
