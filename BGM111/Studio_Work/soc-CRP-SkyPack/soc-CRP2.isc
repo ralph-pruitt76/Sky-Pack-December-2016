@@ -92,7 +92,7 @@ PATH(PROJECT_RELATIVE):main.c
       <properties write="true" write_requirement="optional"/>
     </characteristic>
   </service>
-  <service advertise="false" id="SPP Service" name="SPP Service" requirement="mandatory" sourceId="org.bluetooth.service.generic_attribute" type="primary" uuid="0bd51666-e7cb-469b-8e4d-2742f1ba77cc">
+  <service advertise="false" id="SP-SPP Service" name="SPP Service" requirement="mandatory" sourceId="org.bluetooth.service.generic_attribute" type="primary" uuid="0bd51666-e7cb-469b-8e4d-2742f1ba77cd">
     <informativeText/>
     <characteristic id="xgatt_spp_data" name="SPP Data" sourceId="org.bluetooth.characteristic.humidity" uuid="e7add780-b042-4876-aae1-112855353cc1">
       <description>SPP Data</description>

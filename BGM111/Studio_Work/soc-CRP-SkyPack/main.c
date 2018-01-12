@@ -153,6 +153,38 @@ void UART_rx_callbackLocal(void)
 }
 
 /**
+ * @brief  This function Sends the passed string out via the UART Channel 1.
+ * @param  char *test_string: String to be sent via UART. Should be terminated by a NULL/0x00.
+ * @retval None
+ */
+void UART_Send2(char *test_string)
+{
+	uint8_t nextidx;
+
+	while(*test_string != (char)0x00)
+	{
+		// Place into Buffer and update pointers.
+		nextidx = NextBufIdxIncr(rx_Buffr.tx_wr, 1);
+		if (nextidx != rx_Buffr.tx_rd)
+		{
+			/* Put the data in the buffer */
+			rx_Buffr.string[rx_Buffr.tx_wr] = *test_string;
+			/* Increment the write index */
+			rx_Buffr.tx_wr = nextidx;
+		}
+		else
+		{
+			// Process Buffer Overflow.
+			UART_Send( "RX OVERFLOW!\r\n" );
+		}
+		// Test UART for Character to Process.
+//OLD
+//		USART_Tx (USART1, *test_string);
+		test_string++;
+	}
+}
+
+/**
  * @brief  background LED Timer Code.
  * @param  None.
  * @retval None
@@ -267,13 +299,31 @@ int main(void)
 			    {
 			    	// Process Buffer Overflow.
 					sprintf( tempBffr2, "OVERFLOW!\r\n" );
-					UART_Send( tempBffr2 );
+					UART_Send2( tempBffr2 );
 			    	unrecoverable_error = 1;
 			    }
 			    // Test UART for Character to Process.
 			    UART_Status = USART_StatusGet( USART1 );
 			} //  EndWhile (UART_Status & UARTDRV_STATUS_RXDATAV)
 		} // EndIf (UART_Status & UARTDRV_STATUS_RXDATAV)
+
+		// Test UART for TX Empty.
+		if (UART_Status & UARTDRV_STATUS_TXBL)
+		{
+			// We TX Empty.
+			while ((BufUsed(rx_Buffr.tx_wr, rx_Buffr.tx_rd) > 0) &&
+					( UART_Status & UARTDRV_STATUS_TXBL ))
+			{
+					// Place Byte into USART.
+					USART1->TXDATA = rx_Buffr.string[rx_Buffr.tx_rd];
+
+					// Update Pointer.
+					rx_Buffr.tx_rd = NextBufIdxIncr(rx_Buffr.tx_rd, 1);
+
+					// Reload Status.
+					UART_Status = USART_StatusGet( USART1 );
+			} //  EndWhile ((BufUsed(rx_Buffr.tx_wr, rx_Buffr.tx_rd) > 0) && ( UART_Status & UARTDRV_STATUS_TXBL ))
+		} // EndIf (BufUsed(rx_Buffr.tx_wr, rx_Buffr.tx_rd) > 0)
 
 		/* Event pointer for handling events */
 		struct gecko_cmd_packet* evt;
@@ -290,9 +340,11 @@ int main(void)
 				case gecko_evt_system_boot_id:
 
 					// Send Key Msgs to UART Channel.
-					UART_Send( "SPP server\r\n" );
+					UART_Send2( "SP SPP server..." );
+					sprintf(tempBffr2, "%s\r\n", LEGACY_BANNER);
+					UART_Send2( tempBffr2 );
 					sprintf(tempBffr2, "Boot. Build number: %ld\r\n", evt->data.evt_dfu_boot.version);
-					UART_Send( tempBffr2 );
+					UART_Send2( tempBffr2 );
 					/* Set advertising parameters. 100ms advertisement interval. All channels used.
 					 * The first two parameters are minimum and maximum advertising interval, both in
 					 * units of (milliseconds * 1.6). The third parameter '7' sets advertising on all channels. */
@@ -322,7 +374,7 @@ int main(void)
 						strncpy(string, (char *)evt->data.evt_gatt_server_attribute_value.value.data,
 								evt->data.evt_gatt_server_attribute_value.value.len);
 						// Send to Micro.
-						UART_Send( string );
+						UART_Send2( string );
 					}
 					break;
 
@@ -334,16 +386,16 @@ int main(void)
 						// Data Channel is now active. TIme to setup for processing of data.
 						Data_Active = true;
 						sprintf( tempBffr2, "DATA N\r\n" );
-						UART_Send( tempBffr2 );
+						UART_Send2( tempBffr2 );
 						// Set Mode Not discoverable/Undirected connectable(Comment out Next Line to allow Discoverable)
-						gecko_cmd_le_gap_set_mode(le_gap_non_discoverable, le_gap_undirected_connectable);
+						//gecko_cmd_le_gap_set_mode(le_gap_non_discoverable, le_gap_undirected_connectable);
 					}
 					break;
 
 				case gecko_evt_le_connection_opened_id:
 					// Send Key Msgs to UART Channel.
 					sprintf( tempBffr2, "Connected\r\n" );
-					UART_Send( tempBffr2 );
+					UART_Send2( tempBffr2 );
 
 					connected = 1;
 
@@ -361,12 +413,12 @@ int main(void)
 
 				case gecko_evt_le_connection_parameters_id:
 					sprintf( tempBffr2, "conn.interval %d\r\n", evt->data.evt_le_connection_parameters.interval );
-					UART_Send( tempBffr2 );
+					UART_Send2( tempBffr2 );
 					break;
 
 				case gecko_evt_le_connection_closed_id:
 					sprintf( tempBffr2, "Disconnected\r\n" );
-					UART_Send( tempBffr2 );
+					UART_Send2( tempBffr2 );
 
 					connected = 0;
 					conn_handle = 0xff;
@@ -429,12 +481,12 @@ int main(void)
 
 							// Test Code : echo data to console.
 							//sprintf( tempBffr2, "TX: %s\r\n", string );
-							//UART_Send( tempBffr2 );
+							//UART_Send2( tempBffr2 );
 
 							if (result_ptr->result != 0)
 							{
 								sprintf( tempBffr2, "Write BLE Error: %04x\r\n", result_ptr->result );
-								UART_Send( tempBffr2 );
+								UART_Send2( tempBffr2 );
 								// Bad Transfer...Shutdown Channel...
 								Data_Active = false;
 							}
@@ -470,7 +522,7 @@ int main(void)
 
 				default:
 					sprintf(tempBffr2, "UNKNOWN EVT %lx\r\n", BGLIB_MSG_ID(evt->header));
-					UART_Send( tempBffr2 );
+					UART_Send2( tempBffr2 );
 					break;
 			} // EndSwitch (BGLIB_MSG_ID(evt->header))
 		} // EndIf (evt != 0) ...If Valid Event..Handle.

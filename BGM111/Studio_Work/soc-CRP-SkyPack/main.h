@@ -16,4 +16,8 @@
 #define	LED1_BANK		5		// LED1 is mapped to pin F7
 #define LED1_PIN_MASK	0x80
 
+#define VERSION_NUM     "1.0"                 // Monitor Revision
+#define REL_DATE        "Jan 12, 2018"
+#define LEGACY_BANNER   "1.0 1/12/18"        // Needed to allow Legacy Design to work
+
 #endif /* MAIN_H_ */
