@@ -82,19 +82,32 @@ static const gecko_configuration_t config = {
   #endif
 };
 
+// Frm State
+typedef enum
+{
+  NULL_PT		= 0x00,			// NULL		Init State No Code Yet
+  FRONT_TAG		= 0x01,			// <		First Tag Found.
+  FRWRD_SLASH	= 0x02,			// /		Forward Slash Found.
+  LTR_F			= 0x03,			// F		Letter F Found.
+  LTR_R			= 0x04,			// R		Letter R Found.
+  LTR_M			= 0x05,			// M		Letter M Found.
+}Frm_State;
+
+
 /* MSG LOGGER */
 struct
 {
 	char string[BUFFSIZE];;
-	uint8 tx_wr;
-	uint8 tx_rd;
+	uint16 tx_wr;
+	uint16 tx_rd;
+	uint16 WrtBffr_Errcnt;
 } static tx_Buffr;
 
 struct
 {
 	char string[BUFFSIZE];;
-	uint8 tx_wr;
-	uint8 tx_rd;
+	uint16 tx_wr;
+	uint16 tx_rd;
 } static rx_Buffr;
 
 /* Flag for indicating DFU Reset must be performed */
@@ -102,9 +115,12 @@ uint8_t boot_to_dfu = 0;
 int ticker = 0;
 int connected;
 
+// Key Flag for Tracking Read Buffer Overflow.
+static bool Read_bufferOverflow;
+
 /* Next buffer index based on current index and buffer size */
 
-uint8_t NextBufIdxIncr(uint8_t idx,uint8_t incr_cnt)
+uint16_t NextBufIdxIncr(uint16_t idx,uint16_t incr_cnt)
 {
 	int x;
 	for (x=0; x<incr_cnt; x++)
@@ -118,14 +134,14 @@ uint8_t NextBufIdxIncr(uint8_t idx,uint8_t incr_cnt)
 
 /* Report if the buffer is full based on its indexes */
 
-bool IsBufFull(uint8_t wr_idx, uint8_t rd_idx)
+bool IsBufFull(uint16_t wr_idx, uint16_t rd_idx)
 {
   return NextBufIdxIncr(wr_idx, 1) == rd_idx;
 }
 
 /* Get the used space in the buffer based on its indexes */
 
-uint8_t BufUsed(uint8_t wr_idx, uint8_t rd_idx)
+uint16_t BufUsed(uint16_t wr_idx, uint16_t rd_idx)
 {
   int size = (int)wr_idx - (int)rd_idx;
   if (size < 0)
@@ -137,7 +153,7 @@ uint8_t BufUsed(uint8_t wr_idx, uint8_t rd_idx)
 
 /* Get the free space in the buffer based on its indexes */
 
-uint8_t BufFree(uint8_t wr_idx, uint8_t rd_idx)
+uint16_t BufFree(uint16_t wr_idx, uint16_t rd_idx)
 {
   return (BUFFSIZE - 1) - BufUsed(wr_idx, rd_idx);
 }
@@ -152,6 +168,71 @@ void UART_rx_callbackLocal(void)
 
 }
 
+void reset_rdBuffer(void)
+{
+	int x;
+
+	rx_Buffr.tx_wr = 0;
+	rx_Buffr.tx_rd = 0;
+	for (x=0; x< BUFFSIZE; x++)
+		rx_Buffr.string[x] = 0x00;
+}
+
+void reset_wrtBuffer(void)
+{
+	int x;
+
+	tx_Buffr.tx_wr = 0;
+	tx_Buffr.tx_rd = 0;
+	for (x=0; x< BUFFSIZE; x++)
+		tx_Buffr.string[x] = 0x00;
+}
+
+bool Test_Frm( char test_char )
+{
+	static Frm_State Frm_Var= NULL_PT;
+	bool save_logic = false;
+
+	switch (Frm_Var)
+	{
+	case NULL_PT:
+		if (test_char == '<')
+			Frm_Var = FRONT_TAG;
+		break;
+	case FRONT_TAG:
+		if (test_char == '/')
+			Frm_Var = FRWRD_SLASH;
+		else
+			Frm_Var = NULL_PT;
+		break;
+	case FRWRD_SLASH:
+		if (test_char == 'F')
+			Frm_Var = LTR_F;
+		else
+			Frm_Var = NULL_PT;
+		break;
+	case LTR_F:
+		if (test_char == 'R')
+			Frm_Var = LTR_R;
+		else
+			Frm_Var = NULL_PT;
+		break;
+	case LTR_R:
+		if (test_char == 'M')
+			Frm_Var = LTR_M;
+		else
+			Frm_Var = NULL_PT;
+		break;
+	case LTR_M:
+		Frm_Var = NULL_PT;
+		if (test_char == '>')
+			save_logic = true;
+		break;
+	} // EndSwitch (Frm_State)
+
+	return save_logic;
+}
+
 /**
  * @brief  This function Sends the passed string out via the UART Channel 1.
  * @param  char *test_string: String to be sent via UART. Should be terminated by a NULL/0x00.
@@ -159,9 +240,13 @@ void UART_rx_callbackLocal(void)
  */
 void UART_Send2(char *test_string)
 {
-	uint8_t nextidx;
+	uint16_t nextidx;
 
-	while(*test_string != (char)0x00)
+// Test Code to force Read Error.
+//	Read_bufferOverflow = true;
+
+	while((*test_string != (char)0x00) &
+			(!(Read_bufferOverflow)))
 	{
 		// Place into Buffer and update pointers.
 		nextidx = NextBufIdxIncr(rx_Buffr.tx_wr, 1);
@@ -176,12 +261,73 @@ void UART_Send2(char *test_string)
 		{
 			// Process Buffer Overflow.
 			UART_Send( "RX OVERFLOW!\r\n" );
+			// Reset Buffer.
+			reset_rdBuffer();				// Reset Read Buffer.
+			// Set Error Flag so Error will be reported at end of next frame.
+			Read_bufferOverflow = true;
+			break;							// Break Loop. Abandon Current string.
 		}
 		// Test UART for Character to Process.
 //OLD
 //		USART_Tx (USART1, *test_string);
 		test_string++;
 	}
+}
+
+/**
+ * @brief  This function places the passed string into the Ouput BGM Buffer.
+ * @param  char *test_string: String to be transferred. Should be terminated by a NULL/0x00.
+ * @retval None
+ */
+void BGM_Send(char *test_string)
+{
+	char tempBffr2[40];
+	uint16_t nextidx;
+	int x;
+
+	while(*test_string != (char)0x00)
+	{
+		nextidx = NextBufIdxIncr(tx_Buffr.tx_wr, 1);
+	    if (nextidx != tx_Buffr.tx_rd)
+//			    if (0)	// Test Code to force error.
+	    {
+	        /* Put the data in the buffer */
+	    	tx_Buffr.string[tx_Buffr.tx_wr] = *test_string;
+	        /* Increment the write index */
+	    	tx_Buffr.tx_wr = nextidx;
+	    	// Now Test for </FRM> Tag
+	    } // EndIf (nextidx != tx_Buffr.tx_rd)
+	    else
+	    {
+	    	// Process Buffer Overflow.
+	    	reset_wrtBuffer();				// Reset Write Buffer.
+	    	tx_Buffr.WrtBffr_Errcnt++;		// Increment Error Count.
+			// Force new Msg for App
+    		// Clear Buffer.
+    		for (x=0; x<40; x++)
+    			tempBffr2[x] = 0x00;
+			sprintf( tempBffr2, "<|WR_OVL|>");
+			//Send Msg back to Micro.
+			UART_Send2( tempBffr2 );
+			// Place Msg into Write Buffer.
+			sprintf( tx_Buffr.string, tempBffr2);
+			tx_Buffr.tx_wr = NextBufIdxIncr(tx_Buffr.tx_wr, strlen(tempBffr2));
+			// Now report the number of Errors.
+			sprintf( tempBffr2, "Wrt_OV:%01d\r\n",  tx_Buffr.WrtBffr_Errcnt);
+			UART_Send2( tempBffr2 );
+
+	    	if( tx_Buffr.WrtBffr_Errcnt >= MAX_BBFRWRT_ERRS)
+	    	{
+				tx_Buffr.WrtBffr_Errcnt = 0;	// Set Error Cnt to zero.
+
+				sprintf( tempBffr2, "OVERFLOW!\r\n" );
+				UART_Send2( tempBffr2 );
+	    	}
+	    } // EndElse (nextidx != tx_Buffr.tx_rd)
+
+	    // Increment Pointer to next Character in buffer.
+		test_string++;
+	} // EndWhile (*test_string != (char)0x00)
 }
 
 /**
@@ -230,10 +376,9 @@ void led_timer(void)
 int main(void)
 {
 	char string[STR_LEN];
-	char tempBffr2[80];
+	char tempBffr2[BUFFER_LNGTH];
 
 	static bool Data_Active;
-
 
 	uint8 conn_handle;
 
@@ -244,26 +389,28 @@ int main(void)
 
 	int max_len;
 	int tx_size;
-	uint8_t nextidx;
+	int Percent_wrt;
+	int Percent_rd;
+	uint16_t nextidx;
 
 	uint32 UART_Status;
 
-	int unrecoverable_error;
+//	int unrecoverable_error;
 
 	struct gecko_msg_gatt_server_send_characteristic_notification_rsp_t* result_ptr;
 
 	// Initialize Key Variables.
 	Data_Active = false;
+	Read_bufferOverflow = false;
 
 	// Initialize Key Buffer Structure.
 	tx_Buffr.tx_wr = 0;
 	tx_Buffr.tx_rd = 0;
-	rx_Buffr.tx_wr = 0;
-	rx_Buffr.tx_rd = 0;
 	for (x=0; x< BUFFSIZE; x++)
 		tx_Buffr.string[x] = 0x00;
-	for (x=0; x< BUFFSIZE; x++)
-		rx_Buffr.string[x] = 0x00;
+	reset_wrtBuffer();				// Reset Write Buffer.
+	tx_Buffr.WrtBffr_Errcnt = 0;	// Set Error Cnt to zero.
+	reset_rdBuffer();				// Reset Read Buffer.
 
 	USART_Reset(USART1);
 
@@ -289,18 +436,80 @@ int main(void)
 				// Place into Buffer and update pointers.
 				nextidx = NextBufIdxIncr(tx_Buffr.tx_wr, 1);
 			    if (nextidx != tx_Buffr.tx_rd)
+//			    if (0)	// Test Code to force error.
 			    {
 			        /* Put the data in the buffer */
 			    	tx_Buffr.string[tx_Buffr.tx_wr] = rx_Byte;
 			        /* Increment the write index */
 			    	tx_Buffr.tx_wr = nextidx;
+			    	// Now Test for </FRM> Tag
+			    	if (Test_Frm(rx_Byte))
+			    	{
+			    		// We Found FRM Tag...Send Quick Msg back to Micro.
+			    		// Get Percent Write and Percent Rd
+			    		//Percent_wrt = (float)(((float)(BufFree(tx_Buffr.tx_wr, tx_Buffr.tx_rd))/ (float)BUFFSIZE)) * 100.0;
+			    		Percent_wrt = (BufUsed(tx_Buffr.tx_wr, tx_Buffr.tx_rd)* 100)/ BUFFSIZE;
+			    		Percent_rd = (BufUsed(rx_Buffr.tx_wr, rx_Buffr.tx_rd)* 100)/ BUFFSIZE;
+			    		// Clear Buffer.
+			    		for (x=0; x<BUFFER_LNGTH; x++)
+			    			tempBffr2[x] = 0x00;
+
+						sprintf( tempBffr2, "<|RFG:%02d|WFG:%02d|>", Percent_rd, Percent_wrt);
+						//Send Msg back to Micro.
+						UART_Send2( tempBffr2 );
+						// Place msg into BGM Buffer;
+						BGM_Send( tempBffr2 );
+
+						// Next Test for Read Buffer overflow
+						if (Read_bufferOverflow)
+						{
+							// Yes It did Occur. Report it..
+							// Clear Buffer.
+				    		for (x=0; x<BUFFER_LNGTH; x++)
+				    			tempBffr2[x] = 0x00;
+				    		sprintf( tempBffr2, "<|RD_OVL|>");
+							//Send Msg back to Micro.
+							UART_Send2( tempBffr2 );
+							// Place msg into BGM Buffer;
+							BGM_Send( tempBffr2 );
+							// Clear Flag.
+							Read_bufferOverflow = false;
+						}
+			    	}
 			    }
 			    else
 			    {
 			    	// Process Buffer Overflow.
-					sprintf( tempBffr2, "OVERFLOW!\r\n" );
+			    	reset_wrtBuffer();				// Reset Write Buffer.
+			    	tx_Buffr.WrtBffr_Errcnt++;		// Increment Error Count.
+		    		// Clear Buffer.
+		    		for (x=0; x<BUFFER_LNGTH; x++)
+		    			tempBffr2[x] = 0x00;
+					// Force new Msg for App
+					sprintf( tempBffr2, "<|WR_OVL|>");
+					//Send Msg back to Micro.
 					UART_Send2( tempBffr2 );
-			    	unrecoverable_error = 1;
+					// Place Msg into Write Buffer.
+					sprintf( tx_Buffr.string, tempBffr2);
+					tx_Buffr.tx_wr = NextBufIdxIncr(tx_Buffr.tx_wr, strlen(tempBffr2));
+		    		// Clear Buffer.
+		    		for (x=0; x<BUFFER_LNGTH; x++)
+		    			tempBffr2[x] = 0x00;
+					// Now report the number of Errors.
+					sprintf( tempBffr2, "Wrt_OV:%01d\r\n",  tx_Buffr.WrtBffr_Errcnt);
+					UART_Send2( tempBffr2 );
+
+			    	if( tx_Buffr.WrtBffr_Errcnt >= MAX_BBFRWRT_ERRS)
+			    	{
+						tx_Buffr.WrtBffr_Errcnt = 0;	// Set Error Cnt to zero.
+
+			    		// Clear Buffer.
+			    		for (x=0; x<BUFFER_LNGTH; x++)
+			    			tempBffr2[x] = 0x00;
+						sprintf( tempBffr2, "OVERFLOW!\r\n" );
+						UART_Send2( tempBffr2 );
+			    	}
+//			    	unrecoverable_error = 1;
 			    }
 			    // Test UART for Character to Process.
 			    UART_Status = USART_StatusGet( USART1 );
@@ -341,10 +550,14 @@ int main(void)
 
 					// Send Key Msgs to UART Channel.
 					UART_Send2( "SP SPP server..." );
+		    		// Clear Buffer.
+		    		for (x=0; x<BUFFER_LNGTH; x++)
+		    			tempBffr2[x] = 0x00;
 					sprintf(tempBffr2, "%s\r\n", LEGACY_BANNER);
 					UART_Send2( tempBffr2 );
 					sprintf(tempBffr2, "Boot. Build number: %ld\r\n", evt->data.evt_dfu_boot.version);
 					UART_Send2( tempBffr2 );
+
 					/* Set advertising parameters. 100ms advertisement interval. All channels used.
 					 * The first two parameters are minimum and maximum advertising interval, both in
 					 * units of (milliseconds * 1.6). The third parameter '7' sets advertising on all channels. */
@@ -385,6 +598,9 @@ int main(void)
 					{
 						// Data Channel is now active. TIme to setup for processing of data.
 						Data_Active = true;
+			    		// Clear Buffer.
+			    		for (x=0; x<BUFFER_LNGTH; x++)
+			    			tempBffr2[x] = 0x00;
 						sprintf( tempBffr2, "DATA N\r\n" );
 						UART_Send2( tempBffr2 );
 						// Set Mode Not discoverable/Undirected connectable(Comment out Next Line to allow Discoverable)
@@ -393,6 +609,9 @@ int main(void)
 					break;
 
 				case gecko_evt_le_connection_opened_id:
+		    		// Clear Buffer.
+		    		for (x=0; x<BUFFER_LNGTH; x++)
+		    			tempBffr2[x] = 0x00;
 					// Send Key Msgs to UART Channel.
 					sprintf( tempBffr2, "Connected\r\n" );
 					UART_Send2( tempBffr2 );
@@ -412,11 +631,17 @@ int main(void)
 					break;
 
 				case gecko_evt_le_connection_parameters_id:
+		    		// Clear Buffer.
+		    		for (x=0; x<BUFFER_LNGTH; x++)
+		    			tempBffr2[x] = 0x00;
 					sprintf( tempBffr2, "conn.interval %d\r\n", evt->data.evt_le_connection_parameters.interval );
 					UART_Send2( tempBffr2 );
 					break;
 
 				case gecko_evt_le_connection_closed_id:
+		    		// Clear Buffer.
+		    		for (x=0; x<BUFFER_LNGTH; x++)
+		    			tempBffr2[x] = 0x00;
 					sprintf( tempBffr2, "Disconnected\r\n" );
 					UART_Send2( tempBffr2 );
 
@@ -459,7 +684,7 @@ int main(void)
 								break;
 
 							// max number of bytes that can be read from FIFO before wrap around
-							max_len = 256 - tx_Buffr.tx_rd;
+							max_len = BUFFSIZE - tx_Buffr.tx_rd;
 
 							// this could be optimized for speed? now optimizing for simplicity..
 							if (max_len < tx_size)
@@ -485,6 +710,9 @@ int main(void)
 
 							if (result_ptr->result != 0)
 							{
+					    		// Clear Buffer.
+					    		for (x=0; x<BUFFER_LNGTH; x++)
+					    			tempBffr2[x] = 0x00;
 								sprintf( tempBffr2, "Write BLE Error: %04x\r\n", result_ptr->result );
 								UART_Send2( tempBffr2 );
 								// Bad Transfer...Shutdown Channel...
@@ -521,6 +749,9 @@ int main(void)
 					break;
 
 				default:
+		    		// Clear Buffer.
+		    		for (x=0; x<BUFFER_LNGTH; x++)
+		    			tempBffr2[x] = 0x00;
 					sprintf(tempBffr2, "UNKNOWN EVT %lx\r\n", BGLIB_MSG_ID(evt->header));
 					UART_Send2( tempBffr2 );
 					break;

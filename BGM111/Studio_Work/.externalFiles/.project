@@ -135,6 +135,11 @@
 			<location>D:/SiliconLabs/SimplicityStudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/arm-none-eabi/include/sys/_stdint.h</location>
 		</link>
 		<link>
+			<name>D__SiliconLabs_SimplicityStudio_v4___developer_toolchains_gnu_arm_4.9___15q3_lib_gcc_arm-none-eabi_4.9.3_include_stdbool.h</name>
+			<type>1</type>
+			<location>D:/SiliconLabs/SimplicityStudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/lib/gcc/arm-none-eabi/4.9.3/include/stdbool.h</location>
+		</link>
+		<link>
 			<name>D__SiliconLabs_SimplicityStudio_v4___developer_toolchains_gnu_arm_4.9___15q3_lib_gcc_arm-none-eabi_4.9.3_include_stddef.h</name>
 			<type>1</type>
 			<location>D:/SiliconLabs/SimplicityStudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/lib/gcc/arm-none-eabi/4.9.3/include/stddef.h</location>

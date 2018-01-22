@@ -133,6 +133,8 @@
 									<listOptionValue builtIn="false" value="${StudioSdkPath}/protocol/bluetooth_2.4/lib/EFR32BG1B/EABI/binstack.o"/>
 								</option>
 								<option id="gnu.c.link.option.libs.2061708443" name="Libraries (-l)" superClass="gnu.c.link.option.libs"/>
+								<option id="com.silabs.ide.si32.gcc.cdt.managedbuild.tool.gnu.c.linker.printffloat.1545558877" name="Printf float" superClass="com.silabs.ide.si32.gcc.cdt.managedbuild.tool.gnu.c.linker.printffloat" value="false" valueType="boolean"/>
+								<option id="com.silabs.ide.si32.gcc.cdt.managedbuild.tool.gnu.c.linker.scanffloat.721138530" name="Scanf float" superClass="com.silabs.ide.si32.gcc.cdt.managedbuild.tool.gnu.c.linker.scanffloat" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.71257318" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
