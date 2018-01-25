@@ -549,16 +549,19 @@ void SAMPLE_TIM_IRQHandler(void)
 
 void ProcessSensorState(void)
 {
+#define TMPBUFFER_LNGTH 80
   char tempstr[30];
   uint16_t Data_Value;
   static uint32_t canary_cnt=0;
   uint8_t tempBffr2[80];
   static int TimeTagCnt = 0;
   HAL_StatusTypeDef Status;
-  char characteristic[40];
+  char characteristic[TMPBUFFER_LNGTH];
 //  uint8_t tempStr[13];
   uint8_t tempbffr[30];
   static int nullCnt = 0;
+  int x;
+  
   // Canary Test of Valid Connection
   if ( (!(data.reading_scheduled)) &&
       (BGM111_Ready()) &&
@@ -924,10 +927,24 @@ void ProcessSensorState(void)
     {
       // Clear Flag...We are done.
       data.Legacy_OneTime = false;
+      // Clean out Buffer.
+      for (x=0; x<TMPBUFFER_LNGTH; x++)
+        characteristic[x] = 0x00;
       // Update BLE Characteristics
-      sprintf( characteristic, "<UBFBF>%s</UBFBF>", (char *)LEGACY_BANNER);
-      SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic );
+      sprintf( characteristic, "<UBFBF>B:%s", get_BGMBanner());
+      SkyPack_MNTR_UART_Transmit((uint8_t *)characteristic);
       BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
+      // Clean out Buffer.
+      for (x=0; x<TMPBUFFER_LNGTH; x++)
+        characteristic[x] = 0x00;
+      sprintf( (char *)characteristic, " M:%s</UBFBF>", (uint8_t *)LEGACY_BANNER);
+      SkyPack_MNTR_UART_Transmit( (uint8_t *)characteristic);
+      BGM111_Transmit((uint32_t)(strlen(characteristic)), (uint8_t *)characteristic);
+
+
+
+
+
 //      BGM111_WriteCharacteristic(gattdb_xgatt_rev,
 //                                 strlen((char *)LEGACY_BANNER), (uint8_t *)LEGACY_BANNER);
     }

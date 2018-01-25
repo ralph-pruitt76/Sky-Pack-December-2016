@@ -446,7 +446,7 @@ HAL_StatusTypeDef SkyBrd_Set_VersionString( char *PassedVersionString )
 
   // Write Structure to Flash Memory.
   //Status = RoadBrd_FlashInitWrite( 0x00, 
-  Status = SkyBrd_FlashWrite( 0x00, 
+  Status = RoadBrd_FlashWrite( 0x00, 
                                FLASH_TYPEERASE_PAGES, 
                                (uint32_t)&wwdg_HardFrames, 
                                (uint32_t *)&Save_Frames, 
@@ -509,7 +509,7 @@ uint32_t SkyBrd_Get_BootDelay( void )
   * @param  None
   * @retval uint32_t Save_Frames.BootDelay
   */
-char *SkyBrd_Get_VersionString( void )
+char *RoadBrd_Get_VersionString( void )
 {
   return Save_Frames.Version_String;
 }

@@ -674,7 +674,7 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                                 }
                                 strcat( (char *)tempBffr2, "\r\n" );
                                 // 6. Time to send Command and collect status.
-//                                Status =  SkyBrd_I2C_Master_Transmit((uint16_t)Address, i2cData, (uint16_t)num_bytes, I2C_TIMEOUT);
+//                                Status =  RoadBrd_I2C_Master_Transmit((uint16_t)Address, i2cData, (uint16_t)num_bytes, I2C_TIMEOUT);
                                 Status =  I2C_Write((uint8_t)Address, (uint8_t)i2cData[0], (uint8_t *)&(i2cData[1]), (uint16_t)(num_bytes-1));
                               } //EndElse (isHexNum( (char *)tempBffr3 ) == 0)...NUMBER BYTES
                               
@@ -780,7 +780,7 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                                   strcat( (char *)tempBffr2, "\r\n" );
                                   // 6. Time to get response.
                                   temp_reg = i2cData[0];
-//                                  Status =  SkyBrd_I2C_Master_Receive((uint16_t)Address, i2cData, (uint16_t)num_bytes_received, I2C_TIMEOUT);
+//                                  Status =  RoadBrd_I2C_Master_Receive((uint16_t)Address, i2cData, (uint16_t)num_bytes_received, I2C_TIMEOUT);
                                   Status =  I2C_Read((uint8_t)Address, temp_reg, (uint8_t*)i2cData, (uint16_t)num_bytes_received);
                                   // 8. IfGood report, Need to Output Data.
                                   if (Status == HAL_OK)
@@ -1994,7 +1994,7 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                                   // 3. Grab remaining string and convert to integer.
                                   tempPstr = &tempBffr[5];
                                   // Time to set new Version String.
-                                  SkyBrd_Set_VersionString( tempPstr );
+                                  RoadBrd_Set_VersionString( tempPstr );
                                   // Is this a BLE Operation?
                                   if ( BLE_Flag )
                                   {
@@ -2064,10 +2064,10 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                               if ( BLE_Flag )
                               {
                                 // Yes...Build and Send BLE Response NOW.
-                                sprintf( (char *)tempBffr2, "<STATUS>ST_TKRB:%s</STATUS>", SkyBrd_Get_VersionString());
+                                sprintf( (char *)tempBffr2, "<STATUS>ST_TKRB:%s</STATUS>", RoadBrd_Get_VersionString());
                                 BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
                               }
-                              sprintf( (char *)tempBffr2, "Version String: %s\r\n", SkyBrd_Get_VersionString());
+                              sprintf( (char *)tempBffr2, "Version String: %s\r\n", RoadBrd_Get_VersionString());
                               break;
                             default:
                               // Is this a BLE Operation?
@@ -2088,8 +2088,7 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                             // Yes...Build and Send BLE Response NOW.
                             strcpy( (char *)tempBffr2, "<STATUS>CMD_TK_SYNTAX</STATUS>");
                             BGM111_Transmit((uint32_t)(strlen((char *)tempBffr2)), (uint8_t *)tempBffr2);
-                          }                          
-						  strcpy( (char *)tempBffr2, "ERROR: Not a legal command.\r\n");
+                          }                          strcpy( (char *)tempBffr2, "ERROR: Not a legal command.\r\n");
                           break;
                       } //EndSwitch ( tempBffr[2] )
                     } //EndElse (Size < 3)
@@ -2239,7 +2238,7 @@ HAL_StatusTypeDef SkyBrd_ParseString(char *tempBffr, bool BLE_Flag)
                 break;
               case HAL_ERROR:
                 // Determine what kind of error.
-/*                Err_code = SkyBrd_I2C_GetError();
+/*                Err_code = RoadBrd_I2C_GetError();
                 switch( Err_code )
                 {
                   case HAL_I2C_ERROR_BERR:

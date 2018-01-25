@@ -309,6 +309,8 @@ void BGM_Send(char *test_string)
 			sprintf( tempBffr2, "<|WR_OVL|>");
 			//Send Msg back to Micro.
 			UART_Send2( tempBffr2 );
+			// Terminate with ? to allow Buffer to process.
+			UART_Send2( "?" );
 			// Place Msg into Write Buffer.
 			sprintf( tx_Buffr.string, tempBffr2);
 			tx_Buffr.tx_wr = NextBufIdxIncr(tx_Buffr.tx_wr, strlen(tempBffr2));
@@ -442,6 +444,8 @@ int main(void)
 			    	if (Test_Frm(rx_Byte))
 			    	{
 			    		// We Found FRM Tag...Send Quick Msg back to Micro.
+			    		// Ok...Clear Previous Buffer OVerflow count. We made it to a new FRM Tag.
+			    		tx_Buffr.WrtBffr_Errcnt = 0;	// Set Error Cnt to zero.
 			    		// Get Percent Write and Percent Rd
 			    		//Percent_wrt = (float)(((float)(BufFree(tx_Buffr.tx_wr, tx_Buffr.tx_rd))/ (float)BUFFSIZE)) * 100.0;
 			    		Percent_wrt = (BufUsed(tx_Buffr.tx_wr, tx_Buffr.tx_rd)* 100)/ BUFFSIZE;
@@ -453,6 +457,8 @@ int main(void)
 						sprintf( tempBffr2, "<|RFG:%02d|WFG:%02d|>", Percent_rd, Percent_wrt);
 						//Send Msg back to Micro.
 						UART_Send2( tempBffr2 );
+						// Terminate with ? to allow Buffer to process.
+						UART_Send2( "?" );
 						// Place msg into BGM Buffer;
 						BGM_Send( tempBffr2 );
 
@@ -466,10 +472,13 @@ int main(void)
 				    		sprintf( tempBffr2, "<|RD_OVL|>");
 							//Send Msg back to Micro.
 							UART_Send2( tempBffr2 );
+							// Terminate with ? to allow Buffer to process.
+							UART_Send2( "?" );
 							// Place msg into BGM Buffer;
 							BGM_Send( tempBffr2 );
 							// Clear Flag.
 							Read_bufferOverflow = false;
+							reset_rdBuffer();				// Reset Read Buffer.
 						} // EndIf (Read_bufferOverflow)
 			    	} // EndIf (Test_Frm(rx_Byte))
 			    } // EndIf (nextidx != tx_Buffr.tx_rd)
@@ -485,6 +494,8 @@ int main(void)
 					sprintf( tempBffr2, "<|WR_OVL|>");
 					//Send Msg back to Micro.
 					UART_Send2( tempBffr2 );
+					// Terminate with ? to allow Buffer to process.
+					UART_Send2( "?" );
 					// Place Msg into Write Buffer.
 					sprintf( tx_Buffr.string, tempBffr2);
 					tx_Buffr.tx_wr = NextBufIdxIncr(tx_Buffr.tx_wr, strlen(tempBffr2));
@@ -546,6 +557,8 @@ int main(void)
 
 					// Send Key Msgs to UART Channel.
 					UART_Send2( "SP SPP server..." );
+					// Terminate with ? to allow Buffer to process.
+					UART_Send2( "?" );
 		    		// Clear Buffer.
 		    		for (x=0; x<BUFFER_LNGTH; x++)
 		    			tempBffr2[x] = 0x00;

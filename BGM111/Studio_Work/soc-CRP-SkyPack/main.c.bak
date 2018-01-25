@@ -404,10 +404,6 @@ int main(void)
 	Read_bufferOverflow = false;
 
 	// Initialize Key Buffer Structure.
-	tx_Buffr.tx_wr = 0;
-	tx_Buffr.tx_rd = 0;
-	for (x=0; x< BUFFSIZE; x++)
-		tx_Buffr.string[x] = 0x00;
 	reset_wrtBuffer();				// Reset Write Buffer.
 	tx_Buffr.WrtBffr_Errcnt = 0;	// Set Error Cnt to zero.
 	reset_rdBuffer();				// Reset Read Buffer.
@@ -474,9 +470,9 @@ int main(void)
 							BGM_Send( tempBffr2 );
 							// Clear Flag.
 							Read_bufferOverflow = false;
-						}
-			    	}
-			    }
+						} // EndIf (Read_bufferOverflow)
+			    	} // EndIf (Test_Frm(rx_Byte))
+			    } // EndIf (nextidx != tx_Buffr.tx_rd)
 			    else
 			    {
 			    	// Process Buffer Overflow.
@@ -508,9 +504,9 @@ int main(void)
 			    			tempBffr2[x] = 0x00;
 						sprintf( tempBffr2, "OVERFLOW!\r\n" );
 						UART_Send2( tempBffr2 );
-			    	}
+			    	} // EndIf ( tx_Buffr.WrtBffr_Errcnt >= MAX_BBFRWRT_ERRS)
 //			    	unrecoverable_error = 1;
-			    }
+			    } // EndElse (nextidx != tx_Buffr.tx_rd)
 			    // Test UART for Character to Process.
 			    UART_Status = USART_StatusGet( USART1 );
 			} //  EndWhile (UART_Status & UARTDRV_STATUS_RXDATAV)
