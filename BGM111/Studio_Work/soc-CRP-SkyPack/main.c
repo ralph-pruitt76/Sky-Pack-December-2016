@@ -306,7 +306,7 @@ void BGM_Send(char *test_string)
     		// Clear Buffer.
     		for (x=0; x<40; x++)
     			tempBffr2[x] = 0x00;
-			sprintf( tempBffr2, "<|WR_OVL|>");
+			sprintf( tempBffr2, "<X>RD_OVL</X>");
 			//Send Msg back to Micro.
 			UART_Send2( tempBffr2 );
 			// Terminate with ? to allow Buffer to process.
@@ -454,7 +454,7 @@ int main(void)
 			    		for (x=0; x<BUFFER_LNGTH; x++)
 			    			tempBffr2[x] = 0x00;
 
-						sprintf( tempBffr2, "<|RFG:%02d|WFG:%02d|>", Percent_rd, Percent_wrt);
+						sprintf( tempBffr2, "<X>SP%sR:%02dW:%02d</X>", VERSION_NUM, Percent_rd, Percent_wrt);
 						//Send Msg back to Micro.
 						UART_Send2( tempBffr2 );
 						// Terminate with ? to allow Buffer to process.
@@ -469,7 +469,7 @@ int main(void)
 							// Clear Buffer.
 				    		for (x=0; x<BUFFER_LNGTH; x++)
 				    			tempBffr2[x] = 0x00;
-				    		sprintf( tempBffr2, "<|RD_OVL|>");
+				    		sprintf( tempBffr2, "<X>RD_OVL</X>");
 							//Send Msg back to Micro.
 							UART_Send2( tempBffr2 );
 							// Terminate with ? to allow Buffer to process.
@@ -478,7 +478,6 @@ int main(void)
 							BGM_Send( tempBffr2 );
 							// Clear Flag.
 							Read_bufferOverflow = false;
-							reset_rdBuffer();				// Reset Read Buffer.
 						} // EndIf (Read_bufferOverflow)
 			    	} // EndIf (Test_Frm(rx_Byte))
 			    } // EndIf (nextidx != tx_Buffr.tx_rd)
@@ -491,7 +490,7 @@ int main(void)
 		    		for (x=0; x<BUFFER_LNGTH; x++)
 		    			tempBffr2[x] = 0x00;
 					// Force new Msg for App
-					sprintf( tempBffr2, "<|WR_OVL|>");
+					sprintf( tempBffr2, "<X>RD_OVL</X>");
 					//Send Msg back to Micro.
 					UART_Send2( tempBffr2 );
 					// Terminate with ? to allow Buffer to process.
