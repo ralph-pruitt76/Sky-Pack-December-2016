@@ -612,7 +612,7 @@ int main(void)
 						sprintf( tempBffr2, "DATA N\r\n" );
 						UART_Send2( tempBffr2 );
 						// Set Mode Not discoverable/Undirected connectable(Comment out Next Line to allow Discoverable)
-						//gecko_cmd_le_gap_set_mode(le_gap_non_discoverable, le_gap_undirected_connectable);
+						gecko_cmd_le_gap_set_mode(le_gap_non_discoverable, le_gap_undirected_connectable);
 					}
 					break;
 
