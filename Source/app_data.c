@@ -897,11 +897,11 @@ void ProcessSensorState(void)
       data.cap.swept_level = TmpData.cap.swept_level;
      
       if (SkyBrd_Get_UnitsFlag())
-        sprintf(characteristic, "<UBDBD Units=%cSwpF%c>%06.0f/%06.0f</UBDBD>", '"', '"', 
+        sprintf(characteristic, "<UBDBD Units=%cSwpF%c>%06.0f-%06.0f</UBDBD>", '"', '"', 
                 SkyPack_CAL_ScaleValue( CAL_SWPT_FREQ, data.cap.swept_idx ),
                 SkyPack_CAL_ScaleValue( CAL_SWPT_LEVL, data.cap.swept_level ) );
       else
-        sprintf(characteristic, "<UBDBD>%06.0f/%06.0f</UBDBD>", 
+        sprintf(characteristic, "<UBDBD>%06.0f-%06.0f</UBDBD>", 
                 SkyPack_CAL_ScaleValue( CAL_SWPT_FREQ, data.cap.swept_idx ),
                 SkyPack_CAL_ScaleValue( CAL_SWPT_LEVL, data.cap.swept_level ) );
       /* Send the swept frequency to the BLE module */
