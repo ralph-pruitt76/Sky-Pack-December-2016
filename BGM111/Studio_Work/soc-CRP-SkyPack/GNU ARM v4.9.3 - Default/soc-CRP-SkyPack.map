@@ -1947,7 +1947,7 @@ LOAD d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q
  *fill*         0x00020f23       0xdd 
                 0x00021000                __text_start__ = .
 
-.text_app       0x00021000     0xbcfc
+.text_app       0x00021000     0xbe54
  *(.AAT)
  .AAT           0x00021000       0x80 ./main.o
                 0x00021000                AppAddressTable
@@ -2048,612 +2048,614 @@ LOAD d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q
  .text.reset_wrtBuffer
                 0x00021a60       0x44 ./main.o
                 0x00021a60                reset_wrtBuffer
+ .text.Test_Tick
+                0x00021aa4       0xdc ./main.o
+                0x00021aa4                Test_Tick
  .text.Test_Frm
-                0x00021aa4       0xc4 ./main.o
-                0x00021aa4                Test_Frm
+                0x00021b80       0xc4 ./main.o
+                0x00021b80                Test_Frm
  .text.UART_Send2
-                0x00021b68       0x8c ./main.o
-                0x00021b68                UART_Send2
+                0x00021c44       0x8c ./main.o
+                0x00021c44                UART_Send2
  .text.BGM_Send
-                0x00021bf4      0x138 ./main.o
-                0x00021bf4                BGM_Send
+                0x00021cd0      0x138 ./main.o
+                0x00021cd0                BGM_Send
  .text.led_timer
-                0x00021d2c       0x3c ./main.o
-                0x00021d2c                led_timer
- .text.main     0x00021d68      0x8a4 ./main.o
-                0x00021d68                main
+                0x00021e08       0x3c ./main.o
+                0x00021e08                led_timer
+ .text.main     0x00021e44      0x924 ./main.o
+                0x00021e44                main
  .text.UART_Send
-                0x0002260c       0x30 ./uart_echo.o
-                0x0002260c                UART_Send
+                0x00022768       0x30 ./uart_echo.o
+                0x00022768                UART_Send
  .text.Reset_Handler
-                0x0002263c       0x38 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
-                0x0002263c                Reset_Handler
+                0x00022798       0x38 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
+                0x00022798                Reset_Handler
  .text.Default_Handler
-                0x00022674        0x8 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
-                0x00022674                DebugMon_Handler
-                0x00022674                USART0_TX_IRQHandler
-                0x00022674                I2C0_IRQHandler
-                0x00022674                HardFault_Handler
-                0x00022674                SysTick_Handler
-                0x00022674                USART1_RX_IRQHandler
-                0x00022674                PendSV_Handler
-                0x00022674                NMI_Handler
-                0x00022674                SYNTH_IRQHandler
-                0x00022674                WDOG0_IRQHandler
-                0x00022674                USART1_TX_IRQHandler
-                0x00022674                MSC_IRQHandler
-                0x00022674                ADC0_IRQHandler
-                0x00022674                UsageFault_Handler
-                0x00022674                LEUART0_IRQHandler
-                0x00022674                FPUEH_IRQHandler
-                0x00022674                LDMA_IRQHandler
-                0x00022674                TIMER0_IRQHandler
-                0x00022674                LETIMER0_IRQHandler
-                0x00022674                TIMER1_IRQHandler
-                0x00022674                RFSENSE_IRQHandler
-                0x00022674                BUFC_IRQHandler
-                0x00022674                MODEM_IRQHandler
-                0x00022674                Default_Handler
-                0x00022674                RAC_SEQ_IRQHandler
-                0x00022674                FRC_PRI_IRQHandler
-                0x00022674                FRC_IRQHandler
-                0x00022674                CRYOTIMER_IRQHandler
-                0x00022674                PCNT0_IRQHandler
-                0x00022674                AGC_IRQHandler
-                0x00022674                ACMP0_IRQHandler
-                0x00022674                USART0_RX_IRQHandler
-                0x00022674                MemManage_Handler
-                0x00022674                SVC_Handler
-                0x00022674                RTCC_IRQHandler
-                0x00022674                CRYPTO_IRQHandler
-                0x00022674                CMU_IRQHandler
-                0x00022674                RAC_RSM_IRQHandler
-                0x00022674                PROTIMER_IRQHandler
-                0x00022674                BusFault_Handler
-                0x00022674                IDAC0_IRQHandler
+                0x000227d0        0x8 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
+                0x000227d0                DebugMon_Handler
+                0x000227d0                USART0_TX_IRQHandler
+                0x000227d0                I2C0_IRQHandler
+                0x000227d0                HardFault_Handler
+                0x000227d0                SysTick_Handler
+                0x000227d0                USART1_RX_IRQHandler
+                0x000227d0                PendSV_Handler
+                0x000227d0                NMI_Handler
+                0x000227d0                SYNTH_IRQHandler
+                0x000227d0                WDOG0_IRQHandler
+                0x000227d0                USART1_TX_IRQHandler
+                0x000227d0                MSC_IRQHandler
+                0x000227d0                ADC0_IRQHandler
+                0x000227d0                UsageFault_Handler
+                0x000227d0                LEUART0_IRQHandler
+                0x000227d0                FPUEH_IRQHandler
+                0x000227d0                LDMA_IRQHandler
+                0x000227d0                TIMER0_IRQHandler
+                0x000227d0                LETIMER0_IRQHandler
+                0x000227d0                TIMER1_IRQHandler
+                0x000227d0                RFSENSE_IRQHandler
+                0x000227d0                BUFC_IRQHandler
+                0x000227d0                MODEM_IRQHandler
+                0x000227d0                Default_Handler
+                0x000227d0                RAC_SEQ_IRQHandler
+                0x000227d0                FRC_PRI_IRQHandler
+                0x000227d0                FRC_IRQHandler
+                0x000227d0                CRYOTIMER_IRQHandler
+                0x000227d0                PCNT0_IRQHandler
+                0x000227d0                AGC_IRQHandler
+                0x000227d0                ACMP0_IRQHandler
+                0x000227d0                USART0_RX_IRQHandler
+                0x000227d0                MemManage_Handler
+                0x000227d0                SVC_Handler
+                0x000227d0                RTCC_IRQHandler
+                0x000227d0                CRYPTO_IRQHandler
+                0x000227d0                CMU_IRQHandler
+                0x000227d0                RAC_RSM_IRQHandler
+                0x000227d0                PROTIMER_IRQHandler
+                0x000227d0                BusFault_Handler
+                0x000227d0                IDAC0_IRQHandler
  .text.BUS_RegBitWrite
-                0x0002267c       0x2c ./emlib/em_cmu.o
+                0x000227d8       0x2c ./emlib/em_cmu.o
  .text.BUS_RegBitRead
-                0x000226a8       0x2c ./emlib/em_cmu.o
+                0x00022804       0x2c ./emlib/em_cmu.o
  .text.BUS_RegMaskedSet
-                0x000226d4       0x24 ./emlib/em_cmu.o
+                0x00022830       0x24 ./emlib/em_cmu.o
  .text.BUS_RegMaskedClear
-                0x000226f8       0x24 ./emlib/em_cmu.o
+                0x00022854       0x24 ./emlib/em_cmu.o
  .text.BUS_RegMaskedWrite
-                0x0002271c       0x24 ./emlib/em_cmu.o
+                0x00022878       0x24 ./emlib/em_cmu.o
  .text.CMU_Log2ToDiv
-                0x00022740       0x1c ./emlib/em_cmu.o
+                0x0002289c       0x1c ./emlib/em_cmu.o
  .text.setHfLeConfig
-                0x0002275c       0x64 ./emlib/em_cmu.o
+                0x000228b8       0x64 ./emlib/em_cmu.o
  .text.auxClkGet
-                0x000227c0       0x20 ./emlib/em_cmu.o
+                0x0002291c       0x20 ./emlib/em_cmu.o
  .text.hfSrcClkGet
-                0x000227e0       0x2c ./emlib/em_cmu.o
+                0x0002293c       0x2c ./emlib/em_cmu.o
  .text.dbgClkGet
-                0x0002280c       0x3c ./emlib/em_cmu.o
+                0x00022968       0x3c ./emlib/em_cmu.o
  .text.adcAsyncClkGet
-                0x00022848       0x80 ./emlib/em_cmu.o
+                0x000229a4       0x80 ./emlib/em_cmu.o
  .text.flashWaitStateControl
-                0x000228c8       0x7c ./emlib/em_cmu.o
+                0x00022a24       0x7c ./emlib/em_cmu.o
  .text.flashWaitStateMax
-                0x00022944       0x14 ./emlib/em_cmu.o
+                0x00022aa0       0x14 ./emlib/em_cmu.o
  .text.CMU_UpdateWaitStates
-                0x00022958       0x18 ./emlib/em_cmu.o
-                0x00022958                CMU_UpdateWaitStates
+                0x00022ab4       0x18 ./emlib/em_cmu.o
+                0x00022ab4                CMU_UpdateWaitStates
  .text.getRegIshUpperVal
-                0x00022970       0x38 ./emlib/em_cmu.o
+                0x00022acc       0x38 ./emlib/em_cmu.o
  .text.getHfxoTuningMode
-                0x000229a8       0x1c ./emlib/em_cmu.o
+                0x00022b04       0x1c ./emlib/em_cmu.o
  .text.setHfxoTuningMode
-                0x000229c4       0x28 ./emlib/em_cmu.o
+                0x00022b20       0x28 ./emlib/em_cmu.o
  .text.lfClkGet
-                0x000229ec       0xe8 ./emlib/em_cmu.o
- .text.syncReg  0x00022ad4       0x38 ./emlib/em_cmu.o
+                0x00022b48       0xe8 ./emlib/em_cmu.o
+ .text.syncReg  0x00022c30       0x38 ./emlib/em_cmu.o
  .text.CMU_ClockEnable
-                0x00022b0c       0xcc ./emlib/em_cmu.o
-                0x00022b0c                CMU_ClockEnable
+                0x00022c68       0xcc ./emlib/em_cmu.o
+                0x00022c68                CMU_ClockEnable
  .text.CMU_ClockFreqGet
-                0x00022bd8      0x198 ./emlib/em_cmu.o
-                0x00022bd8                CMU_ClockFreqGet
+                0x00022d34      0x198 ./emlib/em_cmu.o
+                0x00022d34                CMU_ClockFreqGet
  .text.CMU_ClockSelectGet
-                0x00022d70      0x190 ./emlib/em_cmu.o
-                0x00022d70                CMU_ClockSelectGet
+                0x00022ecc      0x190 ./emlib/em_cmu.o
+                0x00022ecc                CMU_ClockSelectGet
  .text.CMU_ClockSelectSet
-                0x00022f00      0x25c ./emlib/em_cmu.o
-                0x00022f00                CMU_ClockSelectSet
+                0x0002305c      0x25c ./emlib/em_cmu.o
+                0x0002305c                CMU_ClockSelectSet
  .text.CMU_HFXOAutostartEnable
-                0x0002315c       0x7c ./emlib/em_cmu.o
-                0x0002315c                CMU_HFXOAutostartEnable
+                0x000232b8       0x7c ./emlib/em_cmu.o
+                0x000232b8                CMU_HFXOAutostartEnable
  .text.CMU_HFXOInit
-                0x000231d8       0xf4 ./emlib/em_cmu.o
-                0x000231d8                CMU_HFXOInit
+                0x00023334       0xf4 ./emlib/em_cmu.o
+                0x00023334                CMU_HFXOInit
  .text.CMU_LFXOInit
-                0x000232cc       0x50 ./emlib/em_cmu.o
-                0x000232cc                CMU_LFXOInit
+                0x00023428       0x50 ./emlib/em_cmu.o
+                0x00023428                CMU_LFXOInit
  .text.CMU_OscillatorEnable
-                0x0002331c      0x174 ./emlib/em_cmu.o
-                0x0002331c                CMU_OscillatorEnable
+                0x00023478      0x174 ./emlib/em_cmu.o
+                0x00023478                CMU_OscillatorEnable
  .text.CMU_OscillatorTuningGet
-                0x00023490       0x74 ./emlib/em_cmu.o
-                0x00023490                CMU_OscillatorTuningGet
+                0x000235ec       0x74 ./emlib/em_cmu.o
+                0x000235ec                CMU_OscillatorTuningGet
  .text.CMU_OscillatorTuningSet
-                0x00023504       0xfc ./emlib/em_cmu.o
-                0x00023504                CMU_OscillatorTuningSet
+                0x00023660       0xfc ./emlib/em_cmu.o
+                0x00023660                CMU_OscillatorTuningSet
  .text.CMU_OscillatorTuningWait
-                0x00023600       0x8c ./emlib/em_cmu.o
-                0x00023600                CMU_OscillatorTuningWait
+                0x0002375c       0x8c ./emlib/em_cmu.o
+                0x0002375c                CMU_OscillatorTuningWait
  .text.CMU_OscillatorTuningOptimize
-                0x0002368c       0x4c ./emlib/em_cmu.o
-                0x0002368c                CMU_OscillatorTuningOptimize
+                0x000237e8       0x4c ./emlib/em_cmu.o
+                0x000237e8                CMU_OscillatorTuningOptimize
  .text.BUS_RegMaskedSet
-                0x000236d8       0x24 ./emlib/em_gpio.o
+                0x00023834       0x24 ./emlib/em_gpio.o
  .text.BUS_RegMaskedClear
-                0x000236fc       0x24 ./emlib/em_gpio.o
+                0x00023858       0x24 ./emlib/em_gpio.o
  .text.GPIO_PinOutClear
-                0x00023720       0x58 ./emlib/em_gpio.o
+                0x0002387c       0x58 ./emlib/em_gpio.o
  .text.GPIO_PinOutSet
-                0x00023778       0x58 ./emlib/em_gpio.o
+                0x000238d4       0x58 ./emlib/em_gpio.o
  .text.GPIO_PinModeSet
-                0x000237d0      0x108 ./emlib/em_gpio.o
-                0x000237d0                GPIO_PinModeSet
+                0x0002392c      0x108 ./emlib/em_gpio.o
+                0x0002392c                GPIO_PinModeSet
  .text.RTCC_Init
-                0x000238d8       0x60 ./emlib/em_rtcc.o
-                0x000238d8                RTCC_Init
+                0x00023a34       0x60 ./emlib/em_rtcc.o
+                0x00023a34                RTCC_Init
  .text.SYSTEM_ChipRevisionGet
-                0x00023938       0x74 ./emlib/em_system.o
-                0x00023938                SYSTEM_ChipRevisionGet
+                0x00023a94       0x74 ./emlib/em_system.o
+                0x00023a94                SYSTEM_ChipRevisionGet
  .text.TIMER_Valid
-                0x000239ac       0x38 ./emlib/em_timer.o
+                0x00023b08       0x38 ./emlib/em_timer.o
  .text.TIMER_EnableDTI
-                0x000239e4       0x40 ./emlib/em_timer.o
+                0x00023b40       0x40 ./emlib/em_timer.o
  .text.TIMER_GetDTIFault
-                0x00023a24       0x1c ./emlib/em_timer.o
+                0x00023b80       0x1c ./emlib/em_timer.o
  .text.TIMER_ClearDTIFault
-                0x00023a40       0x1c ./emlib/em_timer.o
+                0x00023b9c       0x1c ./emlib/em_timer.o
  .text.TIMER_Init
-                0x00023a5c       0xdc ./emlib/em_timer.o
-                0x00023a5c                TIMER_Init
+                0x00023bb8       0xdc ./emlib/em_timer.o
+                0x00023bb8                TIMER_Init
  .text.TIMER_InitCC
-                0x00023b38       0x9c ./emlib/em_timer.o
-                0x00023b38                TIMER_InitCC
+                0x00023c94       0x9c ./emlib/em_timer.o
+                0x00023c94                TIMER_InitCC
  .text.TIMER_InitDTI
-                0x00023bd4      0x10c ./emlib/em_timer.o
-                0x00023bd4                TIMER_InitDTI
+                0x00023d30      0x10c ./emlib/em_timer.o
+                0x00023d30                TIMER_InitDTI
  .text.USART_BaudrateAsyncSet
-                0x00023ce0       0xb0 ./emlib/em_usart.o
-                0x00023ce0                USART_BaudrateAsyncSet
+                0x00023e3c       0xb0 ./emlib/em_usart.o
+                0x00023e3c                USART_BaudrateAsyncSet
  .text.USART_Enable
-                0x00023d90       0x4c ./emlib/em_usart.o
-                0x00023d90                USART_Enable
+                0x00023eec       0x4c ./emlib/em_usart.o
+                0x00023eec                USART_Enable
  .text.USART_InitAsync
-                0x00023ddc       0xbc ./emlib/em_usart.o
-                0x00023ddc                USART_InitAsync
+                0x00023f38       0xbc ./emlib/em_usart.o
+                0x00023f38                USART_InitAsync
  .text.USART_InitPrsTrigger
-                0x00023e98       0x64 ./emlib/em_usart.o
-                0x00023e98                USART_InitPrsTrigger
+                0x00023ff4       0x64 ./emlib/em_usart.o
+                0x00023ff4                USART_InitPrsTrigger
  .text.USART_Reset
-                0x00023efc       0x94 ./emlib/em_usart.o
-                0x00023efc                USART_Reset
+                0x00024058       0x94 ./emlib/em_usart.o
+                0x00024058                USART_Reset
  .text.USART_Tx
-                0x00023f90       0x2c ./emlib/em_usart.o
-                0x00023f90                USART_Tx
+                0x000240ec       0x2c ./emlib/em_usart.o
+                0x000240ec                USART_Tx
  .text.SYSTEM_GetProdRev
-                0x00023fbc       0x1c ./src/InitDevice.o
+                0x00024118       0x1c ./src/InitDevice.o
  .text.BUS_RegBitWrite
-                0x00023fd8       0x2c ./src/InitDevice.o
+                0x00024134       0x2c ./src/InitDevice.o
  .text.CHIP_Init
-                0x00024004       0xb4 ./src/InitDevice.o
+                0x00024160       0xb4 ./src/InitDevice.o
  .text.enter_DefaultMode_from_RESET
-                0x000240b8       0x34 ./src/InitDevice.o
-                0x000240b8                enter_DefaultMode_from_RESET
+                0x00024214       0x34 ./src/InitDevice.o
+                0x00024214                enter_DefaultMode_from_RESET
  .text.EMU_enter_DefaultMode_from_RESET
-                0x000240ec       0x94 ./src/InitDevice.o
-                0x000240ec                EMU_enter_DefaultMode_from_RESET
+                0x00024248       0x94 ./src/InitDevice.o
+                0x00024248                EMU_enter_DefaultMode_from_RESET
  .text.LFXO_enter_DefaultMode_from_RESET
-                0x00024180        0xc ./src/InitDevice.o
-                0x00024180                LFXO_enter_DefaultMode_from_RESET
+                0x000242dc        0xc ./src/InitDevice.o
+                0x000242dc                LFXO_enter_DefaultMode_from_RESET
  .text.CMU_enter_DefaultMode_from_RESET
-                0x0002418c      0x14c ./src/InitDevice.o
-                0x0002418c                CMU_enter_DefaultMode_from_RESET
+                0x000242e8      0x14c ./src/InitDevice.o
+                0x000242e8                CMU_enter_DefaultMode_from_RESET
  .text.RTCC_enter_DefaultMode_from_RESET
-                0x000242d8       0x4c ./src/InitDevice.o
-                0x000242d8                RTCC_enter_DefaultMode_from_RESET
+                0x00024434       0x4c ./src/InitDevice.o
+                0x00024434                RTCC_enter_DefaultMode_from_RESET
  .text.USART1_enter_DefaultMode_from_RESET
-                0x00024324      0x180 ./src/InitDevice.o
-                0x00024324                USART1_enter_DefaultMode_from_RESET
+                0x00024480      0x180 ./src/InitDevice.o
+                0x00024480                USART1_enter_DefaultMode_from_RESET
  .text.GPCRC_enter_DefaultMode_from_RESET
-                0x000244a4        0xc ./src/InitDevice.o
-                0x000244a4                GPCRC_enter_DefaultMode_from_RESET
+                0x00024600        0xc ./src/InitDevice.o
+                0x00024600                GPCRC_enter_DefaultMode_from_RESET
  .text.LDMA_enter_DefaultMode_from_RESET
-                0x000244b0        0xc ./src/InitDevice.o
-                0x000244b0                LDMA_enter_DefaultMode_from_RESET
+                0x0002460c        0xc ./src/InitDevice.o
+                0x0002460c                LDMA_enter_DefaultMode_from_RESET
  .text.TIMER0_enter_DefaultMode_from_RESET
-                0x000244bc      0x320 ./src/InitDevice.o
-                0x000244bc                TIMER0_enter_DefaultMode_from_RESET
+                0x00024618      0x320 ./src/InitDevice.o
+                0x00024618                TIMER0_enter_DefaultMode_from_RESET
  .text.PRS_enter_DefaultMode_from_RESET
-                0x000247dc       0x20 ./src/InitDevice.o
-                0x000247dc                PRS_enter_DefaultMode_from_RESET
+                0x00024938       0x20 ./src/InitDevice.o
+                0x00024938                PRS_enter_DefaultMode_from_RESET
  .text.PORTIO_enter_DefaultMode_from_RESET
-                0x000247fc       0x8c ./src/InitDevice.o
-                0x000247fc                PORTIO_enter_DefaultMode_from_RESET
- .text          0x00024888       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_hardware.c.obj)
-                0x00024888                gecko_bgapi_class_hardware_init
- .text          0x000248a0       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_test.c.obj)
-                0x000248a0                gecko_bgapi_class_test_init
- .text          0x000248b8       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_dfu.c.obj)
-                0x000248b8                gecko_bgapi_class_dfu_init
- .text          0x000248d0       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_gap.c.obj)
-                0x000248d0                gecko_bgapi_class_le_gap_init
- .text          0x000248e8       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_gatt.c.obj)
-                0x000248e8                gecko_bgapi_class_gatt_init
- .text          0x00024900       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_gatt_server.c.obj)
-                0x00024900                gecko_bgapi_class_gatt_server_init
- .text          0x00024918       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_flash.c.obj)
-                0x00024918                gecko_bgapi_class_flash_init
- .text          0x00024930       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_sm.c.obj)
-                0x00024930                gecko_bgapi_class_sm_init
- .text          0x00024948       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_system.c.obj)
-                0x00024948                gecko_bgapi_class_system_init
- .text          0x00024960       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_endpoint.c.obj)
-                0x00024960                gecko_bgapi_class_endpoint_init
- .text          0x00024978       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_le_connection.c.obj)
-                0x00024978                gecko_bgapi_class_le_connection_init
- .text          0x00024990      0x1d0 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_hardware.c.obj)
-                0x00024990                soft_timer_comparison
-                0x00024a24                bgapi_hardware_soft_timer_listener
-                0x00024a64                lib_hardware_handler_init
-                0x00024a78                gecko_cmd_hardware_set_soft_timer
-                0x00024ab8                gecko_cmd_hardware_set_lazy_soft_timer
-                0x00024af8                gecko_cmd_hardware_get_time
-                0x00024b2c                gecko_cmd_hardware_enable_dcdc
- .text          0x00024b60      0x330 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_test_lib.c.obj)
-                0x00024b60                bgapi_test_lib_msg_handler
-                0x00024bb8                lib_test_handler_init
-                0x00024bd8                disable_interrupts
-                0x00024bfc                gecko_cmd_test_dtm_tx
-                0x00024c90                gecko_cmd_test_dtm_rx
-                0x00024cdc                gecko_cmd_test_dtm_end
-                0x00024d44                gecko_cmd_test_debug_command
-                0x00024e14                gecko_cmd_test_debug_counter
- .text          0x00024e90       0x8c D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_dfu.c.obj)
-                0x00024e90                lib_dfu_handler_init
-                0x00024e92                gecko_cmd_dfu_reset
-                0x00024e98                gecko_cmd_dfu_flash_set_address
-                0x00024ec4                gecko_cmd_dfu_flash_upload
-                0x00024ef0                gecko_cmd_dfu_flash_upload_finish
- .text          0x00024f1c      0x34c D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_gap.c.obj)
-                0x00024f1c                lib_le_gap_handler_init
-                0x00024f1e                gecko_cmd_le_gap_set_mode
-                0x00024f64                gecko_cmd_le_gap_bt5_set_mode
-                0x00024fa8                gecko_cmd_le_gap_set_adv_data
-                0x00024ff0                gecko_cmd_le_gap_bt5_set_adv_data
-                0x00025024                gecko_cmd_le_gap_set_adv_timeout
-                0x00025078                gecko_cmd_le_gap_open
-                0x000250dc                gecko_cmd_le_gap_discover
-                0x00025108                gecko_cmd_le_gap_end_procedure
-                0x00025134                gecko_cmd_le_gap_set_adv_parameters
-                0x00025168                gecko_cmd_le_gap_bt5_set_adv_parameters
-                0x000251a4                gecko_cmd_le_gap_set_scan_parameters
-                0x000251d4                gecko_cmd_le_gap_set_conn_parameters
-                0x0002520c                gecko_cmd_le_gap_set_phy
-                0x00025238                gecko_cmd_le_gap_set_privacy_mode
- .text          0x00025268      0x6c4 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_gatt_lib.c.obj)
-                0x00025268                lib_gatt_handler_init
-                0x0002526c                lib_gatt_server_handler_init
-                0x0002526e                gecko_cmd_gatt_set_max_mtu
-                0x000252a8                gecko_cmd_gatt_discover_primary_services
-                0x000252d8                gecko_cmd_gatt_discover_primary_services_by_uuid
-                0x00025314                gecko_cmd_gatt_find_included_services
-                0x00025348                gecko_cmd_gatt_discover_characteristics
-                0x0002537c                gecko_cmd_gatt_discover_characteristics_by_uuid
-                0x000253bc                gecko_cmd_gatt_read_characteristic_value
-                0x000253f4                gecko_cmd_gatt_read_characteristic_value_from_offset
-                0x00025430                gecko_cmd_gatt_read_characteristic_value_by_uuid
-                0x00025470                gecko_cmd_gatt_read_multiple_characteristic_values
-                0x000254a4                gecko_cmd_gatt_write_characteristic_value
-                0x000254dc                gecko_cmd_gatt_write_characteristic_value_without_response
-                0x00025520                gecko_cmd_gatt_prepare_characteristic_value_write
-                0x00025570                gecko_cmd_gatt_execute_characteristic_value_write
-                0x000255a4                gecko_cmd_gatt_set_characteristic_notification
-                0x000255dc                gecko_cmd_gatt_discover_descriptors
-                0x00025610                gecko_cmd_gatt_read_descriptor_value
-                0x00025644                gecko_cmd_gatt_write_descriptor_value
-                0x0002567c                gecko_cmd_gatt_server_read_attribute_value
-                0x000256c4                gecko_cmd_gatt_server_read_attribute_type
-                0x00025708                gecko_cmd_gatt_server_find_attribute
-                0x00025744                gecko_cmd_gatt_server_write_attribute_value
-                0x00025778                gecko_cmd_gatt_server_send_user_read_response
-                0x000257c8                gecko_cmd_gatt_server_send_user_write_response
-                0x00025800                gecko_cmd_gatt_server_send_characteristic_notification
-                0x0002584c                gecko_cmd_gatt_send_characteristic_confirmation
-                0x0002587c                gecko_cmd_gatt_server_set_database
-                0x000258ac                gecko_cmd_gatt_server_set_capabilities
-                0x000258dc                gecko_cmd_gatt_prepare_characteristic_value_reliable_write
- .text          0x0002592c      0x1d0 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_ps.c.obj)
-                0x0002592c                bgapi_ps_dump_listener
-                0x0002596c                lib_flash_handler_init
-                0x00025980                gecko_cmd_flash_ps_dump
-                0x00025a18                gecko_cmd_flash_ps_erase_all
-                0x00025a48                gecko_cmd_flash_ps_save
-                0x00025a84                gecko_cmd_flash_ps_load
-                0x00025ac8                gecko_cmd_flash_ps_erase
- .text          0x00025afc      0x3cc D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_sm.c.obj)
-                0x00025bc4                lib_sm_handler_init
-                0x00025bd8                gecko_cmd_sm_list_all_bondings
-                0x00025c10                gecko_cmd_sm_increase_security
-                0x00025c40                gecko_cmd_sm_set_bondable_mode
-                0x00025c6c                gecko_cmd_sm_delete_bonding
-                0x00025c9c                gecko_cmd_sm_delete_bondings
-                0x00025ccc                gecko_cmd_sm_configure
-                0x00025cfc                gecko_cmd_sm_enter_passkey
-                0x00025d30                gecko_cmd_sm_set_passkey
-                0x00025d5c                gecko_cmd_sm_passkey_confirm
-                0x00025d90                gecko_cmd_sm_set_oob_data
-                0x00025dc0                gecko_cmd_sm_set_sc_remote_oob_data
-                0x00025df0                gecko_cmd_sm_use_sc_oob
-                0x00025e30                gecko_cmd_sm_store_bonding_configuration
-                0x00025e64                gecko_cmd_sm_bonding_confirm
-                0x00025e98                gecko_cmd_sm_set_debug_mode
- .text          0x00025ec8      0x1d8 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_system.c.obj)
-                0x00025ec8                bgapi_system_listener
-                0x00025ef8                lib_system_handler_init
-                0x00025f0c                gecko_cmd_system_get_bt_address
-                0x00025f44                gecko_cmd_system_set_bt_address
-                0x00025f78                gecko_cmd_system_set_device_name
-                0x00025fb4                gecko_cmd_system_get_random_data
-                0x00025ffc                gecko_cmd_system_halt
-                0x00026030                gecko_cmd_system_set_tx_power
-                0x00026060                gecko_cmd_system_hello
-                0x00026088                gecko_cmd_system_reset
-                0x0002608e                gecko_send_system_awake
- .text          0x000260a0      0x1ac D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_endpoint.c.obj)
-                0x000260a0                lib_endpoint_handler_init
-                0x000260a2                gecko_cmd_endpoint_send
-                0x0002614c                gecko_cmd_endpoint_set_streaming_destination
-                0x000261a4                gecko_cmd_endpoint_close
-                0x00026200                gecko_cmd_endpoint_set_flags
-                0x00026202                gecko_cmd_endpoint_clr_flags
-                0x00026204                gecko_cmd_endpoint_read_counters
- .text          0x0002624c      0x104 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_le_connection.c.obj)
-                0x0002624c                lib_le_connection_handler_init
-                0x0002624e                gecko_cmd_le_connection_set_parameters
-                0x0002629c                gecko_cmd_le_connection_get_rssi
-                0x000262cc                gecko_cmd_le_connection_disable_slave_latency
-                0x00026314                gecko_cmd_le_connection_set_phy
- .text          0x00026350      0xdf0 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gatt_client.c.obj)
-                0x000265b8                gatt_discover_primary_services
-                0x000265f6                gatt_discover_primary_services_by_uuid
-                0x0002664c                gatt_find_included_services
-                0x0002669c                gatt_find_included_services_handler
-                0x0002674c                gatt_discover_characteristics
-                0x0002676e                gatt_discover_characteristics_by_uuid
-                0x000267b0                gatt_discover_descriptors
-                0x000267ec                gatt_read_characteristic_value
-                0x00026824                gatt_read_characteristic_value_by_uuid
-                0x0002685e                gatt_read_multiple_characteristic_values
-                0x00026882                gatt_write_characteristic_value
-                0x000268a8                gatt_write_characteristic_value_without_response
-                0x000268c2                gatt_prepare_characteristic_value_write
-                0x00026938                gatt_execute_characteristic_value_write
-                0x0002695a                gatt_set_characteristic_notification
-                0x0002699a                gatt_read_descriptor_value
-                0x000269c2                gatt_write_descriptor_value
-                0x000269e8                gatt_handle_exchange_mtu_rsp
-                0x00026a04                gatt_handle_find_information_response
-                0x00026b56                gatt_handle_find_by_type_value_response
-                0x00026bf2                gatt_handle_read_response
-                0x00026d50                gatt_handle_read_blob_response
-                0x00026d86                gatt_handle_read_multiple_response
-                0x00026dc2                gatt_handle_read_by_type_response
-                0x00026f0c                gatt_handle_read_by_group_type_response
-                0x00026fb4                gatt_handle_write_response
-                0x00026fc8                gatt_handle_prepare_write_response
-                0x000270ba                gatt_handle_execute_write_response
-                0x000270f2                gatt_client_handle_value_notification
-                0x00027104                gatt_client_handle_value_indication
-                0x00027118                gatt_send_characteristic_confirmation
-                0x00027136                gatt_client_init
- .text          0x00027140      0x250 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(ubt_gatt_client.c.obj)
-                0x00027140                ubt_gatt_discover_primary_services
-                0x00027156                ubt_gatt_discover_primary_services_by_uuid
-                0x00027182                ubt_gatt_find_included_services
-                0x0002719c                ubt_gatt_discover_characteristics
-                0x000271b6                ubt_gatt_discover_characteristics_by_uuid
-                0x000271e6                ubt_gatt_discover_descriptors
-                0x00027200                ubt_gatt_read_characteristic_value
-                0x00027222                ubt_gatt_read_characteristic_value_by_uuid
-                0x00027252                ubt_gatt_read_multiple_characteristic_values
-                0x00027270                ubt_gatt_write_characteristic_value
-                0x00027292                ubt_gatt_write_characteristic_value_without_response
-                0x000272cc                ubt_gatt_prepare_characteristic_value_write
-                0x00027306                ubt_gatt_execute_characteristic_value_write
-                0x00027320                ubt_gatt_send_characteristic_confirmation
-                0x00027336                ubt_gatt_read_descriptor_value
-                0x00027350                ubt_gatt_write_descriptor_value
-                0x00027372                ubt_gatt_set_characteristic_notification
- .text          0x00027390      0x4ec D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(att_client.c.obj)
-                0x00027390                att_send_find_information_request
-                0x000273b6                att_send_find_by_type_value_request
-                0x000273e8                att_send_read_by_type_request
-                0x00027414                att_send_read_request
-                0x00027434                att_send_read_blob_request
-                0x0002745a                att_send_read_multiple_request
-                0x00027486                att_send_read_by_group_type_request
-                0x000274b2                att_send_write_request
-                0x000274de                att_send_write_command
-                0x0002750a                att_send_signed_write_command
-                0x00027544                att_send_prepare_write_request
-                0x00027580                att_send_execute_write_request
-                0x0002759e                att_send_handle_value_confirmation
-                0x000275b6                validate_gatt_client_pdu_len
-                0x00027670                att_gatt_client_handler
- .text          0x0002787c       0x30 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_aeabi_uldivmod.o)
-                0x0002787c                __aeabi_uldivmod
- .text          0x000278ac       0x60 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(bpabi.o)
-                0x000278ac                __gnu_ldivmod_helper
-                0x000278dc                __gnu_uldivmod_helper
- .text          0x0002790c        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_dvmd_tls.o)
-                0x0002790c                __aeabi_idiv0
-                0x0002790c                __aeabi_ldiv0
- .text          0x00027910      0x29c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_divdi3.o)
-                0x00027910                __divdi3
- .text          0x00027bac      0x26c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_udivdi3.o)
-                0x00027bac                __udivdi3
- .text.exit     0x00027e18       0x20 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-exit.o)
-                0x00027e18                exit
+                0x00024958       0x8c ./src/InitDevice.o
+                0x00024958                PORTIO_enter_DefaultMode_from_RESET
+ .text          0x000249e4       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_hardware.c.obj)
+                0x000249e4                gecko_bgapi_class_hardware_init
+ .text          0x000249fc       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_test.c.obj)
+                0x000249fc                gecko_bgapi_class_test_init
+ .text          0x00024a14       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_dfu.c.obj)
+                0x00024a14                gecko_bgapi_class_dfu_init
+ .text          0x00024a2c       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_gap.c.obj)
+                0x00024a2c                gecko_bgapi_class_le_gap_init
+ .text          0x00024a44       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_gatt.c.obj)
+                0x00024a44                gecko_bgapi_class_gatt_init
+ .text          0x00024a5c       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_gatt_server.c.obj)
+                0x00024a5c                gecko_bgapi_class_gatt_server_init
+ .text          0x00024a74       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_flash.c.obj)
+                0x00024a74                gecko_bgapi_class_flash_init
+ .text          0x00024a8c       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_sm.c.obj)
+                0x00024a8c                gecko_bgapi_class_sm_init
+ .text          0x00024aa4       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_system.c.obj)
+                0x00024aa4                gecko_bgapi_class_system_init
+ .text          0x00024abc       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_endpoint.c.obj)
+                0x00024abc                gecko_bgapi_class_endpoint_init
+ .text          0x00024ad4       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_le_connection.c.obj)
+                0x00024ad4                gecko_bgapi_class_le_connection_init
+ .text          0x00024aec      0x1d0 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_hardware.c.obj)
+                0x00024aec                soft_timer_comparison
+                0x00024b80                bgapi_hardware_soft_timer_listener
+                0x00024bc0                lib_hardware_handler_init
+                0x00024bd4                gecko_cmd_hardware_set_soft_timer
+                0x00024c14                gecko_cmd_hardware_set_lazy_soft_timer
+                0x00024c54                gecko_cmd_hardware_get_time
+                0x00024c88                gecko_cmd_hardware_enable_dcdc
+ .text          0x00024cbc      0x330 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_test_lib.c.obj)
+                0x00024cbc                bgapi_test_lib_msg_handler
+                0x00024d14                lib_test_handler_init
+                0x00024d34                disable_interrupts
+                0x00024d58                gecko_cmd_test_dtm_tx
+                0x00024dec                gecko_cmd_test_dtm_rx
+                0x00024e38                gecko_cmd_test_dtm_end
+                0x00024ea0                gecko_cmd_test_debug_command
+                0x00024f70                gecko_cmd_test_debug_counter
+ .text          0x00024fec       0x8c D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_dfu.c.obj)
+                0x00024fec                lib_dfu_handler_init
+                0x00024fee                gecko_cmd_dfu_reset
+                0x00024ff4                gecko_cmd_dfu_flash_set_address
+                0x00025020                gecko_cmd_dfu_flash_upload
+                0x0002504c                gecko_cmd_dfu_flash_upload_finish
+ .text          0x00025078      0x34c D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_gap.c.obj)
+                0x00025078                lib_le_gap_handler_init
+                0x0002507a                gecko_cmd_le_gap_set_mode
+                0x000250c0                gecko_cmd_le_gap_bt5_set_mode
+                0x00025104                gecko_cmd_le_gap_set_adv_data
+                0x0002514c                gecko_cmd_le_gap_bt5_set_adv_data
+                0x00025180                gecko_cmd_le_gap_set_adv_timeout
+                0x000251d4                gecko_cmd_le_gap_open
+                0x00025238                gecko_cmd_le_gap_discover
+                0x00025264                gecko_cmd_le_gap_end_procedure
+                0x00025290                gecko_cmd_le_gap_set_adv_parameters
+                0x000252c4                gecko_cmd_le_gap_bt5_set_adv_parameters
+                0x00025300                gecko_cmd_le_gap_set_scan_parameters
+                0x00025330                gecko_cmd_le_gap_set_conn_parameters
+                0x00025368                gecko_cmd_le_gap_set_phy
+                0x00025394                gecko_cmd_le_gap_set_privacy_mode
+ .text          0x000253c4      0x6c4 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_gatt_lib.c.obj)
+                0x000253c4                lib_gatt_handler_init
+                0x000253c8                lib_gatt_server_handler_init
+                0x000253ca                gecko_cmd_gatt_set_max_mtu
+                0x00025404                gecko_cmd_gatt_discover_primary_services
+                0x00025434                gecko_cmd_gatt_discover_primary_services_by_uuid
+                0x00025470                gecko_cmd_gatt_find_included_services
+                0x000254a4                gecko_cmd_gatt_discover_characteristics
+                0x000254d8                gecko_cmd_gatt_discover_characteristics_by_uuid
+                0x00025518                gecko_cmd_gatt_read_characteristic_value
+                0x00025550                gecko_cmd_gatt_read_characteristic_value_from_offset
+                0x0002558c                gecko_cmd_gatt_read_characteristic_value_by_uuid
+                0x000255cc                gecko_cmd_gatt_read_multiple_characteristic_values
+                0x00025600                gecko_cmd_gatt_write_characteristic_value
+                0x00025638                gecko_cmd_gatt_write_characteristic_value_without_response
+                0x0002567c                gecko_cmd_gatt_prepare_characteristic_value_write
+                0x000256cc                gecko_cmd_gatt_execute_characteristic_value_write
+                0x00025700                gecko_cmd_gatt_set_characteristic_notification
+                0x00025738                gecko_cmd_gatt_discover_descriptors
+                0x0002576c                gecko_cmd_gatt_read_descriptor_value
+                0x000257a0                gecko_cmd_gatt_write_descriptor_value
+                0x000257d8                gecko_cmd_gatt_server_read_attribute_value
+                0x00025820                gecko_cmd_gatt_server_read_attribute_type
+                0x00025864                gecko_cmd_gatt_server_find_attribute
+                0x000258a0                gecko_cmd_gatt_server_write_attribute_value
+                0x000258d4                gecko_cmd_gatt_server_send_user_read_response
+                0x00025924                gecko_cmd_gatt_server_send_user_write_response
+                0x0002595c                gecko_cmd_gatt_server_send_characteristic_notification
+                0x000259a8                gecko_cmd_gatt_send_characteristic_confirmation
+                0x000259d8                gecko_cmd_gatt_server_set_database
+                0x00025a08                gecko_cmd_gatt_server_set_capabilities
+                0x00025a38                gecko_cmd_gatt_prepare_characteristic_value_reliable_write
+ .text          0x00025a88      0x1d0 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_ps.c.obj)
+                0x00025a88                bgapi_ps_dump_listener
+                0x00025ac8                lib_flash_handler_init
+                0x00025adc                gecko_cmd_flash_ps_dump
+                0x00025b74                gecko_cmd_flash_ps_erase_all
+                0x00025ba4                gecko_cmd_flash_ps_save
+                0x00025be0                gecko_cmd_flash_ps_load
+                0x00025c24                gecko_cmd_flash_ps_erase
+ .text          0x00025c58      0x3cc D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_sm.c.obj)
+                0x00025d20                lib_sm_handler_init
+                0x00025d34                gecko_cmd_sm_list_all_bondings
+                0x00025d6c                gecko_cmd_sm_increase_security
+                0x00025d9c                gecko_cmd_sm_set_bondable_mode
+                0x00025dc8                gecko_cmd_sm_delete_bonding
+                0x00025df8                gecko_cmd_sm_delete_bondings
+                0x00025e28                gecko_cmd_sm_configure
+                0x00025e58                gecko_cmd_sm_enter_passkey
+                0x00025e8c                gecko_cmd_sm_set_passkey
+                0x00025eb8                gecko_cmd_sm_passkey_confirm
+                0x00025eec                gecko_cmd_sm_set_oob_data
+                0x00025f1c                gecko_cmd_sm_set_sc_remote_oob_data
+                0x00025f4c                gecko_cmd_sm_use_sc_oob
+                0x00025f8c                gecko_cmd_sm_store_bonding_configuration
+                0x00025fc0                gecko_cmd_sm_bonding_confirm
+                0x00025ff4                gecko_cmd_sm_set_debug_mode
+ .text          0x00026024      0x1d8 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_system.c.obj)
+                0x00026024                bgapi_system_listener
+                0x00026054                lib_system_handler_init
+                0x00026068                gecko_cmd_system_get_bt_address
+                0x000260a0                gecko_cmd_system_set_bt_address
+                0x000260d4                gecko_cmd_system_set_device_name
+                0x00026110                gecko_cmd_system_get_random_data
+                0x00026158                gecko_cmd_system_halt
+                0x0002618c                gecko_cmd_system_set_tx_power
+                0x000261bc                gecko_cmd_system_hello
+                0x000261e4                gecko_cmd_system_reset
+                0x000261ea                gecko_send_system_awake
+ .text          0x000261fc      0x1ac D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_endpoint.c.obj)
+                0x000261fc                lib_endpoint_handler_init
+                0x000261fe                gecko_cmd_endpoint_send
+                0x000262a8                gecko_cmd_endpoint_set_streaming_destination
+                0x00026300                gecko_cmd_endpoint_close
+                0x0002635c                gecko_cmd_endpoint_set_flags
+                0x0002635e                gecko_cmd_endpoint_clr_flags
+                0x00026360                gecko_cmd_endpoint_read_counters
+ .text          0x000263a8      0x104 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_le_connection.c.obj)
+                0x000263a8                lib_le_connection_handler_init
+                0x000263aa                gecko_cmd_le_connection_set_parameters
+                0x000263f8                gecko_cmd_le_connection_get_rssi
+                0x00026428                gecko_cmd_le_connection_disable_slave_latency
+                0x00026470                gecko_cmd_le_connection_set_phy
+ .text          0x000264ac      0xdf0 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gatt_client.c.obj)
+                0x00026714                gatt_discover_primary_services
+                0x00026752                gatt_discover_primary_services_by_uuid
+                0x000267a8                gatt_find_included_services
+                0x000267f8                gatt_find_included_services_handler
+                0x000268a8                gatt_discover_characteristics
+                0x000268ca                gatt_discover_characteristics_by_uuid
+                0x0002690c                gatt_discover_descriptors
+                0x00026948                gatt_read_characteristic_value
+                0x00026980                gatt_read_characteristic_value_by_uuid
+                0x000269ba                gatt_read_multiple_characteristic_values
+                0x000269de                gatt_write_characteristic_value
+                0x00026a04                gatt_write_characteristic_value_without_response
+                0x00026a1e                gatt_prepare_characteristic_value_write
+                0x00026a94                gatt_execute_characteristic_value_write
+                0x00026ab6                gatt_set_characteristic_notification
+                0x00026af6                gatt_read_descriptor_value
+                0x00026b1e                gatt_write_descriptor_value
+                0x00026b44                gatt_handle_exchange_mtu_rsp
+                0x00026b60                gatt_handle_find_information_response
+                0x00026cb2                gatt_handle_find_by_type_value_response
+                0x00026d4e                gatt_handle_read_response
+                0x00026eac                gatt_handle_read_blob_response
+                0x00026ee2                gatt_handle_read_multiple_response
+                0x00026f1e                gatt_handle_read_by_type_response
+                0x00027068                gatt_handle_read_by_group_type_response
+                0x00027110                gatt_handle_write_response
+                0x00027124                gatt_handle_prepare_write_response
+                0x00027216                gatt_handle_execute_write_response
+                0x0002724e                gatt_client_handle_value_notification
+                0x00027260                gatt_client_handle_value_indication
+                0x00027274                gatt_send_characteristic_confirmation
+                0x00027292                gatt_client_init
+ .text          0x0002729c      0x250 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(ubt_gatt_client.c.obj)
+                0x0002729c                ubt_gatt_discover_primary_services
+                0x000272b2                ubt_gatt_discover_primary_services_by_uuid
+                0x000272de                ubt_gatt_find_included_services
+                0x000272f8                ubt_gatt_discover_characteristics
+                0x00027312                ubt_gatt_discover_characteristics_by_uuid
+                0x00027342                ubt_gatt_discover_descriptors
+                0x0002735c                ubt_gatt_read_characteristic_value
+                0x0002737e                ubt_gatt_read_characteristic_value_by_uuid
+                0x000273ae                ubt_gatt_read_multiple_characteristic_values
+                0x000273cc                ubt_gatt_write_characteristic_value
+                0x000273ee                ubt_gatt_write_characteristic_value_without_response
+                0x00027428                ubt_gatt_prepare_characteristic_value_write
+                0x00027462                ubt_gatt_execute_characteristic_value_write
+                0x0002747c                ubt_gatt_send_characteristic_confirmation
+                0x00027492                ubt_gatt_read_descriptor_value
+                0x000274ac                ubt_gatt_write_descriptor_value
+                0x000274ce                ubt_gatt_set_characteristic_notification
+ .text          0x000274ec      0x4ec D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(att_client.c.obj)
+                0x000274ec                att_send_find_information_request
+                0x00027512                att_send_find_by_type_value_request
+                0x00027544                att_send_read_by_type_request
+                0x00027570                att_send_read_request
+                0x00027590                att_send_read_blob_request
+                0x000275b6                att_send_read_multiple_request
+                0x000275e2                att_send_read_by_group_type_request
+                0x0002760e                att_send_write_request
+                0x0002763a                att_send_write_command
+                0x00027666                att_send_signed_write_command
+                0x000276a0                att_send_prepare_write_request
+                0x000276dc                att_send_execute_write_request
+                0x000276fa                att_send_handle_value_confirmation
+                0x00027712                validate_gatt_client_pdu_len
+                0x000277cc                att_gatt_client_handler
+ .text          0x000279d8       0x30 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_aeabi_uldivmod.o)
+                0x000279d8                __aeabi_uldivmod
+ .text          0x00027a08       0x60 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(bpabi.o)
+                0x00027a08                __gnu_ldivmod_helper
+                0x00027a38                __gnu_uldivmod_helper
+ .text          0x00027a68        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_dvmd_tls.o)
+                0x00027a68                __aeabi_idiv0
+                0x00027a68                __aeabi_ldiv0
+ .text          0x00027a6c      0x29c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_divdi3.o)
+                0x00027a6c                __divdi3
+ .text          0x00027d08      0x26c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_udivdi3.o)
+                0x00027d08                __udivdi3
+ .text.exit     0x00027f74       0x20 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-exit.o)
+                0x00027f74                exit
  .text.__libc_init_array
-                0x00027e38       0x50 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-init.o)
-                0x00027e38                __libc_init_array
- .text.memcmp   0x00027e88       0x64 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memcmp.o)
-                0x00027e88                memcmp
- .text          0x00027eec      0x134 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memcpy.o)
-                0x00027eec                memcpy
- .text.memset   0x00028020       0x9c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memset.o)
-                0x00028020                memset
- .text.sprintf  0x000280bc       0x4c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-sprintf.o)
-                0x000280bc                sprintf
- .text.strlen   0x00028108       0x5c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-strlen.o)
-                0x00028108                strlen
- .text.strncpy  0x00028164       0x68 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-strncpy.o)
-                0x00028164                strncpy
- *fill*         0x000281cc        0x4 
+                0x00027f94       0x50 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-init.o)
+                0x00027f94                __libc_init_array
+ .text.memcmp   0x00027fe4       0x64 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memcmp.o)
+                0x00027fe4                memcmp
+ .text          0x00028048      0x134 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memcpy.o)
+                0x00028048                memcpy
+ .text.memset   0x0002817c       0x9c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memset.o)
+                0x0002817c                memset
+ .text.sprintf  0x00028218       0x4c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-sprintf.o)
+                0x00028218                sprintf
+ .text.strlen   0x00028264       0x5c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-strlen.o)
+                0x00028264                strlen
+ .text.strncpy  0x000282c0       0x68 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-strncpy.o)
+                0x000282c0                strncpy
  .text._svfprintf_r
-                0x000281d0     0x14cc d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-svfprintf.o)
-                0x000281d0                _svfprintf_r
+                0x00028328     0x14cc d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-svfprintf.o)
+                0x00028328                _svfprintf_r
  .text.startup.register_fini
-                0x0002969c       0x14 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__call_atexit.o)
+                0x000297f4       0x14 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__call_atexit.o)
  .text.__call_exitprocs
-                0x000296b0       0xd4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__call_atexit.o)
-                0x000296b0                __call_exitprocs
- .text.atexit   0x00029784        0xc d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-atexit.o)
-                0x00029784                atexit
- .text.quorem   0x00029790      0x12c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-dtoa.o)
- *fill*         0x000298bc        0x4 
- .text._dtoa_r  0x000298c0      0xea4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-dtoa.o)
-                0x000298c0                _dtoa_r
+                0x00029808       0xd4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__call_atexit.o)
+                0x00029808                __call_exitprocs
+ .text.atexit   0x000298dc        0xc d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-atexit.o)
+                0x000298dc                atexit
+ .text.quorem   0x000298e8      0x12c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-dtoa.o)
+ *fill*         0x00029a14        0x4 
+ .text._dtoa_r  0x00029a18      0xea4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-dtoa.o)
+                0x00029a18                _dtoa_r
  .text.__libc_fini_array
-                0x0002a764       0x2c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-fini.o)
-                0x0002a764                __libc_fini_array
+                0x0002a8bc       0x2c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-fini.o)
+                0x0002a8bc                __libc_fini_array
  .text._localeconv_r
-                0x0002a790        0x8 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-locale.o)
-                0x0002a790                _localeconv_r
+                0x0002a8e8        0x8 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-locale.o)
+                0x0002a8e8                _localeconv_r
  .text._malloc_r
-                0x0002a798      0x524 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mallocr.o)
-                0x0002a798                _malloc_r
- .text.memchr   0x0002acbc       0x94 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memchr.o)
-                0x0002acbc                memchr
+                0x0002a8f0      0x524 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mallocr.o)
+                0x0002a8f0                _malloc_r
+ .text.memchr   0x0002ae14       0x94 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memchr.o)
+                0x0002ae14                memchr
  .text.__malloc_lock
-                0x0002ad50        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mlock.o)
-                0x0002ad50                __malloc_lock
+                0x0002aea8        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mlock.o)
+                0x0002aea8                __malloc_lock
  .text.__malloc_unlock
-                0x0002ad54        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mlock.o)
-                0x0002ad54                __malloc_unlock
- .text._Balloc  0x0002ad58       0x4c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
-                0x0002ad58                _Balloc
- .text._Bfree   0x0002ada4       0x14 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
-                0x0002ada4                _Bfree
+                0x0002aeac        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mlock.o)
+                0x0002aeac                __malloc_unlock
+ .text._Balloc  0x0002aeb0       0x4c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
+                0x0002aeb0                _Balloc
+ .text._Bfree   0x0002aefc       0x14 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
+                0x0002aefc                _Bfree
  .text.__multadd
-                0x0002adb8       0x84 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
-                0x0002adb8                __multadd
+                0x0002af10       0x84 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
+                0x0002af10                __multadd
  .text.__hi0bits
-                0x0002ae3c       0x40 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
-                0x0002ae3c                __hi0bits
+                0x0002af94       0x40 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
+                0x0002af94                __hi0bits
  .text.__lo0bits
-                0x0002ae7c       0x5c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
-                0x0002ae7c                __lo0bits
- .text.__i2b    0x0002aed8       0x14 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
-                0x0002aed8                __i2b
+                0x0002afd4       0x5c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
+                0x0002afd4                __lo0bits
+ .text.__i2b    0x0002b030       0x14 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
+                0x0002b030                __i2b
  .text.__multiply
-                0x0002aeec      0x134 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
-                0x0002aeec                __multiply
+                0x0002b044      0x134 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
+                0x0002b044                __multiply
  .text.__pow5mult
-                0x0002b020       0xa0 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
-                0x0002b020                __pow5mult
+                0x0002b178       0xa0 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
+                0x0002b178                __pow5mult
  .text.__lshift
-                0x0002b0c0       0xac d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
-                0x0002b0c0                __lshift
- .text.__mcmp   0x0002b16c       0x48 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
-                0x0002b16c                __mcmp
- .text.__mdiff  0x0002b1b4       0xd4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
-                0x0002b1b4                __mdiff
- .text.__d2b    0x0002b288       0xbc d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
-                0x0002b288                __d2b
+                0x0002b218       0xac d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
+                0x0002b218                __lshift
+ .text.__mcmp   0x0002b2c4       0x48 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
+                0x0002b2c4                __mcmp
+ .text.__mdiff  0x0002b30c       0xd4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
+                0x0002b30c                __mdiff
+ .text.__d2b    0x0002b3e0       0xbc d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
+                0x0002b3e0                __d2b
  .text.__fpclassifyd
-                0x0002b344       0x5c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-s_fpclassify.o)
-                0x0002b344                __fpclassifyd
- .text._sbrk_r  0x0002b3a0       0x24 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-sbrkr.o)
-                0x0002b3a0                _sbrk_r
+                0x0002b49c       0x5c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-s_fpclassify.o)
+                0x0002b49c                __fpclassifyd
+ .text._sbrk_r  0x0002b4f8       0x24 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-sbrkr.o)
+                0x0002b4f8                _sbrk_r
  .text.__ssprint_r
-                0x0002b3c4      0x104 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-svfiprintf.o)
-                0x0002b3c4                __ssprint_r
+                0x0002b51c      0x104 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-svfiprintf.o)
+                0x0002b51c                __ssprint_r
  .text.__register_exitproc
-                0x0002b4c8       0xa4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__atexit.o)
-                0x0002b4c8                __register_exitproc
+                0x0002b620       0xa4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__atexit.o)
+                0x0002b620                __register_exitproc
  .text._calloc_r
-                0x0002b56c       0x60 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-callocr.o)
-                0x0002b56c                _calloc_r
+                0x0002b6c4       0x60 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-callocr.o)
+                0x0002b6c4                _calloc_r
  .text._malloc_trim_r
-                0x0002b5cc       0x9c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-freer.o)
-                0x0002b5cc                _malloc_trim_r
- .text._free_r  0x0002b668      0x1b0 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-freer.o)
-                0x0002b668                _free_r
- .text.memmove  0x0002b818       0xc8 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memmove.o)
-                0x0002b818                memmove
+                0x0002b724       0x9c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-freer.o)
+                0x0002b724                _malloc_trim_r
+ .text._free_r  0x0002b7c0      0x1b0 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-freer.o)
+                0x0002b7c0                _free_r
+ .text.memmove  0x0002b970       0xc8 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memmove.o)
+                0x0002b970                memmove
  .text._realloc_r
-                0x0002b8e0      0x3ec d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-reallocr.o)
-                0x0002b8e0                _realloc_r
- .text._sbrk    0x0002bccc       0x1c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libnosys.a(sbrk.o)
-                0x0002bccc                _sbrk
- .text._exit    0x0002bce8        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libnosys.a(_exit.o)
-                0x0002bce8                _exit
- .text          0x0002bcec      0x370 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_arm_addsubdf3.o)
-                0x0002bcec                __aeabi_drsub
-                0x0002bcf4                __aeabi_dsub
-                0x0002bcf4                __subdf3
-                0x0002bcf8                __aeabi_dadd
-                0x0002bcf8                __adddf3
-                0x0002bf70                __floatunsidf
-                0x0002bf70                __aeabi_ui2d
-                0x0002bf90                __floatsidf
-                0x0002bf90                __aeabi_i2d
-                0x0002bfb4                __aeabi_f2d
-                0x0002bfb4                __extendsfdf2
-                0x0002bff0                __floatundidf
-                0x0002bff0                __aeabi_ul2d
-                0x0002c000                __floatdidf
-                0x0002c000                __aeabi_l2d
- .text          0x0002c05c      0x424 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_arm_muldivdf3.o)
-                0x0002c05c                __aeabi_dmul
-                0x0002c05c                __muldf3
-                0x0002c2b0                __divdf3
-                0x0002c2b0                __aeabi_ddiv
- .text          0x0002c480      0x110 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_arm_cmpdf2.o)
-                0x0002c480                __gtdf2
-                0x0002c480                __gedf2
-                0x0002c488                __ltdf2
-                0x0002c488                __ledf2
-                0x0002c490                __nedf2
-                0x0002c490                __eqdf2
-                0x0002c490                __cmpdf2
-                0x0002c50c                __aeabi_cdrcmple
-                0x0002c51c                __aeabi_cdcmpeq
-                0x0002c51c                __aeabi_cdcmple
-                0x0002c52c                __aeabi_dcmpeq
-                0x0002c540                __aeabi_dcmplt
-                0x0002c554                __aeabi_dcmple
-                0x0002c568                __aeabi_dcmpge
-                0x0002c57c                __aeabi_dcmpgt
- .text          0x0002c590       0x50 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_arm_fixdfsi.o)
-                0x0002c590                __aeabi_d2iz
-                0x0002c590                __fixdfsi
+                0x0002ba38      0x3ec d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-reallocr.o)
+                0x0002ba38                _realloc_r
+ .text._sbrk    0x0002be24       0x1c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libnosys.a(sbrk.o)
+                0x0002be24                _sbrk
+ .text._exit    0x0002be40        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libnosys.a(_exit.o)
+                0x0002be40                _exit
+ .text          0x0002be44      0x370 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_arm_addsubdf3.o)
+                0x0002be44                __aeabi_drsub
+                0x0002be4c                __aeabi_dsub
+                0x0002be4c                __subdf3
+                0x0002be50                __aeabi_dadd
+                0x0002be50                __adddf3
+                0x0002c0c8                __floatunsidf
+                0x0002c0c8                __aeabi_ui2d
+                0x0002c0e8                __floatsidf
+                0x0002c0e8                __aeabi_i2d
+                0x0002c10c                __aeabi_f2d
+                0x0002c10c                __extendsfdf2
+                0x0002c148                __floatundidf
+                0x0002c148                __aeabi_ul2d
+                0x0002c158                __floatdidf
+                0x0002c158                __aeabi_l2d
+ .text          0x0002c1b4      0x424 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_arm_muldivdf3.o)
+                0x0002c1b4                __aeabi_dmul
+                0x0002c1b4                __muldf3
+                0x0002c408                __divdf3
+                0x0002c408                __aeabi_ddiv
+ .text          0x0002c5d8      0x110 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_arm_cmpdf2.o)
+                0x0002c5d8                __gtdf2
+                0x0002c5d8                __gedf2
+                0x0002c5e0                __ltdf2
+                0x0002c5e0                __ledf2
+                0x0002c5e8                __nedf2
+                0x0002c5e8                __eqdf2
+                0x0002c5e8                __cmpdf2
+                0x0002c664                __aeabi_cdrcmple
+                0x0002c674                __aeabi_cdcmpeq
+                0x0002c674                __aeabi_cdcmple
+                0x0002c684                __aeabi_dcmpeq
+                0x0002c698                __aeabi_dcmplt
+                0x0002c6ac                __aeabi_dcmple
+                0x0002c6c0                __aeabi_dcmpge
+                0x0002c6d4                __aeabi_dcmpgt
+ .text          0x0002c6e8       0x50 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_arm_fixdfsi.o)
+                0x0002c6e8                __aeabi_d2iz
+                0x0002c6e8                __fixdfsi
  *(.init)
- .init          0x0002c5e0        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crti.o
-                0x0002c5e0                _init
- .init          0x0002c5e4        0x8 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtn.o
+ .init          0x0002c738        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crti.o
+                0x0002c738                _init
+ .init          0x0002c73c        0x8 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtn.o
  *(.fini)
- .fini          0x0002c5ec        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crti.o
-                0x0002c5ec                _fini
- .fini          0x0002c5f0        0x8 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtn.o
+ .fini          0x0002c744        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crti.o
+                0x0002c744                _fini
+ .fini          0x0002c748        0x8 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtn.o
  *crtbegin.o(.ctors)
  *crtbegin?.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o *crtend?.o) .ctors)
@@ -2666,98 +2668,98 @@ LOAD d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q
  *(.dtors)
  *(.rodata*)
  .rodata.ptiInit
-                0x0002c5f8       0x24 ./main.o
- .rodata        0x0002c61c      0x10a ./main.o
- *fill*         0x0002c726        0x2 
+                0x0002c750       0x24 ./main.o
+ .rodata        0x0002c774      0x10a ./main.o
+ *fill*         0x0002c87e        0x2 
  .rodata.config
-                0x0002c728       0x38 ./main.o
- .rodata        0x0002c760       0xa8 ./src/InitDevice.o
- .rodata        0x0002c808       0x28 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_hardware.c.obj)
- .rodata        0x0002c830       0x30 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_test.c.obj)
- .rodata        0x0002c860       0x28 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_dfu.c.obj)
- .rodata        0x0002c888       0x78 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_gap.c.obj)
- .rodata        0x0002c900       0xa8 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_gatt.c.obj)
- .rodata        0x0002c9a8       0x50 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_gatt_server.c.obj)
- .rodata        0x0002c9f8       0x30 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_flash.c.obj)
- .rodata        0x0002ca28       0x80 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_sm.c.obj)
- .rodata        0x0002caa8       0x48 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_system.c.obj)
- .rodata        0x0002caf0       0x38 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_endpoint.c.obj)
- .rodata        0x0002cb28       0x28 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_le_connection.c.obj)
- .rodata        0x0002cb50       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_sm.c.obj)
- .rodata        0x0002cb68        0x4 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gatt_client.c.obj)
+                0x0002c880       0x38 ./main.o
+ .rodata        0x0002c8b8       0xa8 ./src/InitDevice.o
+ .rodata        0x0002c960       0x28 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_hardware.c.obj)
+ .rodata        0x0002c988       0x30 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_test.c.obj)
+ .rodata        0x0002c9b8       0x28 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_dfu.c.obj)
+ .rodata        0x0002c9e0       0x78 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_gap.c.obj)
+ .rodata        0x0002ca58       0xa8 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_gatt.c.obj)
+ .rodata        0x0002cb00       0x50 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_gatt_server.c.obj)
+ .rodata        0x0002cb50       0x30 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_flash.c.obj)
+ .rodata        0x0002cb80       0x80 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_sm.c.obj)
+ .rodata        0x0002cc00       0x48 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_system.c.obj)
+ .rodata        0x0002cc48       0x38 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_endpoint.c.obj)
+ .rodata        0x0002cc80       0x28 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gecko_bgapi_le_connection.c.obj)
+ .rodata        0x0002cca8       0x18 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_sm.c.obj)
+ .rodata        0x0002ccc0        0x4 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(gatt_client.c.obj)
  .rodata.str1.4
-                0x0002cb6c        0x2 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-impure.o)
- *fill*         0x0002cb6e        0x2 
+                0x0002ccc4        0x2 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-impure.o)
+ *fill*         0x0002ccc6        0x2 
  .rodata._global_impure_ptr
-                0x0002cb70        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-impure.o)
-                0x0002cb70                _global_impure_ptr
+                0x0002ccc8        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-impure.o)
+                0x0002ccc8                _global_impure_ptr
  .rodata.zeroes.6911
-                0x0002cb74       0x10 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-svfprintf.o)
+                0x0002cccc       0x10 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-svfprintf.o)
  .rodata.blanks.6910
-                0x0002cb84       0x10 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-svfprintf.o)
+                0x0002ccdc       0x10 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-svfprintf.o)
  .rodata.str1.4
-                0x0002cb94       0x42 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-svfprintf.o)
- *fill*         0x0002cbd6        0x2 
+                0x0002ccec       0x42 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-svfprintf.o)
+ *fill*         0x0002cd2e        0x2 
  .rodata.str1.4
-                0x0002cbd8       0x10 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-dtoa.o)
+                0x0002cd30       0x10 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-dtoa.o)
                                  0x12 (size before relaxing)
  .rodata.str1.4
-                0x0002cbe8        0xc d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-locale.o)
+                0x0002cd40        0xc d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-locale.o)
                                  0x12 (size before relaxing)
- *fill*         0x0002cbf4        0x4 
+ *fill*         0x0002cd4c        0x4 
  .rodata.__mprec_tens
-                0x0002cbf8       0xc8 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
-                0x0002cbf8                __mprec_tens
+                0x0002cd50       0xc8 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
+                0x0002cd50                __mprec_tens
  .rodata.p05.5302
-                0x0002ccc0        0xc d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
- *fill*         0x0002cccc        0x4 
+                0x0002ce18        0xc d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
+ *fill*         0x0002ce24        0x4 
  .rodata.__mprec_bigtens
-                0x0002ccd0       0x28 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
-                0x0002ccd0                __mprec_bigtens
+                0x0002ce28       0x28 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
+                0x0002ce28                __mprec_bigtens
  *(.eh_frame*)
- .eh_frame      0x0002ccf8        0x0 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
- .eh_frame      0x0002ccf8        0x0 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-strcmp.o)
+ .eh_frame      0x0002ce50        0x0 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
+ .eh_frame      0x0002ce50        0x0 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-strcmp.o)
                                  0x70 (size before relaxing)
- .eh_frame      0x0002ccf8        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtend.o
-                0x0002ccfc                . = ALIGN (0x4)
+ .eh_frame      0x0002ce50        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtend.o
+                0x0002ce54                . = ALIGN (0x4)
 
-.glue_7         0x0002ccfc        0x0
+.glue_7         0x0002ce54        0x0
  .glue_7        0x00000000        0x0 linker stubs
 
-.glue_7t        0x0002ccfc        0x0
+.glue_7t        0x0002ce54        0x0
  .glue_7t       0x00000000        0x0 linker stubs
 
-.vfp11_veneer   0x0002ccfc        0x0
+.vfp11_veneer   0x0002ce54        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x0002ccfc        0x0
+.v4_bx          0x0002ce54        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x0002ccfc        0x0
+.iplt           0x0002ce54        0x0
  .iplt          0x00000000        0x0 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
 
-.igot.plt       0x0002ccfc        0x0
+.igot.plt       0x0002ce54        0x0
  .igot.plt      0x00000000        0x0 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
 
 .text_app_ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0002ccfc                __exidx_start = .
+                0x0002ce54                __exidx_start = .
 
 .text_app_ARM.exidx
-                0x0002ccfc        0x8
+                0x0002ce54        0x8
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
- .ARM.exidx     0x0002ccfc        0x8 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/crt0.o
- .ARM.exidx     0x0002cd04        0x0 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_divdi3.o)
+ .ARM.exidx     0x0002ce54        0x8 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu/crt0.o
+ .ARM.exidx     0x0002ce5c        0x0 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_divdi3.o)
                                   0x8 (size before relaxing)
- .ARM.exidx     0x0002cd04        0x0 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_udivdi3.o)
+ .ARM.exidx     0x0002ce5c        0x0 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_udivdi3.o)
                                   0x8 (size before relaxing)
-                0x0002cd04                __exidx_end = .
-                0x0002cd04                __etext = .
+                0x0002ce5c                __exidx_end = .
+                0x0002ce5c                __etext = .
 
-.rel.dyn        0x0002cd04        0x0
+.rel.dyn        0x0002ce5c        0x0
  .rel.iplt      0x00000000        0x0 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu/crtbegin.o
 
-.text_app_data  0x20003000      0x88c load address 0x0002cd04
+.text_app_data  0x20003000      0x88c load address 0x0002ce5c
                 0x20003000                __data_start__ = .
  *(vtable)
  *(.data*)
@@ -2805,7 +2807,7 @@ LOAD d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q
                 0x2000388c                . = ALIGN (0x4)
                 0x2000388c                __data_end__ = .
 
-.bss            0x2000388c     0x25c4 load address 0x0002d590
+.bss            0x2000388c     0x25c8 load address 0x0002d6e8
                 0x2000388c                . = ALIGN (0x4)
                 0x2000388c                __bss_start__ = .
  *(.bss*)
@@ -2831,56 +2833,58 @@ LOAD d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q
  .bss.Read_bufferOverflow
                 0x20004518        0x1 ./main.o
  *fill*         0x20004519        0x3 
- .bss.Frm_Var.10217
+ .bss.Tick_Var.10226
                 0x2000451c        0x4 ./main.o
- .bss.Data_Active.10253
-                0x20004520        0x1 ./main.o
- *fill*         0x20004521        0x3 
- .bss           0x20004524        0x4 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_hardware.c.obj)
- .bss           0x20004528        0x4 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_test_lib.c.obj)
- .bss           0x2000452c        0x2 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_gap.c.obj)
-                0x2000452c                legacy_maxadv_events
- *fill*         0x2000452e        0x2 
- .bss           0x20004530        0x4 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_ps.c.obj)
- .bss           0x20004534        0x4 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_sm.c.obj)
- .bss           0x20004538        0x4 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_system.c.obj)
+ .bss.Frm_Var.10239
+                0x20004520        0x4 ./main.o
+ .bss.Data_Active.10277
+                0x20004524        0x1 ./main.o
+ *fill*         0x20004525        0x3 
+ .bss           0x20004528        0x4 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_hardware.c.obj)
+ .bss           0x2000452c        0x4 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_test_lib.c.obj)
+ .bss           0x20004530        0x2 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_gap.c.obj)
+                0x20004530                legacy_maxadv_events
+ *fill*         0x20004532        0x2 
+ .bss           0x20004534        0x4 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_ps.c.obj)
+ .bss           0x20004538        0x4 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_sm.c.obj)
+ .bss           0x2000453c        0x4 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_system.c.obj)
  .bss.__malloc_max_total_mem
-                0x2000453c        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mallocr.o)
-                0x2000453c                __malloc_max_total_mem
- .bss.__malloc_max_sbrked_mem
                 0x20004540        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mallocr.o)
-                0x20004540                __malloc_max_sbrked_mem
- .bss.__malloc_top_pad
+                0x20004540                __malloc_max_total_mem
+ .bss.__malloc_max_sbrked_mem
                 0x20004544        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mallocr.o)
-                0x20004544                __malloc_top_pad
+                0x20004544                __malloc_max_sbrked_mem
+ .bss.__malloc_top_pad
+                0x20004548        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mallocr.o)
+                0x20004548                __malloc_top_pad
  .bss.__malloc_current_mallinfo
-                0x20004548       0x28 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mallocr.o)
-                0x20004548                __malloc_current_mallinfo
+                0x2000454c       0x28 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mallocr.o)
+                0x2000454c                __malloc_current_mallinfo
  .bss.heap_end.4079
-                0x20004570        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libnosys.a(sbrk.o)
+                0x20004574        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libnosys.a(sbrk.o)
  *(COMMON)
- COMMON         0x20004574     0x18d4 ./main.o
-                0x20004574                connected
-                0x20004578                bluetooth_stack_heap
- COMMON         0x20005e48        0x4 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_test_lib.c.obj)
-                0x20005e48                msg_sender
- COMMON         0x20005e4c        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-reent.o)
-                0x20005e4c                errno
-                0x20005e50                . = ALIGN (0x4)
-                0x20005e50                __bss_end__ = .
+ COMMON         0x20004578     0x18d4 ./main.o
+                0x20004578                connected
+                0x2000457c                bluetooth_stack_heap
+ COMMON         0x20005e4c        0x4 D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(bgapi_test_lib.c.obj)
+                0x20005e4c                msg_sender
+ COMMON         0x20005e50        0x4 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-reent.o)
+                0x20005e50                errno
+                0x20005e54                . = ALIGN (0x4)
+                0x20005e54                __bss_end__ = .
 
-.heap           0x20005e50      0xc00
-                0x20005e50                __HeapBase = .
-                0x20005e50                __end__ = .
-                0x20005e50                end = __end__
-                0x20005e50                _end = __end__
+.heap           0x20005e58      0xc00
+                0x20005e58                __HeapBase = .
+                0x20005e58                __end__ = .
+                0x20005e58                end = __end__
+                0x20005e58                _end = __end__
  *(.heap*)
- .heap          0x20005e50      0xc00 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
-                0x20006a50                __HeapLimit = .
+ .heap          0x20005e58      0xc00 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
+                0x20006a58                __HeapLimit = .
 
-.stack_dummy    0x20006a50      0x400
+.stack_dummy    0x20006a58      0x400
  *(.stack*)
- .stack         0x20006a50      0x400 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
+ .stack         0x20006a58      0x400 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
                 0x20007bfc                __StackTop = (ORIGIN (RAM) + 0x4bfc)
                 0x200077fc                __StackLimit = (__StackTop - SIZEOF (.stack_dummy))
                 0x20007bfc                PROVIDE (__stack, __StackTop)
@@ -3099,37 +3103,37 @@ OUTPUT(soc-CRP-SkyPack.axf elf32-littlearm)
  .comment       0x00000000       0x6f D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(ubt_gatt_client.c.obj)
  .comment       0x00000000       0x6f D:/SiliconLabs/SimplicityStudio/v4_2/developer/sdks/gecko_sdk_suite/v1.1//protocol/bluetooth_2.4/lib/EFR32BG1B/GCC/bgapi.a(att_client.c.obj)
 
-.debug_info     0x00000000     0xcd2c
+.debug_info     0x00000000     0xcdda
  .debug_info    0x00000000      0x16c ./application_properties.o
  .debug_info    0x0000016c      0x5ca ./gatt_db.o
  .debug_info    0x00000736      0x7b7 ./gpiointerrupt.o
- .debug_info    0x00000eed     0x4d37 ./main.o
- .debug_info    0x00005c24      0x307 ./uart_echo.o
- .debug_info    0x00005f2b      0x1b8 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
- .debug_info    0x000060e3     0x1ba0 ./emlib/em_cmu.o
- .debug_info    0x00007c83      0xa09 ./emlib/em_gpio.o
- .debug_info    0x0000868c      0x6bc ./emlib/em_rtcc.o
- .debug_info    0x00008d48      0x27a ./emlib/em_system.o
- .debug_info    0x00008fc2      0x953 ./emlib/em_timer.o
- .debug_info    0x00009915      0xf59 ./emlib/em_usart.o
- .debug_info    0x0000a86e     0x24be ./src/InitDevice.o
+ .debug_info    0x00000eed     0x4de5 ./main.o
+ .debug_info    0x00005cd2      0x307 ./uart_echo.o
+ .debug_info    0x00005fd9      0x1b8 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
+ .debug_info    0x00006191     0x1ba0 ./emlib/em_cmu.o
+ .debug_info    0x00007d31      0xa09 ./emlib/em_gpio.o
+ .debug_info    0x0000873a      0x6bc ./emlib/em_rtcc.o
+ .debug_info    0x00008df6      0x27a ./emlib/em_system.o
+ .debug_info    0x00009070      0x953 ./emlib/em_timer.o
+ .debug_info    0x000099c3      0xf59 ./emlib/em_usart.o
+ .debug_info    0x0000a91c     0x24be ./src/InitDevice.o
 
-.debug_abbrev   0x00000000     0x157c
+.debug_abbrev   0x00000000     0x1562
  .debug_abbrev  0x00000000       0x9a ./application_properties.o
  .debug_abbrev  0x0000009a       0xc0 ./gatt_db.o
  .debug_abbrev  0x0000015a      0x24f ./gpiointerrupt.o
- .debug_abbrev  0x000003a9      0x359 ./main.o
- .debug_abbrev  0x00000702       0xf3 ./uart_echo.o
- .debug_abbrev  0x000007f5       0xde ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
- .debug_abbrev  0x000008d3      0x2e1 ./emlib/em_cmu.o
- .debug_abbrev  0x00000bb4      0x1dd ./emlib/em_gpio.o
- .debug_abbrev  0x00000d91      0x17a ./emlib/em_rtcc.o
- .debug_abbrev  0x00000f0b      0x10c ./emlib/em_system.o
- .debug_abbrev  0x00001017      0x177 ./emlib/em_timer.o
- .debug_abbrev  0x0000118e      0x1dc ./emlib/em_usart.o
- .debug_abbrev  0x0000136a      0x212 ./src/InitDevice.o
+ .debug_abbrev  0x000003a9      0x33f ./main.o
+ .debug_abbrev  0x000006e8       0xf3 ./uart_echo.o
+ .debug_abbrev  0x000007db       0xde ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
+ .debug_abbrev  0x000008b9      0x2e1 ./emlib/em_cmu.o
+ .debug_abbrev  0x00000b9a      0x1dd ./emlib/em_gpio.o
+ .debug_abbrev  0x00000d77      0x17a ./emlib/em_rtcc.o
+ .debug_abbrev  0x00000ef1      0x10c ./emlib/em_system.o
+ .debug_abbrev  0x00000ffd      0x177 ./emlib/em_timer.o
+ .debug_abbrev  0x00001174      0x1dc ./emlib/em_usart.o
+ .debug_abbrev  0x00001350      0x212 ./src/InitDevice.o
 
-.debug_aranges  0x00000000      0x658
+.debug_aranges  0x00000000      0x660
  .debug_aranges
                 0x00000000       0x18 ./application_properties.o
  .debug_aranges
@@ -3137,25 +3141,25 @@ OUTPUT(soc-CRP-SkyPack.axf elf32-littlearm)
  .debug_aranges
                 0x00000030       0x68 ./gpiointerrupt.o
  .debug_aranges
-                0x00000098       0xd0 ./main.o
+                0x00000098       0xd8 ./main.o
  .debug_aranges
-                0x00000168       0x28 ./uart_echo.o
+                0x00000170       0x28 ./uart_echo.o
  .debug_aranges
-                0x00000190       0x28 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
+                0x00000198       0x28 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
  .debug_aranges
-                0x000001b8      0x1a8 ./emlib/em_cmu.o
+                0x000001c0      0x1a8 ./emlib/em_cmu.o
  .debug_aranges
-                0x00000360       0x88 ./emlib/em_gpio.o
+                0x00000368       0x88 ./emlib/em_gpio.o
  .debug_aranges
-                0x000003e8       0x50 ./emlib/em_rtcc.o
+                0x000003f0       0x50 ./emlib/em_rtcc.o
  .debug_aranges
-                0x00000438       0x28 ./emlib/em_system.o
+                0x00000440       0x28 ./emlib/em_system.o
  .debug_aranges
-                0x00000460       0x58 ./emlib/em_timer.o
+                0x00000468       0x58 ./emlib/em_timer.o
  .debug_aranges
-                0x000004b8       0xb8 ./emlib/em_usart.o
+                0x000004c0       0xb8 ./emlib/em_usart.o
  .debug_aranges
-                0x00000570       0xe8 ./src/InitDevice.o
+                0x00000578       0xe8 ./src/InitDevice.o
 
 .debug_macro    0x00000000    0x251ca
  .debug_macro   0x00000000       0x84 ./application_properties.o
@@ -3279,116 +3283,116 @@ OUTPUT(soc-CRP-SkyPack.axf elf32-littlearm)
  .debug_macro   0x00025179       0x26 ./src/InitDevice.o
  .debug_macro   0x0002519f       0x2b ./src/InitDevice.o
 
-.debug_line     0x00000000     0x78dc
+.debug_line     0x00000000     0x7916
  .debug_line    0x00000000      0x335 ./application_properties.o
  .debug_line    0x00000335      0x2c9 ./gatt_db.o
  .debug_line    0x000005fe      0x8b4 ./gpiointerrupt.o
- .debug_line    0x00000eb2     0x130f ./main.o
- .debug_line    0x000021c1      0xbb8 ./uart_echo.o
- .debug_line    0x00002d79      0x279 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
- .debug_line    0x00002ff2     0x1070 ./emlib/em_cmu.o
- .debug_line    0x00004062      0x956 ./emlib/em_gpio.o
- .debug_line    0x000049b8      0x80b ./emlib/em_rtcc.o
- .debug_line    0x000051c3      0x776 ./emlib/em_system.o
- .debug_line    0x00005939      0x9fe ./emlib/em_timer.o
- .debug_line    0x00006337      0xa45 ./emlib/em_usart.o
- .debug_line    0x00006d7c      0xb60 ./src/InitDevice.o
+ .debug_line    0x00000eb2     0x1349 ./main.o
+ .debug_line    0x000021fb      0xbb8 ./uart_echo.o
+ .debug_line    0x00002db3      0x279 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
+ .debug_line    0x0000302c     0x1070 ./emlib/em_cmu.o
+ .debug_line    0x0000409c      0x956 ./emlib/em_gpio.o
+ .debug_line    0x000049f2      0x80b ./emlib/em_rtcc.o
+ .debug_line    0x000051fd      0x776 ./emlib/em_system.o
+ .debug_line    0x00005973      0x9fe ./emlib/em_timer.o
+ .debug_line    0x00006371      0xa45 ./emlib/em_usart.o
+ .debug_line    0x00006db6      0xb60 ./src/InitDevice.o
 
-.debug_str      0x00000000   0x10163a
+.debug_str      0x00000000   0x101699
  .debug_str     0x00000000     0x348e ./application_properties.o
                                0x3611 (size before relaxing)
  .debug_str     0x0000348e      0x8ef ./gatt_db.o
                                0x3b66 (size before relaxing)
  .debug_str     0x00003d7d    0xe0d11 ./gpiointerrupt.o
                               0xe3fc7 (size before relaxing)
- .debug_str     0x000e4a8e    0x15e1b ./main.o
-                              0xf99b8 (size before relaxing)
- .debug_str     0x000fa8a9      0x130 ./uart_echo.o
+ .debug_str     0x000e4a8e    0x15e7a ./main.o
+                              0xf9a35 (size before relaxing)
+ .debug_str     0x000fa908      0x130 ./uart_echo.o
                               0xeb6e7 (size before relaxing)
- .debug_str     0x000fa9d9       0xce ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
+ .debug_str     0x000faa38       0xce ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
                                0x32e0 (size before relaxing)
- .debug_str     0x000faaa7     0x15dd ./emlib/em_cmu.o
+ .debug_str     0x000fab06     0x15dd ./emlib/em_cmu.o
                               0xe5891 (size before relaxing)
- .debug_str     0x000fc084      0x4b1 ./emlib/em_gpio.o
+ .debug_str     0x000fc0e3      0x4b1 ./emlib/em_gpio.o
                               0xe3a66 (size before relaxing)
- .debug_str     0x000fc535      0x761 ./emlib/em_rtcc.o
+ .debug_str     0x000fc594      0x761 ./emlib/em_rtcc.o
                               0xe33e3 (size before relaxing)
- .debug_str     0x000fcc96       0xd6 ./emlib/em_system.o
+ .debug_str     0x000fccf5       0xd6 ./emlib/em_system.o
                               0xe2ff2 (size before relaxing)
- .debug_str     0x000fcd6c      0xa04 ./emlib/em_timer.o
+ .debug_str     0x000fcdcb      0xa04 ./emlib/em_timer.o
                               0xe367c (size before relaxing)
- .debug_str     0x000fd770      0x9cb ./emlib/em_usart.o
+ .debug_str     0x000fd7cf      0x9cb ./emlib/em_usart.o
                               0xe4797 (size before relaxing)
- .debug_str     0x000fe13b     0x34ff ./src/InitDevice.o
+ .debug_str     0x000fe19a     0x34ff ./src/InitDevice.o
                               0xec630 (size before relaxing)
 
-.debug_loc      0x00000000     0x33b8
+.debug_loc      0x00000000     0x3414
  .debug_loc     0x00000000      0x338 ./gpiointerrupt.o
- .debug_loc     0x00000338      0x758 ./main.o
- .debug_loc     0x00000a90       0x7c ./uart_echo.o
- .debug_loc     0x00000b0c       0x64 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
- .debug_loc     0x00000b70     0x1000 ./emlib/em_cmu.o
- .debug_loc     0x00001b70      0x4b4 ./emlib/em_gpio.o
- .debug_loc     0x00002024      0x23c ./emlib/em_rtcc.o
- .debug_loc     0x00002260       0xb8 ./emlib/em_system.o
- .debug_loc     0x00002318      0x2b0 ./emlib/em_timer.o
- .debug_loc     0x000025c8      0x6d2 ./emlib/em_usart.o
- .debug_loc     0x00002c9a      0x71e ./src/InitDevice.o
+ .debug_loc     0x00000338      0x7b4 ./main.o
+ .debug_loc     0x00000aec       0x7c ./uart_echo.o
+ .debug_loc     0x00000b68       0x64 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
+ .debug_loc     0x00000bcc     0x1000 ./emlib/em_cmu.o
+ .debug_loc     0x00001bcc      0x4b4 ./emlib/em_gpio.o
+ .debug_loc     0x00002080      0x23c ./emlib/em_rtcc.o
+ .debug_loc     0x000022bc       0xb8 ./emlib/em_system.o
+ .debug_loc     0x00002374      0x2b0 ./emlib/em_timer.o
+ .debug_loc     0x00002624      0x6d2 ./emlib/em_usart.o
+ .debug_loc     0x00002cf6      0x71e ./src/InitDevice.o
 
-.debug_ranges   0x00000000      0x578
+.debug_ranges   0x00000000      0x580
  .debug_ranges  0x00000000       0x58 ./gpiointerrupt.o
- .debug_ranges  0x00000058       0xc0 ./main.o
- .debug_ranges  0x00000118       0x18 ./uart_echo.o
- .debug_ranges  0x00000130       0x18 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
- .debug_ranges  0x00000148      0x198 ./emlib/em_cmu.o
- .debug_ranges  0x000002e0       0x78 ./emlib/em_gpio.o
- .debug_ranges  0x00000358       0x40 ./emlib/em_rtcc.o
- .debug_ranges  0x00000398       0x18 ./emlib/em_system.o
- .debug_ranges  0x000003b0       0x48 ./emlib/em_timer.o
- .debug_ranges  0x000003f8       0xa8 ./emlib/em_usart.o
- .debug_ranges  0x000004a0       0xd8 ./src/InitDevice.o
+ .debug_ranges  0x00000058       0xc8 ./main.o
+ .debug_ranges  0x00000120       0x18 ./uart_echo.o
+ .debug_ranges  0x00000138       0x18 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
+ .debug_ranges  0x00000150      0x198 ./emlib/em_cmu.o
+ .debug_ranges  0x000002e8       0x78 ./emlib/em_gpio.o
+ .debug_ranges  0x00000360       0x40 ./emlib/em_rtcc.o
+ .debug_ranges  0x000003a0       0x18 ./emlib/em_system.o
+ .debug_ranges  0x000003b8       0x48 ./emlib/em_timer.o
+ .debug_ranges  0x00000400       0xa8 ./emlib/em_usart.o
+ .debug_ranges  0x000004a8       0xd8 ./src/InitDevice.o
 
-.debug_frame    0x00000000     0x22ac
+.debug_frame    0x00000000     0x22d4
  .debug_frame   0x00000000      0x184 ./gpiointerrupt.o
- .debug_frame   0x00000184      0x368 ./main.o
- .debug_frame   0x000004ec       0x50 ./uart_echo.o
- .debug_frame   0x0000053c       0x48 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
- .debug_frame   0x00000584      0x74c ./emlib/em_cmu.o
- .debug_frame   0x00000cd0      0x224 ./emlib/em_gpio.o
- .debug_frame   0x00000ef4      0x110 ./emlib/em_rtcc.o
- .debug_frame   0x00001004       0x60 ./emlib/em_system.o
- .debug_frame   0x00001064      0x140 ./emlib/em_timer.o
- .debug_frame   0x000011a4      0x310 ./emlib/em_usart.o
- .debug_frame   0x000014b4      0x380 ./src/InitDevice.o
- .debug_frame   0x00001834       0x28 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_aeabi_uldivmod.o)
- .debug_frame   0x0000185c       0x50 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(bpabi.o)
- .debug_frame   0x000018ac       0x34 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_divdi3.o)
- .debug_frame   0x000018e0       0x30 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_udivdi3.o)
- .debug_frame   0x00001910       0x28 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-exit.o)
- .debug_frame   0x00001938       0x2c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-init.o)
- .debug_frame   0x00001964       0x38 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memcmp.o)
- .debug_frame   0x0000199c       0x34 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memset.o)
- .debug_frame   0x000019d0       0x84 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-sprintf.o)
- .debug_frame   0x00001a54       0x20 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-strlen.o)
- .debug_frame   0x00001a74       0x34 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-strncpy.o)
- .debug_frame   0x00001aa8       0x40 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-svfprintf.o)
- .debug_frame   0x00001ae8       0x50 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__call_atexit.o)
- .debug_frame   0x00001b38       0x20 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-atexit.o)
- .debug_frame   0x00001b58       0x88 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-dtoa.o)
- .debug_frame   0x00001be0       0x34 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-fini.o)
- .debug_frame   0x00001c14       0x9c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-locale.o)
- .debug_frame   0x00001cb0       0x58 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mallocr.o)
- .debug_frame   0x00001d08       0x3c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memchr.o)
- .debug_frame   0x00001d44       0x30 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mlock.o)
- .debug_frame   0x00001d74      0x268 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
- .debug_frame   0x00001fdc       0x34 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-s_fpclassify.o)
- .debug_frame   0x00002010       0x2c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-sbrkr.o)
- .debug_frame   0x0000203c       0x78 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-svfiprintf.o)
- .debug_frame   0x000020b4       0x34 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__atexit.o)
- .debug_frame   0x000020e8       0x28 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-callocr.o)
- .debug_frame   0x00002110       0x74 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-freer.o)
- .debug_frame   0x00002184       0x30 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memmove.o)
- .debug_frame   0x000021b4       0x60 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-reallocr.o)
- .debug_frame   0x00002214       0x58 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-reent.o)
- .debug_frame   0x0000226c       0x20 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libnosys.a(sbrk.o)
- .debug_frame   0x0000228c       0x20 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libnosys.a(_exit.o)
+ .debug_frame   0x00000184      0x390 ./main.o
+ .debug_frame   0x00000514       0x50 ./uart_echo.o
+ .debug_frame   0x00000564       0x48 ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
+ .debug_frame   0x000005ac      0x74c ./emlib/em_cmu.o
+ .debug_frame   0x00000cf8      0x224 ./emlib/em_gpio.o
+ .debug_frame   0x00000f1c      0x110 ./emlib/em_rtcc.o
+ .debug_frame   0x0000102c       0x60 ./emlib/em_system.o
+ .debug_frame   0x0000108c      0x140 ./emlib/em_timer.o
+ .debug_frame   0x000011cc      0x310 ./emlib/em_usart.o
+ .debug_frame   0x000014dc      0x380 ./src/InitDevice.o
+ .debug_frame   0x0000185c       0x28 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_aeabi_uldivmod.o)
+ .debug_frame   0x00001884       0x50 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(bpabi.o)
+ .debug_frame   0x000018d4       0x34 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_divdi3.o)
+ .debug_frame   0x00001908       0x30 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/fpu\libgcc.a(_udivdi3.o)
+ .debug_frame   0x00001938       0x28 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-exit.o)
+ .debug_frame   0x00001960       0x2c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-init.o)
+ .debug_frame   0x0000198c       0x38 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memcmp.o)
+ .debug_frame   0x000019c4       0x34 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memset.o)
+ .debug_frame   0x000019f8       0x84 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-sprintf.o)
+ .debug_frame   0x00001a7c       0x20 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-strlen.o)
+ .debug_frame   0x00001a9c       0x34 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-strncpy.o)
+ .debug_frame   0x00001ad0       0x40 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-svfprintf.o)
+ .debug_frame   0x00001b10       0x50 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__call_atexit.o)
+ .debug_frame   0x00001b60       0x20 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-atexit.o)
+ .debug_frame   0x00001b80       0x88 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-dtoa.o)
+ .debug_frame   0x00001c08       0x34 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-fini.o)
+ .debug_frame   0x00001c3c       0x9c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-locale.o)
+ .debug_frame   0x00001cd8       0x58 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mallocr.o)
+ .debug_frame   0x00001d30       0x3c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memchr.o)
+ .debug_frame   0x00001d6c       0x30 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mlock.o)
+ .debug_frame   0x00001d9c      0x268 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-mprec.o)
+ .debug_frame   0x00002004       0x34 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-s_fpclassify.o)
+ .debug_frame   0x00002038       0x2c d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-sbrkr.o)
+ .debug_frame   0x00002064       0x78 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-svfiprintf.o)
+ .debug_frame   0x000020dc       0x34 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-__atexit.o)
+ .debug_frame   0x00002110       0x28 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-callocr.o)
+ .debug_frame   0x00002138       0x74 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-freer.o)
+ .debug_frame   0x000021ac       0x30 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-memmove.o)
+ .debug_frame   0x000021dc       0x60 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-reallocr.o)
+ .debug_frame   0x0000223c       0x58 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libc.a(lib_a-reent.o)
+ .debug_frame   0x00002294       0x20 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libnosys.a(sbrk.o)
+ .debug_frame   0x000022b4       0x20 d:/siliconlabs/simplicitystudio/v4_2/developer/toolchains/gnu_arm/4.9_2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/fpu\libnosys.a(_exit.o)

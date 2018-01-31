@@ -93,6 +93,19 @@ typedef enum
   LTR_M			= 0x05,			// M		Letter M Found.
 }Frm_State;
 
+// Tick State
+typedef enum
+{
+  TK_NULL_PT		= 0x00,			// NULL		Init State No Code Yet
+  TK_FRONT_TAG		= 0x01,			// <		First Tag Found.
+  TK_FRWRD_SLASH	= 0x02,			// /		Forward Slash Found.
+  TK_LTR_T			= 0x03,			// T		Letter F Found.
+  TK_LTR_I			= 0x04,			// I		Letter R Found.
+  TK_LTR_C			= 0x05,			// C		Letter M Found.
+  TK_LTR_K			= 0x06,			// K		Letter M Found.
+//  TK_BACK_TAG		= 0x07,			// >		Last Tag Found.
+}Tick_State;
+
 
 /* MSG LOGGER */
 struct
@@ -186,6 +199,57 @@ void reset_wrtBuffer(void)
 	tx_Buffr.tx_rd = 0;
 	for (x=0; x< BUFFSIZE; x++)
 		tx_Buffr.string[x] = 0x00;
+}
+
+bool Test_Tick( char test_char )
+{
+	static Tick_State Tick_Var= NULL_PT;
+	bool save_logic = false;
+
+	switch (Tick_Var)
+	{
+	case TK_NULL_PT:
+		if (test_char == '<')
+			Tick_Var = TK_FRONT_TAG;
+		break;
+	case TK_FRONT_TAG:
+		if (test_char == '/')
+			Tick_Var = TK_FRWRD_SLASH;
+		else
+			Tick_Var = TK_NULL_PT;
+		break;
+	case TK_FRWRD_SLASH:
+		if (test_char == 'T')
+			Tick_Var = TK_LTR_T;
+		else
+			Tick_Var = TK_NULL_PT;
+		break;
+	case TK_LTR_T:
+		if (test_char == 'I')
+			Tick_Var = TK_LTR_I;
+		else
+			Tick_Var = TK_NULL_PT;
+		break;
+	case TK_LTR_I:
+		if (test_char == 'C')
+			Tick_Var = TK_LTR_C;
+		else
+			Tick_Var = TK_NULL_PT;
+		break;
+	case TK_LTR_C:
+		if (test_char == 'K')
+			Tick_Var = TK_LTR_K;
+		else
+			Tick_Var = TK_NULL_PT;
+		break;
+	case TK_LTR_K:
+		Tick_Var = TK_NULL_PT;
+		if (test_char == '>')
+			save_logic = true;
+		break;
+	} // EndSwitch (Tick_Var)
+
+	return save_logic;
 }
 
 bool Test_Frm( char test_char )
@@ -379,6 +443,8 @@ int main(void)
 {
 	char string[STR_LEN];
 	char tempBffr2[BUFFER_LNGTH];
+	char FuelTag[BUFFER_LNGTH];
+	bool Tick_Active = false;
 
 	static bool Data_Active;
 
@@ -443,26 +509,22 @@ int main(void)
 			    	// Now Test for </FRM> Tag
 			    	if (Test_Frm(rx_Byte))
 			    	{
+			    		//Test to See if we have processed a Fuel Tag.
+			    		if (Tick_Active)
+			    		{
+			    			//Send FuelTag back to Micro.
+			    			UART_Send2( FuelTag );
+			    			// Terminate with ? to allow Buffer to process.
+			    			UART_Send2( "?" );
+			    			// Reset Flag.
+			    			Tick_Active = false;
+			    		}
+
 			    		// We Found FRM Tag...Send Quick Msg back to Micro.
 			    		// Ok...Clear Previous Buffer OVerflow count. We made it to a new FRM Tag.
 			    		tx_Buffr.WrtBffr_Errcnt = 0;	// Set Error Cnt to zero.
-			    		// Get Percent Write and Percent Rd
-			    		//Percent_wrt = (float)(((float)(BufFree(tx_Buffr.tx_wr, tx_Buffr.tx_rd))/ (float)BUFFSIZE)) * 100.0;
-			    		Percent_wrt = (BufUsed(tx_Buffr.tx_wr, tx_Buffr.tx_rd)* 100)/ BUFFSIZE;
-			    		Percent_rd = (BufUsed(rx_Buffr.tx_wr, rx_Buffr.tx_rd)* 100)/ BUFFSIZE;
-			    		// Clear Buffer.
-			    		for (x=0; x<BUFFER_LNGTH; x++)
-			    			tempBffr2[x] = 0x00;
 
-						sprintf( tempBffr2, "<X>SP%sR:%02dW:%02d</X>", VERSION_NUM, Percent_rd, Percent_wrt);
-						//Send Msg back to Micro.
-						UART_Send2( tempBffr2 );
-						// Terminate with ? to allow Buffer to process.
-						UART_Send2( "?" );
-						// Place msg into BGM Buffer;
-						BGM_Send( tempBffr2 );
-
-						// Next Test for Read Buffer overflow
+						// Test for Read Buffer overflow
 						if (Read_bufferOverflow)
 						{
 							// Yes It did Occur. Report it..
@@ -480,6 +542,27 @@ int main(void)
 							Read_bufferOverflow = false;
 						} // EndIf (Read_bufferOverflow)
 			    	} // EndIf (Test_Frm(rx_Byte))
+
+			    	// Now Test for </TICK> Tag
+			    	if (Test_Tick(rx_Byte))
+			    	{
+			    		// We Found Tick Tag...Send Quick Msg back to Micro.
+			    		// Get Percent Write and Percent Rd
+			    		//Percent_wrt = (float)(((float)(BufFree(tx_Buffr.tx_wr, tx_Buffr.tx_rd))/ (float)BUFFSIZE)) * 100.0;
+			    		Percent_wrt = (BufUsed(tx_Buffr.tx_wr, tx_Buffr.tx_rd)* 100)/ BUFFSIZE;
+			    		Percent_rd = (BufUsed(rx_Buffr.tx_wr, rx_Buffr.tx_rd)* 100)/ BUFFSIZE;
+			    		// Clear Buffer.
+			    		for (x=0; x<BUFFER_LNGTH; x++)
+			    			FuelTag[x] = 0x00;
+
+						sprintf( FuelTag, "<X>SP%sR:%02dW:%02d</X>", VERSION_NUM, Percent_rd, Percent_wrt);
+						// Place msg into BGM Buffer;
+						BGM_Send( FuelTag );
+
+						// Set Flag.
+		    			Tick_Active = true;
+			    	} // EndIf (Test_Frm(rx_Byte))
+
 			    } // EndIf (nextidx != tx_Buffr.tx_rd)
 			    else
 			    {
@@ -612,7 +695,7 @@ int main(void)
 						sprintf( tempBffr2, "DATA N\r\n" );
 						UART_Send2( tempBffr2 );
 						// Set Mode Not discoverable/Undirected connectable(Comment out Next Line to allow Discoverable)
-						gecko_cmd_le_gap_set_mode(le_gap_non_discoverable, le_gap_undirected_connectable);
+						//gecko_cmd_le_gap_set_mode(le_gap_non_discoverable, le_gap_undirected_connectable);
 					}
 					break;
 
