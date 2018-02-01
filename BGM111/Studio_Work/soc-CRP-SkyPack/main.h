@@ -18,8 +18,8 @@
 #define LED1_PIN_MASK		0x80
 #define BUFFER_LNGTH		80		// Length of Generic Buffer used in Main.
 
-#define VERSION_NUM     "1.6"                 // Monitor Revision
+#define VERSION_NUM     "1.7"                 // Monitor Revision
 #define REL_DATE        "Jan 31, 2018"
-#define LEGACY_BANNER   "1.6 1/31/18"        // Needed to allow Legacy Design to work
+#define LEGACY_BANNER   "1.7 1/31/18"        // Needed to allow Legacy Design to work
 
 #endif /* MAIN_H_ */
