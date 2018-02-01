@@ -695,8 +695,8 @@ int main(void)
 						sprintf( tempBffr2, "DATA N\r\n" );
 						UART_Send2( tempBffr2 );
 						// Set Mode Not discoverable/Undirected connectable(Comment out Next Line to allow Discoverable)
-						// OK...We need to set a 150ms Timer to wakeup once. Handle 1.
-						gecko_cmd_hardware_set_soft_timer(4920, 1, 1);
+						// OK...We need to set a 1 Second Timer to wakeup once. Handle 1.
+						gecko_cmd_hardware_set_soft_timer(32800, 1, 1);
 
 						//gecko_cmd_le_gap_set_mode(le_gap_non_discoverable, le_gap_undirected_connectable);
 					}

@@ -3296,32 +3296,32 @@ OUTPUT(soc-CRP-SkyPack.axf elf32-littlearm)
  .debug_line    0x00006372      0xa45 ./emlib/em_usart.o
  .debug_line    0x00006db7      0xb60 ./src/InitDevice.o
 
-.debug_str      0x00000000   0x101699
+.debug_str      0x00000000   0x101697
  .debug_str     0x00000000     0x348e ./application_properties.o
                                0x3611 (size before relaxing)
  .debug_str     0x0000348e      0x8ef ./gatt_db.o
                                0x3b66 (size before relaxing)
  .debug_str     0x00003d7d    0xe0d11 ./gpiointerrupt.o
                               0xe3fc7 (size before relaxing)
- .debug_str     0x000e4a8e    0x15e7a ./main.o
-                              0xf9a35 (size before relaxing)
- .debug_str     0x000fa908      0x130 ./uart_echo.o
+ .debug_str     0x000e4a8e    0x15e78 ./main.o
+                              0xf9a33 (size before relaxing)
+ .debug_str     0x000fa906      0x130 ./uart_echo.o
                               0xeb6e7 (size before relaxing)
- .debug_str     0x000faa38       0xce ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
+ .debug_str     0x000faa36       0xce ./device/EFR32_B_1_1_B/gcc/startup_efr32bg1b.o
                                0x32e0 (size before relaxing)
- .debug_str     0x000fab06     0x15dd ./emlib/em_cmu.o
+ .debug_str     0x000fab04     0x15dd ./emlib/em_cmu.o
                               0xe5891 (size before relaxing)
- .debug_str     0x000fc0e3      0x4b1 ./emlib/em_gpio.o
+ .debug_str     0x000fc0e1      0x4b1 ./emlib/em_gpio.o
                               0xe3a66 (size before relaxing)
- .debug_str     0x000fc594      0x761 ./emlib/em_rtcc.o
+ .debug_str     0x000fc592      0x761 ./emlib/em_rtcc.o
                               0xe33e3 (size before relaxing)
- .debug_str     0x000fccf5       0xd6 ./emlib/em_system.o
+ .debug_str     0x000fccf3       0xd6 ./emlib/em_system.o
                               0xe2ff2 (size before relaxing)
- .debug_str     0x000fcdcb      0xa04 ./emlib/em_timer.o
+ .debug_str     0x000fcdc9      0xa04 ./emlib/em_timer.o
                               0xe367c (size before relaxing)
- .debug_str     0x000fd7cf      0x9cb ./emlib/em_usart.o
+ .debug_str     0x000fd7cd      0x9cb ./emlib/em_usart.o
                               0xe4797 (size before relaxing)
- .debug_str     0x000fe19a     0x34ff ./src/InitDevice.o
+ .debug_str     0x000fe198     0x34ff ./src/InitDevice.o
                               0xec630 (size before relaxing)
 
 .debug_loc      0x00000000     0x3414
