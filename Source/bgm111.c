@@ -773,6 +773,9 @@ HAL_StatusTypeDef SkyBrd_ProcessBGMChar(uint8_t c)
       ClrDataStructure();                           // Clear Backup data structure.
       ClrAnalyticsRepeat();                          // Clear Frame Repeat Count.
       Status = SkyPack_MNTR_UART_Transmit((uint8_t *)"<DISCONNECTED> ");
+      // Kill Pack...THIS IS FATAL!!! RP 2/1/18
+      SkPck_ErrCdLogErrCd(  ERROR_BGM_CNNCT, MODULE_bgm111 );
+      SkyPack_Reset( ERROR_BGM_CNNCT );
     }
     // Data String?
     else if (strncmp((char *)tempBffr2,"DATA",4) == 0)
